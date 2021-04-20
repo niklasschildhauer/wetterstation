@@ -5,8 +5,8 @@
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "backend": "node server.js",
-    "frontend": "cd frontend && ng serve --open"
+    "backend": "npm i && node server.js",
+    "frontend": "cd frontend && npm i && ng serve --open"
   },
   "author": "",
   "license": "ISC",
