@@ -1,0 +1,6 @@
+<p>outdoor-weather-view works!</p>
+<div *ngIf="outdoorWeather">
+    <p>Temperatur: {{outdoorWeather.temperature}}</p>
+</div>
+
+<button (click)="changeTemp()">Change Temperature</button>

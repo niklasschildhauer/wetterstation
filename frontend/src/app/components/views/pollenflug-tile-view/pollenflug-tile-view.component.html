@@ -1,2 +1,9 @@
-pollenflug-tile-view works! 123
+<p>pollenflug-tile-view works! 123</p>
+<div *ngIf="pollen">
+    <ul>
+        <li *ngFor="let item of pollen">
+            {{item.name}} Heute:  {{item.today}} 
+        </li>
+    </ul>
+</div>
 
