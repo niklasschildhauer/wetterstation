@@ -1,6 +1,9 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
+import { ServicesModule } from './services/services.module';
+import { UiElementsModule } from './components/ui-elements/ui-elements.module';
+import { ScreensModule } from './components/screens/screens.module';
+import { ViewsModule } from './components/views/views.module';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
@@ -10,7 +13,11 @@ import { AppComponent } from './app.component';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    ServicesModule,
+    UiElementsModule,
+    ScreensModule,
+    ViewsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
