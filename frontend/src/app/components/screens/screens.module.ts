@@ -20,4 +20,5 @@ import { RouterModule } from '@angular/router';
     ViewsModule,
   ]
 })
+
 export class ScreensModule { }

@@ -18,6 +18,7 @@ export class WeatherService {
 
   getPollen(): Observable<Pollen[]> {
     const pollen = of(POLLEN);
+    console.log("test")
     return pollen;
   }
 
