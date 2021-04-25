@@ -18,7 +18,10 @@ export class OutdoorWeatherViewComponent implements OnInit {
 
   getOutdoorWeather(): void {
     this.weatherService.getOutdoorWeather()
-      .subscribe(outdoorWeather => this.outdoorWeather = outdoorWeather);
+      .subscribe(outdoorWeather => { 
+        this.outdoorWeather = outdoorWeather 
+        console.log("test24");
+      });
   }
 
   changeTemp(): void {
