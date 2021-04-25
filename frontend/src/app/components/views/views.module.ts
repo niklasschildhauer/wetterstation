@@ -4,12 +4,14 @@ import { PollenflugTileViewComponent } from './pollenflug-tile-view/pollenflug-t
 import { UiElementsModule } from '../ui-elements/ui-elements.module';
 import { RouterModule } from '@angular/router';
 import { OutdoorWeatherViewComponent } from './outdoor-weather-view/outdoor-weather-view.component';
+import { HistoryTileViewComponent } from './history-tile-view/history-tile-view.component';
 
 
 @NgModule({
   declarations: [
     PollenflugTileViewComponent,
-    OutdoorWeatherViewComponent
+    OutdoorWeatherViewComponent,
+    HistoryTileViewComponent
   ],
   imports: [
     CommonModule,
@@ -18,7 +20,8 @@ import { OutdoorWeatherViewComponent } from './outdoor-weather-view/outdoor-weat
   ],
   exports: [
     PollenflugTileViewComponent,
-    OutdoorWeatherViewComponent
+    OutdoorWeatherViewComponent,
+    HistoryTileViewComponent
   ]
 })
 export class ViewsModule { }
