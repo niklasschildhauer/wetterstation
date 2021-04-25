@@ -7,6 +7,7 @@ import { DetailScreenComponent } from './components/screens/detail-screen/detail
 const routes: Routes = [
   { path: 'dashboard', component: DashboardScreenComponent },
   { path: 'detail', component: DetailScreenComponent },
+  { path: '', redirectTo: '/dashboard', pathMatch: 'full' }
 ];
 
 @NgModule({

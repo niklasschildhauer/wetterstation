@@ -1,3 +1,4 @@
+import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { ServicesModule } from './services/services.module';
@@ -18,8 +19,11 @@ import { AppComponent } from './app.component';
     UiElementsModule,
     ScreensModule,
     ViewsModule,
+    HttpClientModule,
   ],
-  providers: [],
+  providers: [
+    
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
