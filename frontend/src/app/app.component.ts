@@ -1,5 +1,6 @@
 import { Component, Renderer2, OnInit } from '@angular/core';
 import { UserContextService } from './services/user-context.service';
+import { SpeechAPIService } from './services/speech-api.service';
 import { HttpClient } from "@angular/common/http";
 import { Observable } from 'rxjs';
 
@@ -13,7 +14,8 @@ export class AppComponent {
 
   constructor(private renderer: Renderer2,
               private userContextService: UserContextService,
-              private http: HttpClient) { }
+              private http: HttpClient,
+              private speechAPI: SpeechAPIService) { }
 
   ngOnInit(): void {
     this.loadDefaultFontSize();
@@ -33,6 +35,8 @@ export class AppComponent {
   bigFontSize() {
     this.userContextService.setFontSize(200);
     this.loadDefaultFontSize();
+
+    this.speechAPI.startOutput();
   }
   smallFontSize() {
     this.userContextService.setFontSize(62.5);
