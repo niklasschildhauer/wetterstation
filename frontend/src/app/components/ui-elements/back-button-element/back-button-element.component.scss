@@ -1,0 +1,16 @@
+.back-button {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    outline: none;
+    text-decoration: none;
+    background-color: transparent;
+    border: none;
+
+    display: flex;
+    align-items: center;
+}
+
+.back-image {
+    padding-right: 10px;
+}
+
