@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 
-declare var webkitSpeechRecognition: any;
-
 @Injectable({
   providedIn: 'root'
 })
+
+// Class to test the TTS from Firefox
 export class SpeechAPIService {
   synth = window.speechSynthesis;
   constructor() {
@@ -13,14 +13,14 @@ export class SpeechAPIService {
   init() {
   }
 
-  getVoice() : SpeechSynthesisVoice {
+  getGermanVoice() : SpeechSynthesisVoice {
     let voices = this.synth.getVoices();
     return voices[4];
   }
 
   startOutput() {
     var utterThis = new SpeechSynthesisUtterance("Ich bin nur ein Versuch...");
-    utterThis.voice = this.getVoice();
+    utterThis.voice = this.getGermanVoice();
 
     utterThis.pitch = 1;
     utterThis.rate = 1;
