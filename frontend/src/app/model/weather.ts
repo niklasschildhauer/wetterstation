@@ -1,49 +1,49 @@
 export interface OutdoorWeather {
-    temperature: number;
-    maxTemperature: number,
-    minTemperature: number,
-    humidity: number,
-    timestamp: Date,
-    weather: string,
-    textTTS: string
+    temperature: number // in °C
+    maxTemperature: number, //TODO: external database required "forecast" 
+    minTemperature: number, //TODO: external database required "forecast" 
+    humidity: number, // in %
+    timestamp: Date, 
+    weather: WeatherType, // TODO: external API required
+    //textTTS: string // TODO: Generate in frontend (with i18n ?)
 }
 
+//Using our own sensors 
+//TODO: How precise is the measurement? How many days can we forecast with our own sensors?
 export interface WeatherForecast {
     day: string,
-    date: Date,
-    temperature: number,
-    weather: string,
-    textTTS: string,
+    //time?
 }
 
+//From external API
 export interface Pollen {
     name: string,
-    today: number,
-    tomorrow: number,
-    textTTS: string,
+    today: number, // -1 <--> 3
+    tomorrow: number, // -1 <--> 3
 }
 
-export interface IndoorAirQuality {
+export interface IndoorRoomData {
     roomID: string,
     roomName: string,
-    airQuality: number,
-    status: string,
-    textTTS: string,
+    airQuality: number, // in %
+    //status: string, //TODO: Clarify
+    temperature: number // in °C 
+    humidity: number, // in %
+    timestamp: Date, 
 }
 
 export interface WeatherHistory {
-    date: Date,
-    hours: OutdoorWeather[],
-    temperatureAverage: number,
-    humidityAverage: number,
-    weather: string,
-    textTTS: string,
+    datapoints: OutdoorWeather[],
 }
 
-export interface WeatherData {
-    outdoor: OutdoorWeather,
-    forecast: WeatherForecast[],
-    pollen: Pollen[],
-    indoorAirQuality: IndoorAirQuality[],
-    history: WeatherHistory[],
+export interface WeatherHistoryByDay {
+    averageTemperature: number, // in °C
+    averageHumidity: number, // in %
+}
+
+export enum WeatherType {
+    sunny,
+    rainy,
+    cloudy,
+    windy
 }
