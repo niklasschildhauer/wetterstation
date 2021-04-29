@@ -5,6 +5,7 @@ export interface OutdoorWeather {
     humidity: number, // in %
     timestamp: Date, 
     weather: WeatherType, // TODO: external API required
+    apparentTemperature: number, // in °C ---> die "gefühlte" Temperatur
     //textTTS: string // TODO: Generate in frontend (with i18n ?)
 }
 
