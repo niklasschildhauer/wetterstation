@@ -1,9 +1,7 @@
+
 .back-button {
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    outline: none;
-    text-decoration: none;
-    background-color: transparent;
+    margin: 0;
+    padding: 0;
     border: none;
 
     display: flex;
@@ -14,3 +12,8 @@
     padding-right: 10px;
 }
 
+.back-label {
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    color: var(--secondary);
+}

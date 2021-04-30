@@ -4,10 +4,6 @@
 // F O N T S
 //////////////////////
 /* Global font size */
-.default-font-size {
-    font-size: 62.5%;
-}
-
 @font-face {
     font-family: 'Montserrat';
     src: url("/assets/fonts/Montserrat/Montserrat-Regular.ttf") format("truetype");
@@ -37,16 +33,41 @@
     src: url("/assets/fonts/Roboto/Roboto-Medium.ttf") format("truetype");
     font-weight: 700;
 }
-
+/* Set the default font-size -> Is done in code
+body {
+    font-size: 62.5%;
+}
+*/
 /* Set the default font family to Roboto */
 html, button {
     font-family: 'Roboto', Arial, sans-serif;
 }
-
+p, span, li {
+    font-size: 1.6em;
+}
+button {
+    font-size: 1.0em;
+}
 /* Set the default font family for headings to Montserrat */
 h1, h2, h3, h4, h5 {
     font-family: 'Montserrat', Arial, sans-serif;
     font-weight: 700;
+    letter-spacing: 0.03em;
+}
+h1 {
+    font-size: 3.0em;
+}
+h2 {
+    font-size: 2.5em;
+}
+h3 {
+    font-size: 2.0em;
+}
+h4 {
+    font-size: 1.8em;
+}
+h5 {
+    font-size: 1.6em;
 }
 //////////////////////
 //
@@ -106,6 +127,21 @@ html {
 
 html {
     padding: var(--top-padding) var(--border-padding) 0 var(--border-padding);
+}
+//////////////////////
+//
+
+
+// B U T T O N S
+//////////////////////
+button {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    outline: none;
+    text-decoration: none;
+    background-color: transparent;
+    cursor: pointer;
+    // border: none;
 }
 //////////////////////
 //
