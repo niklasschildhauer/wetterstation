@@ -50,3 +50,62 @@ h1, h2, h3, h4, h5 {
 }
 //////////////////////
 //
+
+
+
+// C O L O R S
+//////////////////////
+/* Global font size */
+:root {
+    --text: #1C2026;
+    --accent: #4480DB;
+    --secondary:  #8A8A8A;
+    --inverted:  #FFFFFF;
+    --surface:  #F5F4F7;
+    --background: #FFFFFF;
+  }
+
+@media(prefers-color-scheme: dark) {
+    :root {
+        --text: #FFFFFF;
+        --accent: #4480DB;
+        --secondary:  #8A8A8A;
+        --inverted:  #5e5e5e;
+        --surface:  #202020;
+        --background: #1C2026;
+    }
+}
+
+p, h1, h2, h3, h4, h5, a {
+    color: var(--text);
+    text-decoration: none;
+}
+
+html {
+    background-color: var(--background);
+}
+//////////////////////
+//
+
+
+// P A D D I N G
+//////////////////////
+/* Global font size */
+:root {
+    --border-padding: 25px;
+    --top-padding: 25px;
+    --padding: 20px;
+    --corner-radius: 30px;
+  }
+
+@media(min-width: 1000px) {
+    :root {
+        --border-padding: 312.5px;
+      }
+}
+
+html {
+    padding: var(--top-padding) var(--border-padding) 0 var(--border-padding);
+}
+//////////////////////
+//
