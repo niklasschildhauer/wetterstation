@@ -1,25 +1,52 @@
 /* You can add global styles to this file, and also import other style files */
 
+
+// F O N T S
+//////////////////////
 /* Global font size */
-// html {
-//     font-size: 62.5%; /* font-size 1em = 10px bei normaler Browser-Einstellung */
-// }
-
-
-// p {
-//     font-size: 1.6rem;
-// }
-
 .default-font-size {
     font-size: 62.5%;
 }
 
-// Set the default font family to Roboto
-html button{
-    font-family: Roboto, Arial, sans-serif;
+@font-face {
+    font-family: 'Montserrat';
+    src: url("/assets/fonts/Montserrat/Montserrat-Regular.ttf") format("truetype");
+    font-weight: 500;
 }
 
-// Set the default font family for headings to Montserrat
-h1 h2 h3 h3 {
-    font-family: Montserrat, Arial, sans-serif;
+@font-face {
+    font-family: 'Montserrat';
+    src: url("/assets/fonts/Montserrat/Montserrat-SemiBold.ttf") format("truetype");
+    font-weight: 700;
 }
+
+@font-face {
+    font-family: 'Montserrat';
+    src: url("/assets/fonts/Montserrat/Montserrat-Thin.ttf") format("truetype");
+    font-weight: 300;
+}
+
+@font-face {
+    font-family: 'Roboto';
+    src: url("/assets/fonts/Roboto/Roboto-Regular.ttf") format("truetype");
+    font-weight: 500;
+}
+
+@font-face {
+    font-family: 'Roboto';
+    src: url("/assets/fonts/Roboto/Roboto-Medium.ttf") format("truetype");
+    font-weight: 700;
+}
+
+/* Set the default font family to Roboto */
+html, button {
+    font-family: 'Roboto', Arial, sans-serif;
+}
+
+/* Set the default font family for headings to Montserrat */
+h1, h2, h3, h4, h5 {
+    font-family: 'Montserrat', Arial, sans-serif;
+    font-weight: 700;
+}
+//////////////////////
+//
