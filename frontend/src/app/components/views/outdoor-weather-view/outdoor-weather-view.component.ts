@@ -23,9 +23,4 @@ export class OutdoorWeatherViewComponent implements OnInit {
         console.log("test24");
       });
   }
-
-  changeTemp(): void {
-    this.weatherService.changeTemp();
-  }
-
 }

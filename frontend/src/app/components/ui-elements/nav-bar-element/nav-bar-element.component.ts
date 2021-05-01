@@ -8,6 +8,7 @@ import { Component, OnInit, Input } from '@angular/core';
 export class NavBarElementComponent implements OnInit {
   @Input() titleLabel?: string;
   @Input() backLabel?: string;
+
   constructor() { }
 
   ngOnInit(): void {

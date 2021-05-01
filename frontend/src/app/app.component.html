@@ -1,14 +1,13 @@
 <router-outlet></router-outlet>
 
-<button (click)="bigFontSize()">Größere Schrift</button>
-<button (click)="normalFontSize()">Normale Schrift</button>
-<button (click)="smallFontSize()">Kleine Schrift</button>
+<div class="developer-tools">
+  <button (click)="bigFontSize()">Größere Schrift</button>
+  <button (click)="normalFontSize()">Normale Schrift</button>
+  <button (click)="smallFontSize()">Kleine Schrift</button>
 
 
-<div>
-  <button (click)="clickMe()">Click me senpai</button>
+  <div>
+    <button (click)="clickMe()">Click me senpai</button>
+  </div>
+  <div style="background-color:burlywood">{{message}}</div>
 </div>
-<div style="background-color:burlywood">{{message}}</div>
-
-
-<h1>DAS IST DER TEST!</h1>
