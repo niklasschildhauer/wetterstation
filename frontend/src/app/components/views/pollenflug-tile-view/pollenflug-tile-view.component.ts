@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Pollen } from 'src/app/model/weather';
+import { PollenData } from 'src/app/model/weather';
 import { WeatherService } from '../../../services/weather.service'
 
 @Component({
@@ -8,7 +8,7 @@ import { WeatherService } from '../../../services/weather.service'
   styleUrls: ['./pollenflug-tile-view.component.scss']
 })
 export class PollenflugTileViewComponent implements OnInit {
-  pollen?: Pollen[];
+  pollen?: PollenData[];
 
   constructor(private weatherService: WeatherService ) { }
 

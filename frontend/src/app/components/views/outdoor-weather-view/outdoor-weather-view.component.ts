@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { OutdoorWeather } from 'src/app/model/weather';
+import { OutdoorWeatherData } from 'src/app/model/weather';
 import { WeatherService } from '../../../services/weather.service'
 
 @Component({
@@ -8,7 +8,7 @@ import { WeatherService } from '../../../services/weather.service'
   styleUrls: ['./outdoor-weather-view.component.scss']
 })
 export class OutdoorWeatherViewComponent implements OnInit {
-  outdoorWeather?: OutdoorWeather;
+  outdoorWeather?: OutdoorWeatherData;
 
   constructor(private weatherService: WeatherService) { }
 

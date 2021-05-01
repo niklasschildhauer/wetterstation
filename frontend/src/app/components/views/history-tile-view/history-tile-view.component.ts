@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { OutdoorWeather } from 'src/app/model/weather';
+import { OutdoorWeatherData } from 'src/app/model/weather';
 import { WeatherService } from 'src/app/services/weather.service';
 
 @Component({
@@ -8,7 +8,7 @@ import { WeatherService } from 'src/app/services/weather.service';
   styleUrls: ['./history-tile-view.component.scss']
 })
 export class HistoryTileViewComponent implements OnInit {
-  weather?: OutdoorWeather
+  weather?: OutdoorWeatherData
   constructor(private weatherService: WeatherService) { }
 
   ngOnInit(): void {

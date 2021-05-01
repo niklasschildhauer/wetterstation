@@ -1,4 +1,6 @@
-export interface OutdoorWeather {
+import { Pollen } from './user-context';
+
+export interface OutdoorWeatherData {
     temperature: number // in °C
     maxTemperature: number, //TODO: external database required "forecast" 
     minTemperature: number, //TODO: external database required "forecast" 
@@ -11,14 +13,15 @@ export interface OutdoorWeather {
 
 //Using our own sensors 
 //TODO: How precise is the measurement? How many days can we forecast with our own sensors?
-export interface WeatherForecast {
-    day: string,
+export interface WeatherForecastData {
+    forecast: string,
     //time?
 }
 
 //From external API
-export interface Pollen {
-    name: string,
+export interface PollenData {
+    name: string, // TODO: Maybe we should use the same Pollen enum as in user-context.ts
+    type: Pollen
     today: number, // -1 <--> 3
     tomorrow: number, // -1 <--> 3
 }
@@ -33,11 +36,11 @@ export interface IndoorRoomData {
     timestamp: Date, 
 }
 
-export interface WeatherHistory {
-    datapoints: OutdoorWeather[],
+export interface WeatherHistoryData {
+    datapoints: OutdoorWeatherData[],
 }
 
-export interface WeatherHistoryByDay {
+export interface WeatherHistoryByDayData {
     averageTemperature: number, // in °C
     averageHumidity: number, // in %
 }
