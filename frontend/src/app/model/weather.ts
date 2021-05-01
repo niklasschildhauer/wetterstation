@@ -9,6 +9,7 @@ export interface OutdoorWeatherData {
     weather: WeatherType, // TODO: external API required
     apparentTemperature: number, // in °C ---> die "gefühlte" Temperatur
     //textTTS: string // TODO: Generate in frontend (with i18n ?)
+    location: string, // e.g. "Stuttgart"
 }
 
 //Using our own sensors 

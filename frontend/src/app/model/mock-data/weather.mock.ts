@@ -9,6 +9,7 @@ export var OUTDOORWEATHER: OutdoorWeatherData = {
     timestamp: new Date,
     weather: WeatherType.cloudy,
     apparentTemperature: 12,
+    location: "Stuttgart"
 };
 
 export var FORECAST: WeatherForecastData = {
