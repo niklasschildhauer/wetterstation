@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 
 @Component({
@@ -7,7 +7,7 @@ import { Location } from '@angular/common';
   styleUrls: ['./back-button-element.component.scss']
 })
 export class BackButtonElementComponent implements OnInit {
-
+  @Input() label?: string;
   constructor(private location: Location) { }
 
   ngOnInit(): void {

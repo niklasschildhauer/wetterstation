@@ -1,15 +1,147 @@
 /* You can add global styles to this file, and also import other style files */
 
+
+// F O N T S
+//////////////////////
 /* Global font size */
-// html {
-//     font-size: 62.5%; /* font-size 1em = 10px bei normaler Browser-Einstellung */
-// }
+@font-face {
+    font-family: 'Montserrat';
+    src: url("/assets/fonts/Montserrat/Montserrat-Regular.ttf") format("truetype");
+    font-weight: 500;
+}
 
+@font-face {
+    font-family: 'Montserrat';
+    src: url("/assets/fonts/Montserrat/Montserrat-SemiBold.ttf") format("truetype");
+    font-weight: 700;
+}
 
-// p {
-//     font-size: 1.6rem;
-// }
+@font-face {
+    font-family: 'Montserrat';
+    src: url("/assets/fonts/Montserrat/Montserrat-Thin.ttf") format("truetype");
+    font-weight: 300;
+}
 
-.default-font-size {
+@font-face {
+    font-family: 'Roboto';
+    src: url("/assets/fonts/Roboto/Roboto-Regular.ttf") format("truetype");
+    font-weight: 500;
+}
+
+@font-face {
+    font-family: 'Roboto';
+    src: url("/assets/fonts/Roboto/Roboto-Medium.ttf") format("truetype");
+    font-weight: 700;
+}
+/* Set the default font-size -> Is done in code
+body {
     font-size: 62.5%;
 }
+*/
+/* Set the default font family to Roboto */
+html, button {
+    font-family: 'Roboto', Arial, sans-serif;
+}
+p, span, li {
+    font-size: 1.6em;
+}
+button {
+    font-size: 1.0em;
+}
+/* Set the default font family for headings to Montserrat */
+h1, h2, h3, h4, h5 {
+    font-family: 'Montserrat', Arial, sans-serif;
+    font-weight: 700;
+    letter-spacing: 0.03em;
+}
+h1 {
+    font-size: 3.0em;
+}
+h2 {
+    font-size: 2.5em;
+}
+h3 {
+    font-size: 2.0em;
+}
+h4 {
+    font-size: 1.8em;
+}
+h5 {
+    font-size: 1.6em;
+}
+//////////////////////
+//
+
+
+
+// C O L O R S
+//////////////////////
+/* Global font size */
+:root {
+    --text: #1C2026;
+    --accent: #4480DB;
+    --secondary:  #8A8A8A;
+    --inverted:  #FFFFFF;
+    --surface:  #F5F4F7;
+    --background: #FFFFFF;
+  }
+
+@media(prefers-color-scheme: dark) {
+    :root {
+        --text: #FFFFFF;
+        --accent: #4480DB;
+        --secondary:  #8A8A8A;
+        --inverted:  #5e5e5e;
+        --surface:  #202020;
+        --background: #1C2026;
+    }
+}
+
+p, h1, h2, h3, h4, h5, a {
+    color: var(--text);
+    text-decoration: none;
+}
+
+html {
+    background-color: var(--background);
+}
+//////////////////////
+//
+
+
+// P A D D I N G
+//////////////////////
+/* Global font size */
+:root {
+    --border-padding: 25px;
+    --top-padding: 25px;
+    --padding: 20px;
+    --corner-radius: 30px;
+  }
+
+@media(min-width: 1000px) {
+    :root {
+        --border-padding: 312.5px;
+      }
+}
+
+html {
+    padding: var(--top-padding) var(--border-padding) 0 var(--border-padding);
+}
+//////////////////////
+//
+
+
+// B U T T O N S
+//////////////////////
+button {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    outline: none;
+    text-decoration: none;
+    background-color: transparent;
+    cursor: pointer;
+    // border: none;
+}
+//////////////////////
+//

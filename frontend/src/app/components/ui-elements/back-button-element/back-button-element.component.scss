@@ -1,0 +1,19 @@
+
+.back-button {
+    margin: 0;
+    padding: 0;
+    border: none;
+
+    display: flex;
+    align-items: center;
+}
+
+.back-image {
+    padding-right: 10px;
+}
+
+.back-label {
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    color: var(--secondary);
+}
