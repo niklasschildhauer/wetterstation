@@ -10,6 +10,7 @@
     right: 0;
     //Set the border radius
     border-radius: 0 0 var(--corner-radius) var(--corner-radius);
+    height: var(--dashboard-outdoor-weather-size);
 
     -webkit-box-shadow: 0px 4px 9px 5px rgba(0,0,0,0.18); 
     box-shadow: 0px 4px 9px 5px rgba(0,0,0,0.18);
@@ -67,4 +68,35 @@
     background: -webkit-linear-gradient(0deg, rgba(216,97,204,1) 0%, rgba(70,67,219,1) 100%);
     background: linear-gradient(0deg, rgba(216,97,204,1) 0%, rgba(70,67,219,1) 100%);
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#d861cc",endColorstr="#4643db",GradientType=1);
+}
+
+
+
+
+@keyframes shrink {
+    from {
+        height: var(--dashboard-outdoor-weather-size);
+        left: 0;
+        right: 0;
+        top: 0;
+        border-radius: 0 0 var(--corner-radius) var(--corner-radius);
+    }
+  
+    to {
+        height: var(--shrinked-dashboard-outdoor-weather-size);
+        left: var(--border-padding);
+        right: var(--border-padding);
+        top: calc(var(--navbar-height) + var(--top-padding));
+        border-radius: var(--corner-radius);
+    }
+}
+
+.container {
+    position: fixed;
+
+    animation-name: shrink;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+    animation-play-state: paused;
+    animation-delay: calc(var(--scroll) * -1.9999s);
 }

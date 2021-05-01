@@ -1,7 +1,8 @@
 .card-container {
-    padding: 440px 0 0 0;
-}
-
-.card {
-    padding: var(--padding) 0 0 0;
+    padding: calc(var(--dashboard-outdoor-weather-size) + var(--navbar-height) + var(--padding)) 0 calc(var(--dashboard-outdoor-weather-size) + var(--navbar-height) + var(--padding)) 0;
+    display: flex;
+    align-content: center;
+    flex-direction: column;
+    left: 0;
+    right: 0;
 }

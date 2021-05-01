@@ -33,7 +33,7 @@ export class AppComponent {
   }
 
   bigFontSize() {
-    this.userContextService.setFontSize(200);
+    this.userContextService.setFontSize(150);
     this.loadDefaultFontSize();
 
     this.speechAPI.startOutput();

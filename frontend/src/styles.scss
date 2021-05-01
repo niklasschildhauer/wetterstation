@@ -54,7 +54,7 @@ h1, h2, h3, h4, h5 {
     font-family: 'Montserrat', Arial, sans-serif;
     font-weight: 700;
     letter-spacing: 0.03em;
-    margin: 0;
+    margin: var(--padding) 0 var(--padding);
 }
 h1 {
     font-size: 3.0em;
@@ -93,7 +93,7 @@ h5 {
         --text: #FFFFFF;
         --accent: #4480DB;
         --secondary:  #8A8A8A;
-        --inverted:  #5e5e5e;
+        --inverted:  #FFFFFF;
         --surface:  #202020;
         --background: #1C2026;
     }
@@ -111,14 +111,19 @@ html {
 //
 
 
-// P A D D I N G
+// P A D D I N G / S I Z E S
 //////////////////////
 /* Global font size */
 :root {
     --border-padding: 25px;
-    --top-padding: 25px;
+    --top-padding: 40px;
     --padding: 20px;
     --corner-radius: 30px;
+    --dashboard-outdoor-weather-size: calc(150px  + 20em);
+    --navbar-height: 10em;
+    --outdoor-weather-image-size: 150px;
+    --dashboard-outdoor-weather-size: calc(var(--outdoor-weather-image-size) + var(--navbar-height) + 10em);
+    --shrinked-dashboard-outdoor-weather-size: 150px;
   }
 
 @media(min-width: 1000px) {

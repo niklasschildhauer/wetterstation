@@ -1,6 +1,6 @@
 .menu-button {
     margin: 0;
-    padding: 0 0 var(--padding) 0;
+    padding-left: 0;
     border: none;
 
     display: flex;
@@ -9,8 +9,11 @@
 
 .menu-image {
     padding-right: 10px;
-    outline-color: var(--inverted);
 }
+
+.menu-image * {
+    fill: var(--inverted);
+} 
 
 .menu-label {
     font-weight: 700;
@@ -18,5 +21,26 @@
     color: var(--inverted);
 
 }
+
+@keyframes buttonColor {
+    from {
+        color: var(--inverted);
+        fill: var(--inverted);
+    }
+  
+    to {
+        color: var(--secondary);
+        fill: var(--secondary);
+    }
+}
+
+.menu-label, .menu-image * {
+    animation-name: buttonColor;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+    animation-play-state: paused;
+    animation-delay: calc(var(--scroll) * -1.9999s);
+}
+
 
 

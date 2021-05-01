@@ -1,10 +1,41 @@
 .container {
     position: fixed;
-    top: var(--top-padding);
-    padding: var(--padding) 0 0 0;
+    top: 0;
+    left: var(--border-padding);
+    padding: var(--top-padding) 0 0 0;
+    height: var(--navbar-height);
     z-index: 100;
 }
 
 .container * {
-    color: white;
+    color: var(--inverted);
+}
+
+@keyframes fontColor {
+    from {
+        color: var(--inverted);
+    }
+  
+    to {
+        color: var(--text);
+    }
+}
+
+@media (prefers-color-scheme: dark) {
+    @keyframes fontColor {
+        from {
+            color: var(--inverted);
+        }
+      
+        to {
+            color: white;
+        }
+    }    
+}
+h1 {
+    animation-name: fontColor;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+    animation-play-state: paused;
+    animation-delay: calc(var(--scroll) * -1.9999s);
 }

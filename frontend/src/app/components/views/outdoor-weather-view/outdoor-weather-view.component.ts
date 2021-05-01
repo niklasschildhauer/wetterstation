@@ -14,6 +14,22 @@ export class OutdoorWeatherViewComponent implements OnInit {
 
   ngOnInit(): void {
     this.getOutdoorWeather();
+    this.listenToScrollEvent();
+  }
+
+  // changes the css --scroll variable everytime the user scrolls
+  listenToScrollEvent() {
+    window.addEventListener('scroll', () => {
+      let scrollValue = (window.pageYOffset) / 185; //(document.body.offsetHeight - window.innerHeight); //document.body.offsetHeight
+      if(scrollValue < 0) {
+        scrollValue = 0;
+      }
+      if(scrollValue > 1) {
+        scrollValue = 1;
+      }
+      console.log("scrollValue:" + scrollValue);
+      document.body.style.setProperty('--scroll', "" + scrollValue );
+    }, false);
   }
 
   getOutdoorWeather(): void {
