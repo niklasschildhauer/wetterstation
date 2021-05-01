@@ -1,0 +1,10 @@
+.container {
+    position: fixed;
+    top: var(--top-padding);
+    padding: var(--padding) 0 0 0;
+    z-index: 100;
+}
+
+.container * {
+    color: white;
+}

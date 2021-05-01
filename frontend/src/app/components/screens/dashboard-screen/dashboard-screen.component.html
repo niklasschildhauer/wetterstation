@@ -1,7 +1,9 @@
 <app-menu-bar-element></app-menu-bar-element>
 <app-outdoor-weather-view></app-outdoor-weather-view>
 
-<a routerLink="/detail">
-    <app-pollenflug-tile-view></app-pollenflug-tile-view>
-    <app-history-tile-view></app-history-tile-view>
-</a>
+<div class="card-container">
+    <a routerLink="/detail">
+        <app-pollenflug-tile-view class="card"></app-pollenflug-tile-view>
+        <app-history-tile-view class="card"></app-history-tile-view>
+    </a>
+</div>

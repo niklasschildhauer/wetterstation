@@ -1,4 +1,9 @@
-<p>outdoor-weather-view works!</p>
-<div *ngIf="outdoorWeather">
-    <p>Temperatur: {{outdoorWeather.temperature}}</p>
+<div *ngIf="outdoorWeather" class="noon-gradient container">
+    <img class="weather-image" src="assets/weather/cloudy-sunny.png" alt="Sonne mit Wolken">
+    <h1 class="temperature">{{outdoorWeather.temperature}}°</h1>
+    <p class="weather-description">{{getWeatherDescription()}}</p>
+    <!-- <p>Luftfeuchtigkeit: {{outdoorWeather.humidity}}%</p>
+    <p>MaxTemperatur: {{outdoorWeather.maxTemperature}}</p>
+    <p>MinTemperatur: {{outdoorWeather.minTemperature}}</p>
+    <p>GefühlteTemperatur: {{outdoorWeather.apparentTemperature}}</p> -->
 </div>

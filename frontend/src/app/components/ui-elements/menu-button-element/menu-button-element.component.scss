@@ -1,6 +1,6 @@
 .menu-button {
     margin: 0;
-    padding: 0;
+    padding: 0 0 var(--padding) 0;
     border: none;
 
     display: flex;
@@ -9,10 +9,14 @@
 
 .menu-image {
     padding-right: 10px;
+    outline-color: var(--inverted);
 }
 
 .menu-label {
     font-weight: 700;
     letter-spacing: 0.05em;
-    color: var(--secondary);
+    color: var(--inverted);
+
 }
+
+

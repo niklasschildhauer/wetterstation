@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { OutdoorWeatherData } from 'src/app/model/weather';
 import { WeatherService } from '../../../services/weather.service'
+import { WeatherType } from '../../../model/weather';
 
 @Component({
   selector: 'app-outdoor-weather-view',
@@ -9,7 +10,6 @@ import { WeatherService } from '../../../services/weather.service'
 })
 export class OutdoorWeatherViewComponent implements OnInit {
   outdoorWeather?: OutdoorWeatherData;
-
   constructor(private weatherService: WeatherService) { }
 
   ngOnInit(): void {
@@ -22,5 +22,9 @@ export class OutdoorWeatherViewComponent implements OnInit {
         this.outdoorWeather = outdoorWeather 
         console.log("test24");
       });
+  }
+
+  getWeatherDescription(): string {
+    return "Heute ist es sonnig";
   }
 }
