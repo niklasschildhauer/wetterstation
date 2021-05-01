@@ -1,8 +1,9 @@
 .container {
     position: fixed;
     top: 0;
-    left: var(--border-padding);
-    padding: var(--top-padding) 0 0 0;
+    left: 0;
+    right: 0;
+    padding: var(--top-padding) var(--border-padding) 0 var(--border-padding);
     height: var(--navbar-height);
     z-index: 100;
 }
@@ -11,9 +12,19 @@
     color: var(--inverted);
 }
 
+.blur {
+    backdrop-filter: blur(20px);
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: calc(var(--navbar-height) + var(--top-padding) + 50px);
+    z-index: 5;
+}
+
 @keyframes fontColor {
     from {
-        color: var(--inverted);
+        color: white;
     }
   
     to {
@@ -21,17 +32,6 @@
     }
 }
 
-@media (prefers-color-scheme: dark) {
-    @keyframes fontColor {
-        from {
-            color: var(--inverted);
-        }
-      
-        to {
-            color: white;
-        }
-    }    
-}
 h1 {
     animation-name: fontColor;
     animation-duration: 2s;

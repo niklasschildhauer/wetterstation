@@ -20,7 +20,7 @@ export class OutdoorWeatherViewComponent implements OnInit {
   // changes the css --scroll variable everytime the user scrolls
   listenToScrollEvent() {
     window.addEventListener('scroll', () => {
-      let scrollValue = (window.pageYOffset) / 185; //(document.body.offsetHeight - window.innerHeight); //document.body.offsetHeight
+      let scrollValue = (window.pageYOffset) / 240; // FIXME: Wert berechnen für angepasste schriftgröße
       if(scrollValue < 0) {
         scrollValue = 0;
       }

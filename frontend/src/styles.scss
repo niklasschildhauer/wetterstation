@@ -123,7 +123,7 @@ html {
     --navbar-height: 10em;
     --outdoor-weather-image-size: 150px;
     --dashboard-outdoor-weather-size: calc(var(--outdoor-weather-image-size) + var(--navbar-height) + 10em);
-    --shrinked-dashboard-outdoor-weather-size: 150px;
+    --shrinked-dashboard-outdoor-weather-size: 70px;
   }
 
 @media(min-width: 1000px) {
