@@ -5,13 +5,9 @@
     top: 0;
     left: 0;
     right: 0;
-    padding: var(--top-padding) var(--border-padding) 0 var(--border-padding);
+    padding: var(--border-padding-top) var(--border-padding-right) 0 var(--border-padding-left);
     height: var(--navbar-height);
     z-index: 100;
-}
-
-.container * {
-    color: var(--inverted);
 }
 
 .blur {
@@ -20,21 +16,31 @@
     top: 0;
     left: 0;
     right: 0;
-    height: calc(var(--navbar-height) + var(--top-padding) + 50px);
+    height: calc(var(--navbar-height) + var(--border-padding-top));
     z-index: 5;
 }
 
-@keyframes fontColor {
-    from {
-        color: white;
+// css for mobile 
+@media(max-width: 770px) {
+    .container * {
+        color: var(--inverted);
     }
-  
-    to {
-        color: var(--text);
-    }
-}
 
-h1 {
-    animation-name: fontColor;
-    @extend %linear-animation;
+    @keyframes fontColor {
+        from {
+            color: white;
+        }
+    
+        to {
+            color: var(--text);
+        }
+    }
+
+    h1 {
+        animation-name: fontColor;
+        @include linear-animation;
+    }
+    .blur {
+        height: calc(var(--navbar-height) + var(--border-padding-top) + var(--shrinked-dashboard-outdoor-weather-size) + var(--padding) );
+    }
 }

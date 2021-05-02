@@ -9,36 +9,46 @@
     align-items: center;
 }
 
+.menu-image * {
+    fill: var(--secondary);
+} 
+
 .menu-image {
     padding-right: 10px;
 }
 
-.menu-image * {
-    fill: white;
-} 
-
 .menu-label {
     font-weight: 700;
     letter-spacing: 0.05em;
-    color: white;
+    color: var(--secondary);
 }
 
-@keyframes buttonColor {
-    from {
-        color: white;
+// css for mobile 
+@media(max-width: 770px) {
+
+    .menu-image * {
         fill: white;
+    } 
+
+    .menu-label {
+        color: white;
     }
-  
-    to {
-        color: var(--secondary);
-        fill: var(--secondary);
+
+    @keyframes buttonColor {
+        from {
+            color: white;
+            fill: white;
+        }
+    
+        to {
+            color: var(--secondary);
+            fill: var(--secondary);
+        }
     }
+
+    .menu-label, .menu-image * {
+        animation-name: buttonColor;
+        @include linear-animation;
+    }
+
 }
-
-.menu-label, .menu-image * {
-    animation-name: buttonColor;
-    @extend %linear-animation;
-}
-
-
-

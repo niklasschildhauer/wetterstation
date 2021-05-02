@@ -1,5 +1,5 @@
 .card-container {
-    padding: calc(var(--dashboard-outdoor-weather-size) + var(--navbar-height) + var(--padding)) 0 calc(var(--dashboard-outdoor-weather-size) + var(--navbar-height) + var(--padding)) 0;
+    padding: calc(var(--dashboard-outdoor-weather-size) + var(--navbar-height) + var(--border-padding-top)) 0 calc(var(--dashboard-outdoor-weather-size) + var(--navbar-height) + var(--padding)) 0;
     display: flex;
     align-content: center;
     flex-direction: column;
@@ -7,4 +7,14 @@
     left: 0;
     right: 0;
     align-items: stretch;
+    align-content: stretch;
 }
+
+
+// Responsive design -> only one breakpoint to reduce complexity
+@media(min-width: 770px) {
+    .card-container {
+        padding: var(--navbar-height) 0 0 0;
+    }
+}
+

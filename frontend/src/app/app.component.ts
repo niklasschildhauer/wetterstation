@@ -2,7 +2,7 @@ import { Component, Renderer2, OnInit } from '@angular/core';
 import { UserContextService } from './services/user-context.service';
 import { SpeechAPIService } from './services/speech-api.service';
 import { HttpClient } from "@angular/common/http";
-import { Observable } from 'rxjs';
+import { Observable, VirtualTimeScheduler } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -19,6 +19,7 @@ export class AppComponent {
 
   ngOnInit(): void {
     this.loadDefaultFontSize();
+    this.listenToThemeChange();
   }
 
   private loadDefaultFontSize() {
@@ -30,6 +31,13 @@ export class AppComponent {
 
   private setDefaultFontSize(fontSize: number) {
     this.renderer.setStyle(document.body, "font-size", fontSize + "%");
+  }
+
+  private listenToThemeChange(){
+    const query = window.matchMedia("(prefers-color-scheme: dark)")
+    query.addEventListener( "change", (e) => {
+      window.location.reload();
+    });
   }
 
   bigFontSize() {

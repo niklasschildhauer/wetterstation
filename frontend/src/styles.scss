@@ -118,8 +118,9 @@ body {
 //////////////////////
 /* Global font size */
 :root {
-    --border-padding: 25px;
-    --top-padding: 40px;
+    --border-padding-left: 25px;
+    --border-padding-right: 25px;
+    --border-padding-top: 40px;
     --padding: 20px;
     --corner-radius: 30px;
     --dashboard-outdoor-weather-size: calc(150px  + 20em);
@@ -129,14 +130,15 @@ body {
     --shrinked-dashboard-outdoor-weather-size: 70px;
   }
 
-@media(min-width: 1000px) {
+// Responsive design -> only one breakpoint to reduce complexity
+@media(min-width: 770px) {
     :root {
-        --border-padding: 312.5px;
+        --border-padding-left: 370px;
       }
 }
 
 html {
-    padding: var(--top-padding) var(--border-padding) 0 var(--border-padding);
+    padding: var(--border-padding-top) var(--border-padding-right) 0 var(--border-padding-left);
 }
 //////////////////////
 //

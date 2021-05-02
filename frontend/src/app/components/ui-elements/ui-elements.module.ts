@@ -5,6 +5,7 @@ import { NavBarElementComponent } from './nav-bar-element/nav-bar-element.compon
 import { CardElementComponent } from './card-element/card-element.component';
 import { MenuBarElementComponent } from './menu-bar-element/menu-bar-element.component';
 import { MenuButtonElementComponent } from './menu-button-element/menu-button-element.component';
+import { ProgressChartElementComponent } from './progress-chart-element/progress-chart-element.component';
 
 
 
@@ -14,7 +15,8 @@ import { MenuButtonElementComponent } from './menu-button-element/menu-button-el
     NavBarElementComponent,
     CardElementComponent,
     MenuBarElementComponent,
-    MenuButtonElementComponent
+    MenuButtonElementComponent,
+    ProgressChartElementComponent
   ],
   imports: [
     CommonModule
@@ -24,7 +26,8 @@ import { MenuButtonElementComponent } from './menu-button-element/menu-button-el
     NavBarElementComponent,
     CardElementComponent,
     MenuBarElementComponent,
-    MenuButtonElementComponent
+    MenuButtonElementComponent,
+    ProgressChartElementComponent
   ]
 })
 export class UiElementsModule { }
