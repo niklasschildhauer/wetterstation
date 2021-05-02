@@ -27,7 +27,6 @@ export class OutdoorWeatherViewComponent implements OnInit {
       if(scrollValue > 1) {
         scrollValue = 1;
       }
-      console.log("scrollValue:" + scrollValue);
       document.body.style.setProperty('--scroll', "" + scrollValue );
     }, false);
   }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ElementRef, ViewChild } from '@angular/core';
 
 @Component({
   selector: 'app-progress-chart-element',
@@ -6,8 +6,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./progress-chart-element.component.scss']
 })
 export class ProgressChartElementComponent implements OnInit {
-
-  constructor() { }
+  // @ViewChild('progressbar') input?: HTMLInputElement;
+  @Input() value?: string;
+  
+  constructor() { 
+  }
 
   ngOnInit(): void {
   }
