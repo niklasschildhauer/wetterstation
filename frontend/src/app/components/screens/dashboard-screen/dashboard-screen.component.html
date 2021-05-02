@@ -3,10 +3,11 @@
 <div class="card-container">
 
     <div *ngIf="indoorRooms">
-        <app-indoor-tile-view  *ngFor="let item of indoorRooms" [indoorRoom]="item">{{item.roomID}}</app-indoor-tile-view>
+        <a routerLink="/detail/indoorrooms" *ngFor="let item of indoorRooms" >
+            <app-indoor-tile-view [indoorRoom]="item">{{item.roomID}}</app-indoor-tile-view>
+        </a>
     </div>
     <a routerLink="/detail">
         <app-pollenflug-tile-view></app-pollenflug-tile-view>
     </a>
-    <div style="background-color: aquamarine;">Hallo</div>
 </div>

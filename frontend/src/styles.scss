@@ -33,11 +33,10 @@
     src: url("/assets/fonts/Roboto/Roboto-Medium.ttf") format("truetype");
     font-weight: 700;
 }
-/* Set the default font-size -> Is done in code
-body {
-    font-size: 62.5%;
+
+:root {
+    --letter-spacing: 0.04em;
 }
-*/
 /* Set the default font family to Roboto */
 html, button {
     font-family: 'Roboto', Arial, sans-serif;
@@ -45,6 +44,8 @@ html, button {
 p, span, li {
     font-size: 1.6em;
     margin: 0;
+    line-height: 1.5em;
+    letter-spacing: calc(var(--letter-spacing) / 2);
 }
 button {
     font-size: 1.0em;
@@ -53,7 +54,7 @@ button {
 h1, h2, h3, h4, h5 {
     font-family: 'Montserrat', Arial, sans-serif;
     font-weight: 700;
-    letter-spacing: 0.03em;
+    letter-spacing: var(--letter-spacing);
     margin: var(--padding) 0 var(--padding);
 }
 h1 {
@@ -66,10 +67,12 @@ h3 {
     font-size: 2.0em;
 }
 h4 {
-    font-size: 1.8em;
+    font-size: 2.0em;
+    margin-top: calc(var(--padding) * 2);
+    margin-bottom: 10px;
 }
 h5 {
-    font-size: 1.6em;
+    font-size: 1.8em;
 }
 //////////////////////
 //
@@ -121,6 +124,7 @@ body {
     --border-padding-left: 25px;
     --border-padding-right: 25px;
     --border-padding-top: 40px;
+    --border-padding-bottom: 80px;
     --padding: 20px;
     --corner-radius: 30px;
     --dashboard-outdoor-weather-size: calc(150px  + 20em);

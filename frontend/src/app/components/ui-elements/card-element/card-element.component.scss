@@ -8,8 +8,10 @@
 
 p {
     color: var(--secondary);
+    letter-spacing: var(--letter-spacing);
 }
 
 h3 {
     margin-top: calc(var(--padding) / 4);
+    margin-bottom: calc(var(--padding) / 2);
 }

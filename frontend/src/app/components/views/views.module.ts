@@ -6,6 +6,7 @@ import { RouterModule } from '@angular/router';
 import { OutdoorWeatherViewComponent } from './outdoor-weather-view/outdoor-weather-view.component';
 import { HistoryTileViewComponent } from './history-tile-view/history-tile-view.component';
 import { IndoorTileViewComponent } from './indoor-tile-view/indoor-tile-view.component';
+import { IndoorDetailViewComponent } from './indoor-detail-view/indoor-detail-view.component';
 
 
 @NgModule({
@@ -13,7 +14,8 @@ import { IndoorTileViewComponent } from './indoor-tile-view/indoor-tile-view.com
     PollenflugTileViewComponent,
     OutdoorWeatherViewComponent,
     HistoryTileViewComponent,
-    IndoorTileViewComponent
+    IndoorTileViewComponent,
+    IndoorDetailViewComponent
   ],
   imports: [
     CommonModule,

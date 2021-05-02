@@ -1,7 +1,15 @@
-<card-element *ngIf="indoorRoom" [title]="indoorRoom.roomName" [subtitle]="'Innenraumluft'">
-    <p>Temperatur: {{indoorRoom.temperature}}</p>
-    <p>Luftqualität: {{indoorRoom.airQuality}}</p>
-    <p>Luftfeuchtigkeit: {{indoorRoom.humidity}}</p>
+<card-element *ngIf="indoorRoom" [title]="indoorRoom.roomName" [subtitle]="'Innenraumluftqualität'">
+    <div class="data-container">
+        <h1>{{indoorRoom.airQuality}}</h1>
+        <div>
+            <div class="temp-humidity-data">
+                <p>Temperatur: {{indoorRoom.temperature}}°C</p>
+            </div>
+            <div class="temp-humidity-data">
+                <p>Luftfeuchtigkeit: {{indoorRoom.humidity}}%</p>
+            </div>
+        </div>
+    </div>
     <app-progress-chart-element value="'60'"></app-progress-chart-element>
 
 </card-element>

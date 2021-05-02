@@ -5,7 +5,8 @@ import { DetailScreenComponent } from './detail-screen/detail-screen.component';
 import { UiElementsModule } from '../ui-elements/ui-elements.module';
 import { ViewsModule } from '../views/views.module'
 import { RouterModule } from '@angular/router';
-
+import { LayoutModule } from '@angular/cdk/layout';
+import { AppRoutingModule } from 'src/app/app-routing.module';
 
 
 @NgModule({
@@ -15,9 +16,11 @@ import { RouterModule } from '@angular/router';
   ],
   imports: [
     CommonModule,
+    AppRoutingModule,
     RouterModule,
     UiElementsModule,
     ViewsModule,
+    LayoutModule,
   ]
 })
 
