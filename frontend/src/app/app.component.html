@@ -1,5 +1,6 @@
-<router-outlet></router-outlet>
-
+<div [@routeAnimations]="prepareRoute(outlet)">
+  <router-outlet #outlet="outlet"></router-outlet>
+</div>
 <div class="developer-tools">
   <button (click)="bigFontSize()">Größere Schrift</button>
   <button (click)="normalFontSize()">Normale Schrift</button>

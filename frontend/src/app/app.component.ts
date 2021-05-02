@@ -1,4 +1,5 @@
-import { Component, Renderer2, OnInit } from '@angular/core';
+import { Component, Renderer2 } from '@angular/core';
+import { RouterOutlet } from '@angular/router';
 import { UserContextService } from './services/user-context.service';
 import { SpeechAPIService } from './services/speech-api.service';
 import { HttpClient } from "@angular/common/http";
@@ -7,7 +8,7 @@ import { Observable, VirtualTimeScheduler } from 'rxjs';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
   title = 'wetterstation';
@@ -20,6 +21,10 @@ export class AppComponent {
   ngOnInit(): void {
     this.loadDefaultFontSize();
     this.listenToThemeChange();
+  }
+
+  prepareRoute(outlet: RouterOutlet) {
+    return outlet && outlet.activatedRouteData && outlet.activatedRouteData.animation;
   }
 
   private loadDefaultFontSize() {

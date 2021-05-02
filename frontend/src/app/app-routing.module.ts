@@ -5,15 +5,20 @@ import { DetailScreenComponent } from './components/screens/detail-screen/detail
 import { IndoorDetailViewComponent } from './components/views/indoor-detail-view/indoor-detail-view.component';
 
 const routes: Routes = [
-  { path: 'dashboard', component: DashboardScreenComponent },
+  { path: 'dashboard', 
+    component: DashboardScreenComponent, 
+    // data: { animation: 'slideInOut' }
+  },
   { path: 'detail', 
     component: DetailScreenComponent,  
     children: [
-    {
-      path: 'indoorrooms',
-      component: IndoorDetailViewComponent, 
-    },
-  ]},
+      {
+        path: 'indoorrooms',
+        component: IndoorDetailViewComponent, 
+      },
+    ], 
+    // data: { animation: 'slideInOut' }
+  },
   { path: '', redirectTo: '/dashboard', pathMatch: 'full' }
 ];
 
