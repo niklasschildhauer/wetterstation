@@ -1,3 +1,5 @@
+@import "../../shared/styles";
+
 .container {
     position: fixed;
     top: 0;
@@ -34,8 +36,5 @@
 
 h1 {
     animation-name: fontColor;
-    animation-duration: 2s;
-    animation-iteration-count: infinite;
-    animation-play-state: paused;
-    animation-delay: calc(var(--scroll) * -1.9999s);
+    @extend %linear-animation;
 }

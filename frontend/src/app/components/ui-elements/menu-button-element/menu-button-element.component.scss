@@ -1,3 +1,5 @@
+@import "../../shared/styles";
+
 .menu-button {
     margin: 0;
     padding-left: 0;
@@ -12,14 +14,13 @@
 }
 
 .menu-image * {
-    fill: var(--inverted);
+    fill: white;
 } 
 
 .menu-label {
     font-weight: 700;
     letter-spacing: 0.05em;
-    color: var(--inverted);
-
+    color: white;
 }
 
 @keyframes buttonColor {
@@ -36,10 +37,7 @@
 
 .menu-label, .menu-image * {
     animation-name: buttonColor;
-    animation-duration: 2s;
-    animation-iteration-count: infinite;
-    animation-play-state: paused;
-    animation-delay: calc(var(--scroll) * -1.9999s);
+    @extend %linear-animation;
 }
 
 
