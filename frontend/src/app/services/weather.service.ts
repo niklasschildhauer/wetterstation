@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { OUTDOORWEATHER, POLLEN } from '../model/mock-data/weather.mock';
-import { OutdoorWeatherData, PollenData } from '../model/weather';
+import { INDOORAIRQUALITY, OUTDOORWEATHER, POLLEN } from '../model/mock-data/weather.mock';
+import { OutdoorWeatherData, PollenData, IndoorRoomData } from '../model/weather';
 import { Observable, of } from 'rxjs';
 
 
@@ -18,8 +18,12 @@ export class WeatherService {
 
   getPollen(): Observable<PollenData[]> {
     const pollen = of(POLLEN);
-    console.log("test")
     return pollen;
+  }
+
+  getIndoorRoomData(): Observable<IndoorRoomData[]> {
+    const indoorData = of(INDOORAIRQUALITY);
+    return indoorData;
   }
 
   changeTemp() {

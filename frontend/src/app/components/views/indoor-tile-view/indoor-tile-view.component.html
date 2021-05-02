@@ -1,0 +1,6 @@
+<card-element *ngIf="indoorRoom" [title]="indoorRoom.roomName" [subtitle]="'Innenraumluft'">
+    <p>Temperatur: {{indoorRoom.temperature}}</p>
+    <p>Luftqualität: {{indoorRoom.airQuality}}</p>
+    <p>Luftfeuchtigkeit: {{indoorRoom.humidity}}</p>
+
+</card-element>

@@ -1,11 +1,8 @@
-<card-element>
-    <h1>pollenflug-tile-view works! 123</h1>
-    <div *ngIf="pollen">
-        <ul>
-            <li *ngFor="let item of pollen">
-                {{item.name}} Heute:  {{item.today}} 
-            </li>
-        </ul>
-    </div>    
+<card-element [subtitle]="'Pollenflug'" [title]="'Sieht gut aus!'">
+    <ul *ngIf="pollen">
+        <li *ngFor="let item of pollen">
+            {{item.name}} Heute:  {{item.today}} 
+        </li>
+    </ul>
 </card-element>
 

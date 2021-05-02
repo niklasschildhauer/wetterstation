@@ -33,7 +33,7 @@ export var POLLEN: PollenData[] = [
 
 export var INDOORAIRQUALITY: IndoorRoomData[] = [
     {
-        roomID: "32895984u5z524",
+        roomID: "328959845524",
         roomName: "Wohnzimmer",
         airQuality: 42,
         temperature: 22,
@@ -41,7 +41,7 @@ export var INDOORAIRQUALITY: IndoorRoomData[] = [
         timestamp: new Date(),
     },
     {
-        roomID: "1535984u5z524",
+        roomID: "15359845524",
         roomName: "Schlafzimmer",
         airQuality: 122,
         temperature: 22,

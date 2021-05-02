@@ -2,6 +2,14 @@
     border-radius: var(--corner-radius);
     background-color: var(--surface);
     padding: var(--padding);
-
+    margin: 0 0 var(--padding) 0;
     width: auto;
+}
+
+p {
+    color: var(--secondary);
+}
+
+h3 {
+    margin-top: calc(var(--padding) / 4);
 }
