@@ -36,7 +36,6 @@
 .container{
     //Set the border radius
     border-radius: var(--corner-radius) 0 0 var(--corner-radius);
-    height: 100vh;
     z-index: 10;
 }
 
@@ -48,28 +47,35 @@
         top: 0;
         left: 0;
         bottom: 0;
-
+        height: 100vh;
         width: calc(var(--border-padding-left) - var(--border-padding-right));
     }
 }
 
 // css for mobile 
 @media(max-width: 769px) {
-    .container{
-        padding: 120px var(--padding) 120px var(--padding);
-        //Set the border radius
-        border-radius: 0 0 var(--corner-radius) var(--corner-radius);
-        height: var(--dashboard-outdoor-weather-size);
-        @include drop-shadow;
 
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        z-index: 10;
+    // styles for mobile when reduced motion is prefered
+    .container{
+        padding: var(--padding);
+        border-radius: var(--corner-radius);
+        @include drop-shadow;
+        margin-bottom: var(--padding);
     }
 
     @media(prefers-reduced-motion: no-preference) {
+
+        .container {
+            padding: 120px var(--padding) 120px var(--padding);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 10;
+            height: var(--dashboard-outdoor-weather-size);
+            border-radius: 0 0 var(--corner-radius) var(--corner-radius);
+            margin-bottom: 0;
+        }
     
         @keyframes container-shrink {
             from {

@@ -16,7 +16,7 @@
     top: 0;
     left: 0;
     right: 0;
-    height: calc(var(--navbar-height) + var(--border-padding-top));
+    height: calc(var(--navbar-height)+ var(--border-padding-top));
     z-index: 5;
 }
 
@@ -41,6 +41,6 @@
         @include linear-animation;
     }
     .blur {
-        height: calc(var(--navbar-height) + var(--border-padding-top) + var(--corner-radius));
+        height: calc(var(--navbar-height) + var(--border-padding-top));// + var(--corner-radius));
     }
 }
