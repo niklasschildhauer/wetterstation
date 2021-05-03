@@ -7,6 +7,7 @@ import { ScreensModule } from './components/screens/screens.module';
 import { ViewsModule } from './components/views/views.module';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { AppComponent } from './app.component';
     ScreensModule,
     ViewsModule,
     HttpClientModule,
+    BrowserAnimationsModule,
   ],
   providers: [
     

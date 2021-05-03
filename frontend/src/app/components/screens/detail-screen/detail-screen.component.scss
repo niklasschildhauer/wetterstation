@@ -1,6 +1,10 @@
 .container {
     padding: var(--navbar-height) 0 var(--border-padding-bottom) 0;
 }
+
+.background {
+    background-color: var(--background);
+}
 //css code for mobile 
 @media(max-width: 769) {
     .outdoor-weather {

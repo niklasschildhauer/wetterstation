@@ -1,4 +1,4 @@
-<card-element [subtitle]="'Pollenflug'" [title]="'Sieht gut aus!'">
+<card-element [subtitle]="'Pollenflug'" [title]="'Sieht gut aus!'" [pressable]="pressable">
     <ul *ngIf="pollen">
         <li *ngFor="let item of pollen">
             {{item.name}} Heute:  {{item.today}} 

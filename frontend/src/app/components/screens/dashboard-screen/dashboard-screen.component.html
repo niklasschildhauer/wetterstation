@@ -4,10 +4,10 @@
 
     <div *ngIf="indoorRooms">
         <a routerLink="/detail/indoorrooms" *ngFor="let item of indoorRooms" >
-            <app-indoor-tile-view [indoorRoom]="item">{{item.roomID}}</app-indoor-tile-view>
+            <app-indoor-tile-view [indoorRoom]="item" [pressable]="true">{{item.roomID}}</app-indoor-tile-view>
         </a>
     </div>
     <a routerLink="/detail">
-        <app-pollenflug-tile-view></app-pollenflug-tile-view>
+        <app-pollenflug-tile-view [pressable]="true"></app-pollenflug-tile-view>
     </a>
 </div>

@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container" [ngClass]="{'shrink-on-hover pressable' : pressable }">
     <p *ngIf="subtitle">{{subtitle}}</p>
     <h3 *ngIf="title">{{title}}</h3>
     <ng-content></ng-content>

@@ -7,7 +7,7 @@ import { IndoorDetailViewComponent } from './components/views/indoor-detail-view
 const routes: Routes = [
   { path: 'dashboard', 
     component: DashboardScreenComponent, 
-    // data: { animation: 'slideInOut' }
+    data: { animationState: 'Dashboard' }
   },
   { path: 'detail', 
     component: DetailScreenComponent,  
@@ -15,9 +15,10 @@ const routes: Routes = [
       {
         path: 'indoorrooms',
         component: IndoorDetailViewComponent, 
+
       },
     ], 
-    // data: { animation: 'slideInOut' }
+    data: { animationState: 'Detail' }
   },
   { path: '', redirectTo: '/dashboard', pathMatch: 'full' }
 ];

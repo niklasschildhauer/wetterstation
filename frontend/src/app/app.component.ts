@@ -4,11 +4,13 @@ import { UserContextService } from './services/user-context.service';
 import { SpeechAPIService } from './services/speech-api.service';
 import { HttpClient } from "@angular/common/http";
 import { Observable, VirtualTimeScheduler } from 'rxjs';
+import { routeTransitionAnimations } from './route-transition-animation';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
+  animations: [routeTransitionAnimations],
 })
 export class AppComponent {
   title = 'wetterstation';
@@ -24,7 +26,7 @@ export class AppComponent {
   }
 
   prepareRoute(outlet: RouterOutlet) {
-    return outlet && outlet.activatedRouteData && outlet.activatedRouteData.animation;
+    return outlet && outlet.activatedRouteData && outlet.activatedRouteData['animationState'];
   }
 
   private loadDefaultFontSize() {

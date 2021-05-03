@@ -8,6 +8,7 @@ import { IndoorRoomData } from 'src/app/model/weather';
 })
 export class IndoorTileViewComponent implements OnInit {
   @Input() indoorRoom?: IndoorRoomData;
+  @Input() pressable: boolean = false;
   constructor() { }
 
   ngOnInit(): void {

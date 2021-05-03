@@ -6,4 +6,6 @@
     right: 0;
     padding: var(--border-padding-top) 0 0 0;
     z-index: 100;
+    backdrop-filter: blur(20px);
+
 }

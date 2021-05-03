@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { PollenData } from 'src/app/model/weather';
 import { WeatherService } from '../../../services/weather.service'
 
@@ -8,6 +8,7 @@ import { WeatherService } from '../../../services/weather.service'
   styleUrls: ['./pollenflug-tile-view.component.scss']
 })
 export class PollenflugTileViewComponent implements OnInit {
+  @Input() pressable: boolean = false;
   pollen?: PollenData[];
 
   constructor(private weatherService: WeatherService ) { }

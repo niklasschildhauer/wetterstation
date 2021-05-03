@@ -8,6 +8,8 @@ import { Component, OnInit, Input } from '@angular/core';
 export class CardElementComponent implements OnInit {
   @Input() title?: string;
   @Input() subtitle?: string;
+  @Input() pressable: boolean = false;
+
 
   constructor() { }
 

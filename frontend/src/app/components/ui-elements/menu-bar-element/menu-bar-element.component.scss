@@ -41,6 +41,6 @@
         @include linear-animation;
     }
     .blur {
-        height: calc(var(--navbar-height) + var(--border-padding-top) + var(--shrinked-dashboard-outdoor-weather-size) + var(--padding) );
+        height: calc(var(--navbar-height) + var(--border-padding-top) + var(--corner-radius));
     }
 }
