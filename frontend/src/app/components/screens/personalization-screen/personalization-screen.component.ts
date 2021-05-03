@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { BreakpointObserver, BreakpointState } from '@angular/cdk/layout';
 
+
 @Component({
-  selector: 'app-detail-screen',
-  templateUrl: './detail-screen.component.html',
-  styleUrls: ['./detail-screen.component.scss'],
+  selector: 'app-personalization-screen',
+  templateUrl: './personalization-screen.component.html',
+  styleUrls: ['./personalization-screen.component.scss']
 })
-export class DetailScreenComponent implements OnInit {
+export class PersonalizationScreenComponent implements OnInit {
   public desktop: boolean = false;
 
   constructor(public breakpointObserver: BreakpointObserver) { }

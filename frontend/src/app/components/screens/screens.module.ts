@@ -7,12 +7,14 @@ import { ViewsModule } from '../views/views.module'
 import { RouterModule } from '@angular/router';
 import { LayoutModule } from '@angular/cdk/layout';
 import { AppRoutingModule } from 'src/app/app-routing.module';
+import { PersonalizationScreenComponent } from './personalization-screen/personalization-screen.component';
 
 
 @NgModule({
   declarations: [
     DashboardScreenComponent,
     DetailScreenComponent,
+    PersonalizationScreenComponent,
   ],
   imports: [
     CommonModule,

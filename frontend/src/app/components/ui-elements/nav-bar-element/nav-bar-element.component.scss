@@ -2,9 +2,9 @@
     height: var(--navbar-height);
     position: fixed;
     top: 0;
-    left: 0;
+    left: calc(var(--border-padding-left) - var(--border-padding-right));
     right: 0;
-    padding: var(--border-padding-top) 0 0 var(--border-padding-left);
+    padding: var(--border-padding-top) 0 0 var(--border-padding-right);
     z-index: 100;
     backdrop-filter: blur(20px);
 }
