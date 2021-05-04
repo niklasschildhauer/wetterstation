@@ -21,6 +21,7 @@ export class UserContextService {
   setFontSize(fontSize: number) {
     console.log("increase font");
     USERCONTEXT.fontSize = fontSize;
+    console.log("font changes");
   }
 
   getMotionPreference(): Observable<boolean> {

@@ -1,14 +1,11 @@
 <div class="layout">
-<app-nav-bar-element [titleLabel]="'Personalisierung'" [backLabel]="'Dashboard'"></app-nav-bar-element>
+    <app-nav-bar-element [titleLabel]="'Personalisierung'" [backLabel]="'Dashboard'"></app-nav-bar-element>
 
-<div class="background">
-    <app-outdoor-weather-view class="outdoor-weather" *ngIf="desktop"></app-outdoor-weather-view>
-    <div class="container" *ngIf="userContextData">
-        <p>Personalisierungsscreeninhalt</p>
-        <p>Reduce motion: {{userContextData.reduceMotion}}</p>
-
-
-        <app-checkbox-switcher-element [label]="'recduce motion'" [value]="userContextData.reduceMotion" (toggled)="toggledMotion($event)"></app-checkbox-switcher-element>
+    <div class="background">
+        <app-outdoor-weather-view class="outdoor-weather" *ngIf="desktop"></app-outdoor-weather-view>
+        <div class="container" *ngIf="userContextData">
+            <app-checkbox-switcher-element [label]="'Reduce motion'" [value]="userContextData.reduceMotion" (toggled)="toggledMotion($event)"></app-checkbox-switcher-element>
+            <app-slider-element [label]="'Schriftgröße'" [value]="userContextData.fontSize" (valueChanged)="setFontSize($event)"></app-slider-element>
+        </div>
     </div>
-</div>
 </div>

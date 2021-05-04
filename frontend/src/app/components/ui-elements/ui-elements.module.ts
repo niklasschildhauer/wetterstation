@@ -8,6 +8,7 @@ import { MenuButtonElementComponent } from './menu-button-element/menu-button-el
 import { ProgressChartElementComponent } from './progress-chart-element/progress-chart-element.component';
 import { CheckboxSwitcherElementComponent } from './checkbox-switcher-element/checkbox-switcher-element.component';
 import { MenuElementComponent } from './menu-element/menu-element.component';
+import { SliderElementComponent } from './slider-element/slider-element.component';
 
 
 
@@ -21,6 +22,7 @@ import { MenuElementComponent } from './menu-element/menu-element.component';
     ProgressChartElementComponent,
     CheckboxSwitcherElementComponent,
     MenuElementComponent,
+    SliderElementComponent,
   ],
   imports: [
     CommonModule
@@ -34,6 +36,7 @@ import { MenuElementComponent } from './menu-element/menu-element.component';
     ProgressChartElementComponent,
     CheckboxSwitcherElementComponent,
     MenuElementComponent,
+    SliderElementComponent,
   ]
 })
 export class UiElementsModule { }
