@@ -7,5 +7,5 @@ export var USERCONTEXT: UserContext = {
     selfVoicingEnabled: true,
     language: Language["de-DE"],
     doVentilationReminder: true,
-    reduceMotion: true,
+    reduceMotion: false,
 }

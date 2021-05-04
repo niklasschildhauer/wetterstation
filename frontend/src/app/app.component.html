@@ -1,6 +1,12 @@
-<div [@triggerName]="prepareRoute(outlet)" class="container">
+<div [@triggerName]="prepareRoute(outlet)" class="main-container container" [ngClass]="{'light-theme' : theme === ThemeType.Light, 'dark-theme' : theme === ThemeType.Dark  }">
   <router-outlet #outlet="outlet"></router-outlet>
 </div>
+
+
+
+
+
+<!-- DELETE ME -->
 <div class="developer-tools">
   <button (click)="bigFontSize()">Größere Schrift</button>
   <button (click)="normalFontSize()">Normale Schrift</button>

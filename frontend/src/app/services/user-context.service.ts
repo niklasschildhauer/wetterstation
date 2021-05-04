@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { UserContext } from '../model/user-context';
+import { UserContext, Themes } from '../model/user-context';
 import { Observable, of } from 'rxjs';
 import { USERCONTEXT } from '../model/mock-data/user-context.mock';
 
@@ -31,6 +31,16 @@ export class UserContextService {
   setMotionPreference(newValue: boolean) {
     console.log("increase font");
     USERCONTEXT.reduceMotion = newValue;
+  }
+
+  setTheme(newValue: Themes) {
+    console.log("increase font");
+    USERCONTEXT.theme = newValue;
+  }
+
+  getTheme(): Observable<Themes> {
+    const theme = of(USERCONTEXT.theme);
+    return theme;
   }
 
   getUserContext(): Observable<UserContext> {

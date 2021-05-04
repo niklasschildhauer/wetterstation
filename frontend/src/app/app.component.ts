@@ -5,6 +5,8 @@ import { SpeechAPIService } from './services/speech-api.service';
 import { HttpClient } from "@angular/common/http";
 import { Observable, VirtualTimeScheduler } from 'rxjs';
 import { routeTransitionAnimations } from './route-transition-animation';
+import { DOCUMENT } from '@angular/common';
+import { Themes } from './model/user-context';
 
 @Component({
   selector: 'app-root',
@@ -14,6 +16,8 @@ import { routeTransitionAnimations } from './route-transition-animation';
 })
 export class AppComponent {
   title = 'wetterstation';
+  theme: Themes = Themes.Light;
+  ThemeType = Themes;
 
   constructor(private renderer: Renderer2,
               private userContextService: UserContextService,
@@ -22,6 +26,7 @@ export class AppComponent {
 
   ngOnInit(): void {
     this.loadDefaultFontSize();
+    this.loadTheme();
     this.listenToThemeChange();
   }
 
@@ -36,8 +41,13 @@ export class AppComponent {
       });
   }
 
+  private loadTheme() {
+    this.userContextService.getTheme()
+    .subscribe(data => this.theme = data);
+  }
+
   private setDefaultFontSize(fontSize: number) {
-    this.renderer.setStyle(document.body, "font-size", fontSize + "%");
+    this.renderer.setStyle(document.body, "font-size", fontSize + "%");  
   }
 
   private listenToThemeChange(){
