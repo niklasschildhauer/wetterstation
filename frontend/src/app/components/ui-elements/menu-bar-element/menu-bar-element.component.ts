@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { UserContextService } from 'src/app/services/user-context.service';
 import { WeatherService } from 'src/app/services/weather.service';
 
 @Component({
@@ -8,10 +9,19 @@ import { WeatherService } from 'src/app/services/weather.service';
 })
 export class MenuBarElementComponent implements OnInit {
   locationLabel?: string;
-  constructor(private weatherService: WeatherService) { }
+  reduceMotion: boolean = false;
+  
+  constructor(private weatherService: WeatherService,
+    private userContextService: UserContextService) { }
 
   ngOnInit(): void {
     this.getLocation();
+    this.loadReduceMotionValue();
+  }
+
+  loadReduceMotionValue() {
+    this.userContextService.getMotionPreference()
+    .subscribe(data => this.reduceMotion = data);
   }
 
   getLocation(): void {

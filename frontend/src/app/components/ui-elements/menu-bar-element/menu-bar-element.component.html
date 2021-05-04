@@ -3,6 +3,6 @@
 <div class="container">
     <app-menu-button-element></app-menu-button-element>
     <div *ngIf="locationLabel">
-        <h1>{{locationLabel}}</h1>
+        <h1 [ngClass]="{'motion-allowed' : !reduceMotion }">{{locationLabel}}</h1>
     </div>
 </div>

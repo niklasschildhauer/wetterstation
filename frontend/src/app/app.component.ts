@@ -41,8 +41,13 @@ export class AppComponent {
   }
 
   private listenToThemeChange(){
-    const query = window.matchMedia("(prefers-color-scheme: dark)")
-    query.addEventListener( "change", (e) => {
+    const query1 = window.matchMedia("(prefers-color-scheme: dark)")
+    const query2 = window.matchMedia("(prefers-color-scheme: ligth)")
+
+    query1.addEventListener( "change", (e) => {
+      window.location.reload();
+    });
+    query2.addEventListener( "change", (e) => {
       window.location.reload();
     });
   }
