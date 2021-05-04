@@ -10,7 +10,7 @@ Adafruit_BME280 bme; // I2C
 const char* ssid     = "Vodafone-1F7F"; //name of your wifi
 const char* password = "ABbpgU3aGaNmedUm"; //pw of your wifi
 const char* serverip = "192.168.0.136:4204"; //add server ip and port
-#define SERVER_IP "192.168.0.136:4204"
+#define SERVER_IP "192.168.0.136:4201"
 
 void setup() {
   
@@ -80,7 +80,7 @@ void loop() {
 
     Serial.print("[HTTP] begin...\n");
     // configure target server and url //error in this line > might be fixed by a running server
-    http.begin(client, "http://" SERVER_IP"/sensorout"); //HTTP
+    http.begin(client, "http://" SERVER_IP"/v1/sensors/outdoor"); //HTTP
     http.addHeader("Content-Type", "application/json");
 
 
