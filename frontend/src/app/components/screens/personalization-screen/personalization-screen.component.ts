@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { BreakpointObserver, BreakpointState } from '@angular/cdk/layout';
+import { UserContextService } from 'src/app/services/user-context.service';
+import { UserContext } from 'src/app/model/user-context';
 
 
 @Component({
@@ -8,9 +10,11 @@ import { BreakpointObserver, BreakpointState } from '@angular/cdk/layout';
   styleUrls: ['./personalization-screen.component.scss']
 })
 export class PersonalizationScreenComponent implements OnInit {
-  public desktop: boolean = false;
+  desktop: boolean = false;
+  userContextData?: UserContext;
 
-  constructor(public breakpointObserver: BreakpointObserver) { }
+  constructor(private breakpointObserver: BreakpointObserver,
+      private userContextService: UserContextService) { }
 
   ngOnInit(): void {
     this.breakpointObserver
@@ -21,7 +25,17 @@ export class PersonalizationScreenComponent implements OnInit {
         } else {
           this.desktop = false;
         }
-      });
+    });
+    this.getUserContext();
+  }
+
+  getUserContext() {
+    this.userContextService.getUserContext()
+    .subscribe(data => this.userContextData = data)
+  }
+
+  toggledMotion(value: boolean) {
+    this.userContextService.setMotionPreference(value)
   }
 
 }

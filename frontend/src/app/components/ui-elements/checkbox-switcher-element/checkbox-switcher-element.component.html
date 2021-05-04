@@ -1,0 +1,3 @@
+<div class="container" *ngIf="label">
+    <input #switcher id="switcher" type="checkbox" [checked]="this.value" (click)="toggleCheckbox($event)"/><label for="switcher" *ngIf="label">{{label}}</label>
+</div>
