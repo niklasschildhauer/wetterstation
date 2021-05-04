@@ -87,7 +87,7 @@ void loop() {
     // start connection and send HTTP header and body
     char buffer[200];
 
-    sprintf(buffer, "{\"air quality\":\"%d\"}", bme.readTemperature());
+    sprintf(buffer, "{\"temperature\":\"%d\",\"pressure\":\"%.2f\",\"humidity\":\"%.2f\"}", bme.readTemperature(), bme.readPressure(), bme.readHumidity());
     Serial.println(buffer);
     int httpCode = http.POST(buffer);
    
