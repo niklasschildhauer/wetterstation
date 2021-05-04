@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { OutdoorWeatherData } from 'src/app/model/weather';
+import { Daytime, OutdoorWeatherData } from 'src/app/model/weather';
 import { WeatherService } from '../../../services/weather.service'
 import { WeatherType } from '../../../model/weather';
 import { UserContextService } from 'src/app/services/user-context.service';
@@ -11,22 +11,39 @@ import { UserContextService } from 'src/app/services/user-context.service';
 })
 export class OutdoorWeatherViewComponent implements OnInit {
   outdoorWeather?: OutdoorWeatherData;
+  daytime: Daytime = Daytime.noon
+  daytimeType = Daytime;
   reduceMotion: boolean = false;
+
   constructor(private weatherService: WeatherService,
     private userContextService: UserContextService) { }
 
   ngOnInit(): void {
-    this.getOutdoorWeather();
+    this.loadOutdoorWeather();
     this.listenToScrollEvent();
     this.loadReduceMotionValue();
+    this.loadDaytime();
   }
 
-  loadReduceMotionValue() {
+  loadReduceMotionValue(): void {
     this.userContextService.getMotionPreference()
     .subscribe(data => this.reduceMotion = data);
   }
 
-  // changes the css --scroll variable everytime the user scrolls
+
+  loadOutdoorWeather(): void {
+    this.weatherService.getOutdoorWeather()
+      .subscribe(outdoorWeather => { 
+        this.outdoorWeather = outdoorWeather 
+        console.log("test24");
+      });
+  }
+
+  loadDaytime(): void {
+    this.daytime = this.weatherService.getDaytime()
+  }
+
+  // changes the css --scroll variable everytime the user scrolls. Main part of the animation
   listenToScrollEvent() {
     window.addEventListener('scroll', () => {
       let scrollValue = (window.pageYOffset) / 240; // FIXME: Wert berechnen für angepasste schriftgröße
@@ -40,14 +57,7 @@ export class OutdoorWeatherViewComponent implements OnInit {
     }, false);
   }
 
-  getOutdoorWeather(): void {
-    this.weatherService.getOutdoorWeather()
-      .subscribe(outdoorWeather => { 
-        this.outdoorWeather = outdoorWeather 
-        console.log("test24");
-      });
-  }
-
+ 
   getWeatherDescription(): string {
     return "Heute ist es sonnig";
   }

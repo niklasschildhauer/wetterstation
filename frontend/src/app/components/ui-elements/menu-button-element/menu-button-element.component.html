@@ -9,3 +9,5 @@
         Menü
     </span>
 </button>
+
+<app-menu-element *ngIf="!isMenuHidden" (closeEvent)="closeMenu()"></app-menu-element>

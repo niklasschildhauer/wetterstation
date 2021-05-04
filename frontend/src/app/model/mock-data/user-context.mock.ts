@@ -1,7 +1,7 @@
 import { UserContext, Themes, Pollen, Language } from "../user-context";
 
 export var USERCONTEXT: UserContext = {
-    theme: Themes.Light,
+    theme: Themes.Automatic,
     fontSize: 62.5,
     pollen: [Pollen.Ambrosia, Pollen.Graeser],
     selfVoicingEnabled: true,
