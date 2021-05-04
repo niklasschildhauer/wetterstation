@@ -33,22 +33,22 @@
     .menu-label {
         color: white;
     }
-
-    @keyframes buttonColor {
-        from {
-            color: white;
-            fill: white;
+    @media(prefers-reduced-motion: no-preferences) {
+        @keyframes buttonColor {
+            from {
+                color: white;
+                fill: white;
+            }
+        
+            to {
+                color: var(--secondary);
+                fill: var(--secondary);
+            }
         }
-    
-        to {
-            color: var(--secondary);
-            fill: var(--secondary);
+
+        .menu-label, .menu-image * {
+            animation-name: buttonColor;
+            @include linear-animation;
         }
     }
-
-    .menu-label, .menu-image * {
-        animation-name: buttonColor;
-        @include linear-animation;
-    }
-
 }

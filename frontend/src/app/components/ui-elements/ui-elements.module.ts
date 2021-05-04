@@ -6,6 +6,7 @@ import { CardElementComponent } from './card-element/card-element.component';
 import { MenuBarElementComponent } from './menu-bar-element/menu-bar-element.component';
 import { MenuButtonElementComponent } from './menu-button-element/menu-button-element.component';
 import { ProgressChartElementComponent } from './progress-chart-element/progress-chart-element.component';
+import { CheckboxSwitcherElementComponent } from './checkbox-switcher-element/checkbox-switcher-element.component';
 
 
 
@@ -16,7 +17,8 @@ import { ProgressChartElementComponent } from './progress-chart-element/progress
     CardElementComponent,
     MenuBarElementComponent,
     MenuButtonElementComponent,
-    ProgressChartElementComponent
+    ProgressChartElementComponent,
+    CheckboxSwitcherElementComponent,
   ],
   imports: [
     CommonModule
@@ -27,7 +29,8 @@ import { ProgressChartElementComponent } from './progress-chart-element/progress
     CardElementComponent,
     MenuBarElementComponent,
     MenuButtonElementComponent,
-    ProgressChartElementComponent
+    ProgressChartElementComponent,
+    CheckboxSwitcherElementComponent,
   ]
 })
 export class UiElementsModule { }

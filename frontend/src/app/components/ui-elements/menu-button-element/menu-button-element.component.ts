@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router'; // Remove when it's not needed anymore
+
 
 @Component({
   selector: 'app-menu-button-element',
@@ -7,13 +9,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MenuButtonElementComponent implements OnInit {
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit(): void {
   }
 
   openMenu(): void {
     console.log("Pressed open menu");
+    this.router.navigateByUrl('/personalization');
   }
 
 }

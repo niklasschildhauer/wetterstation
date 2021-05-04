@@ -40,7 +40,14 @@
         animation-name: fontColor;
         @include linear-animation;
     }
-    .blur {
-        height: calc(var(--navbar-height) + var(--border-padding-top) + var(--corner-radius));
+}
+
+// css for desktop 
+@media(min-width: 690px) {
+    .container {
+        backdrop-filter: blur(20px);
+        left: calc(var(--border-padding-left) - var(--border-padding-right));
+        padding: var(--border-padding-top) 0 0 var(--border-padding-right);
     }
+
 }

@@ -23,4 +23,19 @@ export class UserContextService {
     USERCONTEXT.fontSize = fontSize;
   }
 
+  getMotionPreference(): Observable<boolean> {
+    const reduceMotion = of(USERCONTEXT.reduceMotion);
+    return reduceMotion;
+  }
+
+  setMotionPreference(newValue: boolean) {
+    console.log("increase font");
+    USERCONTEXT.reduceMotion = newValue;
+  }
+
+  getUserContext(): Observable<UserContext> {
+    const userContext = of(USERCONTEXT);
+    return userContext;
+  }
+
 }
