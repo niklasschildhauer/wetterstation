@@ -8,6 +8,7 @@
 const char* ssid     = "Vodafone-1F7F"; //name of your wifi
 const char* password = "ABbpgU3aGaNmedUm"; //pw of your wifi
 const char* server_ip = "127.0.0.1:2019"; //add server ip and port
+#define SERVER_IP "192.168.0.136:4204"
 
 uint16_t gasVal;
 boolean isgas = false;

@@ -9,7 +9,8 @@ Adafruit_BME280 bme; // I2C
 
 const char* ssid     = "Vodafone-1F7F"; //name of your wifi
 const char* password = "ABbpgU3aGaNmedUm"; //pw of your wifi
-const char* server_ip = "127.0.0.1:2019"; //add server ip and port
+const char* serverip = "192.168.0.136:4204"; //add server ip and port
+#define SERVER_IP "192.168.0.136:4204"
 
 void setup() {
   
@@ -78,8 +79,8 @@ void loop() {
    
 
     Serial.print("[HTTP] begin...\n");
-    // configure target server and url
-//    http.begin(client, "http://"server_ip"/mqdata"); //HTTP //error in this line > might be fixed by a running server
+    // configure target server and url //error in this line > might be fixed by a running server
+    http.begin(client, "http://" SERVER_IP"/sensorout"); //HTTP
     http.addHeader("Content-Type", "application/json");
 
 
