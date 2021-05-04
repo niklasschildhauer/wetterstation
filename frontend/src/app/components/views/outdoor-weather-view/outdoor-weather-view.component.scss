@@ -65,7 +65,7 @@
 
     @media(prefers-reduced-motion: no-preference) {
 
-        .container {
+        .container.motion-allowed {
             padding: 120px var(--padding) 120px var(--padding);
             position: fixed;
             top: 0;
@@ -97,7 +97,7 @@
             }
         }
     
-        .container {
+        .container.motion-allowed {
             position: fixed;
             animation-name: container-shrink ;
             @include linear-animation;
@@ -113,7 +113,7 @@
             }
         }
     
-        .weather-image  {
+        .weather-image.motion-allowed  {
             animation-name: image-shrink ;
             @include linear-animation;
         }    

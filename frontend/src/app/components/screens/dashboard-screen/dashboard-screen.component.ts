@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { IndoorRoomData } from 'src/app/model/weather';
 import { WeatherService } from 'src/app/services/weather.service';
+import { UserContextService } from 'src/app/services/user-context.service';
+
 
 @Component({
   selector: 'app-dashboard-screen',
@@ -10,10 +12,19 @@ import { WeatherService } from 'src/app/services/weather.service';
 export class DashboardScreenComponent implements OnInit {
   // TEMP -> Muss geändert werden
   indoorRooms?: IndoorRoomData[];
-  constructor(private weatherService: WeatherService) { }
+  reduceMotion: boolean = false;
+
+  constructor(private weatherService: WeatherService,
+    private userContextService: UserContextService) { }
 
   ngOnInit(): void {
     this.loadIndoorRooms();
+    this.loadReduceMotionValue();
+  }
+
+  loadReduceMotionValue() {
+    this.userContextService.getMotionPreference()
+    .subscribe(data => this.reduceMotion = data);
   }
 
   loadIndoorRooms(): void {

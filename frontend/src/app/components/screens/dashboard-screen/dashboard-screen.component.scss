@@ -10,15 +10,15 @@
     align-content: stretch;
 }
 
-@media (prefers-reduced-motion) {
-    .card-container {
-    }
+
+.card-container.motion-disabled {
+    padding: var(--navbar-height) 0 var(--border-padding-bottom) 0;
 }
 
 
 // Responsive design -> only one breakpoint to reduce complexity
 // css code for desktop
-@media(min-width: 770px), (prefers-reduced-motion: reduce) {
+@media(min-width: 770px), (prefers-reduced-motion: reduce){
     .card-container {
         padding: var(--navbar-height) 0 var(--border-padding-bottom) 0;
     }
