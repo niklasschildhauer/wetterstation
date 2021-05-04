@@ -22,23 +22,22 @@
 
 // css for mobile 
 @media(max-width: 770px) {
-    .container * {
-        color: var(--inverted);
-    }
+    @media (prefers-reduced-motion: no-preference) {
 
-    @keyframes fontColor {
-        from {
-            color: white;
+        @keyframes fontColor {
+            from {
+                color: white;
+            }
+        
+            to {
+                color: var(--text);
+            }
         }
-    
-        to {
-            color: var(--text);
-        }
-    }
 
-    h1 {
-        animation-name: fontColor;
-        @include linear-animation;
+        h1.motion-allowed {
+            animation-name: fontColor;
+            @include linear-animation;
+        }
     }
 }
 

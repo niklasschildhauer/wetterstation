@@ -9,7 +9,7 @@
     align-items: center;
 }
 
-.menu-image * {
+.menu-image {
     fill: var(--secondary);
 } 
 
@@ -25,15 +25,15 @@
 
 // css for mobile 
 @media(max-width: 770px) {
+    @media (prefers-reduced-motion: no-preference) {
+        .menu-image.motion-allowed {
+            fill: white;
+        } 
 
-    .menu-image * {
-        fill: white;
-    } 
+        .menu-label.motion-allowed {
+            color: white;
+        }
 
-    .menu-label {
-        color: white;
-    }
-    @media(prefers-reduced-motion: no-preferences) {
         @keyframes buttonColor {
             from {
                 color: white;
@@ -46,7 +46,7 @@
             }
         }
 
-        .menu-label, .menu-image * {
+        .menu-label.motion-allowed, .menu-image.motion-allowed {
             animation-name: buttonColor;
             @include linear-animation;
         }
