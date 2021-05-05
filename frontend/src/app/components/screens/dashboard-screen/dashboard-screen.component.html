@@ -8,8 +8,14 @@
             <app-indoor-tile-view [indoorRoom]="item" [pressable]="true">{{item.roomID}}</app-indoor-tile-view>
         </a>
     </div>
-    <a routerLink="/detail">
+    <a routerLink="/detail/pollen">
         <app-pollenflug-tile-view [pressable]="true"></app-pollenflug-tile-view>
+    </a>
+    <a routerLink="/detail/history">
+        <app-history-tile-view></app-history-tile-view>
+    </a>
+    <a routerLink="/detail/forecast">
+        <app-forecast-tile-view></app-forecast-tile-view>
     </a>
 </div>
 

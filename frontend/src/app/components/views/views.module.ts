@@ -7,6 +7,10 @@ import { OutdoorWeatherViewComponent } from './outdoor-weather-view/outdoor-weat
 import { HistoryTileViewComponent } from './history-tile-view/history-tile-view.component';
 import { IndoorTileViewComponent } from './indoor-tile-view/indoor-tile-view.component';
 import { IndoorDetailViewComponent } from './indoor-detail-view/indoor-detail-view.component';
+import { PollenflugDetailViewComponent } from './pollenflug-detail-view/pollenflug-detail-view.component';
+import { HistoryDetailViewComponent } from './history-detail-view/history-detail-view.component';
+import { ForecastDetailViewComponent } from './forecast-detail-view/forecast-detail-view.component';
+import { ForecastTileViewComponent } from './forecast-tile-view/forecast-tile-view.component';
 
 
 @NgModule({
@@ -15,7 +19,11 @@ import { IndoorDetailViewComponent } from './indoor-detail-view/indoor-detail-vi
     OutdoorWeatherViewComponent,
     HistoryTileViewComponent,
     IndoorTileViewComponent,
-    IndoorDetailViewComponent
+    IndoorDetailViewComponent,
+    PollenflugDetailViewComponent,
+    HistoryDetailViewComponent,
+    ForecastDetailViewComponent,
+    ForecastTileViewComponent
   ],
   imports: [
     CommonModule,
@@ -26,7 +34,12 @@ import { IndoorDetailViewComponent } from './indoor-detail-view/indoor-detail-vi
     PollenflugTileViewComponent,
     OutdoorWeatherViewComponent,
     HistoryTileViewComponent,
-    IndoorTileViewComponent
+    IndoorTileViewComponent,
+    IndoorDetailViewComponent,
+    PollenflugDetailViewComponent,
+    HistoryDetailViewComponent,
+    ForecastDetailViewComponent,
+    ForecastTileViewComponent
   ]
 })
 export class ViewsModule { }
