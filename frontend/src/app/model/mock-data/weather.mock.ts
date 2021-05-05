@@ -62,3 +62,5 @@ export var WEATHERHISTORYBYDAY: WeatherHistoryByDayData = {
     averageHumidity: 40,
     averageTemperature: 20,
 }
+
+

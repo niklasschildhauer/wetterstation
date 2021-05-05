@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Renderer2 } from '@angular/core';
 import { BreakpointObserver, BreakpointState } from '@angular/cdk/layout';
 import { UserContextService } from 'src/app/services/user-context.service';
 import { UserContext } from 'src/app/model/user-context';
+import { i18nMetaToJSDoc } from '@angular/compiler/src/render3/view/i18n/meta';
 
 
 @Component({
@@ -14,7 +15,8 @@ export class PersonalizationScreenComponent implements OnInit {
   userContextData?: UserContext;
 
   constructor(private breakpointObserver: BreakpointObserver,
-      private userContextService: UserContextService) { }
+      public userContextService: UserContextService,
+      private renderer: Renderer2) { }
 
   ngOnInit(): void {
     this.breakpointObserver
@@ -34,8 +36,34 @@ export class PersonalizationScreenComponent implements OnInit {
     .subscribe(data => this.userContextData = data)
   }
 
-  toggledMotion(value: boolean) {
-    this.userContextService.setMotionPreference(value)
+  // toggledMotion(value: boolean) {
+  //   this.userContextService.setMotionPreference(value)
+  // }
+
+  // toggledSelfVoicing(value: boolean) {
+  //   console.log("hier");
+  //   this.userContextService.setSelfVoicingPreference(value)
+  // }
+
+  // toggledVentilationReminder(value: boolean) {
+  //   this.userContextService.setVentilationReminderPreference(value)
+  // }
+  
+  setFontSize(value: number) {
+    console.log(value);
+    this.userContextService.setFontSizePreference(value);
+    if(this.userContextData) {
+      this.setDefaultFontSize(this.userContextData.fontSize);
+    }
   }
+
+
+  // FIXME: 
+  // change the default font size
+  // Maybe we can solve this problem in another way.
+  private setDefaultFontSize(fontSize: number) {
+    this.renderer.setStyle(document.body, "font-size", fontSize + "%");  
+  }
+
 
 }

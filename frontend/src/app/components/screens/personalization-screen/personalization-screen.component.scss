@@ -3,9 +3,17 @@
     height: calc(100vh - var(--navbar-height) - var(--border-padding-top) - var(--border-padding-bottom));
 }
 
+.switch-container {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    // align-content: stretch;
+}
+
 .background {
     background-color: var(--background);
 }
+
 //css code for mobile 
 @media(max-width: 769) {
     .outdoor-weather {

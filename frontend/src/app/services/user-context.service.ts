@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { UserContext } from '../model/user-context';
+import { UserContext, Themes } from '../model/user-context';
 import { Observable, of } from 'rxjs';
 import { USERCONTEXT } from '../model/mock-data/user-context.mock';
 
@@ -11,16 +11,17 @@ export class UserContextService {
 
   constructor() { }
 
-  getFontSize(): Observable<number> {
+  getFontSizePreference(): Observable<number> {
     const fontSize = of(USERCONTEXT.fontSize);
     console.log(" font");
 
     return fontSize;
   }
 
-  setFontSize(fontSize: number) {
+  setFontSizePreference(fontSize: number) {
     console.log("increase font");
     USERCONTEXT.fontSize = fontSize;
+    console.log("font changes");
   }
 
   getMotionPreference(): Observable<boolean> {
@@ -29,13 +30,29 @@ export class UserContextService {
   }
 
   setMotionPreference(newValue: boolean) {
-    console.log("increase font");
     USERCONTEXT.reduceMotion = newValue;
+  }
+
+  setThemePreference(newValue: Themes) {
+    USERCONTEXT.theme = newValue;
+  }
+
+  getThemePreference(): Observable<Themes> {
+    const theme = of(USERCONTEXT.theme);
+    return theme;
   }
 
   getUserContext(): Observable<UserContext> {
     const userContext = of(USERCONTEXT);
     return userContext;
+  }
+
+  setSelfVoicingPreference(newValue: boolean) {
+    USERCONTEXT.selfVoicingEnabled = newValue;
+  }
+
+  setVentilationReminderPreference(newValue: boolean) {
+    USERCONTEXT.doVentilationReminder = newValue;
   }
 
 }

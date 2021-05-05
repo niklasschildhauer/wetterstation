@@ -9,8 +9,8 @@ import { WeatherService } from 'src/app/services/weather.service';
 })
 export class MenuBarElementComponent implements OnInit {
   locationLabel?: string;
-  reduceMotion: boolean = false;
-  
+  reduceMotion: boolean = false; // We need this value, because the menu bar changes the font color, based on it
+
   constructor(private weatherService: WeatherService,
     private userContextService: UserContextService) { }
 

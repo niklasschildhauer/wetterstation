@@ -52,3 +52,9 @@ export enum WeatherType {
     cloudy,
     windy
 }
+
+export enum Daytime {
+    noon,
+    night,
+    dawn,
+}

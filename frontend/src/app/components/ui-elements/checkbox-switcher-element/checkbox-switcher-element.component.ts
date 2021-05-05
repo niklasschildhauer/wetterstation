@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, Output, EventEmitter, ViewChild, ElementRef } from '@angular/core';
+import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-checkbox-switcher-element',
@@ -7,8 +7,9 @@ import { Component, Input, OnInit, Output, EventEmitter, ViewChild, ElementRef }
 })
 export class CheckboxSwitcherElementComponent implements OnInit {
   @Input() label?: string;
-  @Input() value: boolean = false;
-
+  @Input() value?: boolean;
+  @Input() checkedImage?: string;
+  @Input() unCheckedImage?: string;
   @Output() toggled = new EventEmitter<boolean>();
 
   constructor() { }
@@ -16,8 +17,8 @@ export class CheckboxSwitcherElementComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  toggleCheckbox(event: any) {
-    this.toggled.emit(event.target.checked);
+  toggleCheckbox() {
+    this.toggled.emit(!this.value);
   }
 
 }

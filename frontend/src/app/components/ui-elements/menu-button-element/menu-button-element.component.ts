@@ -9,7 +9,9 @@ import { UserContextService } from 'src/app/services/user-context.service';
   styleUrls: ['./menu-button-element.component.scss']
 })
 export class MenuButtonElementComponent implements OnInit {
-  reduceMotion: boolean = false;
+  reduceMotion: boolean = false; // We need this value, because the menu bar changes the font color, based on it
+  isMenuHidden: boolean = true;
+
   constructor(private router: Router,
     private userContextService: UserContextService) { }
 
@@ -22,9 +24,19 @@ export class MenuButtonElementComponent implements OnInit {
     .subscribe(data => this.reduceMotion = data);
   }
 
+  // openMenu(): void {
+  //   console.log("Pressed open menu");
+  //   this.router.navigateByUrl('/personalization');
+  // }
+
   openMenu(): void {
-    console.log("Pressed open menu");
-    this.router.navigateByUrl('/personalization');
+    this.isMenuHidden = false;
+    console.log("open")
+  }
+
+  closeMenu(): void {
+    this.isMenuHidden = true;
+    console.log("wird ausgeführt")
   }
 
 }

@@ -7,6 +7,10 @@ import { MenuBarElementComponent } from './menu-bar-element/menu-bar-element.com
 import { MenuButtonElementComponent } from './menu-button-element/menu-button-element.component';
 import { ProgressChartElementComponent } from './progress-chart-element/progress-chart-element.component';
 import { CheckboxSwitcherElementComponent } from './checkbox-switcher-element/checkbox-switcher-element.component';
+import { MenuElementComponent } from './menu-element/menu-element.component';
+import { SliderElementComponent } from './slider-element/slider-element.component';
+import { FormsModule } from '@angular/forms';
+
 
 
 
@@ -19,9 +23,12 @@ import { CheckboxSwitcherElementComponent } from './checkbox-switcher-element/ch
     MenuButtonElementComponent,
     ProgressChartElementComponent,
     CheckboxSwitcherElementComponent,
+    MenuElementComponent,
+    SliderElementComponent,
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    FormsModule
   ],
   exports: [
     BackButtonElementComponent,
@@ -31,6 +38,8 @@ import { CheckboxSwitcherElementComponent } from './checkbox-switcher-element/ch
     MenuButtonElementComponent,
     ProgressChartElementComponent,
     CheckboxSwitcherElementComponent,
+    MenuElementComponent,
+    SliderElementComponent,
   ]
 })
 export class UiElementsModule { }
