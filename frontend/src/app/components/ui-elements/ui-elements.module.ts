@@ -9,6 +9,8 @@ import { ProgressChartElementComponent } from './progress-chart-element/progress
 import { CheckboxSwitcherElementComponent } from './checkbox-switcher-element/checkbox-switcher-element.component';
 import { MenuElementComponent } from './menu-element/menu-element.component';
 import { SliderElementComponent } from './slider-element/slider-element.component';
+import { FormsModule } from '@angular/forms';
+
 
 
 
@@ -25,7 +27,8 @@ import { SliderElementComponent } from './slider-element/slider-element.componen
     SliderElementComponent,
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    FormsModule
   ],
   exports: [
     BackButtonElementComponent,

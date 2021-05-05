@@ -1,3 +1,5 @@
-<div class="container" *ngIf="label">
-    <input #switcher id="switcher" type="checkbox" [checked]="this.value" (click)="toggleCheckbox($event)"/><label for="switcher" *ngIf="label">{{label}}</label>
+<div class="container" *ngIf="label" [ngClass]="{'checked' : value}" (click)="toggleCheckbox()">
+    <!-- <img *ngIf="checked" src="{{checkedImage}}">
+    <img *ngIf="!checked" src="{{unCheckedImage}}"> -->
+    <span>{{this.label}}</span>
 </div>

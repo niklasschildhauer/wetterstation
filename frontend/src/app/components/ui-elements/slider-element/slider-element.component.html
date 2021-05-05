@@ -1,4 +1,4 @@
 <div class="container">
     <p *ngIf="label">{{label}}</p>
-    <input *ngIf="value" id="slider" type="range" min="50" max="80" value="value" (change)="changeValue($event)">
+    <input *ngIf="value" id="slider" type="range" min="50" max="120" [(ngModel)]="value" (change)="changeValue($event)">
 </div>

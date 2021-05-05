@@ -1,4 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { NumberValueAccessor } from '@angular/forms';
 
 @Component({
   selector: 'app-slider-element',
@@ -8,6 +9,8 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 export class SliderElementComponent implements OnInit {
   @Input() value?: number; 
   @Input() label?: string;
+
+  model: number = 78;
 
   @Output() valueChanged = new EventEmitter<number>();
 

@@ -35,14 +35,14 @@ export class AppComponent {
   }
 
   private loadDefaultFontSize() {
-    this.userContextService.getFontSize()
+    this.userContextService.getFontSizePreference()
     .subscribe(fontSize => {
       this.setDefaultFontSize(fontSize);
       });
   }
 
   private loadTheme() {
-    this.userContextService.getTheme()
+    this.userContextService.getThemePreference()
     .subscribe(data => this.theme = data);
   }
 
@@ -63,17 +63,17 @@ export class AppComponent {
   }
 
   bigFontSize() {
-    this.userContextService.setFontSize(150);
+    this.userContextService.setFontSizePreference(150);
     this.loadDefaultFontSize();
 
     this.speechAPI.startOutput();
   }
   smallFontSize() {
-    this.userContextService.setFontSize(62.5);
+    this.userContextService.setFontSizePreference(62.5);
     this.loadDefaultFontSize();
   }
   normalFontSize() {
-    this.userContextService.setFontSize(100);
+    this.userContextService.setFontSizePreference(100);
     this.loadDefaultFontSize();
   }
 

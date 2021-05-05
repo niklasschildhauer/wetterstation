@@ -1,18 +1,19 @@
 .container {
     position: fixed;
+    top: 0;
+    left: 0;
     height: 100vh;
     width: 100vw;
     backdrop-filter: blur(20px);
     z-index: 102;
-    top: 0;
-    left: 0;
+
 }
 
 .menu-container {
     border-radius: var(--corner-radius);
     position: fixed;
-    left: var(--border-padding-left);
-    top: var(--border-padding-top);
+    // left: var(--border-padding-left);
+    // top: var(--border-padding-top);
     background-color: var(--surface);
     padding: var(--padding);
     z-index: 103;
@@ -21,7 +22,7 @@
     justify-content: flex-end;
     flex-direction: column;
     align-items: flex-end;
-} 
+}
 
 .icon {
     height: 2.2em;
@@ -42,4 +43,3 @@ p {
     font-weight: 700;
     padding: 0 0 calc(var(--padding) / 2) 0;
 }
-

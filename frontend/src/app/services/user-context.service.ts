@@ -11,14 +11,14 @@ export class UserContextService {
 
   constructor() { }
 
-  getFontSize(): Observable<number> {
+  getFontSizePreference(): Observable<number> {
     const fontSize = of(USERCONTEXT.fontSize);
     console.log(" font");
 
     return fontSize;
   }
 
-  setFontSize(fontSize: number) {
+  setFontSizePreference(fontSize: number) {
     console.log("increase font");
     USERCONTEXT.fontSize = fontSize;
     console.log("font changes");
@@ -30,16 +30,14 @@ export class UserContextService {
   }
 
   setMotionPreference(newValue: boolean) {
-    console.log("increase font");
     USERCONTEXT.reduceMotion = newValue;
   }
 
-  setTheme(newValue: Themes) {
-    console.log("increase font");
+  setThemePreference(newValue: Themes) {
     USERCONTEXT.theme = newValue;
   }
 
-  getTheme(): Observable<Themes> {
+  getThemePreference(): Observable<Themes> {
     const theme = of(USERCONTEXT.theme);
     return theme;
   }
@@ -47,6 +45,14 @@ export class UserContextService {
   getUserContext(): Observable<UserContext> {
     const userContext = of(USERCONTEXT);
     return userContext;
+  }
+
+  setSelfVoicingPreference(newValue: boolean) {
+    USERCONTEXT.selfVoicingEnabled = newValue;
+  }
+
+  setVentilationReminderPreference(newValue: boolean) {
+    USERCONTEXT.doVentilationReminder = newValue;
   }
 
 }
