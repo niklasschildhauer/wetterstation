@@ -28,7 +28,49 @@ export var POLLEN: PollenData[] = [
         type: Pollen.Roggen,
         today: 0,
         tomorrow: 2 ,
-    }
+    },
+
+    {
+        name: "Hasel",
+        type: Pollen.Hasel,
+        today: 2,
+        tomorrow: 0,
+    },
+
+    {
+        name: "Birke",
+        type: Pollen.Birke,
+        today: 3,
+        tomorrow: 0,
+    },
+
+    {
+        name: "Ambrosia",
+        type: Pollen.Ambrosia,
+        today: 3,
+        tomorrow: 0,
+    },
+
+    {
+        name: "Beifuß",
+        type: Pollen.Beifuss,
+        today: 0,
+        tomorrow: 0,
+    },
+
+    {
+        name: "Gräser",
+        type: Pollen.Graeser,
+        today: 1,
+        tomorrow: 0,
+    },
+
+    {
+        name: "Erle",
+        type: Pollen.Erle,
+        today: 0,
+        tomorrow: 0,
+    },
 ];
 
 export var INDOORAIRQUALITY: IndoorRoomData[] = [

@@ -36,19 +36,6 @@ export class PersonalizationScreenComponent implements OnInit {
     .subscribe(data => this.userContextData = data)
   }
 
-  // toggledMotion(value: boolean) {
-  //   this.userContextService.setMotionPreference(value)
-  // }
-
-  // toggledSelfVoicing(value: boolean) {
-  //   console.log("hier");
-  //   this.userContextService.setSelfVoicingPreference(value)
-  // }
-
-  // toggledVentilationReminder(value: boolean) {
-  //   this.userContextService.setVentilationReminderPreference(value)
-  // }
-  
   setFontSize(value: number) {
     console.log(value);
     this.userContextService.setFontSizePreference(value);
@@ -56,7 +43,6 @@ export class PersonalizationScreenComponent implements OnInit {
       this.setDefaultFontSize(this.userContextData.fontSize);
     }
   }
-
 
   // FIXME: 
   // change the default font size

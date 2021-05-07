@@ -1,8 +1,6 @@
-<card-element [subtitle]="'Pollenflug'" [title]="'Sieht gut aus!'" [pressable]="pressable">
-    <ul *ngIf="pollen">
-        <li *ngFor="let item of pollen">
-            {{item.name}} Heute:  {{item.today}} 
-        </li>
-    </ul>
+<card-element [subtitle]="'Pollenflug'"  [pressable]="pressable">
+    <div class="list-container">
+        <app-pollen-list-element *ngFor="let item of pollen" [title]="item.name" [value]="item.today"></app-pollen-list-element>
+    </div>
 </card-element>
 

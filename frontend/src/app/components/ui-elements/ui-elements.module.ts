@@ -10,6 +10,7 @@ import { CheckboxSwitcherElementComponent } from './checkbox-switcher-element/ch
 import { MenuElementComponent } from './menu-element/menu-element.component';
 import { SliderElementComponent } from './slider-element/slider-element.component';
 import { FormsModule } from '@angular/forms';
+import { PollenListElementComponent } from './pollen-list-element/pollen-list-element.component';
 
 
 
@@ -25,6 +26,7 @@ import { FormsModule } from '@angular/forms';
     CheckboxSwitcherElementComponent,
     MenuElementComponent,
     SliderElementComponent,
+    PollenListElementComponent,
   ],
   imports: [
     CommonModule,
@@ -40,6 +42,7 @@ import { FormsModule } from '@angular/forms';
     CheckboxSwitcherElementComponent,
     MenuElementComponent,
     SliderElementComponent,
+    PollenListElementComponent,
   ]
 })
 export class UiElementsModule { }
