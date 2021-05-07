@@ -37,9 +37,14 @@
     width: 100%;
     padding: calc(var(--padding) / 2) 0 calc(var(--padding) / 2) 0;
     border-top: 0.2px solid var(--secondary);
+    cursor: pointer;
 }
 
 p {
     font-weight: 700;
     padding: 0 0 calc(var(--padding) / 2) 0;
+}
+
+.fertig {
+    cursor: pointer;
 }
