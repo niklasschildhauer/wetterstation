@@ -1,0 +1,4 @@
+.container {
+    width: calc(100vw - var(--padding) - var(--padding) - var(--border-padding-left) - var(--border-padding-right));
+    height: 20em;
+}

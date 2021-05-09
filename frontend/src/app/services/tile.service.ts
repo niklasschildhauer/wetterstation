@@ -1,10 +1,8 @@
 import { Injectable, OnInit } from '@angular/core';
 import { UserContextService } from './user-context.service';
 import { WeatherService } from './weather.service';
-import { WeatherData, Tile, PollenData, TileType, IndoorRoomData, WeatherForecastData, TilePriority } from '../model/weather';
+import { WeatherData, Tile, PollenData, TileType, IndoorRoomData, WeatherForecastData, TilePriority, WeatherHistoryData } from '../model/weather';
 import { Observable, of } from 'rxjs';
-import { tick } from '@angular/core/testing';
-
 
 @Injectable({
   providedIn: 'root'
@@ -22,6 +20,7 @@ export class TileService {
     this.loadPollenTiles();
     this.loadIndoorRoomTiles();
     this.loadForecastTile();
+    this.loadHistoryTile();
   }
 
   reloadData(): void {
@@ -53,6 +52,18 @@ export class TileService {
     })
   }
 
+  private loadHistoryTile(): void {
+    this.weatherService.getHistoryData().subscribe(data => {
+      let tile: Tile<WeatherHistoryData> = {
+        type: TileType.history,
+        data: data,
+        id: "history",
+        priority: this.getPrioritiyOf(data, TileType.history),
+      }
+      this.addOrReplaceTileTo(this._dashboardTiles, tile);
+    })
+  }
+
   private loadIndoorRoomTiles(): void {
     this.weatherService.getIndoorRoomData().subscribe(data => {
       for (let item of data) {
@@ -71,7 +82,6 @@ export class TileService {
     switch (type) {
       case TileType.indoorRoom: {
         let room = data as IndoorRoomData
-        console.log(data);
         if (room.airQuality > 70) {
           return TilePriority.important 
         }
@@ -89,6 +99,9 @@ export class TileService {
       case TileType.forecast: {
         return TilePriority.middle
         // FIXME: Implement algorithm
+      }
+      case TileType.history: {
+        return TilePriority.important
       }
     }
     return TilePriority.middle
