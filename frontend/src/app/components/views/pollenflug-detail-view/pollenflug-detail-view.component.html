@@ -1,5 +1,10 @@
 <app-nav-bar-element [titleLabel]="'Pollenflug'" [backLabel]="'Dashboard'"></app-nav-bar-element>
-<app-pollenflug-tile-view></app-pollenflug-tile-view>
+<div *ngIf="pollenTiles">
+    <div *ngFor="let item of pollenTiles" [ngSwitch]="item.type">
+        <app-pollenflug-tile-view *ngSwitchCase="tileType.pollenList" [data]="item.data" [pressable]="false"></app-pollenflug-tile-view>
+        <div *ngSwitchDefault>{{tileType[item.type]}} is not implemented yet</div>
+    </div>
+</div>
 <h4>Was ist Pollenflug?</h4>
 <p>Unter dem Begriff Raumluftqualität oder auch Innenraumluftqualität (engl. 
     Indoor Air Quality) genannt, werden diejenigen Aspekte der Raumluft betrachtet,

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { IndoorRoomData, Tile, TileType, WeatherData } from 'src/app/model/weather';
 import { WeatherService } from 'src/app/services/weather.service';
 import { UserContextService } from 'src/app/services/user-context.service';
-import { DashboardService } from 'src/app/services/dashboard.service';
+import { TileService } from 'src/app/services/tile.service';
 
 
 @Component({
@@ -19,7 +19,7 @@ export class DashboardScreenComponent implements OnInit {
 
   constructor(private weatherService: WeatherService,
     private userContextService: UserContextService,
-    private dashboardService: DashboardService) { }
+    private tileService: TileService) { }
 
   ngOnInit(): void {
     this.loadIndoorRooms();
@@ -40,7 +40,7 @@ export class DashboardScreenComponent implements OnInit {
   }
 
   loadDashboardTiles(): void {
-    this.dashboardService.getDashboardTiles()
+    this.tileService.getDashboardTiles()
                       .subscribe(data => {
                         this.dashboardTiles = data
                         console.log(this.dashboardTiles)});

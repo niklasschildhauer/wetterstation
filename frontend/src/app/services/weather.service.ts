@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { INDOORAIRQUALITY, OUTDOORWEATHER, POLLEN } from '../model/mock-data/weather.mock';
-import { OutdoorWeatherData, PollenData, IndoorRoomData, Daytime } from '../model/weather';
+import { FORECAST, INDOORAIRQUALITY, OUTDOORWEATHER, POLLEN } from '../model/mock-data/weather.mock';
+import { OutdoorWeatherData, PollenData, IndoorRoomData, Daytime, WeatherForecastData } from '../model/weather';
 import { Observable, of } from 'rxjs';
 
 
@@ -11,18 +11,23 @@ export class WeatherService {
   constructor() { }
 
   getOutdoorWeather(): Observable<OutdoorWeatherData> {
-    const weather = of(OUTDOORWEATHER);
+    let weather = of(OUTDOORWEATHER);
     return weather;
   }
 
   getPollen(): Observable<PollenData[]> {
-    const pollen = of(POLLEN);
+    let pollen = of(POLLEN);
     return pollen;
   }
 
   getIndoorRoomData(): Observable<IndoorRoomData[]> {
-    const indoorData = of(INDOORAIRQUALITY);
+    let indoorData = of(INDOORAIRQUALITY);
     return indoorData;
+  }
+
+  getForecastData(): Observable<WeatherForecastData> {
+    let forecastData = of(FORECAST);
+    return forecastData;
   }
 
   // NICHT DURCHDACHT... Wie wollen wir das lösen?
@@ -31,12 +36,4 @@ export class WeatherService {
     console.log(date.getHours())
     return Daytime.night;
   }
-
-
-
-  // DELETE ME
-  changeTemp() {
-      OUTDOORWEATHER.temperature = OUTDOORWEATHER.temperature + 2;
-  }
-
 }
