@@ -10,12 +10,20 @@ export enum TileType {
     forecast
 }
 
+export enum TilePriority {
+    important, //Highest 
+    high,
+    middle,
+    low,
+}
+
 export interface Tile<A> {
     type: TileType;
     data: A;
+    id: string;
+    priority: TilePriority
 }
   
-
 export interface OutdoorWeatherData extends WeatherData {
     temperature: number // in °C
     maxTemperature: number, //TODO: external database required "forecast" 

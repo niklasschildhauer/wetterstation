@@ -45,4 +45,8 @@ export class DashboardScreenComponent implements OnInit {
                         this.dashboardTiles = data
                         console.log(this.dashboardTiles)});
   }
+
+  reloadData(): void {
+    this.tileService.reloadData();
+  }
 }

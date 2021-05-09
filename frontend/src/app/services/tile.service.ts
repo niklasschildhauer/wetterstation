@@ -1,8 +1,9 @@
 import { Injectable, OnInit } from '@angular/core';
 import { UserContextService } from './user-context.service';
 import { WeatherService } from './weather.service';
-import { WeatherData, Tile, PollenData, TileType, IndoorRoomData, WeatherForecastData } from '../model/weather';
+import { WeatherData, Tile, PollenData, TileType, IndoorRoomData, WeatherForecastData, TilePriority } from '../model/weather';
 import { Observable, of } from 'rxjs';
+import { tick } from '@angular/core/testing';
 
 
 @Injectable({
@@ -12,22 +13,31 @@ export class TileService {
   private _dashboardTiles: Tile<WeatherData>[] = [];
   private _pollenTiles: Tile<WeatherData>[] = [];
 
-  // THIS IMPLEMENTATION WILL CAUSE A BUG WHEN RELOADING!!
   constructor(private weatherService: WeatherService, 
     private userContextService: UserContextService) { 
-      this.loadPollenTiles();
-      this.loadIndoorRoomTiles();
-      this.loadForecastTile();
+      this.loadTiles();
+  }
+
+  private loadTiles() {
+    this.loadPollenTiles();
+    this.loadIndoorRoomTiles();
+    this.loadForecastTile();
+  }
+
+  reloadData(): void {
+    this.loadTiles();
   }
   
   private loadPollenTiles(): void {
     this.weatherService.getPollen().subscribe(data => {
       let tile: Tile<PollenData[]> = {
         type: TileType.pollenList,
-        data: data
+        data: data,
+        id: "pollenlist",
+        priority: this.getPrioritiyOf(data, TileType.pollenList),
       }
-      this._dashboardTiles.push(tile);
-      this._pollenTiles.push(tile);
+      this.addOrReplaceTileTo(this._dashboardTiles, tile);
+      this.addOrReplaceTileTo(this._pollenTiles, tile);
     })
   }
 
@@ -35,9 +45,11 @@ export class TileService {
     this.weatherService.getForecastData().subscribe(data => {
       let tile: Tile<WeatherForecastData> = {
         type: TileType.forecast,
-        data: data
+        data: data,
+        id: "forecast",
+        priority: this.getPrioritiyOf(data, TileType.forecast),
       }
-      this._dashboardTiles.push(tile);
+      this.addOrReplaceTileTo(this._dashboardTiles, tile);
     })
   }
 
@@ -46,11 +58,59 @@ export class TileService {
       for (let item of data) {
         let tile: Tile<IndoorRoomData> = {
           type: TileType.indoorRoom,
-          data: item
+          data: item,
+          id: item.roomID,
+          priority: this.getPrioritiyOf(item, TileType.indoorRoom),
         }
-        this._dashboardTiles.push(tile);
+        this.addOrReplaceTileTo(this._dashboardTiles, tile);
       }
     })
+  }
+
+  private getPrioritiyOf(data: WeatherData, type: TileType): TilePriority {
+    switch (type) {
+      case TileType.indoorRoom: {
+        let room = data as IndoorRoomData
+        console.log(data);
+        if (room.airQuality > 70) {
+          return TilePriority.important 
+        }
+        return TilePriority.low
+        // FIXME: Implement algorithm
+      }
+      case TileType.pollenList: {
+        return TilePriority.high
+        // FIXME: Implement algorithm
+      }
+      case TileType.pollenSmall: {
+        return TilePriority.middle
+        // FIXME: Implement algorithm
+      }
+      case TileType.forecast: {
+        return TilePriority.middle
+        // FIXME: Implement algorithm
+      }
+    }
+    return TilePriority.middle
+  }
+
+  private addOrReplaceTileTo(tilesArray: Tile<WeatherData>[], tile: Tile<WeatherData>) {
+    var indexInTilesArray = this.getIndexOfTileIn(tilesArray, tile.id);
+
+    if(indexInTilesArray > -1) {
+      tilesArray[indexInTilesArray] = tile;
+      return
+    }
+    tilesArray.push(tile);
+    this.orderItemsIn(tilesArray);
+  }
+
+  private getIndexOfTileIn(tilesArray: Tile<WeatherData>[], id: string): number {
+    return tilesArray.findIndex(element => element.id === id);
+  }
+
+  private orderItemsIn(tilesArray: Tile<WeatherData>[]): void {
+    tilesArray.sort((a, b) => a.priority - b.priority);
   }
 
   getDashboardTiles(): Observable<Tile<WeatherData>[]>{

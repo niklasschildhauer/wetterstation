@@ -1,4 +1,4 @@
-import { IndoorRoomData, OutdoorWeatherData, WeatherHistoryByDayData, PollenData, WeatherForecastData, WeatherHistoryData, WeatherType, Tile, TileType, WeatherData } from '../weather';
+import { IndoorRoomData, OutdoorWeatherData, WeatherHistoryByDayData, PollenData, WeatherForecastData, WeatherHistoryData, WeatherType, Tile, TileType, WeatherData, TilePriority } from '../weather';
 import { Pollen } from '../user-context';
 
 export var OUTDOORWEATHER: OutdoorWeatherData = {
@@ -19,6 +19,8 @@ export var FORECAST: WeatherForecastData = {
 export var FORECASTTILE: Tile<WeatherForecastData> = {
     type: TileType.forecast,
     data: FORECAST,
+    id: "FORECAST",
+    priority: TilePriority.low,
 }
 
 export var ESCHE: PollenData =  {
@@ -87,17 +89,23 @@ export var POLLEN: PollenData[] = [
 
 export var POLLENSMALL: Tile<PollenData> = {
     type: TileType.pollenSmall,
-    data: ESCHE
+    data: ESCHE,
+    id: ESCHE.name,
+    priority: TilePriority.low,
 }
   
 export var POLLENSMALL2: Tile<PollenData> = {
     type: TileType.pollenSmall,
-    data: BIRKE
+    data: BIRKE,
+    id: BIRKE.name,
+    priority: TilePriority.low,
 }
   
 export var POLLENLIST: Tile<PollenData[]> = {
     type: TileType.pollenList,
-    data: POLLEN
+    data: POLLEN,
+    id: "POLLENLIST",
+    priority: TilePriority.low,
 }
 
 export var WOHNZIMMER: IndoorRoomData = {
@@ -126,12 +134,16 @@ export var INDOORAIRQUALITY: IndoorRoomData[] = [
 
 export var INDOORROOM1: Tile<IndoorRoomData> = {
     type: TileType.indoorRoom,
-    data: WOHNZIMMER
+    data: WOHNZIMMER,
+    id: SCHLAFZIMMER.roomID,
+    priority: TilePriority.low,
 }
   
 export var INDOORROOM2: Tile<IndoorRoomData> = {
     type: TileType.indoorRoom,
-    data: SCHLAFZIMMER
+    data: SCHLAFZIMMER,
+    id: SCHLAFZIMMER.roomID,
+    priority: TilePriority.low,
 }
 
 export var WEATHERHISTORY: WeatherHistoryData = {
