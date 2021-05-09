@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { IndoorRoomData } from 'src/app/model/weather';
+import { IndoorRoomData, WeatherData } from 'src/app/model/weather';
 
 @Component({
   selector: 'app-indoor-tile-view',
@@ -7,8 +7,12 @@ import { IndoorRoomData } from 'src/app/model/weather';
   styleUrls: ['./indoor-tile-view.component.scss']
 })
 export class IndoorTileViewComponent implements OnInit {
-  @Input() indoorRoom?: IndoorRoomData;
+  @Input()
+  set data(data: WeatherData) {
+    this._indoorRoom = data as IndoorRoomData;
+  }
   @Input() pressable: boolean = false;
+  _indoorRoom?: IndoorRoomData
   constructor() { }
 
   ngOnInit(): void {

@@ -1,6 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { OutdoorWeatherData } from 'src/app/model/weather';
-import { WeatherService } from 'src/app/services/weather.service';
+import { Component, OnInit, Input } from '@angular/core';
+import { OutdoorWeatherData, WeatherData } from 'src/app/model/weather';
 
 @Component({
   selector: 'app-history-tile-view',
@@ -8,15 +7,14 @@ import { WeatherService } from 'src/app/services/weather.service';
   styleUrls: ['./history-tile-view.component.scss']
 })
 export class HistoryTileViewComponent implements OnInit {
-  weather?: OutdoorWeatherData
-  constructor(private weatherService: WeatherService) { }
-
-  ngOnInit(): void {
-    this.getWeatherData();
+  @Input() pressable: boolean = false;
+  @Input()
+  set data(data: WeatherData) {
+    this._history = data as OutdoorWeatherData[];
   }
+  _history?: OutdoorWeatherData[]
 
-  getWeatherData() {
-    this.weatherService.getOutdoorWeather().subscribe(data => this.weather = data);
-  }
+  constructor() { }
 
+  ngOnInit(): void {  }
 }

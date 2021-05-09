@@ -1,6 +1,6 @@
 <app-nav-bar-element [titleLabel]="'Raumluftqualität'" [backLabel]="'Dashboard'"></app-nav-bar-element>
 <div *ngIf="rooms">
-    <app-indoor-tile-view *ngFor="let item of rooms" [indoorRoom]="item"></app-indoor-tile-view>
+    <app-indoor-tile-view *ngFor="let item of rooms" [data]="item"></app-indoor-tile-view>
 </div>
 <h4>Luftqualität</h4>
 <p>Unter dem Begriff Raumluftqualität oder auch Innenraumluftqualität (engl. 

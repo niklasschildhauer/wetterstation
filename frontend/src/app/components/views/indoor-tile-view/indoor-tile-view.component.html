@@ -1,12 +1,12 @@
-<card-element *ngIf="indoorRoom" [title]="indoorRoom.roomName" [subtitle]="'Innenraumluftqualität'" [pressable]="pressable">
+<card-element *ngIf="_indoorRoom" [title]="_indoorRoom.roomName" [subtitle]="'Innenraumluftqualität'" [pressable]="pressable">
     <div class="data-container">
-        <h1>{{indoorRoom.airQuality}}</h1>
+        <h1>{{_indoorRoom.airQuality}}</h1>
         <div>
             <div class="temp-humidity-data">
-                <p>Temperatur: {{indoorRoom.temperature}}°C</p>
+                <p>Temperatur: {{_indoorRoom.temperature}}°C</p>
             </div>
             <div class="temp-humidity-data">
-                <p>Luftfeuchtigkeit: {{indoorRoom.humidity}}%</p>
+                <p>Luftfeuchtigkeit: {{_indoorRoom.humidity}}%</p>
             </div>
         </div>
     </div>

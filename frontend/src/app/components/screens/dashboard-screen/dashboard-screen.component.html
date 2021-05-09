@@ -1,11 +1,13 @@
 <div class="layout">
 <app-menu-bar-element></app-menu-bar-element>
 <div class="card-container" [ngClass]="{'motion-disabled' : reduceMotion }">
+    <ng-template dashboardDirective></ng-template>
     <app-outdoor-weather-view></app-outdoor-weather-view>
 
-    <div *ngIf="indoorRooms">
+    <!-- <div *ngIf="indoorRooms">
         <a routerLink="/detail/indoorrooms" *ngFor="let item of indoorRooms" >
-            <app-indoor-tile-view [indoorRoom]="item" [pressable]="true">{{item.roomID}}</app-indoor-tile-view>
+            {{item.roomID}}
+            <app-indoor-tile-view [data]="item" [pressable]="true">{{item.roomID}}</app-indoor-tile-view>
         </a>
     </div>
     <a routerLink="/detail/pollen">
@@ -16,7 +18,18 @@
     </a>
     <a routerLink="/detail/forecast">
         <app-forecast-tile-view></app-forecast-tile-view>
-    </a>
+    </a> -->
+
+    <div *ngIf="dashboardTiles"> 
+        <div *ngFor="let item of dashboardTiles" [ngSwitch]="item.type">
+            <app-indoor-tile-view *ngSwitchCase="tileType.indoorRoom" [data]="item.data" [pressable]="true"></app-indoor-tile-view>
+            <app-forecast-tile-view *ngSwitchCase="tileType.forecast" [data]="item.data" [pressable]="true"></app-forecast-tile-view>
+            <app-history-tile-view *ngSwitchCase="tileType.history" [data]="item.data" [pressable]="true"></app-history-tile-view>
+            <app-pollenflug-tile-view *ngSwitchCase="tileType.pollenList" [data]="item.data" [pressable]="true"></app-pollenflug-tile-view>
+            <div *ngSwitchDefault>{{tileType[item.type]}} is not implemented yet</div>
+        </div>
+    </div>
 </div>
+
 
 </div>

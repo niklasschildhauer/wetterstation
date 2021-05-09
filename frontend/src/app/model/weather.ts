@@ -1,6 +1,22 @@
 import { Pollen } from './user-context';
 
-export interface OutdoorWeatherData {
+export interface WeatherData { }
+
+export enum TileType {
+    indoorRoom,
+    pollenSmall,
+    pollenList,
+    history,
+    forecast
+}
+
+export interface Tile<A> {
+    type: TileType;
+    data: A;
+}
+  
+
+export interface OutdoorWeatherData extends WeatherData {
     temperature: number // in °C
     maxTemperature: number, //TODO: external database required "forecast" 
     minTemperature: number, //TODO: external database required "forecast" 
@@ -14,20 +30,20 @@ export interface OutdoorWeatherData {
 
 //Using our own sensors 
 //TODO: How precise is the measurement? How many days can we forecast with our own sensors?
-export interface WeatherForecastData {
+export interface WeatherForecastData extends WeatherData {
     forecast: string,
     //time?
 }
 
 //From external API
-export interface PollenData {
+export interface PollenData extends WeatherData {
     name: string, // TODO: Maybe we should use the same Pollen enum as in user-context.ts
     type: Pollen
     today: number, // -1 <--> 3
     tomorrow: number, // -1 <--> 3
 }
 
-export interface IndoorRoomData {
+export interface IndoorRoomData extends WeatherData {
     roomID: string,
     roomName: string,
     airQuality: number, // in %
@@ -37,11 +53,11 @@ export interface IndoorRoomData {
     timestamp: Date, 
 }
 
-export interface WeatherHistoryData {
+export interface WeatherHistoryData extends WeatherData {
     datapoints: OutdoorWeatherData[],
 }
 
-export interface WeatherHistoryByDayData {
+export interface WeatherHistoryByDayData extends WeatherData  {
     averageTemperature: number, // in °C
     averageHumidity: number, // in %
 }

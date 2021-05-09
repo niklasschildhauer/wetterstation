@@ -1,6 +1,6 @@
 <card-element [subtitle]="'Pollenflug'"  [pressable]="pressable">
     <div class="list-container">
-        <app-pollen-list-element *ngFor="let item of pollen" [title]="item.name" [value]="item.today"></app-pollen-list-element>
+        <app-pollen-list-element *ngFor="let item of _pollen" [title]="item.name" [value]="item.today"></app-pollen-list-element>
     </div>
 </card-element>
 

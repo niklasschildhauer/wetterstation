@@ -1,6 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { PollenData } from 'src/app/model/weather';
-import { WeatherService } from '../../../services/weather.service'
+import { PollenData, WeatherData } from 'src/app/model/weather';
 
 @Component({
   selector: 'app-pollenflug-tile-view',
@@ -9,18 +8,14 @@ import { WeatherService } from '../../../services/weather.service'
 })
 export class PollenflugTileViewComponent implements OnInit {
   @Input() pressable: boolean = false;
-  pollen?: PollenData[];
+  @Input()
+  set data(data: WeatherData) {
+    this._pollen = data as PollenData[];
+  }
+  _pollen?: PollenData[];
 
-  constructor(private weatherService: WeatherService ) { }
+  constructor() { }
 
   ngOnInit(): void {
-    this.getPollen()
   }
-
-  getPollen(): void {
-    this.weatherService.getPollen()
-      .subscribe(pollen => this.pollen = pollen);
-  }
-
-
 }
