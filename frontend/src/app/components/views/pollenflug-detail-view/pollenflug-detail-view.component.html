@@ -1,7 +1,8 @@
 <app-nav-bar-element [titleLabel]="'Pollenflug'" [backLabel]="'Dashboard'"></app-nav-bar-element>
-<div *ngIf="pollenTiles">
+<div *ngIf="pollenTiles" class="flex-container">
     <div *ngFor="let item of pollenTiles" [ngSwitch]="item.type">
         <app-pollenflug-tile-view *ngSwitchCase="tileType.pollenList" [data]="item.data" [pressable]="false"></app-pollenflug-tile-view>
+        <app-pollenflug-small-tile *ngSwitchCase="tileType.pollenSmall" [data]="item.data" [pressable]="false"></app-pollenflug-small-tile>
         <div *ngSwitchDefault>{{tileType[item.type]}} is not implemented yet</div>
     </div>
 </div>
