@@ -1,0 +1,8 @@
+<div class="card-container">
+    <card-element *ngIf="_pollen" [subtitle]="'Pollenflug'" [title]="_pollen.name" [pressable]="pressable" [cardSize]="cardSizeType.small">
+        <div class="container">
+            <img class="emoji" *ngIf="emojiName" [src]="'assets/emoji/' + emojiName + '.png'">
+            <p class="textValue" *ngIf="textValue && colorValue" [ngClass]="{'green': colorValue === 'green', 'red': colorValue === 'red', 'orange': colorValue === 'orange', 'blue': colorValue === 'blue'}">{{textValue}}</p>
+        </div>      
+    </card-element>
+</div>

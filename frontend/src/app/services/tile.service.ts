@@ -36,8 +36,25 @@ export class TileService {
         id: "pollenlist",
         priority: this.getPrioritiyOf(data, TileType.pollenList),
       }
+      //HACK IS COMING
       this.addOrReplaceTileTo(this._dashboardTiles, tile);
       this.addOrReplaceTileTo(this._pollenTiles, tile);
+      let smallTile: Tile<PollenData> = {
+        type: TileType.pollenSmall,
+        data: data[0],
+        id: data[0].name,
+        priority: TilePriority.middle,
+      }
+      this.addOrReplaceTileTo(this._dashboardTiles, smallTile);
+      this.addOrReplaceTileTo(this._pollenTiles, smallTile);
+      let smallTile2: Tile<PollenData> = {
+        type: TileType.pollenSmall,
+        data: data[1],
+        id: data[1].name,
+        priority: TilePriority.middle,
+      }
+      this.addOrReplaceTileTo(this._dashboardTiles, smallTile2);
+      this.addOrReplaceTileTo(this._pollenTiles, smallTile2);
     })
   }
 
@@ -83,6 +100,11 @@ export class TileService {
         // FIXME: Implement algorithm
       }
       case TileType.pollenSmall: {
+        let pollen = data as PollenData
+        if(pollen.name === "Esche") {
+          return TilePriority.important; 
+        }
+
         return TilePriority.middle
         // FIXME: Implement algorithm
       }

@@ -4,7 +4,7 @@
     <ng-template dashboardDirective></ng-template>
     <app-outdoor-weather-view></app-outdoor-weather-view>
 
-    <div *ngIf="dashboardTiles"> 
+    <div *ngIf="dashboardTiles" class="flex-container"> 
         <div *ngFor="let item of dashboardTiles" [ngSwitch]="item.type">
             <a routerLink="/detail/indoorrooms">
             <app-indoor-tile-view *ngSwitchCase="tileType.indoorRoom" [data]="item.data" [pressable]="true"></app-indoor-tile-view>
@@ -17,6 +17,9 @@
             </a>
             <a routerLink="/detail/pollen">
                 <app-pollenflug-tile-view *ngSwitchCase="tileType.pollenList" [data]="item.data" [pressable]="true"></app-pollenflug-tile-view>
+            </a>
+            <a routerLink="/detail/pollen">
+                <app-pollenflug-small-tile *ngSwitchCase="tileType.pollenSmall" [data]="item.data" [pressable]="true"></app-pollenflug-small-tile>
             </a>
             <div *ngSwitchDefault>{{tileType[item.type]}} is not implemented yet</div>
         </div>
