@@ -7,13 +7,13 @@
     <div *ngIf="dashboardTiles"> 
         <div *ngFor="let item of dashboardTiles" [ngSwitch]="item.type">
             <a routerLink="/detail/indoorrooms">
-            <app-indoor-tile-view *ngSwitchCase="tileType.indoorRoom" [data]="item.data" [pressable]="true"></app-indoor-tile-view>
+                <app-indoor-tile-view *ngSwitchCase="tileType.indoorRoom" [data]="item.data" [pressable]="true"></app-indoor-tile-view>
             </a>
             <a routerLink="/detail/forecast">
-            <app-forecast-tile-view *ngSwitchCase="tileType.forecast" [data]="item.data" [pressable]="true"></app-forecast-tile-view>
+                <app-forecast-tile-view *ngSwitchCase="tileType.forecast" [data]="item.data" [pressable]="true"></app-forecast-tile-view>
             </a>
             <a routerLink="/detail/history">
-            <app-history-tile-view *ngSwitchCase="tileType.history" [data]="item.data" [pressable]="true"></app-history-tile-view>
+                <app-history-tile-view *ngSwitchCase="tileType.history" [data]="item.data" [pressable]="true"></app-history-tile-view>
             </a>
             <a routerLink="/detail/pollen">
                 <app-pollenflug-tile-view *ngSwitchCase="tileType.pollenList" [data]="item.data" [pressable]="true"></app-pollenflug-tile-view>

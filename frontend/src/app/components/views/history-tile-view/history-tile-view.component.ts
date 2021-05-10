@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { OutdoorWeatherData, WeatherData, WeatherHistoryData } from 'src/app/model/weather';
+import { WeatherData, WeatherHistoryData } from 'src/app/model/weather';
+import { HistoryTileService, GraphDataSet, GraphDataPoints } from 'src/app/services/history-tile.service';
 
 @Component({
   selector: 'app-history-tile-view',
@@ -30,7 +31,7 @@ export class HistoryTileViewComponent implements OnInit {
     domain: ['#5AA454', '#A10A28', '#C7B42C', '#AAAAAA']
   };
 
-  constructor() { 
+  constructor(public historyService: HistoryTileService) { 
   }
 
   ngOnInit(): void {  }
@@ -71,12 +72,3 @@ export class HistoryTileViewComponent implements OnInit {
   }
 }
 
-export interface GraphDataPoints {
-  name: string;
-  value: number;
-}
-
-export interface GraphDataSet {
-  dataPoints: GraphDataPoints[];
-  label: string
-}
