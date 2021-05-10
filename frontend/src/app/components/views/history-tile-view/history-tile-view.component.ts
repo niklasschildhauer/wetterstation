@@ -1,6 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { WeatherData, WeatherHistoryData } from 'src/app/model/weather';
-import { HistoryTileService, GraphDataSet, GraphDataPoints } from 'src/app/services/history-tile.service';
+import { WeatherGraphDataSet, WeatherData, GraphDataPoints } from 'src/app/model/weather';
 
 @Component({
   selector: 'app-history-tile-view',
@@ -9,66 +8,52 @@ import { HistoryTileService, GraphDataSet, GraphDataPoints } from 'src/app/servi
 })
 export class HistoryTileViewComponent implements OnInit {
   @Input() pressable: boolean = false;
+  @Input() graphType: HistoryGraphType = HistoryGraphType.temperature
   @Input()
   set data(data: WeatherData) {
-    this._history = data as WeatherHistoryData;
-    this.showHours();
+    this._dataSet = data as WeatherGraphDataSet;
   }
-  _history?: WeatherHistoryData;
-  _dataSet?: GraphDataSet[];
-  _index: number = 0; 
+  _dataSet?: WeatherGraphDataSet;
 
-  // options
-  showXAxis = true;
-  showYAxis = true;
-  gradient = false;
-  showLegend = false;
-  showXAxisLabel = false;
-  showYAxisLabel = true;
-  yAxisLabel = "Grad";
-
-  colorScheme = {
-    domain: ['#5AA454', '#A10A28', '#C7B42C', '#AAAAAA']
+  private temperatureColorScheme = {
+    domain: ['#E44A4A']
   };
 
-  constructor(public historyService: HistoryTileService) { 
+  private humidityColorScheme = {
+    domain: ['#335BF0']
+  };
+
+  constructor() { 
   }
 
   ngOnInit(): void {  }
 
-  private showHours() {
-    if (this._history 
-        && this._history.datapoints.length > 0) {
-      var data = this._history
-
-      data.datapoints.sort((a, b) => {
-        return b.timestamp.getTime() - a.timestamp.getTime()
-      });
-
-      this._dataSet = []
-      var dataPoints: GraphDataPoints[]  = []; 
-      var lastDate: Date = data.datapoints[0].timestamp;
-
-      for (let item of data.datapoints) {
-        if(lastDate.getDate() > item.timestamp.getDate()) {
-          this._dataSet.push({
-            dataPoints: dataPoints.reverse(),
-            label: lastDate.toLocaleDateString() + ""
-          });
-          dataPoints = [];
-        }
-        lastDate = item.timestamp;
-        dataPoints.push({
-          name: item.timestamp.getHours() + " Uhr",
-          value: item.temperature,
-        }) 
+  getDataPoint(): GraphDataPoints[] | undefined{
+    switch (this.graphType) {
+      case HistoryGraphType.temperature: {
+        return this._dataSet?.temperatureDataPoints
       }
-      this._dataSet.push({
-        dataPoints: dataPoints.reverse(),
-        label: lastDate.toLocaleDateString() + ""
-      });
-      console.log(this._dataSet)
+      case HistoryGraphType.humidity: {
+        return this._dataSet?.humidityDataPoints
+      }
     }
   }
+
+  getColorScheme(){
+    switch (this.graphType) {
+      case HistoryGraphType.temperature: {
+        return this.temperatureColorScheme
+      }
+      case HistoryGraphType.humidity: {
+        return this.humidityColorScheme
+      }
+    }
+  }
+
+}
+
+export enum HistoryGraphType {
+  temperature,
+  humidity
 }
 

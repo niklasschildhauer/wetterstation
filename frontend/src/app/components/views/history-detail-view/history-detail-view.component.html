@@ -1,2 +1,11 @@
 <app-nav-bar-element [titleLabel]="'Historie'" [backLabel]="'Dashboard'"></app-nav-bar-element>
-<app-history-tile-view></app-history-tile-view>
+<div *ngIf="_dataSet">
+    <app-history-tile-view [data]="_dataSet[_index]" [pressable]="false" [graphType]="graphType.temperature"></app-history-tile-view>
+    <app-history-tile-view [data]="_dataSet[_index]" [pressable]="false" [graphType]="graphType.humidity"></app-history-tile-view>
+   <p>{{_dataSet[_index].temperatureAverage}}</p> 
+   <p>{{_dataSet[_index].humidityAverage}}</p> 
+
+</div>
+
+<button (click)="forward()">WEITER</button>
+<button (click)="back()">ZURÜCK</button>

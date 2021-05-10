@@ -23,7 +23,7 @@ export interface Tile<A> {
     id: string;
     priority: TilePriority
 }
-  
+
 export interface OutdoorWeatherData extends WeatherData {
     temperature: number // in °C
     maxTemperature: number, //TODO: external database required "forecast" 
@@ -64,6 +64,21 @@ export interface IndoorRoomData extends WeatherData {
 export interface WeatherHistoryData extends WeatherData {
     datapoints: OutdoorWeatherData[],
 }
+
+export interface GraphDataPoints {
+    name: string;
+    value: number;
+}
+
+export interface WeatherGraphDataSet extends WeatherData {
+    temperatureDataPoints: GraphDataPoints[];
+    humidityDataPoints: GraphDataPoints[];
+    label: string;
+    temperatureAverage: number;
+    humidityAverage: number;
+
+}
+
 
 export interface WeatherHistoryByDayData extends WeatherData  {
     averageTemperature: number, // in °C
