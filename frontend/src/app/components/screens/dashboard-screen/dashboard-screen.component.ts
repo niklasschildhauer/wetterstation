@@ -11,8 +11,6 @@ import { TileService } from 'src/app/services/tile.service';
   styleUrls: ['./dashboard-screen.component.scss']
 })
 export class DashboardScreenComponent implements OnInit {
-  // TEMP -> Muss geändert werden
-  indoorRooms?: IndoorRoomData[];
   reduceMotion: boolean = false;
   dashboardTiles?: Tile<WeatherData>[];
   tileType = TileType;
@@ -22,7 +20,6 @@ export class DashboardScreenComponent implements OnInit {
     private tileService: TileService) { }
 
   ngOnInit(): void {
-    this.loadIndoorRooms();
     this.loadReduceMotionValue();
     this.loadDashboardTiles();
   }
@@ -32,18 +29,10 @@ export class DashboardScreenComponent implements OnInit {
     .subscribe(data => this.reduceMotion = data);
   }
 
-  loadIndoorRooms(): void {
-    this.weatherService.getIndoorRoomData()
-                      .subscribe(data => {
-                        this.indoorRooms = data
-                        console.log(this.indoorRooms)});
-  }
-
   loadDashboardTiles(): void {
     this.tileService.getDashboardTiles()
                       .subscribe(data => {
-                        this.dashboardTiles = data
-                        console.log(this.dashboardTiles)});
+                        this.dashboardTiles = data});
   }
 
   reloadData(): void {

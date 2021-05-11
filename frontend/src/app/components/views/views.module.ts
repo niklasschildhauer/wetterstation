@@ -12,6 +12,7 @@ import { HistoryDetailViewComponent } from './history-detail-view/history-detail
 import { ForecastDetailViewComponent } from './forecast-detail-view/forecast-detail-view.component';
 import { ForecastTileViewComponent } from './forecast-tile-view/forecast-tile-view.component';
 import { PollenflugSmallTileComponent } from './pollenflug-small-tile/pollenflug-small-tile.component';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
 
 
 @NgModule({
@@ -31,6 +32,7 @@ import { PollenflugSmallTileComponent } from './pollenflug-small-tile/pollenflug
     CommonModule,
     RouterModule,
     UiElementsModule,
+    NgxChartsModule,
   ],
   exports: [
     PollenflugTileViewComponent,

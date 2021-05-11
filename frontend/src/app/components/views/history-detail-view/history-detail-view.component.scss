@@ -1,0 +1,16 @@
+.round-button * {
+    stroke: var(--text);
+}
+
+button.disabled * {
+    stroke: var(--secondary);
+
+}
+
+.button-container {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 0 var(--padding) 0;
+    flex-wrap: nowrap;
+    align-items: center;
+}

@@ -1,3 +1,15 @@
-<card-element [title]="'Gestern'" [subtitle]="'Historie'" [pressable]="pressable">
-    <p>history-tile-view works!gdfsgahtadlkakdmkfmg dfalkakdmg </p>
+<card-element *ngIf="_dataSet" [title]="title ? title : _dataSet.label" [subtitle]="pressable ? 'Historie': ''" [pressable]="pressable">
+    <div class="container">
+        <ngx-charts-bar-vertical *ngIf="getDataPoint() && getColorScheme()"
+            [scheme]="getColorScheme()"
+            [gradient]="true"
+            [xAxis]="true"
+            [yAxis]="true"
+            [legend]="false"
+            [showXAxisLabel]="false"
+            [showYAxisLabel]="false"
+            [results]="getDataPoint()"
+            [roundEdges]="true">
+        </ngx-charts-bar-vertical>
+    </div>
 </card-element>

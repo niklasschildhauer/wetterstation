@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { FORECAST, INDOORAIRQUALITY, OUTDOORWEATHER, POLLEN } from '../model/mock-data/weather.mock';
-import { OutdoorWeatherData, PollenData, IndoorRoomData, Daytime, WeatherForecastData } from '../model/weather';
+import { FORECAST, INDOORAIRQUALITY, OUTDOORWEATHER, POLLEN, WEATHERHISTORY } from '../model/mock-data/weather.mock';
+import { OutdoorWeatherData, PollenData, IndoorRoomData, Daytime, WeatherForecastData, WeatherHistoryData } from '../model/weather';
 import { Observable, of } from 'rxjs';
 
 
@@ -27,6 +27,11 @@ export class WeatherService {
 
   getForecastData(): Observable<WeatherForecastData> {
     let forecastData = of(FORECAST);
+    return forecastData;
+  }
+
+  getHistoryData(): Observable<WeatherHistoryData> {
+    let forecastData = of(WEATHERHISTORY);
     return forecastData;
   }
 
