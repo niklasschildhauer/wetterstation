@@ -17,22 +17,22 @@ export class PollenflugSmallTileComponent implements OnInit {
     switch(this._pollen.today) {
       case 1:
         this.textValue = "leicht";
-        this.emojiName = "thumbs-up";
+        this.emojiName = "everythingFine";
         this.colorValue = "green";
         break;
       case 2:
         this.textValue = "mittel";
-        this.emojiName = "muchacho";
+        this.emojiName = "yield";
         this.colorValue = "orange";
         break;
       case 3: 
         this.textValue = "schwer";
-        this.emojiName = "thumbs-down";
+        this.emojiName = "almostDeath";
         this.colorValue = "red";
         break;
       default:
         this.textValue = "n/a";
-        this.emojiName = "coolio";
+        this.emojiName = "death";
         this.colorValue = "blue";
     }
 
