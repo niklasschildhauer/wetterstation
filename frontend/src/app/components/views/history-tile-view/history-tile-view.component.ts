@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { Themes } from 'src/app/model/user-context';
 import { WeatherGraphDataSet, WeatherData, GraphDataPoints } from 'src/app/model/weather';
 
 @Component({
@@ -14,20 +15,38 @@ export class HistoryTileViewComponent implements OnInit {
     this._dataSet = data as WeatherGraphDataSet;
   }
   _dataSet?: WeatherGraphDataSet;
+  theme: Themes = Themes.Light;
+  ThemeType = Themes;
 
-  private temperatureColorScheme = {
+  temperatureColorScheme = {
     domain: ['#E44A4A']
   };
 
-  private humidityColorScheme = {
+  humidityColorScheme = {
     domain: ['#335BF0']
   };
+
+  showXAxis = true;
+  showYAxis = true;
+  gradient = false;
+  showLegend = true;
+  legendTitle = 'Legend';
+  legendPosition = 'right';
+  showXAxisLabel = true;
+  xAxisLabel = 'Country';
+  showYAxisLabel = true;
+  yAxisLabel = 'GDP Per Capita';
+  showGridLines = true;
+  innerPadding = '10%';
+  animations: boolean = true;
+  showRightYAxisLabel: boolean = true;
+  yAxisLabelRight: string = 'Utilization';
 
   constructor() { 
   }
 
-  ngOnInit(): void {  }
-
+  ngOnInit(): void { 
+  }
   getDataPoint(): GraphDataPoints[] | undefined{
     switch (this.graphType) {
       case HistoryGraphType.temperature: {

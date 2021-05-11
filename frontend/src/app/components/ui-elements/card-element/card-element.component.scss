@@ -31,7 +31,7 @@ h3 {
     -webkit-transition-property: transform;
     transition-property: transform;
   }
-  .shrink-on-hover:hover, .shrink-on-hover:focus, .shrink-on-hover:active {
+.shrink-on-hover:hover, .shrink-on-hover:focus, .shrink-on-hover:active {
     -webkit-transform: scale(0.97);
     transform: scale(0.97);
-  }
+}

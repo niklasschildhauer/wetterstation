@@ -76,7 +76,6 @@ export interface WeatherGraphDataSet extends WeatherData {
     label: string;
     temperatureAverage: number;
     humidityAverage: number;
-
 }
 
 

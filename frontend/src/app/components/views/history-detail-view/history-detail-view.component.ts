@@ -23,23 +23,37 @@ export class HistoryDetailViewComponent implements OnInit {
     this.loadWeatherHistoryData() 
   }
 
-  loadWeatherHistoryData() {
+  loadWeatherHistoryData(): void {
     this.weatherService.getHistoryData().subscribe(data => {
       this._weatherHistory = data
       this._dataSet = this.historyTileService.getHistoryDataSetHoursPerDayFrom(this._weatherHistory);
     });
   }
 
-  forward() {
-    if(this._dataSet && this._dataSet.length > this._index + 1) {
+  forward(): void {
+    if(this.isForwardPossible()) {
      this._index = this._index + 1;
     }
   }
 
-  back() {
-    if(this._index > 0) {
+  isForwardPossible(): boolean {
+    if(this._dataSet && this._dataSet.length > this._index + 1)  {
+      return true
+    }
+    return false;
+  }
+
+  back(): void {
+    if(this.isBackPossible()) {
       this._index = this._index - 1;
     } 
+  }
+
+  isBackPossible(): boolean {
+    if(this._index > 0) {
+      return true
+    }
+    return false;
   }
 
 
