@@ -9,6 +9,7 @@ import { WeatherGraphDataSet, WeatherData, GraphDataPoints } from 'src/app/model
 })
 export class HistoryTileViewComponent implements OnInit {
   @Input() pressable: boolean = false;
+  @Input() title?: string;
   @Input() graphType: HistoryGraphType = HistoryGraphType.temperature
   @Input()
   set data(data: WeatherData) {
