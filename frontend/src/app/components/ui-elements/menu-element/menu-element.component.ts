@@ -49,6 +49,7 @@ export class MenuElementComponent implements OnInit {
   }
 
   logout(): void {
+    this.router.navigateByUrl('/login'); //FIXME
     console.log("Logout pressed")
   }
 }

@@ -6,7 +6,7 @@ import { HttpClient } from "@angular/common/http";
 import { Observable, VirtualTimeScheduler } from 'rxjs';
 import { routeTransitionAnimations } from './route-transition-animation';
 import { DOCUMENT } from '@angular/common';
-import { Themes } from './model/user-context';
+import { Themes, UserContext } from './model/user-context';
 
 @Component({
   selector: 'app-root',
@@ -16,7 +16,7 @@ import { Themes } from './model/user-context';
 })
 export class AppComponent {
   title = 'wetterstation';
-  theme: Themes = Themes.Light;
+  userContext?: UserContext
   ThemeType = Themes;
 
   constructor(private renderer: Renderer2,
@@ -26,7 +26,7 @@ export class AppComponent {
 
   ngOnInit(): void {
     this.loadDefaultFontSize();
-    this.loadTheme();
+    this.loadUserContext();
     this.listenToThemeChange();
   }
 
@@ -41,9 +41,9 @@ export class AppComponent {
       });
   }
 
-  private loadTheme() {
-    this.userContextService.getThemePreference()
-    .subscribe(data => this.theme = data);
+  private loadUserContext() {
+    this.userContextService.getUserContext()
+    .subscribe(data => this.userContext = data);
   }
 
   private setDefaultFontSize(fontSize: number) {
@@ -61,22 +61,6 @@ export class AppComponent {
       window.location.reload();
     });
   }
-
-  bigFontSize() {
-    this.userContextService.setFontSizePreference(150);
-    this.loadDefaultFontSize();
-
-    this.speechAPI.startOutput();
-  }
-  smallFontSize() {
-    this.userContextService.setFontSizePreference(62.5);
-    this.loadDefaultFontSize();
-  }
-  normalFontSize() {
-    this.userContextService.setFontSizePreference(100);
-    this.loadDefaultFontSize();
-  }
-
   
   //Dummy - delete all below
   

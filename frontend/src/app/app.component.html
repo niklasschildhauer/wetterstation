@@ -1,7 +1,6 @@
-<div [@triggerName]="prepareRoute(outlet)" class="main-container container" [ngClass]="{'light-theme' : theme === ThemeType.Light, 'dark-theme' : theme === ThemeType.Dark  }">
+<div [@triggerName]="prepareRoute(outlet)" class="main-container container" [ngClass]="{'light-theme' : userContext?.theme === ThemeType.Light, 'dark-theme' : userContext?.theme === ThemeType.Dark  }">
   <router-outlet #outlet="outlet"></router-outlet>
 </div>
-
 
 
 

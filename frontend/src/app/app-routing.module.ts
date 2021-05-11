@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { DashboardScreenComponent } from './components/screens/dashboard-screen/dashboard-screen.component';
 import { DetailScreenComponent } from './components/screens/detail-screen/detail-screen.component';
+import { LoginScreenComponent } from './components/screens/login-screen/login-screen.component';
 import { PersonalizationScreenComponent } from './components/screens/personalization-screen/personalization-screen.component';
 import { ForecastDetailViewComponent } from './components/views/forecast-detail-view/forecast-detail-view.component';
 import { HistoryDetailViewComponent } from './components/views/history-detail-view/history-detail-view.component';
@@ -41,6 +42,10 @@ const routes: Routes = [
   },
   { path: 'personalization', 
     component: PersonalizationScreenComponent, 
+    data: { animationState: 'Detail' }
+  },
+  { path: 'login', 
+    component: LoginScreenComponent, 
     data: { animationState: 'Detail' }
   },
   { path: '', redirectTo: '/dashboard', pathMatch: 'full' }

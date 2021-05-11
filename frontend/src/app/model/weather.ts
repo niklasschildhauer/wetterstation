@@ -78,7 +78,6 @@ export interface WeatherGraphDataSet extends WeatherData {
     humidityAverage: number;
 }
 
-
 export interface WeatherHistoryByDayData extends WeatherData  {
     averageTemperature: number, // in °C
     averageHumidity: number, // in %

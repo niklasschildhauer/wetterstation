@@ -8,11 +8,28 @@ import { USERCONTEXT } from '../model/mock-data/user-context.mock';
   providedIn: 'root'
 })
 export class UserContextService {
+  userContext: UserContext = USERCONTEXT; // FIXME
 
-  constructor() { }
+  constructor() { 
+    this.loadUserContext()
+  }
+
+  loadUserContext() {
+    this.userContext = USERCONTEXT;
+  }
+
+  login(): Promise<UserContext> {
+    this.userContext.reduceMotion = true;
+    this.userContext.theme = Themes.Dark;
+    this.userContext.fontSize = 80;
+
+    return new Promise((resolve) => {
+      resolve(this.userContext);
+    })
+  }
 
   getFontSizePreference(): Observable<number> {
-    const fontSize = of(USERCONTEXT.fontSize);
+    const fontSize = of(this.userContext.fontSize);
     console.log(" font");
 
     return fontSize;
@@ -20,39 +37,39 @@ export class UserContextService {
 
   setFontSizePreference(fontSize: number) {
     console.log("increase font");
-    USERCONTEXT.fontSize = fontSize;
+    this.userContext.fontSize = fontSize;
     console.log("font changes");
   }
 
   getMotionPreference(): Observable<boolean> {
-    const reduceMotion = of(USERCONTEXT.reduceMotion);
+    const reduceMotion = of(this.userContext.reduceMotion);
     return reduceMotion;
   }
 
   setMotionPreference(newValue: boolean) {
-    USERCONTEXT.reduceMotion = newValue;
+    this.userContext.reduceMotion = newValue;
   }
 
   setThemePreference(newValue: Themes) {
-    USERCONTEXT.theme = newValue;
+    this.userContext.theme = newValue;
   }
 
   getThemePreference(): Observable<Themes> {
-    const theme = of(USERCONTEXT.theme);
+    const theme = of(this.userContext.theme);
     return theme;
   }
 
   getUserContext(): Observable<UserContext> {
-    const userContext = of(USERCONTEXT);
+    const userContext = of(this.userContext);
     return userContext;
   }
 
   setSelfVoicingPreference(newValue: boolean) {
-    USERCONTEXT.selfVoicingEnabled = newValue;
+    this.userContext.selfVoicingEnabled = newValue;
   }
 
   setVentilationReminderPreference(newValue: boolean) {
-    USERCONTEXT.doVentilationReminder = newValue;
+    this.userContext.doVentilationReminder = newValue;
   }
 
 }
