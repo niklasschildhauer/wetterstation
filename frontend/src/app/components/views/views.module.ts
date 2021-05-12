@@ -14,6 +14,9 @@ import { ForecastTileViewComponent } from './forecast-tile-view/forecast-tile-vi
 import { PollenflugSmallTileComponent } from './pollenflug-small-tile/pollenflug-small-tile.component';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { PersonalizationSettingsViewComponent } from './personalization-settings-view/personalization-settings-view.component';
+import { LoginViewComponent } from './login-view/login-view.component';
+import { RegistrationViewComponent } from './registration-view/registration-view.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -28,13 +31,17 @@ import { PersonalizationSettingsViewComponent } from './personalization-settings
     ForecastDetailViewComponent,
     ForecastTileViewComponent,
     PollenflugSmallTileComponent,
-    PersonalizationSettingsViewComponent
+    PersonalizationSettingsViewComponent,
+    LoginViewComponent,
+    RegistrationViewComponent,
   ],
   imports: [
     CommonModule,
     RouterModule,
     UiElementsModule,
     NgxChartsModule,
+    FormsModule, 
+    ReactiveFormsModule,
   ],
   exports: [
     PollenflugTileViewComponent,
@@ -47,7 +54,9 @@ import { PersonalizationSettingsViewComponent } from './personalization-settings
     ForecastDetailViewComponent,
     ForecastTileViewComponent,
     PollenflugSmallTileComponent,
-    PersonalizationSettingsViewComponent
+    PersonalizationSettingsViewComponent,
+    LoginViewComponent,
+    RegistrationViewComponent,
   ]
 })
 export class ViewsModule { }

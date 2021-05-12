@@ -4,11 +4,11 @@ import { Router } from '@angular/router';
 import { UserContextService } from 'src/app/services/user-context.service';
 
 @Component({
-  selector: 'app-login-screen',
-  templateUrl: './login-screen.component.html',
-  styleUrls: ['./login-screen.component.scss']
+  selector: 'app-login-view',
+  templateUrl: './login-view.component.html',
+  styleUrls: ['./login-view.component.scss']
 })
-export class LoginScreenComponent implements OnInit {
+export class LoginViewComponent implements OnInit {
   loginForm = this.formBuilder.group({
     email: new FormControl('', Validators.minLength(2)), // FIXME Validators funktionieren nicht 
     password: new FormControl('', Validators.minLength(2)),
@@ -29,5 +29,4 @@ export class LoginScreenComponent implements OnInit {
     });
   
   }
-
 }

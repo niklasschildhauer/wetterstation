@@ -1,7 +1,5 @@
-import { Component, OnInit, Renderer2 } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { BreakpointObserver, BreakpointState } from '@angular/cdk/layout';
-import { UserContextService } from 'src/app/services/user-context.service';
-import { UserContext } from 'src/app/model/user-context';
 
 
 @Component({
@@ -11,11 +9,8 @@ import { UserContext } from 'src/app/model/user-context';
 })
 export class PersonalizationScreenComponent implements OnInit {
   desktop: boolean = false;
-  userContextData?: UserContext;
 
-  constructor(private breakpointObserver: BreakpointObserver,
-      public userContextService: UserContextService,
-      private renderer: Renderer2) { }
+  constructor(private breakpointObserver: BreakpointObserver) { }
 
   ngOnInit(): void {
     this.breakpointObserver
@@ -27,28 +22,5 @@ export class PersonalizationScreenComponent implements OnInit {
           this.desktop = false;
         }
     });
-    this.getUserContext();
   }
-
-  getUserContext() {
-    this.userContextService.getUserContext()
-    .subscribe(data => this.userContextData = data)
-  }
-
-  setFontSize(value: number) {
-    console.log(value);
-    this.userContextService.setFontSizePreference(value);
-    if(this.userContextData) {
-      this.setDefaultFontSize(this.userContextData.fontSize);
-    }
-  }
-
-  // FIXME: 
-  // change the default font size
-  // Maybe we can solve this problem in another way.
-  private setDefaultFontSize(fontSize: number) {
-    this.renderer.setStyle(document.body, "font-size", fontSize + "%");  
-  }
-
-
 }
