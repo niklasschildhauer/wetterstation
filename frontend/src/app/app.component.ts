@@ -35,8 +35,9 @@ export class AppComponent {
   }
 
   private loadDefaultFontSize() {
-    this.userContextService.getFontSizePreference()
-    .subscribe(fontSize => {
+    this.userContextService.getUserContext()
+    .subscribe(data => {
+      let fontSize = data.fontSize
       this.setDefaultFontSize(fontSize);
       });
   }

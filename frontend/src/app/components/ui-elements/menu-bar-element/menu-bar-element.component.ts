@@ -20,8 +20,11 @@ export class MenuBarElementComponent implements OnInit {
   }
 
   loadReduceMotionValue() {
-    this.userContextService.getMotionPreference()
-    .subscribe(data => this.reduceMotion = data);
+    this.userContextService.getUserContext()
+    .subscribe(data => {
+      let reduceMotionValue = data.reduceMotion;
+      this.reduceMotion = reduceMotionValue
+    });
   }
 
   getLocation(): void {

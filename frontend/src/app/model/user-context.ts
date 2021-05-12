@@ -31,3 +31,14 @@ export enum Language {
     "de-DE",
     "en-EN"
 }
+
+// FIXME: Klasse macht wrs mehr sinn
+export let INITIAL_USER_CONTEXT: UserContext = {
+    theme: Themes.Automatic,
+    fontSize: 62.5,
+    pollen: [Pollen.Ambrosia, Pollen.Graeser],
+    selfVoicingEnabled: true,
+    language: Language["de-DE"],
+    doVentilationReminder: true,
+    reduceMotion: false,
+}

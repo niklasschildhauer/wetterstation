@@ -2,74 +2,59 @@ import { Injectable } from '@angular/core';
 import { UserContext, Themes } from '../model/user-context';
 import { Observable, of } from 'rxjs';
 import { USERCONTEXT } from '../model/mock-data/user-context.mock';
+import { LocalStorageService } from './local-storage.service';
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserContextService {
-  userContext: UserContext = USERCONTEXT; // FIXME
-
-  constructor() { 
-    this.loadUserContext()
+  _userContext: UserContext; // FIXME
+  set userContext(object: UserContext) {
+    this._userContext = object
+    this.saveUserContextToLocalStorage()
+  }
+  set theme(value: Themes) {
+    this._userContext.theme = value
+    this.saveUserContextToLocalStorage()
+  }
+  set reduceMotion(value: boolean) {
+    this._userContext.reduceMotion = value
+    this.saveUserContextToLocalStorage()
+  }
+  set selfVoicingEnabled(value: boolean) {
+    this._userContext.selfVoicingEnabled = value
+    this.saveUserContextToLocalStorage()
+  }
+  set doVentilationReminder(value: boolean) {
+    this._userContext.doVentilationReminder = value
+    this.saveUserContextToLocalStorage()
+  }
+  set fontSize(value: number) {
+    this._userContext.fontSize = value
+    this.saveUserContextToLocalStorage()
   }
 
-  loadUserContext() {
-    this.userContext = USERCONTEXT;
+  constructor(private localStorageService: LocalStorageService) { 
+    this._userContext = this.localStorageService.getUserContext();
   }
-
+  
   login(): Promise<UserContext> {
-    this.userContext.reduceMotion = true;
-    this.userContext.theme = Themes.Dark;
-    this.userContext.fontSize = 80;
-
+    // DELETE ME
+    this.reduceMotion = true;
+    this.theme = Themes.Dark;
+    this.fontSize = 80;
     return new Promise((resolve) => {
-      resolve(this.userContext);
+      resolve(this._userContext);
     })
   }
 
-  getFontSizePreference(): Observable<number> {
-    const fontSize = of(this.userContext.fontSize);
-    console.log(" font");
-
-    return fontSize;
-  }
-
-  setFontSizePreference(fontSize: number) {
-    console.log("increase font");
-    this.userContext.fontSize = fontSize;
-    console.log("font changes");
-  }
-
-  getMotionPreference(): Observable<boolean> {
-    const reduceMotion = of(this.userContext.reduceMotion);
-    return reduceMotion;
-  }
-
-  setMotionPreference(newValue: boolean) {
-    this.userContext.reduceMotion = newValue;
-  }
-
-  setThemePreference(newValue: Themes) {
-    this.userContext.theme = newValue;
-  }
-
-  getThemePreference(): Observable<Themes> {
-    const theme = of(this.userContext.theme);
-    return theme;
-  }
-
   getUserContext(): Observable<UserContext> {
-    const userContext = of(this.userContext);
+    const userContext = of(this._userContext);
     return userContext;
   }
 
-  setSelfVoicingPreference(newValue: boolean) {
-    this.userContext.selfVoicingEnabled = newValue;
+  saveUserContextToLocalStorage() {
+    this.localStorageService.saveUserContext(this._userContext)
   }
-
-  setVentilationReminderPreference(newValue: boolean) {
-    this.userContext.doVentilationReminder = newValue;
-  }
-
 }

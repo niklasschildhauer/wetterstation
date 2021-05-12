@@ -25,9 +25,12 @@ export class OutdoorWeatherViewComponent implements OnInit {
     this.loadDaytime();
   }
 
-  loadReduceMotionValue(): void {
-    this.userContextService.getMotionPreference()
-    .subscribe(data => this.reduceMotion = data);
+  loadReduceMotionValue() {
+    this.userContextService.getUserContext()
+    .subscribe(data => {
+      let reduceMotionValue = data.reduceMotion;
+      this.reduceMotion = reduceMotionValue
+    });
   }
 
 

@@ -25,7 +25,7 @@ export class PersonalizationSettingsViewComponent implements OnInit {
 
   setFontSize(value: number) {
     console.log(value);
-    this.userContextService.setFontSizePreference(value);
+    this.userContextService.fontSize = value;
     if(this.userContextData) {
       this.setDefaultFontSize(this.userContextData.fontSize);
     }

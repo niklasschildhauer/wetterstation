@@ -61,7 +61,7 @@ const routes: Routes = [
     ], 
     data: { animationState: 'Detail' }
   },
-  { path: '', redirectTo: '/dashboard', pathMatch: 'full' }
+  { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
 ];
 
 @NgModule({

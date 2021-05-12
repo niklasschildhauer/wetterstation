@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { IndoorRoomData, Tile, TileType, WeatherData } from 'src/app/model/weather';
-import { WeatherService } from 'src/app/services/weather.service';
+import { Tile, TileType, WeatherData } from 'src/app/model/weather';
 import { UserContextService } from 'src/app/services/user-context.service';
 import { TileService } from 'src/app/services/tile.service';
 
@@ -15,8 +14,7 @@ export class DashboardScreenComponent implements OnInit {
   dashboardTiles?: Tile<WeatherData>[];
   tileType = TileType;
 
-  constructor(private weatherService: WeatherService,
-    private userContextService: UserContextService,
+  constructor(private userContextService: UserContextService,
     private tileService: TileService) { }
 
   ngOnInit(): void {
@@ -25,8 +23,11 @@ export class DashboardScreenComponent implements OnInit {
   }
 
   loadReduceMotionValue() {
-    this.userContextService.getMotionPreference()
-    .subscribe(data => this.reduceMotion = data);
+    this.userContextService.getUserContext()
+    .subscribe(data => {
+      let reduceMotionValue = data.reduceMotion;
+      this.reduceMotion = reduceMotionValue;
+    });
   }
 
   loadDashboardTiles(): void {

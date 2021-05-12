@@ -1,9 +1,9 @@
 <div class="container" *ngIf="userContextData">
     <app-slider-element [label]="'Schriftgröße'" [value]="userContextData.fontSize" (valueChanged)="setFontSize($event)"></app-slider-element>
     <div class="switch-container">
-        <app-checkbox-switcher-element [label]="'Reduce motion'" [value]="userContextData.reduceMotion" (toggled)="userContextData.reduceMotion=$event"></app-checkbox-switcher-element>
-        <app-checkbox-switcher-element [label]="'Lüftungs-erinnerung'" [value]="userContextData.doVentilationReminder" (toggled)="userContextData.doVentilationReminder=$event"></app-checkbox-switcher-element>
-        <app-checkbox-switcher-element [label]="'Self-Voicing Funktion'" [value]="userContextData.selfVoicingEnabled" (toggled)="userContextData.selfVoicingEnabled=$event"></app-checkbox-switcher-element>
+        <app-checkbox-switcher-element [label]="'Reduce motion'" [value]="userContextData.reduceMotion" (toggled)="this.userContextService.reduceMotion=$event"></app-checkbox-switcher-element>
+        <app-checkbox-switcher-element [label]="'Lüftungs-erinnerung'" [value]="userContextData.doVentilationReminder" (toggled)="this.userContextService.doVentilationReminder=$event"></app-checkbox-switcher-element>
+        <app-checkbox-switcher-element [label]="'Self-Voicing Funktion'" [value]="userContextData.selfVoicingEnabled" (toggled)="this.userContextService.selfVoicingEnabled=$event"></app-checkbox-switcher-element>
     </div>
     <ul *ngIf="userContextData">
         <li>Lüftungserinnerung: {{userContextData.doVentilationReminder}}</li>

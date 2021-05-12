@@ -20,14 +20,12 @@ export class MenuButtonElementComponent implements OnInit {
   }
 
   loadReduceMotionValue() {
-    this.userContextService.getMotionPreference()
-    .subscribe(data => this.reduceMotion = data);
+    this.userContextService.getUserContext()
+    .subscribe(data => {
+      let reduceMotionValue = data.reduceMotion;
+      this.reduceMotion = reduceMotionValue
+    });
   }
-
-  // openMenu(): void {
-  //   console.log("Pressed open menu");
-  //   this.router.navigateByUrl('/personalization');
-  // }
 
   openMenu(): void {
     this.isMenuHidden = false;
