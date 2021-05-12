@@ -46,7 +46,7 @@ export class UserContextService {
     this.fontSize = 80;
     return new Promise((resolve) => {
       resolve(this._userContext);
-    })
+    });
   }
 
   getUserContext(): Observable<UserContext> {
