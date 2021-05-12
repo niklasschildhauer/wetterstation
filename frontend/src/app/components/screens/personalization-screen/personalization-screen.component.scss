@@ -1,13 +1,6 @@
 .container {
-    padding: var(--navbar-height) 0 var(--border-padding-bottom) 0;
-    height: calc(100vh - var(--navbar-height) - var(--border-padding-top) - var(--border-padding-bottom));
-}
-
-.switch-container {
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    // align-content: stretch;
+    padding-top: var(--navbar-height);
+    height: 100%
 }
 
 .background {

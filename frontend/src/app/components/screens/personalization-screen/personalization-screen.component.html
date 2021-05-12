@@ -1,24 +1,7 @@
 <div class="layout">
-    <app-nav-bar-element [titleLabel]="'Personalisierung'" [backLabel]="'Dashboard'"></app-nav-bar-element>
-
-    <div class="background">
-        <app-outdoor-weather-view class="outdoor-weather" *ngIf="desktop"></app-outdoor-weather-view>
-        <div class="container" *ngIf="userContextData">
-            <app-slider-element [label]="'Schriftgröße'" [value]="userContextData.fontSize" (valueChanged)="setFontSize($event)"></app-slider-element>
-            <div class="switch-container">
-                <app-checkbox-switcher-element [label]="'Reduce motion'" [value]="userContextData.reduceMotion" (toggled)="userContextData.reduceMotion=$event"></app-checkbox-switcher-element>
-                <app-checkbox-switcher-element [label]="'Lüftungs-erinnerung'" [value]="userContextData.doVentilationReminder" (toggled)="userContextData.doVentilationReminder=$event"></app-checkbox-switcher-element>
-                <app-checkbox-switcher-element [label]="'Self-Voicing Funktion'" [value]="userContextData.selfVoicingEnabled" (toggled)="userContextData.selfVoicingEnabled=$event"></app-checkbox-switcher-element>
-            </div>
-            <ul *ngIf="userContextData">
-                <li>Lüftungserinnerung: {{userContextData.doVentilationReminder}}</li>
-                <li>Self-Voicing: {{userContextData.selfVoicingEnabled}}</li>
-                <li>Reduce Motion: {{userContextData.reduceMotion}}</li>
-                <li>Schriftgröße: {{userContextData.fontSize}}</li>
-                <li>Theme: {{userContextData.theme}}</li>
-                <li>Pollen: {{userContextData.pollen}}</li>
-
-            </ul>
-        </div>
+    <app-outdoor-weather-view class="outdoor-weather" *ngIf="desktop"></app-outdoor-weather-view>
+    <app-nav-bar-element class="navbar" [titleLabel]="'Personalisierung'" [backLabel]="'Dashboard'"></app-nav-bar-element>
+    <div class="container">
+        <app-personalization-settings-view></app-personalization-settings-view>
     </div>
 </div>

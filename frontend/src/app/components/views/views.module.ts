@@ -13,6 +13,7 @@ import { ForecastDetailViewComponent } from './forecast-detail-view/forecast-det
 import { ForecastTileViewComponent } from './forecast-tile-view/forecast-tile-view.component';
 import { PollenflugSmallTileComponent } from './pollenflug-small-tile/pollenflug-small-tile.component';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
+import { PersonalizationSettingsViewComponent } from './personalization-settings-view/personalization-settings-view.component';
 
 
 @NgModule({
@@ -26,7 +27,8 @@ import { NgxChartsModule } from '@swimlane/ngx-charts';
     HistoryDetailViewComponent,
     ForecastDetailViewComponent,
     ForecastTileViewComponent,
-    PollenflugSmallTileComponent
+    PollenflugSmallTileComponent,
+    PersonalizationSettingsViewComponent
   ],
   imports: [
     CommonModule,
@@ -44,7 +46,8 @@ import { NgxChartsModule } from '@swimlane/ngx-charts';
     HistoryDetailViewComponent,
     ForecastDetailViewComponent,
     ForecastTileViewComponent,
-    PollenflugSmallTileComponent
+    PollenflugSmallTileComponent,
+    PersonalizationSettingsViewComponent
   ]
 })
 export class ViewsModule { }
