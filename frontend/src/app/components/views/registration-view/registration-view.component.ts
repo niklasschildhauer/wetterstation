@@ -15,6 +15,7 @@ export class RegistrationViewComponent implements OnInit {
     repeatedPassword: new FormControl('', Validators.minLength(2)),
     username: new FormControl('', Validators.minLength(2)),
   });
+  error?: string;
 
   constructor(private formBuilder: FormBuilder,
     private userContextService: UserContextService,
@@ -26,8 +27,8 @@ export class RegistrationViewComponent implements OnInit {
 
   onSubmit(): void {
     console.warn('Submitted:', this.registrationForm.value);
-    this.userContextService.login().then(() => {
-      this.router.navigateByUrl('/dashboard');
+    this.userContextService.register().then(() => {
+      this.router.navigateByUrl('/onboarding/personalization');
     });
   
   }

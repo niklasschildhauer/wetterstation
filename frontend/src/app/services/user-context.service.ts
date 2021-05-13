@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
-import { UserContext, Themes } from '../model/user-context';
+import { UserContext, Themes, INITIAL_USER_CONTEXT } from '../model/user-context';
 import { Observable, of } from 'rxjs';
-import { USERCONTEXT } from '../model/mock-data/user-context.mock';
 import { LocalStorageService } from './local-storage.service';
 
 
@@ -43,7 +42,15 @@ export class UserContextService {
     // DELETE ME
     this.reduceMotion = true;
     this.theme = Themes.Dark;
-    this.fontSize = 80;
+    // this.fontSize = 80;
+    return new Promise((resolve) => {
+      resolve(this._userContext);
+    });
+  }
+
+  register(): Promise<UserContext> {
+    this.userContext = INITIAL_USER_CONTEXT;
+    console.log(INITIAL_USER_CONTEXT);
     return new Promise((resolve) => {
       resolve(this._userContext);
     });

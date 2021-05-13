@@ -1,24 +1,38 @@
-<form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+<div class="container noon-gradient">
+  <h1>WeatherIO</h1>
+  <h5>Eine HdM Smarthome Innovation</h5>
+  <img class="logo" src="assets/weather/cloudy-sunny.png" alt="Logo">
+  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
     <div>
         <label for="email">
           Email
         </label>
-        <input id="email" type="text" formControlName="email">
+        <input id="email" 
+          type="text" 
+          formControlName="email"
+          placeholder="Bitte E-Mail Adresse eingeben"
+          >
       </div>
     
       <div>
         <label for="password">
           Address
         </label>
-        <input id="password" type="password" formControlName="password">
+        <input id="password" 
+          type="password" 
+          formControlName="password"
+          placeholder="Bitte Passwort eingeben"
+          >
       </div>
+      <p *ngIf="error" class="error-message">{{error}}</p>
 
 
-    <button class="button" type="submit">Login</button>
-  
+    <input type="submit" value="Login">
   </form>
+  <button (click)="onClickRegistration()">Registrieren</button>
+  <button (click)="onClickPersonalization()">Weiter ohne Login </button>
 
-  <a routerLink="/onboarding/registration">registration</a>
 
+</div>
 
   

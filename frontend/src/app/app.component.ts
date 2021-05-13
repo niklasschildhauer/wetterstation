@@ -61,6 +61,8 @@ export class AppComponent {
     query2.addEventListener( "change", (e) => {
       window.location.reload();
     });
+
+    // FIXME: Bug wenn von Explizit Dark Mode auf Autoatic Mode switch -> Reload needed!
   }
   
   //Dummy - delete all below

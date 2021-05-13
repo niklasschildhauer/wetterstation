@@ -14,6 +14,8 @@ export class LoginViewComponent implements OnInit {
     password: new FormControl('', Validators.minLength(2)),
   });
 
+  error?: string;
+
   constructor(private formBuilder: FormBuilder,
     private userContextService: UserContextService,
     private router: Router) { }
@@ -23,10 +25,17 @@ export class LoginViewComponent implements OnInit {
 
 
   onSubmit(): void {
-    console.warn('Submitted:', this.loginForm.value);
+    console.log('Submitted:', this.loginForm.value);
     this.userContextService.login().then(() => {
       this.router.navigateByUrl('/dashboard');
     });
-  
+  }
+
+  onClickRegistration() {
+    this.router.navigateByUrl('/onboarding/registration');
+  }
+
+  onClickPersonalization() {
+    this.router.navigateByUrl('/onboarding/personalization');
   }
 }

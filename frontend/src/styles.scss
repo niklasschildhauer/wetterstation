@@ -38,10 +38,10 @@
     --letter-spacing: 0.04em;
 }
 /* Set the default font family to Roboto */
-html, button, label {
+html, button, label, input {
     font-family: 'Roboto', Arial, sans-serif;
 }
-p, span, li, label {
+p, span, li, label, input {
     font-size: 1.6em;
     margin: 0;
     line-height: 1.5em;
@@ -57,6 +57,16 @@ h1, h2, h3, h4, h5 {
     letter-spacing: var(--letter-spacing);
     margin: var(--padding) 0 var(--padding);
 }
+
+input[type=text], select, input[type=password], label {
+    font-size: 1.3em;
+    letter-spacing: var(--letter-spacing);
+}
+
+label {
+    font-weight: 700;
+}
+
 h1 {
     font-size: 3.0em;
 }
@@ -72,7 +82,9 @@ h4 {
     margin-bottom: 10px;
 }
 h5 {
-    font-size: 1.8em;
+    font-size: 1.6em;
+    font-weight: 500;
+    letter-spacing: calc(var(--letter-spacing) * 2);
 }
 //////////////////////
 //
@@ -90,10 +102,12 @@ h5 {
     --surface:  #F5F4F7;
     --background: #FFFFFF;
     --pressed: #BABABA;
-    --disabled: #1D1D1D; //FIXME: I need a better color
+    --disabled: #1D1D1D;
+    --status-red: red;
+    --status-green: green; 
+    --status-yellow: yellow;  
+    --status-orange: orange; //FIXME: I need a better color
 }
-
-
 
 .main-container.dark-theme {
     --text: #FFFFFF;
@@ -130,7 +144,7 @@ h5 {
       }
 }
 
-p, h1, h2, h3, h4, h5, a, label, span {  
+p, h1, h2, h3, h4, h5, a, label, span, input {  
     color: var(--text);
     text-decoration: none;
 }
@@ -177,7 +191,7 @@ body {
 //
 
 
-// B U T T O N S
+// B U T T O N S & I N P U T S
 //////////////////////
 button {
     -webkit-appearance: none;
@@ -200,11 +214,11 @@ button {
     background-color: var(--surface);
 }
 
-button:active {
+button:active, input[type=submit]:active {
     background-color: var(--pressed);
 }
 
-button {
+button, input[type=submit] {
     // display: inline-block;
     vertical-align: middle;
     -webkit-transform: perspective(1px) translateZ(0);
@@ -215,18 +229,42 @@ button {
     -webkit-transition-property: transform;
     transition-property: transform;
   }
-button:hover, button:focus, button:active {
+button:hover, button:focus, button:active, input[type=submit]:focus,  input[type=submit]:hover  {
     -webkit-transform: scale(0.95);
     transform: scale(0.95);
 }
 
-button.disabled {
+button.disabled, input[type=submit].disabled {
     -webkit-transform: none;
     transform: none;
     background-color: var(--disabled);
 }
+
+input[type=submit] {
+    width: 100%;
+    background-color: var(--accent);
+    color: white;
+    padding: 12px 20px;
+    margin: var(--padding) 0;
+    border: none;
+    border-radius: var(--corner-radius);
+    cursor: pointer;
+}
+
+input[type=text], input[type=password] {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 0px solid #ccc;
+    border-radius: calc(var(--corner-radius) * 0.5);
+    box-sizing: border-box;
+    background-color: var(--surface);
+    color: var(--text);
+}
 //////////////////////
 //
+
 
 
 // D I S A B L E  S E L E C T I O N
@@ -242,3 +280,4 @@ button.disabled {
 }
 //////////////////////
 //
+

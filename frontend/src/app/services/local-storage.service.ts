@@ -19,7 +19,6 @@ export class LocalStorageService {
     let objectString = this.getItem(LocalStorageService.userContextIdentifier);
     if (objectString) {
       let userContext = JSON.parse(objectString) as UserContext;
-      console.log(userContext); // DELETE ME
       return userContext
     } 
     return INITIAL_USER_CONTEXT

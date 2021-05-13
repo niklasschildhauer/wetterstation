@@ -1,0 +1,10 @@
+.container {
+    min-width: 100vw;
+    min-height: 100vh;
+}
+
+.error-message {
+    color: var(--status-red);
+    padding-top: calc(var(--padding) / 2 );
+    text-align: center;
+}
