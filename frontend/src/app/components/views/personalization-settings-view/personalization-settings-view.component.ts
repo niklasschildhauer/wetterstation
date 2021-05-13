@@ -1,6 +1,7 @@
 import { Component, OnInit, Renderer2 } from '@angular/core';
 import { UserContextService } from 'src/app/services/user-context.service';
-import { UserContext } from 'src/app/model/user-context';
+import { Pollen, UserContext } from 'src/app/model/user-context';
+
 
 @Component({
   selector: 'app-personalization-settings-view',
@@ -10,12 +11,16 @@ import { UserContext } from 'src/app/model/user-context';
 export class PersonalizationSettingsViewComponent implements OnInit {
   desktop: boolean = false;
   userContextData?: UserContext;
+  polle = false;
+  
 
-  constructor(public userContextService: UserContextService,
-      private renderer: Renderer2) { }
+  constructor(
+    public userContextService: UserContextService,
+    private renderer: Renderer2) { }
 
   ngOnInit(): void {
     this.getUserContext();
+    this.userContextData?.pollen
   }
 
   getUserContext() {
@@ -29,6 +34,11 @@ export class PersonalizationSettingsViewComponent implements OnInit {
     if(this.userContextData) {
       this.setDefaultFontSize(this.userContextData.fontSize);
     }
+  }
+
+  getPollenKeys() : Array<string> {
+    var keys = Object.keys(Pollen);
+    return keys.slice(keys.length / 2);
   }
 
   // FIXME: 

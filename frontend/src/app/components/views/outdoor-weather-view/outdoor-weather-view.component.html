@@ -2,8 +2,8 @@
     <img class="weather-image" src="assets/weather/cloudy-sunny.png" alt="Sonne mit Wolken" [ngClass]="{'motion-allowed' : !reduceMotion }">
     <h1 class="temperature">{{outdoorWeather.temperature}}°</h1>
     <p class="weather-description">{{getWeatherDescription()}}</p>
-    <!-- <p>Luftfeuchtigkeit: {{outdoorWeather.humidity}}%</p>
+    <p>Luftfeuchtigkeit: {{outdoorWeather.humidity}}%</p>
     <p>MaxTemperatur: {{outdoorWeather.maxTemperature}}</p>
     <p>MinTemperatur: {{outdoorWeather.minTemperature}}</p>
-    <p>GefühlteTemperatur: {{outdoorWeather.apparentTemperature}}</p> -->
+    <p>GefühlteTemperatur: {{outdoorWeather.apparentTemperature}}</p>
 </div>

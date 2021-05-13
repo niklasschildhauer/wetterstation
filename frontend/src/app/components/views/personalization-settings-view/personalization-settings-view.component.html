@@ -5,6 +5,16 @@
         <app-checkbox-switcher-element [label]="'Lüftungs-erinnerung'" [value]="userContextData.doVentilationReminder" (toggled)="this.userContextService.doVentilationReminder=$event"></app-checkbox-switcher-element>
         <app-checkbox-switcher-element [label]="'Self-Voicing Funktion'" [value]="userContextData.selfVoicingEnabled" (toggled)="this.userContextService.selfVoicingEnabled=$event"></app-checkbox-switcher-element>
     </div>
+
+    <div>
+        <card-element [title]="'Pollenflug'"  [pressable]="false">
+        </card-element>
+        <p *ngFor="let item of getPollenKeys()">
+            <input type="checkbox" [checked]="polle" (change)="polle = !polle"/>
+            {{item}}
+        </p>
+
+    </div>
     <ul *ngIf="userContextData">
         <li>Lüftungserinnerung: {{userContextData.doVentilationReminder}}</li>
         <li>Self-Voicing: {{userContextData.selfVoicingEnabled}}</li>
