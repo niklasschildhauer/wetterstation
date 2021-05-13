@@ -1,36 +1,39 @@
-<div class="container">
-    <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
-        <div>
-            <label for="username">
-                Username
-            </label>
-            <input id="username" type="password" formControlName="username">
-        </div>
+<div class="layout">
+    <app-nav-bar-element [titleLabel]="'Registrieren'" [backLabel]="'Login'"></app-nav-bar-element>
+    <div class="container">
+        <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
+            <div>
+                <label for="username">
+                    Username
+                </label>
+                <input id="username" type="password" formControlName="username">
+            </div>
 
-        <div>
-            <label for="email">
-                Email
-            </label>
-            <input id="email" type="text" formControlName="email">
-        </div>
+            <div>
+                <label for="email">
+                    Email
+                </label>
+                <input id="email" type="text" formControlName="email">
+            </div>
 
-        <div>
-            <label for="password">
-                Passwort
-            </label>
-            <input id="password" type="password" formControlName="password">
-        </div>
+            <div>
+                <label for="password">
+                    Passwort
+                </label>
+                <input id="password" type="password" formControlName="password">
+            </div>
 
-        <div>
-            <label for="repeated-password">
-                Passwort wiederholen
-            </label>
-            <input id="repeated-password" type="password" formControlName="repeatedPassword">
-        </div>
+            <div>
+                <label for="repeated-password">
+                    Passwort wiederholen
+                </label>
+                <input id="repeated-password" type="password" formControlName="repeatedPassword">
+            </div>
 
-        <p *ngIf="error" class="error-message">{{error}}</p>
+            <p *ngIf="error" class="error-message">{{error}}</p>
 
-        <input type="submit" value="Registrieren">
-    
-    </form>
+            <input type="submit" value="Registrieren">
+        
+        </form>
+    </div>
 </div>

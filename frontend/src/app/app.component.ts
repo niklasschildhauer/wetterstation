@@ -3,9 +3,8 @@ import { RouterOutlet } from '@angular/router';
 import { UserContextService } from './services/user-context.service';
 import { SpeechAPIService } from './services/speech-api.service';
 import { HttpClient } from "@angular/common/http";
-import { Observable, VirtualTimeScheduler } from 'rxjs';
+import { Observable } from 'rxjs';
 import { routeTransitionAnimations } from './route-transition-animation';
-import { DOCUMENT } from '@angular/common';
 import { Themes, UserContext } from './model/user-context';
 
 @Component({

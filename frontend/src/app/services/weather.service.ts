@@ -39,6 +39,6 @@ export class WeatherService {
   getDaytime(): Daytime {
     const date = new Date()
     console.log(date.getHours())
-    return Daytime.night;
+    return Daytime.noon;
   }
 }

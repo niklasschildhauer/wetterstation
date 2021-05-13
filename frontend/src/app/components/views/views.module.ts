@@ -17,6 +17,7 @@ import { PersonalizationSettingsViewComponent } from './personalization-settings
 import { LoginViewComponent } from './login-view/login-view.component';
 import { RegistrationViewComponent } from './registration-view/registration-view.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { PersonalizationViewComponent } from './personalization-view/personalization-view.component';
 
 
 @NgModule({
@@ -34,6 +35,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     PersonalizationSettingsViewComponent,
     LoginViewComponent,
     RegistrationViewComponent,
+    PersonalizationViewComponent,
   ],
   imports: [
     CommonModule,

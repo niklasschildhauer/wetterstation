@@ -2,6 +2,10 @@
     padding-top: var(--navbar-height);
 }
 
+.layout {
+    min-height: calc(100vh);
+}
+
 .background {
     background-color: var(--background);
 }

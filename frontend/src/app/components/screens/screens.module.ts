@@ -9,6 +9,7 @@ import { RouterModule } from '@angular/router';
 import { LayoutModule } from '@angular/cdk/layout';
 import { AppRoutingModule } from 'src/app/app-routing.module';
 import { PersonalizationScreenComponent } from './personalization-screen/personalization-screen.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
 
@@ -26,6 +27,7 @@ import { PersonalizationScreenComponent } from './personalization-screen/persona
     UiElementsModule,
     ViewsModule,
     LayoutModule,
+    BrowserAnimationsModule,
   ]
 })
 

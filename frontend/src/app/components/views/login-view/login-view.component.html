@@ -1,4 +1,4 @@
-<div class="container noon-gradient">
+<div class="layout container noon-gradient ">
   <h1>WeatherIO</h1>
   <h5>Eine HdM Smarthome Innovation</h5>
   <img class="logo" src="assets/weather/cloudy-sunny.png" alt="Logo">
@@ -29,9 +29,10 @@
 
     <input type="submit" value="Login">
   </form>
-  <button (click)="onClickRegistration()">Registrieren</button>
-  <button (click)="onClickPersonalization()">Weiter ohne Login </button>
-
+  <div class="button-container">
+    <button (click)="onClickRegistration()">Registrieren</button>
+    <button (click)="onClickPersonalization()">Weiter ohne Login </button>
+  </div>
 
 </div>
 

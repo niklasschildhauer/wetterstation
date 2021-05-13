@@ -1,3 +1,6 @@
 <div class="container">
-    <router-outlet></router-outlet>
+    <app-outdoor-weather-view class="outdoor-weather" *ngIf="desktop"></app-outdoor-weather-view>
+    <div [@triggerName]="prepareRoute(outlet)">
+        <router-outlet #outlet="outlet"></router-outlet>
+    </div>
 </div>
