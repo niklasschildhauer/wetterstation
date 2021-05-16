@@ -61,7 +61,7 @@ export class TileService {
             type: TileType.pollenSmall,
             data: pollenData[_i],
             id: pollenData[_i].name,
-            priority: this.getPrioritiyOf(pollenData, TileType.pollenSmall),
+            priority: this.getPrioritiyOf(pollenData[_i], TileType.pollenSmall),
           }
           this.addOrReplaceTileTo(this._dashboardTiles, smallTile);
           this.addOrReplaceTileTo(this._pollenTiles, smallTile);
@@ -137,7 +137,15 @@ export class TileService {
         // FIXME: Implement algorithm
       }
       case TileType.pollenSmall: {
-        return TilePriority.middle
+        let pollen = data as PollenData
+        console.log(pollen);
+        if (pollen.today > 2) {
+          return TilePriority.high
+        }
+        if (pollen.today >= 1) {
+          return TilePriority.middle
+        }
+        return TilePriority.low
         // FIXME: Implement algorithm
       }
       case TileType.forecast: {
@@ -145,7 +153,7 @@ export class TileService {
         // FIXME: Implement algorithm
       }
       case TileType.history: {
-        return TilePriority.important
+        return TilePriority.high
       }
     }
     return TilePriority.middle

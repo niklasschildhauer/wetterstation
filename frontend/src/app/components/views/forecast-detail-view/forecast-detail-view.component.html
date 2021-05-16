@@ -1,3 +1,8 @@
 <app-nav-bar-element [titleLabel]="'Vorhersage'" [backLabel]="'Dashboard'"></app-nav-bar-element>
+<app-forecast-tile-view *ngIf="forecast" [data]="forecast" [pressable]="false"></app-forecast-tile-view>
 
-<p>forecast-detail-view works!</p>
+<h4>Alles zur Vorhersage</h4>
+<article lang="de"> 
+    <p>Mehr als 15% der Bevölkerung in Deutschland sind Pollenallergiker und die Tendenz ist weiter zunehmend. Symptome wie Fließschnupfen, Bindehautentzündung bis hin zu Asthma sind damit verbunden. Hinzu kommen oftmals Kreuzreaktionen mit Nahrungsmitteln. Auch wenn die Intensität der allergischen Reaktionen individuell sehr unterschiedlich ist, so gibt es nach Aussagen von Allergologen dennoch einen engen Zusammenhang zwischen der Stärke der Symptomatik und der Pollenkonzentration in der Atemluft. Damit lässt sich aus dem Pollenflug direkt die Belastung des Pollenallergikers ableiten.</p>
+    <p>Da der Pollenflug aufgrund regional unterschiedlicher Pflanzenentwicklung sowie aufgrund des Wetters in Raum und Zeit stark schwanken kann, ist es für eine gezielte und vorausschauende Prophylaxe sinnvoll, täglich aktualisierte Informationen über die erwartete Pollenbelastung zur Verfügung zu stellen.</p>
+</article>

@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { WeatherForecastData } from 'src/app/model/weather';
+import { WeatherService } from 'src/app/services/weather.service';
 
 @Component({
   selector: 'app-forecast-detail-view',
@@ -6,10 +8,15 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./forecast-detail-view.component.scss']
 })
 export class ForecastDetailViewComponent implements OnInit {
-
-  constructor() { }
+  forecast?: WeatherForecastData;
+  constructor(private weatherService: WeatherService) { }
 
   ngOnInit(): void {
+    this.loadForecastData();
   }
 
+  loadForecastData() {
+    this.weatherService.getForecastData()
+                        .subscribe(data => this.forecast = data);
+  }
 }
