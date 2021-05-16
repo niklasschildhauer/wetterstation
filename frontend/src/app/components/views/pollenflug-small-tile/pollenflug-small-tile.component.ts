@@ -12,36 +12,9 @@ export class PollenflugSmallTileComponent implements OnInit {
   @Input()
   set data(data: WeatherData) {
     this._pollen = data as PollenData;
-
-    // REMOVE THE FOLLOWING -> DOPPELT
-    switch(this._pollen.today) {
-      case 1:
-        this.textValue = "leicht";
-        this.emojiName = "everythingFine";
-        this.colorValue = "green";
-        break;
-      case 2:
-        this.textValue = "mittel";
-        this.emojiName = "yield";
-        this.colorValue = "orange";
-        break;
-      case 3: 
-        this.textValue = "schwer";
-        this.emojiName = "almostDeath";
-        this.colorValue = "red";
-        break;
-      default:
-        this.textValue = "n/a";
-        this.emojiName = "death";
-        this.colorValue = "blue";
-    }
-
   }
   _pollen?: PollenData;
   cardSizeType = CardSize;
-  public emojiName?: string;
-  public textValue?: string;
-  public colorValue?: string;
 
   constructor() { }
 

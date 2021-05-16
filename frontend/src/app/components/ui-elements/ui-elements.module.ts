@@ -11,6 +11,7 @@ import { MenuElementComponent } from './menu-element/menu-element.component';
 import { SliderElementComponent } from './slider-element/slider-element.component';
 import { FormsModule } from '@angular/forms';
 import { PollenListElementComponent } from './pollen-list-element/pollen-list-element.component';
+import { PollenTagElementComponent } from './pollen-tag-element/pollen-tag-element.component';
 
 
 
@@ -27,6 +28,7 @@ import { PollenListElementComponent } from './pollen-list-element/pollen-list-el
     MenuElementComponent,
     SliderElementComponent,
     PollenListElementComponent,
+    PollenTagElementComponent,
   ],
   imports: [
     CommonModule,
@@ -43,6 +45,8 @@ import { PollenListElementComponent } from './pollen-list-element/pollen-list-el
     MenuElementComponent,
     SliderElementComponent,
     PollenListElementComponent,
+    PollenTagElementComponent,
+
   ]
 })
 export class UiElementsModule { }

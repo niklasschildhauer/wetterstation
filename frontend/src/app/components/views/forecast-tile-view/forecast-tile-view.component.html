@@ -1,4 +1,6 @@
-<card-element [title]="'Vorhersage'" [subtitle]="'Tagesverlauf'" [pressable]="pressable">
-
-<p>forecast-tile-view works!</p>
+<card-element *ngIf="_forecast" [subtitle]="'Vorhersage'" [title]="_forecast.forecast" [pressable]="pressable">
+    <div class="flex-container">
+        <p>Im laufe des Tages wird es sonnig werden</p>
+        <img class="forecast-image" src="assets/weather/cloudy-sunny.png" alt="Sonne mit Wolken">
+    </div>
 </card-element>

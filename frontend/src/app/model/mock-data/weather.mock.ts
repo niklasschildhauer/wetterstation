@@ -90,7 +90,7 @@ export var OUTDOORWEATHER14: OutdoorWeatherData = {
 };
 
 export var FORECAST: WeatherForecastData = {
-    forecast: "Besser"
+    forecast: "Sonnig"
 }
 
 export var FORECASTTILE: Tile<WeatherForecastData> = {
@@ -151,7 +151,7 @@ export var POLLEN: PollenData[] = [
     {
         name: "Gräser",
         type: Pollen.Graeser,
-        today: 1,
+        today: 3,
         tomorrow: 0,
     },
 

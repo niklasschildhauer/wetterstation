@@ -52,6 +52,7 @@ p, span, li, button, input[type=submit] {
     margin: 0;
     line-height: 1.5em;
     letter-spacing: calc(var(--letter-spacing));
+    hyphens: auto;
 }
 /* Set the default font family for headings to Montserrat */
 h1, h2, h3, h4, h5 {
@@ -59,6 +60,7 @@ h1, h2, h3, h4, h5 {
     font-weight: 700;
     letter-spacing: var(--letter-spacing);
     margin: var(--padding) 0 var(--padding);
+    hyphens: auto;
 }
 
 input[type=text], input[type=password], label {
@@ -88,6 +90,15 @@ h5 {
     font-size: 1.6em;
     font-weight: 500;
     letter-spacing: calc(var(--letter-spacing) * 2);
+}
+
+article {
+    text-align: justify;
+    padding-bottom: var(--border-padding-bottom);
+    hyphens: auto;
+    p {
+        padding-bottom: var(--padding);
+    }
 }
 //////////////////////
 //
