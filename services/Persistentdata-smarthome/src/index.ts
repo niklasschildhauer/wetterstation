@@ -44,6 +44,22 @@ createConnection().then(async connection => {
 
 
 
+function sendToDatabase(query, queryparams){
+
+   createConnection().then(async connection => {
+
+        console.log("Inserting new sensor data...");
+        const outdoor = new Outdoor();
+        outdoor.humidity = 30;
+        outdoor.temperature = 24;
+        outdoor.pressure = 7;
+        await connection.manager.save(outdoor);
+        console.log("Saved new outdoor data with id: " + outdoor.id);
+    }).catch(error => console.log(error));
+}
+
+
+
 
 
 console.log("listening on port", port)
