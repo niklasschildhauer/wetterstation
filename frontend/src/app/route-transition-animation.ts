@@ -59,10 +59,10 @@ export const routeTransitionAnimations = trigger('triggerName', [
 				width: '100%'
 			})
 		]),
-		query(':enter', [style({ opacity: 0 })]),
+		query(':enter', [style({ opacity: 0.5 })]),
 		query(':leave', animateChild()),
 		group([
-			query(':leave', [animate('0.6s ease-out', style({ opacity: 0 }))]),
+			query(':leave', [animate('0.6s ease-out', style({ opacity: 0.5 }))]),
 			query(':enter', [animate('0.6s ease-out', style({ opacity: 1 }))])
 		]),
 		query(':enter', animateChild())

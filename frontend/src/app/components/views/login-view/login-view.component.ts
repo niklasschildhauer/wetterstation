@@ -23,6 +23,8 @@ export class LoginViewComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  
+
 
   onSubmit(): void {
     console.log('Submitted:', this.loginForm.value);
@@ -32,6 +34,7 @@ export class LoginViewComponent implements OnInit {
   }
 
   onClickRegistration() {
+    this.userContextService.logout();
     this.router.navigateByUrl('/onboarding/registration');
   }
 

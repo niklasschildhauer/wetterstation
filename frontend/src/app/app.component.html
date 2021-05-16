@@ -1,3 +1,9 @@
-<div [@triggerName]="prepareRoute(outlet)" class="main-container container" [ngClass]="{'light-theme' : userContext?.theme === ThemeType.Light, 'dark-theme' : userContext?.theme === ThemeType.Dark  }">
-  <router-outlet #outlet="outlet"></router-outlet>
+<div [@triggerName]="prepareRoute(outlet)" 
+  class="main-container container" 
+  [ngClass]="{'light-theme' : userContext?.theme === ThemeType.Light, 'dark-theme' : userContext?.theme === ThemeType.Dark  }">
+  <a routerLink="/dashboard">
+    <app-outdoor-weather-view class="outdoor-weather" *ngIf="desktop"></app-outdoor-weather-view>
+  </a>
+  <router-outlet 
+    #outlet="outlet"></router-outlet>
 </div>

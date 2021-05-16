@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
-import { UserContext, Themes, INITIAL_USER_CONTEXT } from '../model/user-context';
+import { UserContext, Themes, INITIAL_USER_CONTEXT, Pollen } from '../model/user-context';
 import { Observable, of } from 'rxjs';
 import { LocalStorageService } from './local-storage.service';
+import { TileService } from './tile.service';
 
 
 @Injectable({
@@ -13,8 +14,11 @@ export class UserContextService {
     this._userContext = object
     this.saveUserContextToLocalStorage()
   }
+  get theme() {
+    return this._userContext.theme
+  }
   set theme(value: Themes) {
-    this._userContext.theme = value
+    this._userContext.theme = value;
     this.saveUserContextToLocalStorage()
   }
   set reduceMotion(value: boolean) {
@@ -33,6 +37,14 @@ export class UserContextService {
     this._userContext.fontSize = value
     this.saveUserContextToLocalStorage()
   }
+  set pollen(value: Pollen[]) {
+    this._userContext.pollen = value
+    this.saveUserContextToLocalStorage()
+
+  }
+  get pollen() {
+    return this._userContext.pollen
+  }
 
   constructor(private localStorageService: LocalStorageService) { 
     this._userContext = this.localStorageService.getUserContext();
@@ -46,6 +58,11 @@ export class UserContextService {
     return new Promise((resolve) => {
       resolve(this._userContext);
     });
+  }
+
+  logout() {
+    console.log("Reset user context");
+    this.userContext = INITIAL_USER_CONTEXT;
   }
 
   register(): Promise<UserContext> {

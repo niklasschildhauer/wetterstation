@@ -1,7 +1,7 @@
 export interface UserContext {
     theme: Themes,
     fontSize: number, // in %
-    pollen: Pollen[], // Map<Pollen, boolean> Um die Mockdaten einfacher zu erstellen in Array konvertiert. Kann auch wieder in Map<Pollen, boolean> gewandelt werden. 
+    pollen: Pollen[], // Um die Mockdaten einfacher zu erstellen in Array konvertiert. Kann auch wieder in Map<Pollen, boolean> gewandelt werden. 
     selfVoicingEnabled: boolean,
     language: Language, // ietf-bcp47
     doVentilationReminder: boolean, // TODO: What if multiple users have concurring settings here?
@@ -36,7 +36,7 @@ export enum Language {
 export let INITIAL_USER_CONTEXT: UserContext = {
     theme: Themes.Automatic,
     fontSize: 62.5,
-    pollen: [],
+    pollen: [Pollen.Esche],
     selfVoicingEnabled: false,
     language: Language["de-DE"],
     doVentilationReminder: false,

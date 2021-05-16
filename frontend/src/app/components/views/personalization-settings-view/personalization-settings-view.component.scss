@@ -4,3 +4,16 @@
     flex-wrap: wrap;
     // align-content: stretch;
 }
+
+
+.flex-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.pollen-item {
+    width: 8.5em;
+    font-weight: 500;
+    font-size: 1.6em;
+}

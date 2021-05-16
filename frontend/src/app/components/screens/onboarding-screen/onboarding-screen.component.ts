@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { BreakpointObserver, BreakpointState } from '@angular/cdk/layout';
 import { routeTransitionAnimations } from '../../../route-transition-animation';
 
 
@@ -13,19 +12,9 @@ import { routeTransitionAnimations } from '../../../route-transition-animation';
 export class OnboardingScreenComponent implements OnInit {
   public desktop: boolean = false;
 
-  constructor(public breakpointObserver: BreakpointObserver) { }
+  constructor() { }
 
-  ngOnInit(): void {
-    this.breakpointObserver
-      .observe(['(min-width: 770px)'])
-      .subscribe((state: BreakpointState) => {
-        if (state.matches) {
-          this.desktop = true;
-        } else {
-          this.desktop = false;
-        }
-      });
-  }
+  ngOnInit(): void {}
 
 
   prepareRoute(outlet: RouterOutlet) {

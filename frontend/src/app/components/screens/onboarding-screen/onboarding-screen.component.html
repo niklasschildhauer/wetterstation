@@ -1,6 +1,5 @@
 <div class="container">
-    <app-outdoor-weather-view class="outdoor-weather" *ngIf="desktop"></app-outdoor-weather-view>
     <div [@triggerName]="prepareRoute(outlet)">
-        <router-outlet #outlet="outlet"></router-outlet>
+        <router-outlet #outlet="outlet"></router-outlet> <!-- FIXME: BIN ICH GLEICH WIE DETAIL SCREEN? -->
     </div>
 </div>

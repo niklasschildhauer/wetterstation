@@ -2,7 +2,7 @@
 <app-menu-bar-element></app-menu-bar-element>
 <div class="card-container" [ngClass]="{'motion-disabled' : reduceMotion }">
     <ng-template dashboardDirective></ng-template>
-    <app-outdoor-weather-view></app-outdoor-weather-view>
+    <app-outdoor-weather-view *ngIf="!desktop"></app-outdoor-weather-view>
 
     <div *ngIf="dashboardTiles" class="flex-container"> 
         <div *ngFor="let item of dashboardTiles" [ngSwitch]="item.type">

@@ -39,7 +39,7 @@ button {
     align-items: center;
     flex-direction: column;
     justify-items: stretch;
-    margin-left: calc(var(--border-padding-left) - var(--border-padding-right));
+    // margin-left: calc(var(--border-padding-left) - var(--border-padding-right));
 }
 
 @media (min-width: 770px) {

@@ -6,6 +6,7 @@ import { HttpClient } from "@angular/common/http";
 import { Observable } from 'rxjs';
 import { routeTransitionAnimations } from './route-transition-animation';
 import { Themes, UserContext } from './model/user-context';
+import { BreakpointObserver, BreakpointState} from '@angular/cdk/layout';
 
 @Component({
   selector: 'app-root',
@@ -17,20 +18,40 @@ export class AppComponent {
   title = 'wetterstation';
   userContext?: UserContext
   ThemeType = Themes;
+  desktop: boolean = false;
 
   constructor(private renderer: Renderer2,
               private userContextService: UserContextService,
               private http: HttpClient,
-              private speechAPI: SpeechAPIService) { }
+              private speechAPI: SpeechAPIService,
+              private breakpointObserver: BreakpointObserver) { }
 
   ngOnInit(): void {
     this.loadDefaultFontSize();
     this.loadUserContext();
-    this.listenToThemeChange();
+    this.listenToThemeChange();  
+    this.desktopBreakpointObserver();
+  }
+
+
+  ngOnChanges(): void {
+    this.loadDefaultFontSize() // Brauchen wir das?
   }
 
   prepareRoute(outlet: RouterOutlet) {
     return outlet && outlet.activatedRouteData && outlet.activatedRouteData['animationState'];
+  }
+
+  private desktopBreakpointObserver() {
+    this.breakpointObserver
+    .observe(['(min-width: 770px)'])
+    .subscribe((state: BreakpointState) => {
+      if (state.matches) {
+        this.desktop = true;
+      } else {
+        this.desktop = false;
+      }
+    });
   }
 
   private loadDefaultFontSize() {

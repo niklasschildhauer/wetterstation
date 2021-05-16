@@ -31,31 +31,33 @@ export class TileService {
   
   private loadPollenTiles(): void {
     this.weatherService.getPollen().subscribe(data => {
-      let tile: Tile<PollenData[]> = {
+      let preferredPollen = this.userContextService.pollen
+      let pollenData = data
+      if(preferredPollen.length > 0) {
+        for (var _i = 0; _i < preferredPollen.length; _i++) {
+          let smallTile: Tile<PollenData> = {
+            type: TileType.pollenSmall,
+            data: pollenData[_i],
+            id: pollenData[_i].name,
+            priority: this.getPrioritiyOf(pollenData, TileType.pollenSmall),
+          }
+          this.addOrReplaceTileTo(this._dashboardTiles, smallTile);
+          this.addOrReplaceTileTo(this._pollenTiles, smallTile);
+          pollenData = pollenData.filter((item) => pollenData[_i] != item);
+        }
+      }
+      
+      let listTile: Tile<PollenData[]> = {
         type: TileType.pollenList,
-        data: data,
+        data: pollenData,
         id: "pollenlist",
-        priority: this.getPrioritiyOf(data, TileType.pollenList),
+        priority: this.getPrioritiyOf(pollenData, TileType.pollenList),
       }
-      //HACK IS COMING
-      this.addOrReplaceTileTo(this._dashboardTiles, tile);
-      this.addOrReplaceTileTo(this._pollenTiles, tile);
-      let smallTile: Tile<PollenData> = {
-        type: TileType.pollenSmall,
-        data: data[0],
-        id: data[0].name,
-        priority: this.getPrioritiyOf(data, TileType.pollenSmall),
+      this.addOrReplaceTileTo(this._pollenTiles, listTile);
+
+      if(preferredPollen.length == 0) {
+        this.addOrReplaceTileTo(this._dashboardTiles, listTile);
       }
-      this.addOrReplaceTileTo(this._dashboardTiles, smallTile);
-      this.addOrReplaceTileTo(this._pollenTiles, smallTile);
-      let smallTile2: Tile<PollenData> = {
-        type: TileType.pollenSmall,
-        data: data[1],
-        id: data[1].name,
-        priority: this.getPrioritiyOf(data, TileType.pollenSmall),
-      }
-      this.addOrReplaceTileTo(this._dashboardTiles, smallTile2);
-      this.addOrReplaceTileTo(this._pollenTiles, smallTile2);
     })
   }
 
