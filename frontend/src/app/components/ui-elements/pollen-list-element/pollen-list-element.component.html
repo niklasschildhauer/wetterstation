@@ -1,5 +1,4 @@
 <div class="container">
-    <p class="title" *ngIf="title">{{title}}</p>  
-    <img class="emoji" *ngIf="emojiName" [src]="'assets/emoji/' + emojiName + '.png'">
-    <p class="textValue" *ngIf="textValue && colorValue" [ngClass]="{'green': colorValue === 'green', 'red': colorValue === 'red', 'orange': colorValue === 'orange', 'blue': colorValue === 'blue'}">{{textValue}}</p>
-</div>      
+    <p class="title" *ngIf="title">{{title}}</p> 
+    <app-pollen-tag-element *ngIf="value != undefined" [value]="value"></app-pollen-tag-element>
+  </div>      

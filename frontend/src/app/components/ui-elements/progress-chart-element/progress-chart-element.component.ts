@@ -6,7 +6,7 @@ import { Component, Input, OnInit } from '@angular/core';
   styleUrls: ['./progress-chart-element.component.scss']
 })
 export class ProgressChartElementComponent implements OnInit {
-  @Input() value?: string;
+  @Input() value: number = 50;
   
   constructor() { 
   }

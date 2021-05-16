@@ -89,6 +89,11 @@ h5 {
     font-weight: 500;
     letter-spacing: calc(var(--letter-spacing) * 2);
 }
+
+.info-text {
+    text-align: justify;
+    padding-bottom: var(--border-padding-bottom);
+}
 //////////////////////
 //
 

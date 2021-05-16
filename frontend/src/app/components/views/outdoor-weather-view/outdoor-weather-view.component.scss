@@ -48,11 +48,11 @@
     color: var(--inverted);
 }
 
-//css for desktop 
 .container{
     //Set the border radius
     border-radius: var(--corner-radius);
-    z-index: 10;
+    z-index: 1000;
+    @include drop-shadow;
 }
 
 
@@ -66,7 +66,6 @@
         bottom: var(--padding);;
         height: calc(100vh - var(--padding) - var(--padding));
         width: calc(var(--border-padding-left) - var(--border-padding-right) - var(--padding));
-
         justify-content: center;
     }
     .flex-item {
@@ -80,8 +79,6 @@
     // styles for mobile when reduced motion is prefered
     .container{
         padding: var(--padding);
-        border-radius: var(--corner-radius);
-        @include drop-shadow;
         margin-bottom: var(--padding);
     }
 
