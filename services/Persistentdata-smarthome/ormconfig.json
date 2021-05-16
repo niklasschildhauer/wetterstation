@@ -1,0 +1,19 @@
+{
+  "type": "sqlite",
+  "host": "localhost",
+  "port": 4205,
+  "username": "root",
+  "password": "",
+  "database": "test",
+  "synchronize": true,
+  "logging": false,
+  "migrationsTableName": "migrations",
+  "entities": ["src/entity/**/*.ts"],
+  "migrations": ["src/migration/**/*.ts"],
+  "subscribers": ["src/subscriber/**/*.ts"],
+  "cli": {
+    "entitiesDir": "src/entity",
+    "migrationsDir": "src/migration",
+    "subscribersDir": "src/subscriber"
+  }
+}
