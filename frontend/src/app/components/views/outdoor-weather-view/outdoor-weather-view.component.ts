@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Daytime, OutdoorWeatherData } from 'src/app/model/weather';
 import { WeatherService } from '../../../services/weather.service'
 import { WeatherType } from '../../../model/weather';
@@ -10,10 +10,11 @@ import { UserContextService } from 'src/app/services/user-context.service';
   styleUrls: ['./outdoor-weather-view.component.scss']
 })
 export class OutdoorWeatherViewComponent implements OnInit {
+  @Input() reduceMotion: boolean = false;
   outdoorWeather?: OutdoorWeatherData;
   daytime: Daytime = Daytime.noon
   daytimeType = Daytime;
-  reduceMotion: boolean = false;
+  showWeatherDescription: boolean = true;
 
   constructor(private weatherService: WeatherService,
     private userContextService: UserContextService) { }
@@ -21,7 +22,7 @@ export class OutdoorWeatherViewComponent implements OnInit {
   ngOnInit(): void {
     this.loadOutdoorWeather();
     this.listenToScrollEvent();
-    this.loadReduceMotionValue();
+    // this.loadReduceMotionValue();
     this.loadDaytime();
   }
 
@@ -49,14 +50,22 @@ export class OutdoorWeatherViewComponent implements OnInit {
   // changes the css --scroll variable everytime the user scrolls. Main part of the animation
   listenToScrollEvent() {
     window.addEventListener('scroll', () => {
-      let scrollValue = (window.pageYOffset) / 240; // FIXME: Wert berechnen für angepasste schriftgröße
-      if(scrollValue < 0) {
-        scrollValue = 0;
+      if(!this.reduceMotion) {
+        let scrollValue = (window.pageYOffset) / 240; // FIXME: Wert berechnen für angepasste schriftgröße
+        if(scrollValue < 0) {
+          scrollValue = 0;
+        }
+        if(scrollValue > 1) {
+          scrollValue = 1;
+        }
+        scrollValue > 0.2 ?
+          this.showWeatherDescription = false 
+          :
+          this.showWeatherDescription = true;
+        document.body.style.setProperty('--scroll', "" + scrollValue );
+      } else {
+        document.body.style.setProperty('--scroll', "" + 0 );
       }
-      if(scrollValue > 1) {
-        scrollValue = 1;
-      }
-      document.body.style.setProperty('--scroll', "" + scrollValue );
     }, false);
   }
 

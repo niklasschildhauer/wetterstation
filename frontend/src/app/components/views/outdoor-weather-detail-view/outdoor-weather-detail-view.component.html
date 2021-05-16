@@ -1,0 +1,19 @@
+<app-nav-bar-element [titleLabel]="'Wetterdaten'" [backLabel]="'Dashboard'"></app-nav-bar-element>
+<app-outdoor-weather-view *ngIf="!desktop" [reduceMotion]="true"></app-outdoor-weather-view>
+<div class="flex-container" *ngIf="outdoorWeather">
+    <app-humidity-tile-view [data]="outdoorWeather" [pressable]="false"></app-humidity-tile-view>
+    <app-apparent-temperature-tile-view [data]="outdoorWeather" [pressable]="false"></app-apparent-temperature-tile-view>
+</div>
+
+<h4>Woher kommen die Daten?</h4>
+<p>Unter dem Begriff Raumluftqualität oder auch Innenraumluftqualität (engl. 
+    Indoor Air Quality) genannt, werden diejenigen Aspekte der Raumluft betrachtet,
+     die Auswirkungen auf das Wohlbefinden und die Gesundheit der Menschen haben. 
+     Auch in industriellen Produktionsanlagen (vgl. Reinraum), bei der Lagerung von Gütern 
+     oder bei der Tierhaltung können sich Anforderungen an die Raumluftqualität ergeben. 
+     Die Menschen in Europa halten sich heute durchschnittlich 90 % ihrer Lebenszeit in Innenräumen auf.
+      Dabei atmet jeder Mensch je nach Alter und Aktivität 10 bis 20 m3 Luft pro Tag ein, was einer Masse 
+      von 12 bis 24 kg Luft entspricht.[1] Dies ist weitaus mehr, als ein Mensch durch Nahrung 
+      (Lebensmittel und Trinkwasser) zu sich nimmt. Vor diesem Hintergrund wird klar, 
+      wie wichtig die Qualität der Innenraumluft für das Wohlbefinden der Menschen ist. 
+</p>

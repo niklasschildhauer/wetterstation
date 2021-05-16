@@ -16,7 +16,7 @@
 }
 
 .temperature {
-    font-size: 6.0em;
+    font-size: 5.0em;
     font-weight: bold;
     margin: 0;
 }
@@ -24,7 +24,23 @@
 .weather-description {
     letter-spacing: 0.03em;
     padding: 0 0 var(--padding) 0;
-    display: none;
+}
+
+.temperature-container {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-content: space-between;
+    align-items: center;
+}
+
+.min-max-temperature-container {
+    padding-left: calc(var(--padding) / 2);
+}
+
+.min-max-temperature-container > p {
+    text-align: end;
+    font-weight: 200;
 }
 
 // Set the default font color 
@@ -35,20 +51,26 @@
 //css for desktop 
 .container{
     //Set the border radius
-    border-radius: var(--corner-radius) 0 0 var(--corner-radius);
+    border-radius: var(--corner-radius);
     z-index: 10;
 }
+
 
 
 // css for desktop 
 @media(min-width: 769px) {
     .container{
         position: fixed;
-        top: 0;
-        left: 0;
-        bottom: 0;
-        height: 100vh;
-        width: calc(var(--border-padding-left) - var(--border-padding-right));
+        top: var(--padding);
+        left: var(--padding);;
+        bottom: var(--padding);;
+        height: calc(100vh - var(--padding) - var(--padding));
+        width: calc(var(--border-padding-left) - var(--border-padding-right) - var(--padding));
+
+        justify-content: center;
+    }
+    .flex-item {
+        margin-top: var(--padding);
     }
 }
 
@@ -64,7 +86,6 @@
     }
 
     @media(prefers-reduced-motion: no-preference) {
-
         .container.motion-allowed {
             padding: 120px var(--padding) 120px var(--padding);
             position: fixed;

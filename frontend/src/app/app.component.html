@@ -1,9 +1,12 @@
 <div [@triggerName]="prepareRoute(outlet)" 
   class="main-container container" 
   [ngClass]="{'light-theme' : userContext?.theme === ThemeType.Light, 'dark-theme' : userContext?.theme === ThemeType.Dark  }">
-  <a routerLink="/dashboard">
-    <app-outdoor-weather-view class="outdoor-weather" *ngIf="desktop"></app-outdoor-weather-view>
-  </a>
+  <div (click)="clickedOutdoorWeatherView()">
+    <app-outdoor-weather-view 
+      class="outdoor-weather" 
+      [reduceMotion]="true"
+      *ngIf="desktop"></app-outdoor-weather-view>
+  </div>
   <router-outlet 
     #outlet="outlet"></router-outlet>
 </div>

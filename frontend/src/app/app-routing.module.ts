@@ -8,6 +8,7 @@ import { ForecastDetailViewComponent } from './components/views/forecast-detail-
 import { HistoryDetailViewComponent } from './components/views/history-detail-view/history-detail-view.component';
 import { IndoorDetailViewComponent } from './components/views/indoor-detail-view/indoor-detail-view.component';
 import { LoginViewComponent } from './components/views/login-view/login-view.component';
+import { OutdoorWeatherDetailViewComponent } from './components/views/outdoor-weather-detail-view/outdoor-weather-detail-view.component';
 import { PersonalizationViewComponent } from './components/views/personalization-view/personalization-view.component';
 import { PollenflugDetailViewComponent } from './components/views/pollenflug-detail-view/pollenflug-detail-view.component';
 import { RegistrationViewComponent } from './components/views/registration-view/registration-view.component';
@@ -35,6 +36,10 @@ const routes: Routes = [
       {
         path: 'history',
         component: HistoryDetailViewComponent, 
+      },
+      {
+        path: 'outdoor',
+        component: OutdoorWeatherDetailViewComponent, 
       },
     ], 
     data: { animationState: 'Detail' }

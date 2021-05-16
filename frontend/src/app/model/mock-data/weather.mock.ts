@@ -4,7 +4,7 @@ import { Pollen } from '../user-context';
 export var OUTDOORWEATHER: OutdoorWeatherData = {
     temperature: 14,
     maxTemperature: 20,
-    minTemperature: 4,
+    minTemperature: 14,
     humidity: 66,
     timestamp: new Date('May 17, 2021 07:24:00'),
     weather: WeatherType.cloudy,

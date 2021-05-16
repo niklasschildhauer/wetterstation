@@ -18,6 +18,9 @@ import { LoginViewComponent } from './login-view/login-view.component';
 import { RegistrationViewComponent } from './registration-view/registration-view.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PersonalizationViewComponent } from './personalization-view/personalization-view.component';
+import { OutdoorWeatherDetailViewComponent } from './outdoor-weather-detail-view/outdoor-weather-detail-view.component';
+import { HumidityTileViewComponent } from './humidity-tile-view/humidity-tile-view.component';
+import { ApparentTemperatureTileViewComponent } from './apparent-temperature-tile-view/apparent-temperature-tile-view.component';
 
 
 @NgModule({
@@ -36,6 +39,9 @@ import { PersonalizationViewComponent } from './personalization-view/personaliza
     LoginViewComponent,
     RegistrationViewComponent,
     PersonalizationViewComponent,
+    OutdoorWeatherDetailViewComponent,
+    HumidityTileViewComponent,
+    ApparentTemperatureTileViewComponent,
   ],
   imports: [
     CommonModule,
@@ -59,6 +65,9 @@ import { PersonalizationViewComponent } from './personalization-view/personaliza
     PersonalizationSettingsViewComponent,
     LoginViewComponent,
     RegistrationViewComponent,
+    OutdoorWeatherDetailViewComponent,
+    HumidityTileViewComponent,
+    ApparentTemperatureTileViewComponent,
   ]
 })
 export class ViewsModule { }

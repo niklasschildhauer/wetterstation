@@ -1,7 +1,7 @@
 import { Injectable, OnInit } from '@angular/core';
 import { UserContextService } from './user-context.service';
 import { WeatherService } from './weather.service';
-import { WeatherData, Tile, PollenData, TileType, IndoorRoomData, WeatherForecastData, TilePriority, WeatherHistoryData, WeatherGraphDataSet } from '../model/weather';
+import { WeatherData, Tile, PollenData, TileType, IndoorRoomData, WeatherForecastData, TilePriority, WeatherHistoryData, WeatherGraphDataSet, OutdoorWeatherData } from '../model/weather';
 import { Observable, of } from 'rxjs';
 import { HistoryTileService } from './history-tile.service';
 
@@ -23,10 +23,32 @@ export class TileService {
     this.loadIndoorRoomTiles();
     this.loadForecastTile();
     this.loadHistoryTile();
+    this.loadOutdoorWeatherTiles();
   }
 
   reloadData(): void {
     this.loadTiles();
+  }
+
+  private loadOutdoorWeatherTiles(): void {
+    this.weatherService.getOutdoorWeather().subscribe(data => {
+      let humidityTile: Tile<OutdoorWeatherData> = {
+        type: TileType.humidity,
+        data: data,
+        id: "humidity",
+        priority: this.getPrioritiyOf(data, TileType.humidity),
+      }
+
+      let apparentTemperatureTile: Tile<OutdoorWeatherData> = {
+        type: TileType.apparentTemperature,
+        data: data,
+        id: "apparentTemperature",
+        priority: this.getPrioritiyOf(data, TileType.apparentTemperature),
+      }
+
+      this.addOrReplaceTileTo(this._dashboardTiles, humidityTile);
+      this.addOrReplaceTileTo(this._dashboardTiles, apparentTemperatureTile);
+    })
   }
   
   private loadPollenTiles(): void {

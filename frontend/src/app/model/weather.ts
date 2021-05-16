@@ -7,7 +7,9 @@ export enum TileType {
     pollenSmall,
     pollenList,
     history,
-    forecast
+    forecast,
+    humidity,
+    apparentTemperature,
 }
 
 export enum TilePriority {

@@ -6,6 +6,7 @@ import { HttpClient } from "@angular/common/http";
 import { Observable } from 'rxjs';
 import { routeTransitionAnimations } from './route-transition-animation';
 import { Themes, UserContext } from './model/user-context';
+import { Router } from '@angular/router';
 import { BreakpointObserver, BreakpointState} from '@angular/cdk/layout';
 
 @Component({
@@ -24,7 +25,8 @@ export class AppComponent {
               private userContextService: UserContextService,
               private http: HttpClient,
               private speechAPI: SpeechAPIService,
-              private breakpointObserver: BreakpointObserver) { }
+              private breakpointObserver: BreakpointObserver,
+              private router: Router) { }
 
   ngOnInit(): void {
     this.loadDefaultFontSize();
@@ -40,6 +42,10 @@ export class AppComponent {
 
   prepareRoute(outlet: RouterOutlet) {
     return outlet && outlet.activatedRouteData && outlet.activatedRouteData['animationState'];
+  }
+
+  clickedOutdoorWeatherView() {
+    this.router.navigateByUrl('/dashboard'); //FIXME: Zu detail screen wenn schon in Dashboard ansicht
   }
 
   private desktopBreakpointObserver() {
