@@ -3,7 +3,7 @@ import {Entity, PrimaryGeneratedColumn, Column} from "typeorm";
 @Entity()
 export class Outdoor {
 
-    @PrimaryGeneratedColumn()
+    @PrimaryGeneratedColumn('increment')
     id: number;
 
     @Column()
@@ -14,5 +14,14 @@ export class Outdoor {
 
     @Column()
     pressure: number;
+
+    @Column()
+    location: string;
+
+    @CreateDateColumn()
+    timestamp: Date;
+
+    @Column()
+    apparentTemperature: number;
 
 }
