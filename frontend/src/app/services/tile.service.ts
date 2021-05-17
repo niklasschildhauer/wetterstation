@@ -1,14 +1,15 @@
 import { Injectable, OnInit } from '@angular/core';
-import { UserContextService } from './user-context.service';
+import { UserContextDelegte, UserContextService } from './user-context.service';
 import { WeatherService } from './weather.service';
 import { WeatherData, Tile, PollenData, TileType, IndoorRoomData, WeatherForecastData, TilePriority, WeatherHistoryData, WeatherGraphDataSet, OutdoorWeatherData } from '../model/weather';
 import { Observable, of } from 'rxjs';
 import { HistoryTileService } from './history-tile.service';
+import { Pollen } from '../model/user-context';
 
 @Injectable({
   providedIn: 'root'
 })
-export class TileService {
+export class TileService implements UserContextDelegte {
   private _dashboardTiles: Tile<WeatherData>[] = [];
   private _pollenTiles: Tile<WeatherData>[] = [];
 
@@ -16,6 +17,7 @@ export class TileService {
     private userContextService: UserContextService,
     private historyTileService: HistoryTileService) { 
       this.loadTiles();
+      this.userContextService.delegate = this
   }
 
   private loadTiles() {
@@ -28,6 +30,11 @@ export class TileService {
 
   reloadData(): void {
     this.loadTiles();
+  }
+
+  updatedUserContext(from: UserContextService): void {
+    console.log("hier drinnen");
+    this.reloadData();
   }
 
   private loadOutdoorWeatherTiles(): void {
@@ -53,20 +60,23 @@ export class TileService {
   
   private loadPollenTiles(): void {
     this.weatherService.getPollen().subscribe(data => {
-      let preferredPollen = this.userContextService.pollen
+      let preferredPollen: Pollen[] = this.userContextService.pollen
       let pollenData = data
       if(preferredPollen.length > 0) {
-        for (var _i = 0; _i < preferredPollen.length; _i++) {
-          let smallTile: Tile<PollenData> = {
-            type: TileType.pollenSmall,
-            data: pollenData[_i],
-            id: pollenData[_i].name,
-            priority: this.getPrioritiyOf(pollenData[_i], TileType.pollenSmall),
+        preferredPollen.forEach(item => {
+          let pollenItem = pollenData.find(dataItem => dataItem.type == item)
+          if (pollenItem) {
+            let smallTile: Tile<PollenData> = {
+              type: TileType.pollenSmall,
+              data: pollenItem,
+              id: pollenItem.name,
+              priority: this.getPrioritiyOf(pollenItem, TileType.pollenSmall),
+            }
+            this.addOrReplaceTileTo(this._dashboardTiles, smallTile);
+            this.addOrReplaceTileTo(this._pollenTiles, smallTile);
+            pollenData = pollenData.filter((item) => pollenItem != item);
           }
-          this.addOrReplaceTileTo(this._dashboardTiles, smallTile);
-          this.addOrReplaceTileTo(this._pollenTiles, smallTile);
-          pollenData = pollenData.filter((item) => pollenData[_i] != item);
-        }
+        });
       }
       
       let listTile: Tile<PollenData[]> = {

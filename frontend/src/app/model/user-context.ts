@@ -18,13 +18,13 @@ export enum Themes {
 
 export enum Pollen {
     Ambrosia,
-    Birke,
     Beifuss,
-    Esche,
+    Birke,
     Erle,
-    Roggen,
+    Esche,
     Graeser,
-    Hasel
+    Hasel,
+    Roggen,
 }
 
 export enum Language {

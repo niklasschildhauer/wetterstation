@@ -2,9 +2,9 @@
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
+    margin-bottom: var(--padding);
     // align-content: stretch;
 }
-
 
 .flex-container {
     display: flex;
@@ -13,7 +13,14 @@
 }
 
 .pollen-item {
-    width: 8.5em;
-    font-weight: 500;
+    width: 11em;
+    margin: 0.5em;
+}
+
+.theme-item {
+    margin: 0.5em;
+}
+
+label {
     font-size: 1.6em;
 }

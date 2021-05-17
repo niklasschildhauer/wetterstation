@@ -8,28 +8,28 @@
 
     <card-element [subtitle]="'Pollenflug'"  [pressable]="false">
         <div class="flex-container">
-            <p *ngFor="let a of numberOfPollen(); let index = index" class="pollen-item">
+            <div *ngFor="let a of numberOfPollen(); let index = index" class="pollen-item">
                 <input type="checkbox" [checked]="getPollenValueAt(index)" (change)="togglePollenValueAt(index)"/>
                 <label>{{getPollenStringAt(index)}}</label>
-            </p>
+            </div>
         </div>
     </card-element>
 
     <card-element [subtitle]="'Theme'"  [pressable]="false">
         <div class="flex-container">
-            <p *ngFor="let a of numberOfThemes(); let index = index" class="theme-item">
+            <div *ngFor="let a of numberOfThemes(); let index = index" class="theme-item">
                 <input id="getThemeTypeAt(index)" type="radio" [value]="getThemeTypeAt(index)" name="theme" [(ngModel)]="this.userContextService.theme"/>
                 <label>{{getThemeStringAt(index)}}</label>
-            </p>
+            </div>
         </div>
     </card-element>
 
-    <ul *ngIf="userContextData">
+    <!-- <ul *ngIf="userContextData">
         <li>Lüftungserinnerung: {{userContextData.doVentilationReminder}}</li>
         <li>Self-Voicing: {{userContextData.selfVoicingEnabled}}</li>
         <li>Reduce Motion: {{userContextData.reduceMotion}}</li>
         <li>Schriftgröße: {{userContextData.fontSize}}</li>
         <li>Theme: {{userContextData.theme}}</li>
         <li>Pollen: </li>
-    </ul>
+    </ul> -->
 </div>

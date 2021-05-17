@@ -1,7 +1,6 @@
 import { Component, OnInit, Renderer2 } from '@angular/core';
 import { UserContextService } from 'src/app/services/user-context.service';
 import { Pollen, Themes, UserContext } from 'src/app/model/user-context';
-import { typeWithParameters } from '@angular/compiler/src/render3/util';
 
 
 @Component({
@@ -88,6 +87,7 @@ export class PersonalizationSettingsViewComponent implements OnInit {
     var pollen = this.userContextService.pollen  
     let oldValue = this.getPollenValueAt(index);  
     let newValue = !oldValue;
+
     if(pollen){
       if(newValue && !pollen.includes(polle)) {
         pollen.push(polle);
