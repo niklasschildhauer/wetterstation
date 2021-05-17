@@ -1,5 +1,8 @@
 <div class="container" *ngIf="label" [ngClass]="{'checked' : value}" (click)="toggleCheckbox()">
-    <!-- <img *ngIf="checked" src="{{checkedImage}}">
-    <img *ngIf="!checked" src="{{unCheckedImage}}"> -->
+    <img class="icon" *ngIf="checkedImage && value" [src]="'assets/icons/' + checkedImage + '.png'">
+    <img class="icon" *ngIf="getUncheckedImageSrc()  && !value" [src]="'assets/icons/' + getUncheckedImageSrc() + '.png'">
+
+
+    <!-- <img *ngIf="!checked" src="{{unCheckedImage}}"> -->
     <span>{{this.label}}</span>
 </div>
