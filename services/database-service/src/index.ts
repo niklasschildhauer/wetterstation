@@ -43,23 +43,31 @@ createConnection().then(async connection => {
 
 
 
-    app.get('/outdoorall', async (req, res) => {
+    app.get('/outdoor/all', async (req, res) => {
             const outdoors = await outdoorData.find();
             res.json(outdoors);
             console.log(outdoors);
         });
 
+    app.get('/outdoor/latest', async (req, res) => {
+            const outdoor = await outdoorData.findOne();
+            res.json(outdoor);
+            console.log(outdoor);
+        });
 
 
 
-    app.post('/outdoorinsert', async (req, res) => {
+
+
+
+    app.post('/outdoor/insert', async (req, res) => {
         console.log("ich lebe")
         const outdoor = await outdoorData.create(req.body);
         const results = await outdoorData.save(outdoor);
         return res.send(results);
     });
 
-    app.post('/indoorinsert', async (req, res) => {
+    app.post('/indoor/insert', async (req, res) => {
         console.log("ich lebe")
         const indoor = await indoorData.create(req.body);
         const results = await indoorData.save(indoor);

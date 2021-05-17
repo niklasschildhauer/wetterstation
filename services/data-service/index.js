@@ -10,12 +10,12 @@ app.use(express.json());
 
 app.post('/sensorout', (req, res) => {
 	let body = JSON.stringify(req.body);
-	genericRequestWithPayload("POST", 'http://localhost:4205/outdoorinsert', body, res);
+	genericRequestWithPayload("POST", 'http://localhost:4205/outdoor/insert', body, res);
 });
 
 app.post('/sensorin', (req, res) => {
 	let body = JSON.stringify(req.body);
-	genericRequestWithPayload("POST", 'http://localhost:4205/indoorinsert', body, res);
+	genericRequestWithPayload("POST", 'http://localhost:4205/indoor/insert', body, res);
 });
 
 
