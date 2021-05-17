@@ -1,5 +1,11 @@
 <div class="card-container">
-    <card-element *ngIf="_apparentTemperature" [title]="'Gefühlte Temperatur'" [subtitle]="'Aktuell'" [pressable]="pressable" [cardSize]="cardSizeType.small">
+    <card-element 
+        *ngIf="_apparentTemperature" 
+        [title]="'Gefühlt'" 
+        [subtitle]="'Temperatur'" 
+        [pressable]="pressable" 
+        [cardSize]="cardSizeType.small"
+        [hideSubtitle]="hideSubtitle">
         <h1>{{_apparentTemperature}}°</h1>  
     </card-element>
 </div>

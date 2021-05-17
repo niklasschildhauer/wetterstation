@@ -12,18 +12,19 @@
   align-items: center;
   justify-content: center;
   cursor: pointer;
-
+  margin: var(--padding) 0 0 0;
 
   border-radius: var(--corner-radius);
   background-color: var(--surface);
-  height: 10em;
-  width: 10em;
+  height: 12em;
+  width: 11em;
 }
 
 span {
   color: var(--text);
   word-wrap: break-word;
   text-align: center;
+  margin-top: 0.7em;
 }
 
 .container.checked {
@@ -32,5 +33,9 @@ span {
   span {
     color: white;
   }
+}
+
+.icon {
+  height: 2.5em;
 }
 

@@ -12,6 +12,7 @@ export class IndoorTileViewComponent implements OnInit {
     this._indoorRoom = data as IndoorRoomData;
   }
   @Input() pressable: boolean = false;
+  @Input() hideSubtitle: boolean = false;
   _indoorRoom?: IndoorRoomData
   constructor() { }
 

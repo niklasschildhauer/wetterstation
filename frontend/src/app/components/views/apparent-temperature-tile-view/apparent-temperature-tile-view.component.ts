@@ -9,6 +9,7 @@ import { CardSize } from '../../ui-elements/card-element/card-element.component'
 })
 export class ApparentTemperatureTileViewComponent implements OnInit {
   @Input() pressable: boolean = false;
+  @Input() hideSubtitle = false;
   @Input()
   set data(data: WeatherData) {
     let outdoorWeatherData = data as OutdoorWeatherData

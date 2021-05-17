@@ -1,34 +1,65 @@
 <div class="layout">
-<app-menu-bar-element></app-menu-bar-element>
-<div class="card-container" [ngClass]="{'motion-disabled' : reduceMotion }">
-    <ng-template dashboardDirective></ng-template>
-    <a routerLink="/detail/outdoor">
-        <app-outdoor-weather-view *ngIf="!desktop" [reduceMotion]="reduceMotion"></app-outdoor-weather-view>
-    </a>        
-    <div *ngIf="dashboardTiles" class="flex-container"> 
-        <div *ngFor="let item of dashboardTiles" [ngSwitch]="item.type">
-            <a routerLink="/detail/indoorrooms">
-                <app-indoor-tile-view *ngSwitchCase="tileType.indoorRoom" [data]="item.data" [pressable]="true"></app-indoor-tile-view>
-            </a>
-            <a routerLink="/detail/forecast">
-                <app-forecast-tile-view *ngSwitchCase="tileType.forecast" [data]="item.data" [pressable]="true"></app-forecast-tile-view>
-            </a>
-            <a routerLink="/detail/history">
-                <app-history-tile-view *ngSwitchCase="tileType.history" [data]="item.data" [pressable]="true"></app-history-tile-view>
-            </a>
-            <a routerLink="/detail/pollen">
-                <app-pollenflug-tile-view *ngSwitchCase="tileType.pollenList" [data]="item.data" [pressable]="true"></app-pollenflug-tile-view>
-                <app-pollenflug-small-tile *ngSwitchCase="tileType.pollenSmall" [data]="item.data" [pressable]="true"></app-pollenflug-small-tile>
-            </a>
-            <a routerLink="/detail/outdoor">
-                <app-humidity-tile-view *ngSwitchCase="tileType.humidity" [data]="item.data" [pressable]="true"></app-humidity-tile-view>
-                <app-apparent-temperature-tile-view *ngSwitchCase="tileType.apparentTemperature" [data]="item.data" [pressable]="true"></app-apparent-temperature-tile-view>
-            </a>
-            <div *ngSwitchDefault>{{tileType[item.type]}} is not implemented yet</div>
+    <app-menu-bar-element>
+    </app-menu-bar-element>
+    <div class="card-container" 
+        [ngClass]="{'motion-disabled' : reduceMotion }">
+        <a routerLink="/detail/outdoor">
+            <app-outdoor-weather-view 
+                *ngIf="!desktop" 
+                [reduceMotion]="reduceMotion">
+            </app-outdoor-weather-view>
+        </a>        
+        <div *ngIf="dashboardTiles" 
+            class="flex-container"> 
+            <div *ngFor="let item of dashboardTiles" 
+                [ngSwitch]="item.type">
+                <a routerLink="/detail/indoorrooms">
+                    <app-indoor-tile-view 
+                        *ngSwitchCase="tileType.indoorRoom" 
+                        [data]="item.data" 
+                        [pressable]="true">
+                    </app-indoor-tile-view>
+                </a>
+                <a routerLink="/detail/forecast">
+                    <app-forecast-tile-view 
+                        *ngSwitchCase="tileType.forecast" 
+                        [data]="item.data" 
+                        [pressable]="true">
+                    </app-forecast-tile-view>
+                </a>
+                <a routerLink="/detail/history">
+                    <app-history-tile-view 
+                        *ngSwitchCase="tileType.history" 
+                        [data]="item.data" 
+                        [pressable]="true">
+                    </app-history-tile-view>
+                </a>
+                <a routerLink="/detail/pollen">
+                    <app-pollenflug-tile-view 
+                        *ngSwitchCase="tileType.pollenList" 
+                        [data]="item.data" 
+                        [pressable]="true">
+                    </app-pollenflug-tile-view>
+                    <app-pollenflug-small-tile 
+                        *ngSwitchCase="tileType.pollenSmall" 
+                        [data]="item.data" 
+                        [pressable]="true">
+                    </app-pollenflug-small-tile>
+                </a>
+                <a routerLink="/detail/outdoor">
+                    <app-humidity-tile-view 
+                        *ngSwitchCase="tileType.humidity" 
+                        [data]="item.data" 
+                        [pressable]="true">
+                    </app-humidity-tile-view>
+                    <app-apparent-temperature-tile-view 
+                        *ngSwitchCase="tileType.apparentTemperature" 
+                        [data]="item.data" 
+                        [pressable]="true">
+                    </app-apparent-temperature-tile-view>
+                </a>
+                <div *ngSwitchDefault>{{tileType[item.type]}} is not implemented yet</div>
+            </div>
         </div>
     </div>
-</div>
-
-<button (click)="reloadData()">RELOAD</button>
-
 </div>

@@ -94,7 +94,6 @@ h5 {
 
 article {
     text-align: justify;
-    padding-bottom: var(--border-padding-bottom);
     hyphens: auto;
     p {
         padding-bottom: var(--padding);
@@ -166,9 +165,7 @@ p, h1, h2, h3, h4, h5, a, label, span, input, li {
 html {
     background-color: var(--background);
 }
-body {
-    margin: 0;
-}
+
 //////////////////////
 //
 
@@ -183,7 +180,6 @@ body {
     --border-padding-bottom: 80px;
     --padding: 20px;
     --corner-radius: 30px;
-    --dashboard-outdoor-weather-size: calc(150px  + 20em);
     --navbar-height: 10em;
     --outdoor-weather-image-size: 150px;
     --dashboard-outdoor-weather-size: calc(var(--outdoor-weather-image-size) + var(--navbar-height) + 10em);
@@ -198,9 +194,14 @@ body {
 }
 
 .layout {
-    padding: var(--border-padding-top) var(--border-padding-right) 0 var(--border-padding-left);
+    padding: var(--border-padding-top) var(--border-padding-right) var(--border-padding-bottom) var(--border-padding-left);
     background-color: var(--background);
-    min-height: calc(100vh - var(--border-padding-top));
+    min-height: calc(100vh - var(--border-padding-top) - var(--border-padding-bottom));
+    height: auto;
+}
+
+body {
+    margin: 0;
 }
 //////////////////////
 //
