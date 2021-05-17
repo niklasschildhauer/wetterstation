@@ -49,6 +49,9 @@ createConnection().then(async connection => {
             console.log(outdoors);
         });
 
+
+
+
     app.post('/outdoorinsert', async (req, res) => {
         console.log("ich lebe")
         const outdoor = await outdoorData.create(req.body);
@@ -56,8 +59,12 @@ createConnection().then(async connection => {
         return res.send(results);
     });
 
-
-    var bla = "17"
+    app.post('/indoorinsert', async (req, res) => {
+        console.log("ich lebe")
+        const indoor = await indoorData.create(req.body);
+        const results = await indoorData.save(indoor);
+        return res.send(results);
+    });
 
     console.log("listening on port", port)
     app.listen(port);

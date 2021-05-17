@@ -14,13 +14,10 @@ app.post('/sensorout', (req, res) => {
 });
 
 app.post('/sensorin', (req, res) => {
-	var roomTemperature = req.body.temperature;
-	var roomPressure = req.body.pressure;
-	var roomHumidity = req.body.humidity;
-	var gasVal = req.body.gasVal;
-	console.log(req.body);
-	res.status(200).json("OK");
+	let body = JSON.stringify(req.body);
+	genericRequestWithPayload("POST", 'http://localhost:4205/indoorinsert', body, res);
 });
+
 
 
 
