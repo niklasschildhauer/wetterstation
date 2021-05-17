@@ -1,35 +1,68 @@
-<div class="container" *ngIf="userContextData">
-    <app-slider-element [label]="'Schriftgröße'" [value]="userContextData.fontSize" (valueChanged)="setFontSize($event)"></app-slider-element>
+<div class="container" 
+    *ngIf="userContextData">
+    <app-slider-element 
+        [label]="'Schriftgröße'" 
+        [value]="userContextData.fontSize" 
+        (valueChanged)="setFontSize($event)">
+    </app-slider-element>
     <div class="switch-container">
-        <app-checkbox-switcher-element [label]="'Reduce motion'" [value]="userContextData.reduceMotion" (toggled)="this.userContextService.reduceMotion=$event"></app-checkbox-switcher-element>
-        <app-checkbox-switcher-element [label]="'Lüftungs-erinnerung'" [value]="userContextData.doVentilationReminder" (toggled)="this.userContextService.doVentilationReminder=$event"></app-checkbox-switcher-element>
-        <app-checkbox-switcher-element [label]="'Self-Voicing Funktion'" [value]="userContextData.selfVoicingEnabled" (toggled)="this.userContextService.selfVoicingEnabled=$event"></app-checkbox-switcher-element>
+        <app-checkbox-switcher-element 
+            [label]="'Reduce motion'" 
+            [value]="userContextData.reduceMotion" 
+            [checkedImage]="'snail'"
+            [unCheckedImageLight]="'no-snail-light'"
+            [unCheckedImageDark]="'no-snail-dark'"
+            (toggled)="this.userContextService.reduceMotion=$event">
+        </app-checkbox-switcher-element>
+        <app-checkbox-switcher-element 
+            [label]="'Lüftungs-erinnerung'" 
+            [value]="userContextData.doVentilationReminder" 
+            [checkedImage]="'fan'"
+            [unCheckedImageLight]="'no-fan-light'"
+            [unCheckedImageDark]="'no-fan-dark'"
+            (toggled)="this.userContextService.doVentilationReminder=$event">
+        </app-checkbox-switcher-element>
+        <app-checkbox-switcher-element 
+            [label]="'Self-Voicing Funktion'" 
+            [value]="userContextData.selfVoicingEnabled" 
+            [checkedImage]="'microphone'"
+            [unCheckedImageLight]="'no-microphone-light'"
+            [unCheckedImageDark]="'no-microphone-dark'"
+            (toggled)="this.userContextService.selfVoicingEnabled=$event">
+        </app-checkbox-switcher-element>
     </div>
 
-    <card-element [subtitle]="'Pollenflug'"  [pressable]="false">
+    <card-element 
+        [subtitle]="'Pollenflug'"  
+        [pressable]="false">
         <div class="flex-container">
-            <div *ngFor="let a of numberOfPollen(); let index = index" class="pollen-item">
-                <input type="checkbox" [checked]="getPollenValueAt(index)" (change)="togglePollenValueAt(index)"/>
-                <label>{{getPollenStringAt(index)}}</label>
+            <div *ngFor="let a of numberOfPollen(); let index = index" 
+                class="pollen-item">
+                <input 
+                    type="checkbox" 
+                    [checked]="getPollenValueAt(index)" 
+                    (change)="togglePollenValueAt(index)"/>
+                <label>
+                    {{getPollenStringAt(index)}}
+                </label>
             </div>
         </div>
     </card-element>
 
-    <card-element [subtitle]="'Theme'"  [pressable]="false">
+    <card-element 
+        [subtitle]="'Theme'"  
+        [pressable]="false">
         <div class="flex-container">
-            <div *ngFor="let a of numberOfThemes(); let index = index" class="theme-item">
-                <input id="getThemeTypeAt(index)" type="radio" [value]="getThemeTypeAt(index)" name="theme" [(ngModel)]="this.userContextService.theme"/>
+            <div *ngFor="let a of numberOfThemes(); let index = index" 
+                class="theme-item">
+                <input 
+                    id="getThemeTypeAt(index)" 
+                    type="radio" 
+                    [value]="getThemeTypeAt(index)" 
+                    name="theme" 
+                    [(ngModel)]="this.userContextService.theme"/>
                 <label>{{getThemeStringAt(index)}}</label>
             </div>
         </div>
     </card-element>
-
-    <!-- <ul *ngIf="userContextData">
-        <li>Lüftungserinnerung: {{userContextData.doVentilationReminder}}</li>
-        <li>Self-Voicing: {{userContextData.selfVoicingEnabled}}</li>
-        <li>Reduce Motion: {{userContextData.reduceMotion}}</li>
-        <li>Schriftgröße: {{userContextData.fontSize}}</li>
-        <li>Theme: {{userContextData.theme}}</li>
-        <li>Pollen: </li>
-    </ul> -->
 </div>

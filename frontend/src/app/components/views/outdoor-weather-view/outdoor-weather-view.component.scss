@@ -79,7 +79,7 @@
     // styles for mobile when reduced motion is prefered
     .container{
         padding: var(--padding);
-        margin-bottom: var(--padding);
+        margin-top: var(--padding);
     }
 
     @media(prefers-reduced-motion: no-preference) {
@@ -92,7 +92,7 @@
             z-index: 10;
             height: var(--dashboard-outdoor-weather-size);
             border-radius: 0 0 var(--corner-radius) var(--corner-radius);
-            margin-bottom: 0;
+            margin-top: 0;
         }
     
         @keyframes container-shrink {
