@@ -76,8 +76,9 @@ app.use(express.json({ limit: "1mb", type: "application/json" }));
 
 /**
 * @typedef SensordataOutdoors
-* @property {integer} temperature.required
+* @property {integer} id.required
 * @property {integer} humidity.required
+* @property {integer} temperature.required
 * @property {integer} pressure.required
 */
 

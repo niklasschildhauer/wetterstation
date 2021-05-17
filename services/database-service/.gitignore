@@ -1,3 +1,5 @@
+*.sqlite
+
 .idea/
 .vscode/
 node_modules/

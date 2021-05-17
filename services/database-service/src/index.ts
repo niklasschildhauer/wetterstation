@@ -52,6 +52,7 @@ createConnection().then(async connection => {
         });
 
     app.post('/outdoorinsert', async (req, res) => {
+        console.log("ich lebe")
         const outdoor = await outdoorData.create(req.body);
         const results = await outdoorData.save(outdoor);
         return res.send(results);
