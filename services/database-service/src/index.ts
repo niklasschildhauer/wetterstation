@@ -1,8 +1,6 @@
 import "reflect-metadata";
 import {createConnection} from "typeorm";
 import {Outdoor} from "./entity/Outdoor";
-import express from 'express';
-
 
 "use strict"
 
@@ -59,7 +57,7 @@ createConnection().then(async connection => {
     });
 
 
-
+    var bla = "17"
 
     console.log("listening on port", port)
     app.listen(port);
