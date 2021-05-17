@@ -9,6 +9,7 @@ import { CardSize } from '../../ui-elements/card-element/card-element.component'
 })
 export class HumidityTileViewComponent implements OnInit {
   @Input() pressable: boolean = false;
+  @Input() hideSubtitle: boolean = false;
   @Input()
   set data(data: WeatherData) {
     let outdoorWeatherData = data as OutdoorWeatherData

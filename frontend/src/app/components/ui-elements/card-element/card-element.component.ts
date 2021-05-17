@@ -9,6 +9,7 @@ export class CardElementComponent implements OnInit {
   @Input() title?: string;
   @Input() subtitle?: string;
   @Input() pressable: boolean = false;
+  @Input() hideSubtitle: boolean = false;
   @Input() cardSize: CardSize = CardSize.auto
   CardSize = CardSize; // Enum
 

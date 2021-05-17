@@ -1,5 +1,5 @@
 .card-container {
-    padding: calc(var(--dashboard-outdoor-weather-size) + var(--navbar-height) + var(--border-padding-top)) 0 calc(var(--dashboard-outdoor-weather-size) + var(--navbar-height) + var(--padding)) 0;
+    padding-top: calc(var(--dashboard-outdoor-weather-size) + var(--navbar-height) + var(--padding));
     left: 0;
     right: 0;
 }
@@ -19,6 +19,6 @@
 // css code for desktop
 @media(min-width: 770px), (prefers-reduced-motion: reduce){
     .card-container {
-        padding: var(--navbar-height) 0 var(--border-padding-bottom) 0;
+        padding-top: var(--navbar-height);
     }
 }

@@ -2,7 +2,7 @@
     [ngClass]="{'small' : CardSize.small === cardSize}">
     <div class="container" 
         [ngClass]="{'shrink-on-hover pressable' : pressable}">
-        <p *ngIf="subtitle && pressable">{{subtitle}}</p>
+        <p *ngIf="subtitle && !hideSubtitle">{{subtitle}}</p>
         <h3 *ngIf="title" lang="de">{{title}}</h3>
         <ng-content></ng-content>
     </div>

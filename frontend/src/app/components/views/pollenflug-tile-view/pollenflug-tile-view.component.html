@@ -1,4 +1,7 @@
-<card-element [subtitle]="'Pollenflug'"  [pressable]="pressable">
+<card-element 
+    [subtitle]="'Pollenflug'"  
+    [pressable]="pressable"
+    [hideSubtitle]="hideSubtitle">
     <div class="list-container">
         <app-pollen-list-element *ngFor="let item of _pollen" [title]="item.name" [value]="item.today"></app-pollen-list-element>
     </div>

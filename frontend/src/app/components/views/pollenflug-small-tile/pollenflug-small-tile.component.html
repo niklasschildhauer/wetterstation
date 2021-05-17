@@ -1,5 +1,11 @@
 <div class="card-container">
-    <card-element *ngIf="_pollen" [subtitle]="'Pollenflug'" [title]="_pollen.name" [pressable]="pressable" [cardSize]="cardSizeType.small">
+    <card-element 
+        *ngIf="_pollen" 
+        [subtitle]="'Pollenflug'" 
+        [title]="_pollen.name" 
+        [pressable]="pressable" 
+        [cardSize]="cardSizeType.small"
+        [hideSubtitle]="hideSubtitle">
         <div class="flex-container">
              <app-pollen-tag-element *ngIf="_pollen" [value]="_pollen.today"></app-pollen-tag-element>   
         </div>

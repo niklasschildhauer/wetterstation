@@ -1,4 +1,9 @@
-<card-element *ngIf="_indoorRoom" [title]="_indoorRoom.roomName" [subtitle]="'Innenraumluftqualität'" [pressable]="pressable">
+<card-element 
+    *ngIf="_indoorRoom" 
+    [title]="_indoorRoom.roomName" 
+    [subtitle]="'Innenraumluftqualität'" 
+    [pressable]="pressable"
+    [hideSubtitle]="hideSubtitle">
     <div class="data-container">
         <h1>{{_indoorRoom.airQuality}}</h1>
         <div>

@@ -8,6 +8,7 @@ import { WeatherData, WeatherForecastData } from 'src/app/model/weather';
 })
 export class ForecastTileViewComponent implements OnInit {
   @Input() pressable: boolean = false;
+  @Input() hideSubtitle: boolean = false;
   @Input()
   set data(data: WeatherData) {
     this._forecast = data as WeatherForecastData;

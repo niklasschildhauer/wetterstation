@@ -8,6 +8,7 @@ import { PollenData, WeatherData } from 'src/app/model/weather';
 })
 export class PollenflugTileViewComponent implements OnInit {
   @Input() pressable: boolean = false;
+  @Input() hideSubtitle: boolean = false;
   @Input()
   set data(data: WeatherData) {
     this._pollen = data as PollenData[];
