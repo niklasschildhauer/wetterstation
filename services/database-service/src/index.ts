@@ -19,43 +19,6 @@ createConnection().then(connection => {
     app.use(express.json());
 
 
-    /* app.get('/', function (req, res) {
-         res.status(200).send("Hello from port " + port);
-     });
- 
- 
- /*
- // Connection to the database entitiy
- createConnection().then(async connection => {
- 
-     console.log("Inserting new sensor data...");
-     const outdoor = new Outdoor();
-     outdoor.humidity = 30;
-     outdoor.temperature = 24;
-     outdoor.pressure = 7;
-     await connection.manager.save(outdoor);
-     console.log("Saved new outdoor data with id: " + outdoor.id);
- 
-     console.log("Loading outdoor from the database...");
-     const outdoors = await connection.manager.find(Outdoor);
-     console.log("Loaded outdoors: ", outdoors);
- 
- }).catch(error => console.log(error));
- */
-
-
-
-    // app.get('/outdoor/all', async (req, res) => {
-    //     const outdoors = await outdoorData.find({
-    //         order: {
-    //             id: "DESC"
-    //         }
-    //     });
-    //     res.json(outdoors);
-    //     console.log(outdoors);
-    // });
-
-
     //Get the latest data from the outdoor table  
     app.get('/outdoor/latest', async (req, res) => {
         const latest = await outdoorData.findOne({
@@ -63,7 +26,7 @@ createConnection().then(connection => {
                 id: "DESC"
             }
         });
-        res.json(latest);
+        returnNotNull(latest, res)
     });
 
     //Get the latest data from the indoor table  
@@ -73,7 +36,7 @@ createConnection().then(connection => {
                 id: "DESC"
             }
         });
-        res.json(latest);
+        returnNotNull(latest, res)
     });
 
 
@@ -81,31 +44,41 @@ createConnection().then(connection => {
         const beginTimestamp = req.body.begin;
         const endTimestamp = req.body.end;
 
-        // console.log("begin", beginTimestamp)
-        // console.log("end", endTimestamp)
-
-        const history = await outdoorData.find({
-            where: [
-                { timestamp: Between(beginTimestamp, endTimestamp) }
-            ]
-        });
-        res.json(history);
+        if(parseDateHelper(beginTimestamp) && parseDateHelper(endTimestamp)){
+            // console.log("begin", beginTimestamp)
+            // console.log("end", endTimestamp)
+    
+            const history = await outdoorData.find({
+                where: [
+                    { timestamp: Between(beginTimestamp, endTimestamp) }
+                ]
+            });
+            returnNotNull(history, res)
+        }
+        else {
+            res.status(400).json({});
+        }
     });
 
-    
+
     app.post('/indoor/history', async (req, res) => {
         const beginTimestamp = req.body.begin;
         const endTimestamp = req.body.end;
 
-        // console.log("begin", beginTimestamp)
-        // console.log("end", endTimestamp)
-
-        const history = await indoorData.find({
-            where: [
-                { timestamp: Between(beginTimestamp, endTimestamp) }
-            ]
-        });
-        res.json(history);
+        if(parseDateHelper(beginTimestamp) && parseDateHelper(endTimestamp)){
+            // console.log("begin", beginTimestamp)
+            // console.log("end", endTimestamp)
+    
+            const history = await indoorData.find({
+                where: [
+                    { timestamp: Between(beginTimestamp, endTimestamp) }
+                ]
+            });
+            returnNotNull(history, res)
+        }
+        else {
+            res.status(400).json({});
+        }
     });
 
 
@@ -122,6 +95,24 @@ createConnection().then(connection => {
         const results = await indoorData.save(indoor);
         return res.send(results);
     });
+
+
+    // ------------------------------------------------ Helper ------------------------------------------------
+
+    const returnNotNull = (databaseOutput: any, res: any): void => {
+        if (databaseOutput === undefined) {
+            console.log("database input was undefined");
+            res.json({});
+        }
+        else {
+            res.status(200).json(databaseOutput);
+        }
+    }
+
+    const parseDateHelper = (date: string): boolean => {
+        let dateFormatRegex: RegExp = /([0-9]){4}-([0-9]){2}-([0-9]){2} ([0-9]){2}:([0-9]){2}:([0-9]){2}/
+        return dateFormatRegex.test(date);
+    }
 
     console.log("listening on port", port)
     app.listen(port);

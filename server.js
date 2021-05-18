@@ -259,6 +259,7 @@ const genericRequestWithPayload = (token, method, uri, body, res) => {
 };
 
 const genericCallback = (error, response, body, res) => {
+  console.log("response sc", response.statusCode)
   if (error) {
     res.sendStatus("400");
   } else {
