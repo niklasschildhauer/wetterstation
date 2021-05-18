@@ -1,8 +1,8 @@
 <app-nav-bar-element [titleLabel]="'Raumluftqualität'" [backLabel]="'Dashboard'"></app-nav-bar-element>
-<div *ngIf="rooms">
+<div *ngIf="indoorRoomTiles">
     <app-indoor-tile-view 
-        *ngFor="let item of rooms" 
-        [data]="item"
+        *ngFor="let item of indoorRoomTiles" 
+        [data]="item.data"
         [hideSubtitle]="true">
     </app-indoor-tile-view>
 </div>

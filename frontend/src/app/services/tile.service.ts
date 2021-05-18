@@ -12,6 +12,7 @@ import { Pollen } from '../model/user-context';
 export class TileService implements UserContextDelegte {
   private _dashboardTiles: Tile<WeatherData>[] = [];
   private _pollenTiles: Tile<WeatherData>[] = [];
+  private _indoorRoomTiles: Tile<WeatherData>[]= [];
 
   private _pollenData?: PollenData[];
   private _indoorRoomsData?: IndoorRoomData[];
@@ -53,7 +54,8 @@ export class TileService implements UserContextDelegte {
 
   private reloadTiles() {
     this._dashboardTiles = [];
-    this._pollenTiles = [];
+    this._pollenTiles = []; // FIXME: ICH WILL HIER NICHT SEIN... BESSER IN DER FUKTION ADD OR REPLACE? (Pollen Tiles...)
+    this._indoorRoomTiles = [];
 
     if(this._pollenData) {
       this.createPollenTiles(this._pollenData);
@@ -75,6 +77,7 @@ export class TileService implements UserContextDelegte {
   reloadData(): void {
     this._dashboardTiles = [];
     this._pollenTiles = [];
+    this._indoorRoomTiles = [];
     this.loadWeatherData();
   }
 
@@ -160,6 +163,7 @@ export class TileService implements UserContextDelegte {
         priority: this.getPrioritiyOf(item, TileType.indoorRoom),
       }
       this.addOrReplaceTileTo(this._dashboardTiles, tile);
+      this.addOrReplaceTileTo(this._indoorRoomTiles, tile);
     }
   }
 
@@ -223,6 +227,11 @@ export class TileService implements UserContextDelegte {
     let tiles = of(this._dashboardTiles);
     return tiles;
   }  
+
+  getIndoorTiles() : Observable<Tile<WeatherData>[]>{
+    let tiles = of(this._indoorRoomTiles);
+    return tiles;
+  }
 
   getPollenTiles(): Observable<Tile<WeatherData>[]>{
     let tiles = of(this._pollenTiles);
