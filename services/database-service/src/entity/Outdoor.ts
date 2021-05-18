@@ -1,4 +1,5 @@
-import {Entity, PrimaryGeneratedColumn, Column} from "typeorm";
+import {Entity, PrimaryGeneratedColumn, Column, CreateDateColumn} from "typeorm";
+
 
 @Entity()
 export class Outdoor {
@@ -18,8 +19,11 @@ export class Outdoor {
     @Column()
     location: string;
 
-    @CreateDateColumn()
-    timestamp: Date;
+  //  @CreateDateColumn()
+   // timestamp: Date;
+
+   	@CreateDateColumn({ type: 'timestamp', name: 'create_date', default: () => 'LOCALTIMESTAMP' })
+  	createDate: string;
 
     @Column()
     apparentTemperature: number;

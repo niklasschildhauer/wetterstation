@@ -1,6 +1,7 @@
 import "reflect-metadata";
 import {createConnection} from "typeorm";
 import {Outdoor} from "./entity/Outdoor";
+import {Indoor} from "./entity/Indoor";
 
 "use strict"
 
@@ -8,6 +9,7 @@ import {Outdoor} from "./entity/Outdoor";
 // create typeorm connection
 createConnection().then(connection => {
     const outdoorData = connection.getRepository(Outdoor);
+    const indoorData = connection.getRepository(Indoor);
 
 
     //set up express 
@@ -44,19 +46,34 @@ createConnection().then(async connection => {
 
 
     app.get('/outdoor/all', async (req, res) => {
-            const outdoors = await outdoorData.find();
+            const outdoors = await outdoorData.find({
+                order:{
+                    id:"DESC"
+                }
+            });
             res.json(outdoors);
             console.log(outdoors);
         });
 
+
+    //Get the latest data from the outdoor table  
     app.get('/outdoor/latest', async (req, res) => {
-            const outdoor = await outdoorData.findOne();
-            res.json(outdoor);
-            console.log(outdoor);
+            const latest = await outdoorData.findOne({
+                order:{
+                    id:"DESC"
+                }
+            });
+            res.json(latest);
+            console.log(latest);
         });
 
 
-
+    //Intervall mitschicken TODO
+    app.post('/outdoor/history', async (req, res) => {
+            const history = await outdoorData.find();
+            res.json(history);
+            console.log(history);
+        });
 
 
 
