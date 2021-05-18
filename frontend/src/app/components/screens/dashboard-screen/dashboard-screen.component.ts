@@ -1,10 +1,9 @@
-import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
-import { PollenData, Tile, TileType, WeatherData } from 'src/app/model/weather';
+import { Component, OnInit } from '@angular/core';
+import { Tile, TileType, WeatherData } from 'src/app/model/weather';
 import { UserContextService } from 'src/app/services/user-context.service';
 import { TileService } from 'src/app/services/tile.service';
 import { BreakpointObserver, BreakpointState } from '@angular/cdk/layout';
 import { reducePollen } from 'src/app/model/mock-data/weather.mock';
-import { WeatherService } from 'src/app/services/weather.service';
 import { Router } from '@angular/router';
 
 
@@ -13,31 +12,21 @@ import { Router } from '@angular/router';
   templateUrl: './dashboard-screen.component.html',
   styleUrls: ['./dashboard-screen.component.scss']
 })
-export class DashboardScreenComponent implements OnInit, OnChanges {
+export class DashboardScreenComponent implements OnInit {
   reduceMotion: boolean = false;
   dashboardTiles?: Tile<WeatherData>[];
   tileType = TileType;
   desktop: boolean = false;
 
-  pollen?: PollenData[];
-
   constructor(private userContextService: UserContextService,
     private tileService: TileService,
     private breakpointObserver: BreakpointObserver,
-    private weatherService: WeatherService,
     private router: Router) { }
-
-  ngOnChanges(changes: SimpleChanges): void {
-    this.tileService.reloadData();
-  }
 
   ngOnInit(): void {
     this.loadReduceMotionValue();
     this.loadDashboardTiles();
-    this.desktopBreakpointObserver();
-
-    this.weatherService.getPollen().subscribe(data => this.pollen = data);
-    
+    this.desktopBreakpointObserver();    
   }
 
   private desktopBreakpointObserver() {

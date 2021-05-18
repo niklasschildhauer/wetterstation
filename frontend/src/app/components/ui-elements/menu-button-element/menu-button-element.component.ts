@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router'; // Remove when it's not needed anymore
 import { UserContextService } from 'src/app/services/user-context.service';
 
 
@@ -12,8 +11,7 @@ export class MenuButtonElementComponent implements OnInit {
   reduceMotion: boolean = false; // We need this value, because the menu bar changes the font color, based on it
   isMenuHidden: boolean = true;
 
-  constructor(private router: Router,
-    private userContextService: UserContextService) { }
+  constructor(private userContextService: UserContextService) { }
 
   ngOnInit(): void {
     this.loadReduceMotionValue();

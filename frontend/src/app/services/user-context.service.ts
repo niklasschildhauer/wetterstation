@@ -7,7 +7,6 @@ export interface UserContextDelegte {
   updatedUserContext(from: UserContextService): void
 }
 
-
 @Injectable({
   providedIn: 'root'
 })

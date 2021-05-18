@@ -13,125 +13,154 @@ export class TileService implements UserContextDelegte {
   private _dashboardTiles: Tile<WeatherData>[] = [];
   private _pollenTiles: Tile<WeatherData>[] = [];
 
+  private _pollenData?: PollenData[];
+  private _indoorRoomsData?: IndoorRoomData[];
+  private _forecastData?: WeatherForecastData;
+  private _historyData?: WeatherHistoryData;
+  private _outdoorWeatherData?: OutdoorWeatherData;
+
   constructor(private weatherService: WeatherService, 
     private userContextService: UserContextService,
     private historyTileService: HistoryTileService) { 
-      this.loadTiles();
+      this.loadWeatherData();
+      this.reloadTiles();
       this.userContextService.delegate = this
   }
 
-  private loadTiles() {
-    this.loadPollenTiles();
-    this.loadIndoorRoomTiles();
-    this.loadForecastTile();
-    this.loadHistoryTile();
-    this.loadOutdoorWeatherTiles();
+  // NETWORK ACCESS
+  private loadWeatherData() {
+    this.weatherService.getOutdoorWeather().subscribe(data => {
+      this._outdoorWeatherData = data;
+      this.createOutdoorWeatherTiles(this._outdoorWeatherData);
+    });
+    this.weatherService.getPollen().subscribe(data => {
+      this._pollenData = data;
+      this.createPollenTiles(this._pollenData);
+    });
+    this.weatherService.getForecastData().subscribe(data => {
+      this._forecastData = data;
+      this.createForecastTile(this._forecastData);
+    });
+    this.weatherService.getHistoryData().subscribe(data => {
+      this._historyData = data;
+      this.createHistoryTile(this._historyData);
+    });
+    this.weatherService.getIndoorRoomData().subscribe(data => {
+      this._indoorRoomsData = data;
+      this.createIndoorRoomTiles(this._indoorRoomsData);
+    });
+  }
+
+  private reloadTiles() {
+    this._dashboardTiles = [];
+    this._pollenTiles = [];
+
+    if(this._pollenData) {
+      this.createPollenTiles(this._pollenData);
+    }
+    if(this._indoorRoomsData) {
+      this.createIndoorRoomTiles(this._indoorRoomsData);
+    }
+    if(this._forecastData) {
+      this.createForecastTile(this._forecastData);
+    }
+    if(this._historyData) {
+      this.createHistoryTile(this._historyData);
+    }
+    if(this._outdoorWeatherData) {
+      this.createOutdoorWeatherTiles(this._outdoorWeatherData);
+    }
   }
 
   reloadData(): void {
     this._dashboardTiles = [];
     this._pollenTiles = [];
-    this.loadTiles();
+    this.loadWeatherData();
   }
 
-  updatedUserContext(from: UserContextService): void {
-    console.log("hier drinnen");
-    this.reloadData();
-  }
+  private createOutdoorWeatherTiles(data: OutdoorWeatherData): void {
+    let humidityTile: Tile<OutdoorWeatherData> = {
+      type: TileType.humidity,
+      data: data,
+      id: "humidity",
+      priority: this.getPrioritiyOf(data, TileType.humidity),
+    }
 
-  private loadOutdoorWeatherTiles(): void {
-    this.weatherService.getOutdoorWeather().subscribe(data => {
-      let humidityTile: Tile<OutdoorWeatherData> = {
-        type: TileType.humidity,
-        data: data,
-        id: "humidity",
-        priority: this.getPrioritiyOf(data, TileType.humidity),
-      }
+    let apparentTemperatureTile: Tile<OutdoorWeatherData> = {
+      type: TileType.apparentTemperature,
+      data: data,
+      id: "apparentTemperature",
+      priority: this.getPrioritiyOf(data, TileType.apparentTemperature),
+    }
 
-      let apparentTemperatureTile: Tile<OutdoorWeatherData> = {
-        type: TileType.apparentTemperature,
-        data: data,
-        id: "apparentTemperature",
-        priority: this.getPrioritiyOf(data, TileType.apparentTemperature),
-      }
-
-      this.addOrReplaceTileTo(this._dashboardTiles, humidityTile);
-      this.addOrReplaceTileTo(this._dashboardTiles, apparentTemperatureTile);
-    })
+    this.addOrReplaceTileTo(this._dashboardTiles, humidityTile);
+    this.addOrReplaceTileTo(this._dashboardTiles, apparentTemperatureTile);
   }
   
-  private loadPollenTiles(): void {
-    this.weatherService.getPollen().subscribe(data => {
-      let preferredPollen: Pollen[] = this.userContextService.pollen
-      let pollenData = data
-      if(preferredPollen.length > 0) {
-        preferredPollen.forEach(item => {
-          let pollenItem = pollenData.find(dataItem => dataItem.type == item)
-          if (pollenItem) {
-            let smallTile: Tile<PollenData> = {
-              type: TileType.pollenSmall,
-              data: pollenItem,
-              id: pollenItem.name,
-              priority: this.getPrioritiyOf(pollenItem, TileType.pollenSmall),
-            }
-            this.addOrReplaceTileTo(this._dashboardTiles, smallTile);
-            this.addOrReplaceTileTo(this._pollenTiles, smallTile);
-            pollenData = pollenData.filter((item) => pollenItem != item);
+  private createPollenTiles(data: PollenData[]): void {
+    let preferredPollen: Pollen[] = this.userContextService.pollen
+    let pollenData = data
+    if(preferredPollen.length > 0) {
+      preferredPollen.forEach(item => {
+        let pollenItem = pollenData.find(dataItem => dataItem.type == item)
+        if (pollenItem) {
+          let smallTile: Tile<PollenData> = {
+            type: TileType.pollenSmall,
+            data: pollenItem,
+            id: pollenItem.name,
+            priority: this.getPrioritiyOf(pollenItem, TileType.pollenSmall),
           }
-        });
-      }
-      
-      let listTile: Tile<PollenData[]> = {
-        type: TileType.pollenList,
-        data: pollenData,
-        id: "pollenlist",
-        priority: this.getPrioritiyOf(pollenData, TileType.pollenList),
-      }
-      this.addOrReplaceTileTo(this._pollenTiles, listTile);
-
-      if(preferredPollen.length == 0) {
-        this.addOrReplaceTileTo(this._dashboardTiles, listTile);
-      }
-    })
-  }
-
-  private loadForecastTile(): void {
-    this.weatherService.getForecastData().subscribe(data => {
-      let tile: Tile<WeatherForecastData> = {
-        type: TileType.forecast,
-        data: data,
-        id: "forecast",
-        priority: this.getPrioritiyOf(data, TileType.forecast),
-      }
-      this.addOrReplaceTileTo(this._dashboardTiles, tile);
-    })
-  }
-
-  private loadHistoryTile(): void {
-    this.weatherService.getHistoryData().subscribe(data => {
-      let dataHoursPerDay = this.historyTileService.getHistoryDataSetHoursPerDayFrom(data);
-      let tile: Tile<WeatherGraphDataSet> = {
-        type: TileType.history,
-        data: dataHoursPerDay[0], // FIXME: not sage here 
-        id: "history",
-        priority: this.getPrioritiyOf(data, TileType.history),
-      }
-      this.addOrReplaceTileTo(this._dashboardTiles, tile);
-    })
-  }
-
-  private loadIndoorRoomTiles(): void {
-    this.weatherService.getIndoorRoomData().subscribe(data => {
-      for (let item of data) {
-        let tile: Tile<IndoorRoomData> = {
-          type: TileType.indoorRoom,
-          data: item,
-          id: item.roomID,
-          priority: this.getPrioritiyOf(item, TileType.indoorRoom),
+          this.addOrReplaceTileTo(this._dashboardTiles, smallTile);
+          this.addOrReplaceTileTo(this._pollenTiles, smallTile);
+          pollenData = pollenData.filter((item) => pollenItem != item);
         }
-        this.addOrReplaceTileTo(this._dashboardTiles, tile);
+      });
+    }
+    
+    let listTile: Tile<PollenData[]> = {
+      type: TileType.pollenList,
+      data: pollenData,
+      id: "pollenlist",
+      priority: this.getPrioritiyOf(pollenData, TileType.pollenList),
+    }
+    this.addOrReplaceTileTo(this._pollenTiles, listTile);
+
+    if(preferredPollen.length == 0) {
+      this.addOrReplaceTileTo(this._dashboardTiles, listTile);
+    }
+  }
+
+  private createForecastTile(data: WeatherForecastData): void {
+    let tile: Tile<WeatherForecastData> = {
+      type: TileType.forecast,
+      data: data,
+      id: "forecast",
+      priority: this.getPrioritiyOf(data, TileType.forecast),
+    }
+    this.addOrReplaceTileTo(this._dashboardTiles, tile);
+  }
+
+  private createHistoryTile(data: WeatherHistoryData): void {
+    let dataHoursPerDay = this.historyTileService.getHistoryDataSetHoursPerDayFrom(data);
+    let tile: Tile<WeatherGraphDataSet> = {
+      type: TileType.history,
+      data: dataHoursPerDay[0], // FIXME: not sage here 
+      id: "history",
+      priority: this.getPrioritiyOf(data, TileType.history),
+    }
+    this.addOrReplaceTileTo(this._dashboardTiles, tile);
+  }
+
+  private createIndoorRoomTiles(data: IndoorRoomData[]): void {
+    for (let item of data) {
+      let tile: Tile<IndoorRoomData> = {
+        type: TileType.indoorRoom,
+        data: item,
+        id: item.roomID,
+        priority: this.getPrioritiyOf(item, TileType.indoorRoom),
       }
-    })
+      this.addOrReplaceTileTo(this._dashboardTiles, tile);
+    }
   }
 
   private getPrioritiyOf(data: WeatherData, type: TileType): TilePriority {
@@ -199,6 +228,11 @@ export class TileService implements UserContextDelegte {
     let tiles = of(this._pollenTiles);
     return tiles;
   }  
+
+  // DELEGATE FUNCTION
+  updatedUserContext(from: UserContextService): void {
+    this.reloadData();
+  }
 }
 
 

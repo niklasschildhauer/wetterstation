@@ -23,9 +23,6 @@ export class LoginViewComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  
-
-
   onSubmit(): void {
     console.log('Submitted:', this.loginForm.value);
     this.userContextService.login().then(() => {

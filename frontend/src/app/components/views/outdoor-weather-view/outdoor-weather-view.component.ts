@@ -10,7 +10,7 @@ import { UserContextService } from 'src/app/services/user-context.service';
   styleUrls: ['./outdoor-weather-view.component.scss']
 })
 export class OutdoorWeatherViewComponent implements OnInit {
-  @Input() reduceMotion: boolean = false;
+  @Input() reduceMotion: boolean = false; // FIXME: wieso Input?
   outdoorWeather?: OutdoorWeatherData;
   daytime: Daytime = Daytime.noon
   daytimeType = Daytime;
@@ -33,7 +33,6 @@ export class OutdoorWeatherViewComponent implements OnInit {
       this.reduceMotion = reduceMotionValue
     });
   }
-
 
   loadOutdoorWeather(): void {
     this.weatherService.getOutdoorWeather()
