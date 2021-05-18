@@ -1,5 +1,21 @@
 @import "../../shared/styles";
 
+.button-container {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    height: 2.6em;
+}
+
+button {
+    margin: 0;
+    padding: 0;
+    fill: var(--secondary);
+    svg {
+        height: 1.7em; 
+    }
+} 
+
 .container {
     position: fixed;
     top: 0;
@@ -46,7 +62,7 @@
     .container {
         backdrop-filter: blur(20px);
         left: calc(var(--border-padding-left) - var(--border-padding-right));
-        padding: var(--border-padding-top) 0 0 var(--border-padding-right);
+        padding: var(--border-padding-top) var(--border-padding-right) 0 var(--border-padding-right);
     }
 
 }

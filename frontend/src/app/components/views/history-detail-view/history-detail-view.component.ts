@@ -2,6 +2,7 @@ import { ThrowStmt } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
 import { WeatherGraphDataSet, WeatherHistoryData } from 'src/app/model/weather';
 import { HistoryTileService } from 'src/app/services/history-tile.service';
+import { TileService } from 'src/app/services/tile.service';
 import { WeatherService } from 'src/app/services/weather.service';
 import { HistoryGraphType } from '../history-tile-view/history-tile-view.component';
 
@@ -17,15 +18,16 @@ export class HistoryDetailViewComponent implements OnInit {
   _index = 0;
 
   constructor(private historyTileService: HistoryTileService,
-    private weatherService: WeatherService) { }
+    private tileService: TileService) { }
 
   ngOnInit(): void {
     this.loadWeatherHistoryData() 
   }
 
   loadWeatherHistoryData(): void {
-    this.weatherService.getHistoryData().subscribe(data => {
+    this.tileService.getHistoryData().subscribe(data => {
       this._weatherHistory = data
+      if(this._weatherHistory)
       this._dataSet = this.historyTileService.getHistoryDataSetHoursPerDayFrom(this._weatherHistory);
     });
   }

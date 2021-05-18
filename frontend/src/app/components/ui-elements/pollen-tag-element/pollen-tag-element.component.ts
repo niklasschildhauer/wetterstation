@@ -14,9 +14,9 @@ export class PollenTagElementComponent implements OnInit {
     this._value = value;
     switch(value) {
       case 1:
-        this.textValue = "leicht";
+        this.textValue = "gering";
         this.emojiName = "almostDeath";
-        this.colorValue = "green";
+        this.colorValue = "yellow";
         break;
       case 2:
         this.textValue = "mittel";
@@ -24,14 +24,14 @@ export class PollenTagElementComponent implements OnInit {
         this.colorValue = "orange";
         break;
       case 3: 
-        this.textValue = "schwer";
+        this.textValue = "hoch";
         this.emojiName = "death";
         this.colorValue = "red";
         break;
       default:
-        this.textValue = "nix"; //FIXME: Finde einen namen
+        this.textValue = "keine"; 
         this.emojiName = "angel";
-        this.colorValue = "blue";
+        this.colorValue = "green";
     }
   }
   private _value: number = 0;

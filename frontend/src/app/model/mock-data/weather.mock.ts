@@ -169,6 +169,10 @@ export var reducePollen = () => {
     POLLEN[2].today = 3
     POLLEN[3].today = 3
 
+    OUTDOORWEATHER.temperature = OUTDOORWEATHER.temperature + 1;
+    FORECAST.forecast = "lol"
+    WOHNZIMMER.airQuality =   WOHNZIMMER.airQuality - 10;
+
 }
 
 

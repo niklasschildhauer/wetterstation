@@ -7,6 +7,7 @@ export interface UserContext {
     doVentilationReminder: boolean, // TODO: What if multiple users have concurring settings here?
     //simpleLanguage: boolean, //TODO: Is this neccessary? Because we have few text elements in the UI.
     reduceMotion: boolean, // New element: For people with vestibular disorders is animation triggerd by scrolling not good.
+    recordingFrequency: number,
 }
 
 export enum Themes {
@@ -41,4 +42,5 @@ export let INITIAL_USER_CONTEXT: UserContext = {
     language: Language["de-DE"],
     doVentilationReminder: false,
     reduceMotion: false,
+    recordingFrequency: 5,
 }

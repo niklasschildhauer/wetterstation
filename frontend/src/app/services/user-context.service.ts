@@ -15,41 +15,34 @@ export class UserContextService {
   _userContext: UserContext; // FIXME
   set userContext(object: UserContext) {
     this._userContext = object
-    this.saveUserContextToLocalStorage();
-    this.delegate?.updatedUserContext(this);
+    this.saveUserContext()
   }
   get theme() {
     return this._userContext.theme
   }
   set theme(value: Themes) {
     this._userContext.theme = value;
-    this.saveUserContextToLocalStorage();
-    this.delegate?.updatedUserContext(this);
+    this.saveUserContext()
   }
   set reduceMotion(value: boolean) {
     this._userContext.reduceMotion = value
-    this.saveUserContextToLocalStorage();
-    this.delegate?.updatedUserContext(this);
+    this.saveUserContext()
   }
   set selfVoicingEnabled(value: boolean) {
     this._userContext.selfVoicingEnabled = value
-    this.saveUserContextToLocalStorage();
-    this.delegate?.updatedUserContext(this);
+    this.saveUserContext()
   }
   set doVentilationReminder(value: boolean) {
     this._userContext.doVentilationReminder = value
-    this.saveUserContextToLocalStorage();
-    this.delegate?.updatedUserContext(this);
+    this.saveUserContext()
   }
   set fontSize(value: number) {
     this._userContext.fontSize = value
-    this.saveUserContextToLocalStorage();
-    this.delegate?.updatedUserContext(this);
+    this.saveUserContext()
   }
   set pollen(value: Pollen[]) {
     this._userContext.pollen = value
-    this.saveUserContextToLocalStorage();
-    this.delegate?.updatedUserContext(this);
+    this.saveUserContext()
   }
   get pollen() {
     return this._userContext.pollen
@@ -60,6 +53,7 @@ export class UserContextService {
   }
   
   login(): Promise<UserContext> {
+    this.resetUserContext()
     // DELETE ME
     this.reduceMotion = true;
     this.theme = Themes.Dark;
@@ -70,12 +64,11 @@ export class UserContextService {
   }
 
   logout() {
-    console.log("Reset user context");
-    this.userContext = INITIAL_USER_CONTEXT;
+    this.resetUserContext();
   }
 
   register(): Promise<UserContext> {
-    this.userContext = INITIAL_USER_CONTEXT;
+    this.resetUserContext();
     console.log(INITIAL_USER_CONTEXT);
     return new Promise((resolve) => {
       resolve(this._userContext);
@@ -87,7 +80,23 @@ export class UserContextService {
     return userContext;
   }
 
-  saveUserContextToLocalStorage() {
+  private resetUserContext() {
+    this._userContext.doVentilationReminder = INITIAL_USER_CONTEXT.doVentilationReminder
+    this._userContext.pollen = INITIAL_USER_CONTEXT.pollen
+    this._userContext.fontSize = INITIAL_USER_CONTEXT.fontSize
+    this._userContext.language = INITIAL_USER_CONTEXT.language
+    this._userContext.recordingFrequency = INITIAL_USER_CONTEXT.recordingFrequency
+    this._userContext.reduceMotion = INITIAL_USER_CONTEXT.reduceMotion
+    this._userContext.selfVoicingEnabled = INITIAL_USER_CONTEXT.selfVoicingEnabled
+    this._userContext.theme = INITIAL_USER_CONTEXT.theme
+  }
+
+  private saveUserContext() {
+    this.saveUserContextToLocalStorage()
+    this.delegate?.updatedUserContext(this);
+  }
+
+  private saveUserContextToLocalStorage() {
     this.localStorageService.saveUserContext(this._userContext)
   }
 }

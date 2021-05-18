@@ -24,7 +24,6 @@ export class TileService implements UserContextDelegte {
     private userContextService: UserContextService,
     private historyTileService: HistoryTileService) { 
       this.loadWeatherData();
-      this.reloadTiles();
       this.userContextService.delegate = this
   }
 
@@ -53,9 +52,7 @@ export class TileService implements UserContextDelegte {
   }
 
   private reloadTiles() {
-    this._dashboardTiles = [];
-    this._pollenTiles = []; // FIXME: ICH WILL HIER NICHT SEIN... BESSER IN DER FUKTION ADD OR REPLACE? (Pollen Tiles...)
-    this._indoorRoomTiles = [];
+    this.resetData();
 
     if(this._pollenData) {
       this.createPollenTiles(this._pollenData);
@@ -74,10 +71,14 @@ export class TileService implements UserContextDelegte {
     }
   }
 
-  reloadData(): void {
+  private resetData() {
     this._dashboardTiles = [];
     this._pollenTiles = [];
     this._indoorRoomTiles = [];
+  }
+
+  reloadData(): void {
+    this.resetData();
     this.loadWeatherData();
   }
 
@@ -103,6 +104,7 @@ export class TileService implements UserContextDelegte {
   private createPollenTiles(data: PollenData[]): void {
     let preferredPollen: Pollen[] = this.userContextService.pollen
     let pollenData = data
+
     if(preferredPollen.length > 0) {
       preferredPollen.forEach(item => {
         let pollenItem = pollenData.find(dataItem => dataItem.type == item)
@@ -236,7 +238,22 @@ export class TileService implements UserContextDelegte {
   getPollenTiles(): Observable<Tile<WeatherData>[]>{
     let tiles = of(this._pollenTiles);
     return tiles;
-  }  
+  } 
+
+  getOutdoorWeatherData(): Observable<OutdoorWeatherData | undefined> {
+    let data = of(this._outdoorWeatherData);
+    return data
+  }
+
+  getForecastData(): Observable<WeatherForecastData | undefined> {
+    let data = of(this._forecastData);
+    return data
+  }
+
+  getHistoryData(): Observable<WeatherHistoryData | undefined> {
+    let data = of(this._historyData);
+    return data
+  }
 
   // DELEGATE FUNCTION
   updatedUserContext(from: UserContextService): void {

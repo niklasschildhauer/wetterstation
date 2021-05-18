@@ -3,6 +3,7 @@ import { Daytime, OutdoorWeatherData } from 'src/app/model/weather';
 import { WeatherService } from '../../../services/weather.service'
 import { WeatherType } from '../../../model/weather';
 import { UserContextService } from 'src/app/services/user-context.service';
+import { TileService } from 'src/app/services/tile.service';
 
 @Component({
   selector: 'app-outdoor-weather-view',
@@ -17,13 +18,14 @@ export class OutdoorWeatherViewComponent implements OnInit {
   showWeatherDescription: boolean = true;
 
   constructor(private weatherService: WeatherService,
-    private userContextService: UserContextService) { }
+    private userContextService: UserContextService,
+    private tileService: TileService) { }
 
   ngOnInit(): void {
-    this.loadOutdoorWeather();
+    // this.loadOutdoorWeather();
     this.listenToScrollEvent();
-    // this.loadReduceMotionValue();
     this.loadDaytime();
+    this.tileService.getOutdoorWeatherData().subscribe(data => this.outdoorWeather = data);
   }
 
   loadReduceMotionValue() {
