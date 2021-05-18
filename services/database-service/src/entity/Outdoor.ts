@@ -1,31 +1,31 @@
-import {Entity, PrimaryGeneratedColumn, Column, CreateDateColumn} from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn } from "typeorm";
 
 
 @Entity()
 export class Outdoor {
 
-    @PrimaryGeneratedColumn('increment')
-    id: number;
+  @PrimaryGeneratedColumn('increment')
+  id: number;
 
-    @Column()
-    humidity: number;
+  @Column()
+  humidity: number;
 
-    @Column()
-    temperature: number;
+  @Column()
+  temperature: number;
 
-    @Column()
-    pressure: number;
+  @Column()
+  pressure: number;
 
-    @Column()
-    location: string;
+  @Column()
+  location: string;
 
-  //  @CreateDateColumn()
-   // timestamp: Date;
+  @CreateDateColumn()
+  timestamp: string;
 
-   	@CreateDateColumn({ type: 'timestamp', name: 'create_date', default: () => 'LOCALTIMESTAMP' })
-  	createDate: string;
+  // @CreateDateColumn({ type: 'string', name: 'create_date', default: () => 'LOCALTIMESTAMP' })
+  // createDate: string;
 
-    @Column()
-    apparentTemperature: number;
+  @Column()
+  apparentTemperature: number;
 
 }
