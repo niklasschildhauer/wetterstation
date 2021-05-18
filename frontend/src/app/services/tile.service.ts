@@ -29,6 +29,8 @@ export class TileService implements UserContextDelegte {
   }
 
   reloadData(): void {
+    this._dashboardTiles = [];
+    this._pollenTiles = [];
     this.loadTiles();
   }
 

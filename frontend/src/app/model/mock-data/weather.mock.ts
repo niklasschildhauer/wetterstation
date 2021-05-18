@@ -163,6 +163,14 @@ export var POLLEN: PollenData[] = [
     },
 ];
 
+export var reducePollen = () => {
+    POLLEN[0].today = 3
+    POLLEN[1].today = 3
+    POLLEN[2].today = 3
+    POLLEN[3].today = 3
+
+}
+
 
 export var POLLENSMALL: Tile<PollenData> = {
     type: TileType.pollenSmall,
