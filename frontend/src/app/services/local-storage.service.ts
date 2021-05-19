@@ -13,6 +13,7 @@ export class LocalStorageService {
   public saveUserContext(object: UserContext) {
     let objectString = JSON.stringify(object)
     this.setItem(LocalStorageService.userContextIdentifier, objectString);
+    console.log("SAVED USER CONTEXT");
   }
 
   public getUserContext(): UserContext {

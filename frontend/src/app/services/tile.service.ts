@@ -80,6 +80,12 @@ export class TileService implements UserContextDelegte {
   reloadData(): void {
     this.resetData();
     this.loadWeatherData();
+
+    //DELETE ME
+    this.weatherService.getIndoorRoomData2().subscribe(data => {
+      this._indoorRoomsData = data;
+      this.createIndoorRoomTiles(this._indoorRoomsData);
+    });
   }
 
   private createOutdoorWeatherTiles(data: OutdoorWeatherData): void {

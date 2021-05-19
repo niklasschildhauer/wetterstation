@@ -69,6 +69,7 @@ export class UserContextService {
 
   register(): Promise<UserContext> {
     this.resetUserContext();
+    // this.userContext = INITIAL_USER_CONTEXT;
     console.log(INITIAL_USER_CONTEXT);
     return new Promise((resolve) => {
       resolve(this._userContext);

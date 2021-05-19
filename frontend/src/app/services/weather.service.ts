@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { FORECAST, INDOORAIRQUALITY, OUTDOORWEATHER, POLLEN, WEATHERHISTORY } from '../model/mock-data/weather.mock';
+import { FORECAST, INDOORAIRQUALITY, INDOORAIRQUALITY2, OUTDOORWEATHER, POLLEN, WEATHERHISTORY } from '../model/mock-data/weather.mock';
 import { OutdoorWeatherData, PollenData, IndoorRoomData, Daytime, WeatherForecastData, WeatherHistoryData } from '../model/weather';
 import { Observable, of } from 'rxjs';
 
@@ -10,6 +10,7 @@ import { Observable, of } from 'rxjs';
 export class WeatherService {
   constructor() { }
 
+  // DELETE ME
   getOutdoorWeather(): Observable<OutdoorWeatherData> {
     let weather = of(OUTDOORWEATHER);
     return weather;
@@ -22,6 +23,11 @@ export class WeatherService {
 
   getIndoorRoomData(): Observable<IndoorRoomData[]> {
     let indoorData = of(INDOORAIRQUALITY);
+    return indoorData;
+  }
+
+  getIndoorRoomData2(): Observable<IndoorRoomData[]> {
+    let indoorData = of(INDOORAIRQUALITY2);
     return indoorData;
   }
 

@@ -1,0 +1,17 @@
+<h1>Raumname ändern</h1>
+<form (ngSubmit)="onSubmit()">
+    <label for="name">
+        Raumname
+    </label>
+    <input
+        [formControl]="name"
+        id="name"
+        type="text" 
+        placeholder="{{data}}">
+    <input type="submit" value="Ok">
+</form>
+<div>
+  <button (click)="onNoClick()">Abbrechen</button>
+  <button (click)="onSubmit()">Speichern</button>
+  <!-- <button [mat-dialog-close]="data" cdkFocusInitial>Ok</button> -->
+</div>

@@ -215,6 +215,30 @@ export var SCHLAFZIMMER: IndoorRoomData =  {
     timestamp: new Date(),
 }
 
+export var WOHNZIMMER2: IndoorRoomData = {
+    roomID: "328959845524",
+    roomName: "Wohnzimmer2",
+    airQuality: 12,
+    temperature: 2,
+    humidity: 50,
+    timestamp: new Date(),
+}
+
+export var SCHLAFZIMMER2: IndoorRoomData =  {
+    roomID: "15359845524",
+    roomName: "Schlafzimmer2",
+    airQuality: 2,
+    temperature: 22,
+    humidity: 5,
+    timestamp: new Date(),
+}
+
+export var INDOORAIRQUALITY2: IndoorRoomData[] = [
+    WOHNZIMMER2,
+    SCHLAFZIMMER2
+];
+
+
 
 export var INDOORAIRQUALITY: IndoorRoomData[] = [
     WOHNZIMMER,
