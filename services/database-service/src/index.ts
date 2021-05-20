@@ -102,7 +102,7 @@ createConnection().then(connection => {
     const returnNotNull = (databaseOutput: any, res: any): void => {
         if (databaseOutput === undefined) {
             console.log("database input was undefined");
-            res.json({});
+            res.status(204).json({});
         }
         else {
             res.status(200).json(databaseOutput);
@@ -110,7 +110,9 @@ createConnection().then(connection => {
     }
 
     const parseDateHelper = (date: string): boolean => {
-        let dateFormatRegex: RegExp = /([0-9]){4}-([0-9]){2}-([0-9]){2} ([0-9]){2}:([0-9]){2}:([0-9]){2}/
+        //TODO: The regex is somewhat improved but still far from perfect (month 13 still works etc.) 
+        //but this is not really solvable with regex since you are only able to specify allowed character (ranges) and not e.g. number values
+        let dateFormatRegex: RegExp = /(20[0-9]{2})-([0-2]{1}[0-9]{1})-([0-2]{1}[0-9]{1}) ([0-5]{1}[0-9]{1}:){2}([0-9]){2}/
         return dateFormatRegex.test(date);
     }
 
