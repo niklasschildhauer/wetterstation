@@ -22,6 +22,8 @@ import { OutdoorWeatherDetailViewComponent } from './outdoor-weather-detail-view
 import { HumidityTileViewComponent } from './humidity-tile-view/humidity-tile-view.component';
 import { ApparentTemperatureTileViewComponent } from './apparent-temperature-tile-view/apparent-temperature-tile-view.component';
 import { MatDialogModule } from '@angular/material/dialog';
+import { NgApexchartsModule } from "ng-apexcharts";
+
 
 
 @NgModule({
@@ -53,6 +55,7 @@ import { MatDialogModule } from '@angular/material/dialog';
     FormsModule, 
     ReactiveFormsModule,
     MatDialogModule,
+    NgApexchartsModule,
   ],
   exports: [
     PollenflugTileViewComponent,

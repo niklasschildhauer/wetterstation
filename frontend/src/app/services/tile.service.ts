@@ -1,7 +1,7 @@
 import { Injectable, OnInit } from '@angular/core';
 import { UserContextDelegte, UserContextService } from './user-context.service';
 import { WeatherService } from './weather.service';
-import { WeatherData, Tile, PollenData, TileType, IndoorRoomData, WeatherForecastData, TilePriority, WeatherHistoryData, WeatherGraphDataSet, OutdoorWeatherData } from '../model/weather';
+import { WeatherData, Tile, PollenData, TileType, IndoorRoomData, WeatherForecastData, TilePriority, WeatherHistoryData, GraphDataSet, OutdoorWeatherData } from '../model/weather';
 import { Observable, of } from 'rxjs';
 import { HistoryTileService } from './history-tile.service';
 import { Pollen } from '../model/user-context';
@@ -80,12 +80,6 @@ export class TileService implements UserContextDelegte {
   reloadData(): void {
     this.resetData();
     this.loadWeatherData();
-
-    //DELETE ME
-    this.weatherService.getIndoorRoomData2().subscribe(data => {
-      this._indoorRoomsData = data;
-      this.createIndoorRoomTiles(this._indoorRoomsData);
-    });
   }
 
   private createOutdoorWeatherTiles(data: OutdoorWeatherData): void {
@@ -153,7 +147,7 @@ export class TileService implements UserContextDelegte {
 
   private createHistoryTile(data: WeatherHistoryData): void {
     let dataHoursPerDay = this.historyTileService.getHistoryDataSetHoursPerDayFrom(data);
-    let tile: Tile<WeatherGraphDataSet> = {
+    let tile: Tile<GraphDataSet> = {
       type: TileType.history,
       data: dataHoursPerDay[0], // FIXME: not sage here 
       id: "history",

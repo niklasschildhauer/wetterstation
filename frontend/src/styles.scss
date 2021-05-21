@@ -127,7 +127,7 @@ article {
     --accent: #4480DB;
     --secondary:  #8A8A8A;
     --inverted:  #FFFFFF;
-    --surface:  #3e3e3e;
+    --surface:  #424242;
     --background: #1C2026;
     --pressed: #BABABA;
     --disabled: #1D1D1D;
@@ -139,7 +139,7 @@ article {
         --accent: #4480DB;
         --secondary:  #8A8A8A;
         --inverted:  #FFFFFF;
-        --surface:  #3e3e3e;
+        --surface:  #424242;
         --background: #1C2026;
         --pressed: #BABABA;
         --disabled: #1D1D1D;
@@ -262,11 +262,11 @@ input[type=submit], .button-full-width {
     background-color: var(--accent);
     color: white;
     padding: 12px 20px;
-    margin: 8px 0;
     border: none;
     border-radius: var(--corner-radius);
     cursor: pointer;
     height: 3.3em;
+    margin-top: var(--padding);
 }
 
 input[type=text], input[type=password] {
@@ -280,7 +280,6 @@ input[type=text], input[type=password] {
     background-color: var(--surface);
     color: var(--text);
     height: 4.0em;
-
 }
 //////////////////////
 //

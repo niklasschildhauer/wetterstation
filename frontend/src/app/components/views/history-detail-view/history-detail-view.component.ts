@@ -1,6 +1,6 @@
 import { ThrowStmt } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
-import { WeatherGraphDataSet, WeatherHistoryData } from 'src/app/model/weather';
+import { GraphDataSet, WeatherHistoryData } from 'src/app/model/weather';
 import { HistoryTileService } from 'src/app/services/history-tile.service';
 import { TileService } from 'src/app/services/tile.service';
 import { WeatherService } from 'src/app/services/weather.service';
@@ -14,7 +14,7 @@ import { HistoryGraphType } from '../history-tile-view/history-tile-view.compone
 export class HistoryDetailViewComponent implements OnInit {
   private _weatherHistory?: WeatherHistoryData
   graphType = HistoryGraphType
-  _dataSet?: WeatherGraphDataSet[] // FIXME: NAMING überall??
+  _dataSet?: GraphDataSet[] // FIXME: NAMING überall??
   _index = 0;
 
   constructor(private historyTileService: HistoryTileService,

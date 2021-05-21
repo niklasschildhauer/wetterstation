@@ -1,6 +1,7 @@
 import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { trigger, style, animate, transition } from '@angular/animations';
+import { UserContextService } from 'src/app/services/user-context.service';
 
 @Component({
   selector: 'app-menu-element',
@@ -35,7 +36,8 @@ export class MenuElementComponent implements OnInit {
   @Output() closeEvent = new EventEmitter();
   // @Input() closeFunction?: () => void;
 
-  constructor(private router: Router) { }
+  constructor(private router: Router,
+    private userContextService: UserContextService) { }
 
   ngOnInit(): void {
   }
@@ -49,7 +51,6 @@ export class MenuElementComponent implements OnInit {
   }
 
   logout(): void {
-    this.router.navigateByUrl('/onboarding/login'); //FIXME
-    console.log("Logout pressed")
+    this.userContextService.logout();
   }
 }

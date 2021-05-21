@@ -1,11 +1,3 @@
-@mixin gradient {
-  background: rgb(97,194,216);
-  background: -moz-linear-gradient(0deg, rgba(97,194,216,1) 0%, rgba(67,125,219,1) 100%);
-  background: -webkit-linear-gradient(0deg, rgba(97,194,216,1) 0%, rgba(67,125,219,1) 100%);
-  background: linear-gradient(0deg, rgba(97,194,216,1) 0%, rgba(67,125,219,1) 100%);
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#61c2d8",endColorstr="#437ddb",GradientType=1);
-}
-
 .container {
   display: flex;
   flex-direction: column;
@@ -28,7 +20,7 @@ span {
 }
 
 .container.checked {
-  @include gradient();
+  background-color: var(--accent);
 
   span {
     color: white;

@@ -67,14 +67,10 @@ export interface WeatherHistoryData extends WeatherData {
     datapoints: OutdoorWeatherData[],
 }
 
-export interface GraphDataPoints {
-    name: string;
-    value: number;
-}
-
-export interface WeatherGraphDataSet extends WeatherData {
-    temperatureDataPoints: GraphDataPoints[];
-    humidityDataPoints: GraphDataPoints[];
+export interface GraphDataSet extends WeatherData {
+    temperatureDataPoints: number[];
+    humidityDataPoints: number[];
+    xAxisLabel: string[];
     label: string;
     temperatureAverage: number;
     humidityAverage: number;

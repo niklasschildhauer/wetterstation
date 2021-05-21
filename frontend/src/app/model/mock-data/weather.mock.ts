@@ -172,6 +172,7 @@ export var reducePollen = () => {
     OUTDOORWEATHER.temperature = OUTDOORWEATHER.temperature + 1;
     FORECAST.forecast = "lol"
     WOHNZIMMER.airQuality =   WOHNZIMMER.airQuality - 10;
+    console.log(WOHNZIMMER)
 
 }
 

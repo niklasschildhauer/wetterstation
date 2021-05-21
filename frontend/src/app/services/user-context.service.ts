@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { UserContext, Themes, INITIAL_USER_CONTEXT, Pollen } from '../model/user-context';
 import { Observable, of } from 'rxjs';
 import { LocalStorageService } from './local-storage.service';
+import { Router } from '@angular/router';
 
 export interface UserContextDelegte {
   updatedUserContext(from: UserContextService): void
@@ -48,7 +49,8 @@ export class UserContextService {
     return this._userContext.pollen
   }
 
-  constructor(private localStorageService: LocalStorageService) { 
+  constructor(private localStorageService: LocalStorageService,
+    private router: Router) { 
     this._userContext = this.localStorageService.getUserContext();
   }
   
@@ -65,11 +67,11 @@ export class UserContextService {
 
   logout() {
     this.resetUserContext();
+    this.router.navigateByUrl('/onboarding/login'); //FIXME
   }
 
   register(): Promise<UserContext> {
     this.resetUserContext();
-    // this.userContext = INITIAL_USER_CONTEXT;
     console.log(INITIAL_USER_CONTEXT);
     return new Promise((resolve) => {
       resolve(this._userContext);
@@ -90,6 +92,7 @@ export class UserContextService {
     this._userContext.reduceMotion = INITIAL_USER_CONTEXT.reduceMotion
     this._userContext.selfVoicingEnabled = INITIAL_USER_CONTEXT.selfVoicingEnabled
     this._userContext.theme = INITIAL_USER_CONTEXT.theme
+    this.saveUserContext();
   }
 
   private saveUserContext() {

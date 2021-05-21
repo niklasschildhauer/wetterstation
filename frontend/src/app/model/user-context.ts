@@ -37,7 +37,7 @@ export enum Language {
 export let INITIAL_USER_CONTEXT: UserContext = {
     theme: Themes.Automatic,
     fontSize: 62.5,
-    pollen: [Pollen.Esche],
+    pollen: [],
     selfVoicingEnabled: false,
     language: Language["de-DE"],
     doVentilationReminder: false,
