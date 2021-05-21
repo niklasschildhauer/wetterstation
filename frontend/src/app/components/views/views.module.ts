@@ -22,6 +22,7 @@ import { OutdoorWeatherDetailViewComponent } from './outdoor-weather-detail-view
 import { HumidityTileViewComponent } from './humidity-tile-view/humidity-tile-view.component';
 import { ApparentTemperatureTileViewComponent } from './apparent-temperature-tile-view/apparent-temperature-tile-view.component';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MenuViewComponent } from './menu-view/menu-view.component';
 
 
 @NgModule({
@@ -43,7 +44,8 @@ import { MatDialogModule } from '@angular/material/dialog';
     OutdoorWeatherDetailViewComponent,
     HumidityTileViewComponent,
     ApparentTemperatureTileViewComponent,
-    IndoorTilePopUpDialogView
+    IndoorTilePopUpDialogView,
+    MenuViewComponent,
   ],
   imports: [
     CommonModule,
@@ -71,6 +73,7 @@ import { MatDialogModule } from '@angular/material/dialog';
     OutdoorWeatherDetailViewComponent,
     HumidityTileViewComponent,
     ApparentTemperatureTileViewComponent,
+    MenuViewComponent,
   ]
 })
 export class ViewsModule { }
