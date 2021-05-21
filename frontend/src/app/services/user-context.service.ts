@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { UserContext, Themes, INITIAL_USER_CONTEXT, Pollen } from '../model/user-context';
 import { Observable, of } from 'rxjs';
 import { LocalStorageService } from './local-storage.service';
-import { Router } from '@angular/router';
 
 export interface UserContextDelegte {
   updatedUserContext(from: UserContextService): void
@@ -49,8 +48,7 @@ export class UserContextService {
     return this._userContext.pollen
   }
 
-  constructor(private localStorageService: LocalStorageService,
-    private router: Router) { 
+  constructor(private localStorageService: LocalStorageService) { 
     this._userContext = this.localStorageService.getUserContext();
   }
   
@@ -67,7 +65,6 @@ export class UserContextService {
 
   logout() {
     this.resetUserContext();
-    this.router.navigateByUrl('onboarding/login');
   }
 
   register(): Promise<UserContext> {
