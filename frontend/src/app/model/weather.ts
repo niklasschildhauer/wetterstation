@@ -28,14 +28,14 @@ export interface Tile<A> {
 
 export interface OutdoorWeatherData extends WeatherData {
     temperature: number // in °C
-    maxTemperature: number, //TODO: external database required "forecast" 
-    minTemperature: number, //TODO: external database required "forecast" 
+    maxTemperature: number, //TODO: external database required "forecast"  --> // TODO: Move to "daily" data structure
+    minTemperature: number, //TODO: external database required "forecast"  --> // TODO: Move to "daily" data structure
     humidity: number, // in %
     timestamp: Date, 
     weather: WeatherType, // TODO: external API required
     apparentTemperature: number, // in °C ---> die "gefühlte" Temperatur
     //textTTS: string // TODO: Generate in frontend (with i18n ?)
-    location: string, // e.g. "Stuttgart"
+    location: string, // e.g. "Stuttgart" TODO: Make configurable in ESP Wlan-Board
 }
 
 //Using our own sensors 

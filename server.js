@@ -75,20 +75,48 @@ app.use(express.json({ limit: "1mb", type: "application/json" }));
  */
 
 /**
+ * @typedef Interval
+ * @property {string} begin startdate of the interval in ISO-format "2020-06-13 18:30:00"
+ * @property {string} end enddate of the interval in ISO-format "2020-06-13 18:30:00"
+ */
+
+/**
 * @typedef SensordataOutdoors
-* @property {integer} temperature.required
 * @property {integer} humidity.required
+* @property {integer} temperature.required
 * @property {integer} pressure.required
+* @property {string} location.required
 */
 
 /**
 * @typedef SensordataIndoors
-* @property {integer} roomTemperature.required
-* @property {integer} roomHumidity.required
-* @property {integer} roomPressure.required
+* @property {integer} humidity.required
+* @property {integer} temperature.required
+* @property {integer} pressure.required
 * @property {integer} gasVal.required
+* @property {string} location.required
 */
 
+/**
+* @typedef OutdoorWeatherData
+* @property {integer} humidity
+* @property {integer} temperature
+* @property {integer} pressure
+* @property {string} location
+* @property {string} timestamp
+* @property {string} weather
+* @property {integer} apparentTemperature
+*/
+
+/**
+* @typedef IndoorRoomData
+* @property {integer} roomHumidity
+* @property {integer} roomTemperature
+* @property {integer} roomPressure
+* @property {integer} gasVal
+* @property {string} location
+* @property {string} timestamp
+*/
 
 // ------------------------------------------------ Routes ------------------------------------------------
 
@@ -127,25 +155,70 @@ app.get("/v1/auth/checkToken", (req, res) => {
  * Receive data for outdoor sensors
  * @route POST /sensors/outdoor
  * @group sensors - Receiving of sensor data
- * @param {SensordataOutdoors.model} sensordata.body.required test
+ * @param {SensordataOutdoors.model} sensordata.body.required sensordata
  */
 app.post("/v1/sensors/outdoor", (req, res) => {
   genericRequestWithPayload("", "POST", "http://localhost:4204/sensorout", JSON.stringify(req.body), res);
 });
-
 
 //TODO: Returns?
 /**
  * Receive data for outdoor sensors
  * @route POST /sensors/indoor
  * @group sensors - Receiving of sensor data
- * @param {SensordataIndoors.model} sensordata.body.required test
+ * @param {SensordataIndoors.model} sensordata.body.required sensordata
  */
-app.post("/v1/sensors/indoor", (req, res) => {
+ app.post("/v1/sensors/indoor", (req, res) => {
   genericRequestWithPayload("", "POST", "http://localhost:4204/sensorin", JSON.stringify(req.body), res);
 });
 
 
+/**
+ * Receive latest data for outdoor sensors
+ * @route GET /weather-data/outdoor/latest
+ * @group weather-data - Request weather data
+ * @returns {OutdoorWeatherData.model} 200 - The latest recorded weather data
+ */
+ app.get("/v1/weather-data/outdoor/latest", (req, res) => {
+  genericRequest("", "GET", "http://localhost:4205/outdoor/latest", res);
+});
+
+
+/**
+ * Receive latest data for outdoor sensors
+ * @route GET /weather-data/indoor/latest
+ * @group weather-data - Request weather data
+ * @returns {IndoorRoomData.model} 200 - The latest recorded weather data
+ */
+ app.get("/v1/weather-data/indoor/latest", (req, res) => {
+  genericRequest("", "GET", "http://localhost:4205/indoor/latest", res);
+});
+
+
+/**
+ * Receive history weather data for outdoor sensors for a given interval of time
+ * @route POST /weather-data/outdoor/history
+ * @group weather-data - Request weather data
+ * @param {Interval.model} interval.body.required interval
+ * @returns {Array<OutdoorWeatherData>} 200 - An array of OutdoorWeatherData objects for a given interval
+ */
+app.post("/v1/weather-data/outdoor/history", (req, res) => {
+  genericRequestWithPayload("", "POST", "http://localhost:4205/outdoor/history", JSON.stringify(req.body), res);
+});
+
+
+/**
+ * Receive history weather data for indoor sensors for a given interval of time
+ * @route POST /weather-data/indoor/history
+ * @group weather-data - Request weather data
+ * @param {Interval.model} interval.body.required interval
+ * @returns {Array<IndoorRoomData>} 200 - An array of IndoorRoomData objects for a given interval
+ */
+ app.post("/v1/weather-data/indoor/history", (req, res) => {
+  genericRequestWithPayload("", "POST", "http://localhost:4205/indoor/history", JSON.stringify(req.body), res);
+});
+
+ 
 
 // ------------------------------------------------ Helper ------------------------------------------------
 
@@ -186,6 +259,7 @@ const genericRequestWithPayload = (token, method, uri, body, res) => {
 };
 
 const genericCallback = (error, response, body, res) => {
+  console.log("response sc", response.statusCode)
   if (error) {
     res.sendStatus("400");
   } else {

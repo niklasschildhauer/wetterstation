@@ -2,35 +2,32 @@
 
 const port = 4204;
 
-var express = require('express');
-var app = express();
+//Use with genericRequestHandlers.genericRequest(...)
+const genericRequestHandlers = require("./lib/shared");
+const apparentTemp = require("./lib/apparentTemperature")
 
-//app.use(express.urlencoded({
-//	extended:true
-//}));
+const express = require('express');
+const app = express();
+
+
 app.use(express.json());
 
-
-app.get('/', function (req, res) {
-	res.status(200).send("Hello from port " + port);
-});
-
 app.post('/sensorout', (req, res) => {
-	var temperature = req.body.temperature;
-	var pressure = req.body.pressure;
-	var humidity = req.body.humidity;
-	console.log(req.body);
-	res.status(200).json("OK");
+	let _body = {
+		"humidity" : req.body.humidity,
+		"temperature": req.body.temperature,
+		"pressure" : req.body.pressure,
+		"location" : req.body.location,
+		"apparentTemperature": apparentTemp.calculateApparentTemperature()
+	}
+	genericRequestHandlers.genericRequestWithPayload("POST", 'http://localhost:4205/outdoor/insert', JSON.stringify(_body), res);
 });
 
 app.post('/sensorin', (req, res) => {
-	var roomTemperature = req.body.temperature;
-	var roomPressure = req.body.pressure;
-	var roomHumidity = req.body.humidity;
-	var gasVal = req.body.gasVal;
-	console.log(req.body);
-	res.status(200).json("OK");
+	let body = JSON.stringify(req.body);
+	genericRequestHandlers.genericRequestWithPayload("POST", 'http://localhost:4205/indoor/insert', body, res);
 });
+
 
 console.log("listening on port", port)
 app.listen(port);

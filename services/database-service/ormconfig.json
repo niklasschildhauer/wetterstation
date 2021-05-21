@@ -4,7 +4,7 @@
   "port": 4205,
   "username": "root",
   "password": "",
-  "database": "test",
+  "database": "test.sqlite",
   "synchronize": true,
   "logging": false,
   "migrationsTableName": "migrations",
