@@ -1,6 +1,6 @@
 <card-element *ngIf="_dataSet" [title]="title ? title : _dataSet.label" [subtitle]="pressable ? 'Historie': ''" [pressable]="pressable">
     <div class="container">
-      <apx-chart
+      <!-- <apx-chart
         [series]="chartOptions.series"
         [chart]="chartOptions.chart"
         [xaxis]="chartOptions.xaxis"
@@ -12,6 +12,17 @@
         [grid]="chartOptions.grid"
         [yaxis]="chartOptions.yaxis"
         [theme]="chartOptions.theme"
-        ></apx-chart>
+        ></apx-chart> -->
     </div>
+
+    <canvas baseChart
+        chartType="line"
+        [datasets]="chartData"
+        [labels]="chartLabels"
+        [options]="chartOptions"
+        [colors]="chartColors"
+        [legend]="chartLegend"
+        [plugins]="chartPlugins"
+        class="chart">
+    </canvas>
 </card-element>

@@ -12,7 +12,6 @@ import { HistoryDetailViewComponent } from './history-detail-view/history-detail
 import { ForecastDetailViewComponent } from './forecast-detail-view/forecast-detail-view.component';
 import { ForecastTileViewComponent } from './forecast-tile-view/forecast-tile-view.component';
 import { PollenflugSmallTileComponent } from './pollenflug-small-tile/pollenflug-small-tile.component';
-import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { PersonalizationSettingsViewComponent } from './personalization-settings-view/personalization-settings-view.component';
 import { LoginViewComponent } from './login-view/login-view.component';
 import { RegistrationViewComponent } from './registration-view/registration-view.component';
@@ -22,8 +21,8 @@ import { OutdoorWeatherDetailViewComponent } from './outdoor-weather-detail-view
 import { HumidityTileViewComponent } from './humidity-tile-view/humidity-tile-view.component';
 import { ApparentTemperatureTileViewComponent } from './apparent-temperature-tile-view/apparent-temperature-tile-view.component';
 import { MatDialogModule } from '@angular/material/dialog';
-import { NgApexchartsModule } from "ng-apexcharts";
 import { SimpleTileViewComponent } from './simple-tile-view/simple-tile-view.component';
+import { ChartsModule } from "@rinminase/ng-charts";
 
 
 
@@ -53,11 +52,10 @@ import { SimpleTileViewComponent } from './simple-tile-view/simple-tile-view.com
     CommonModule,
     RouterModule,
     UiElementsModule,
-    NgxChartsModule,
     FormsModule, 
     ReactiveFormsModule,
     MatDialogModule,
-    NgApexchartsModule,
+    ChartsModule,
   ],
   exports: [
     PollenflugTileViewComponent,
