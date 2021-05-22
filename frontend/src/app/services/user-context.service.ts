@@ -3,6 +3,7 @@ import { UserContext, Themes, INITIAL_USER_CONTEXT, Pollen } from '../model/user
 import { Observable, of } from 'rxjs';
 import { LocalStorageService } from './local-storage.service';
 import { Router } from '@angular/router';
+import { WeatherDataService } from './weather-data.service';
 
 export interface UserContextDelegte {
   updatedUserContext(from: UserContextService): void

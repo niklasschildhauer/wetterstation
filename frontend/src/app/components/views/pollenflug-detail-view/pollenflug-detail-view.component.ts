@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { WeatherData } from 'src/app/model/weather';
-import { TileService } from 'src/app/services/tile.service';
+import { WeatherDataService } from 'src/app/services/weather-data.service';
 import { Tile, TileType } from '../../../model/weather';
 
 @Component({
@@ -13,14 +13,14 @@ export class PollenflugDetailViewComponent implements OnInit {
   tileType = TileType;
 
 
-  constructor(private tileService: TileService) { }
+  constructor(private weatherDataService: WeatherDataService) { }
 
   ngOnInit(): void {
     this.loadPollenTiles();
   }
 
   private loadPollenTiles(): void {
-    this.tileService.getPollenTiles().subscribe(data => this.pollenTiles = data);
+    this.weatherDataService.getPollenTiles().subscribe(data => this.pollenTiles = data);
   }
 
 }

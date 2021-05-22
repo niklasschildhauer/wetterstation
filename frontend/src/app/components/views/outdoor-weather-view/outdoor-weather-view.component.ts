@@ -1,9 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Daytime, OutdoorWeatherData } from 'src/app/model/weather';
-import { WeatherService } from '../../../services/weather.service'
-import { WeatherType } from '../../../model/weather';
+import { WeatherAPIService } from '../../../services/weather-api.service'
 import { UserContextService } from 'src/app/services/user-context.service';
-import { TileService } from 'src/app/services/tile.service';
+import { WeatherDataService } from 'src/app/services/weather-data.service';
 
 @Component({
   selector: 'app-outdoor-weather-view',
@@ -17,15 +16,15 @@ export class OutdoorWeatherViewComponent implements OnInit {
   daytimeType = Daytime;
   showWeatherDescription: boolean = true;
 
-  constructor(private weatherService: WeatherService,
+  constructor(private weatherService: WeatherAPIService,
     private userContextService: UserContextService,
-    private tileService: TileService) { }
+    private weatherDataService: WeatherDataService) { }
 
   ngOnInit(): void {
     // this.loadOutdoorWeather();
     this.listenToScrollEvent();
     this.loadDaytime();
-    this.tileService.getOutdoorWeatherData().subscribe(data => this.outdoorWeather = data);
+    this.weatherDataService.getOutdoorWeatherData().subscribe(data => this.outdoorWeather = data);
   }
 
   loadReduceMotionValue() {

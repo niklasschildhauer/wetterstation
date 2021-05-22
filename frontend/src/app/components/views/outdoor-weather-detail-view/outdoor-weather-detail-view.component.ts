@@ -1,7 +1,7 @@
 import { BreakpointObserver, BreakpointState} from '@angular/cdk/layout';
 import { Component, OnInit } from '@angular/core';
 import { OutdoorWeatherData } from 'src/app/model/weather';
-import { TileService } from 'src/app/services/tile.service';
+import { WeatherDataService } from 'src/app/services/weather-data.service';
 
 @Component({
   selector: 'app-outdoor-weather-detail-view',
@@ -13,7 +13,7 @@ export class OutdoorWeatherDetailViewComponent implements OnInit {
   outdoorWeather?: OutdoorWeatherData;
 
   constructor(private breakpointObserver: BreakpointObserver,
-    private tileService: TileService) { }
+    private weahterDataService: WeatherDataService) { }
 
   ngOnInit(): void {
     this.desktopBreakpointObserver();
@@ -33,7 +33,7 @@ export class OutdoorWeatherDetailViewComponent implements OnInit {
   }
 
   private loadOutdoorWeatherData() {
-    this.tileService.getOutdoorWeatherData().subscribe(data => this.outdoorWeather = data);
+    this.weahterDataService.getOutdoorWeatherData().subscribe(data => this.outdoorWeather = data);
   }
 
 }

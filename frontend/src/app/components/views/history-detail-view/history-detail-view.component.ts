@@ -1,9 +1,7 @@
-import { ThrowStmt } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
 import { GraphDataSet, WeatherHistoryData } from 'src/app/model/weather';
 import { HistoryTileService } from 'src/app/services/history-tile.service';
-import { TileService } from 'src/app/services/tile.service';
-import { WeatherService } from 'src/app/services/weather.service';
+import { WeatherDataService } from 'src/app/services/weather-data.service';
 import { HistoryGraphType } from '../history-tile-view/history-tile-view.component';
 
 @Component({
@@ -13,33 +11,35 @@ import { HistoryGraphType } from '../history-tile-view/history-tile-view.compone
 })
 export class HistoryDetailViewComponent implements OnInit {
   private _weatherHistory?: WeatherHistoryData
+  dataSet?: GraphDataSet[] // FIXME: NAMING überall??
+  index = 0;
   graphType = HistoryGraphType
-  _dataSet?: GraphDataSet[] // FIXME: NAMING überall??
-  _index = 0;
-
+  
   constructor(private historyTileService: HistoryTileService,
-    private tileService: TileService) { }
+    private weatherDataService: WeatherDataService) { }
 
   ngOnInit(): void {
     this.loadWeatherHistoryData() 
   }
 
   loadWeatherHistoryData(): void {
-    this.tileService.getHistoryData().subscribe(data => {
+    this.weatherDataService.getHistoryData().subscribe(data => {
       this._weatherHistory = data
       if(this._weatherHistory)
-      this._dataSet = this.historyTileService.getHistoryDataSetHoursPerDayFrom(this._weatherHistory);
+      this.dataSet = this.historyTileService.getHistoryDataSetHoursPerDayFrom(this._weatherHistory);
     });
   }
 
   forward(): void {
     if(this.isForwardPossible()) {
-     this._index = this._index + 1;
+     this.index = this.index + 1;
     }
   }
 
+
+
   isForwardPossible(): boolean {
-    if(this._dataSet && this._dataSet.length > this._index + 1)  {
+    if(this.dataSet && this.dataSet.length > this.index + 1)  {
       return true
     }
     return false;
@@ -47,16 +47,21 @@ export class HistoryDetailViewComponent implements OnInit {
 
   back(): void {
     if(this.isBackPossible()) {
-      this._index = this._index - 1;
+      this.index = this.index - 1;
     } 
   }
 
   isBackPossible(): boolean {
-    if(this._index > 0) {
+    if(this.index > 0) {
       return true
     }
     return false;
   }
+}
 
-
+enum TimeInterval {
+  day,
+  week,
+  month,
+  year
 }

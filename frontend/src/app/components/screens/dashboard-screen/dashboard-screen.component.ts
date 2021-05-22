@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Tile, TileType, WeatherData } from 'src/app/model/weather';
 import { UserContextService } from 'src/app/services/user-context.service';
-import { TileService } from 'src/app/services/tile.service';
 import { BreakpointObserver, BreakpointState } from '@angular/cdk/layout';
 import { reducePollen } from 'src/app/model/mock-data/weather.mock';
 import { Router } from '@angular/router';
+import { WeatherDataService } from 'src/app/services/weather-data.service';
 
 
 @Component({
@@ -19,7 +19,7 @@ export class DashboardScreenComponent implements OnInit {
   desktop: boolean = false;
 
   constructor(private userContextService: UserContextService,
-    private tileService: TileService,
+    private weatherDataService: WeatherDataService,
     private breakpointObserver: BreakpointObserver,
     private router: Router) { }
 
@@ -50,14 +50,15 @@ export class DashboardScreenComponent implements OnInit {
   }
 
   loadDashboardTiles(): void {
-    this.tileService.getDashboardTiles()
+    this.weatherDataService.getDashboardTiles()
                       .subscribe(data => {
                         this.dashboardTiles = data});
   }
 
+  // DELETE ME?
   reloadComponent(): void {
     reducePollen();
-    this.tileService.reloadData();
+    this.weatherDataService.reloadData();
     let currentUrl = this.router.url;
     this.router.routeReuseStrategy.shouldReuseRoute = () => false;
     this.router.onSameUrlNavigation = 'reload';

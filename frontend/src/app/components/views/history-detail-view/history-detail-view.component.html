@@ -1,22 +1,22 @@
 <app-nav-bar-element [titleLabel]="'Historie'" [backLabel]="'Dashboard'"></app-nav-bar-element>
-<div *ngIf="_dataSet">
+<div *ngIf="dataSet">
     <div class="button-container">
         <button class="round-button" (click)="forward()" [ngClass]="{'disabled' : !isForwardPossible()}">
             <svg width="10" height="17" viewBox="0 0 10 17" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M9 16L2 8.5L9 1" stroke="black" stroke-width="2" stroke-linecap="round"/>
             </svg>
         </button>
-        <h3>{{_dataSet[_index].label}}</h3>
+        <h3>{{dataSet[index].label}}</h3>
         <button class="round-button" (click)="back()" [ngClass]="{'disabled' : !isBackPossible()}">
             <svg width="10" height="17" viewBox="0 0 10 17" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M1 16L8 8.5L1 1" stroke="black" stroke-width="2" stroke-linecap="round"/>
             </svg>        
         </button>
     </div>
-    <app-history-tile-view [data]="_dataSet[_index]" [pressable]="false" [graphType]="graphType.temperature" [title]="'Temperaturverlauf'"></app-history-tile-view>
-    <app-history-tile-view [data]="_dataSet[_index]" [pressable]="false" [graphType]="graphType.humidity" [title]="'Luftfeuchtigkeitsverlauf'"></app-history-tile-view>
-   <p>Durchschnittstemperatur: {{_dataSet[_index].temperatureAverage}}</p> 
-   <p>Durchschnittsluftfeuchtigkeit: {{_dataSet[_index].humidityAverage}}</p> 
+    <app-history-tile-view [data]="dataSet[index]" [pressable]="false" [graphType]="graphType.temperature" [title]="'Temperaturverlauf'"></app-history-tile-view>
+    <app-history-tile-view [data]="dataSet[index]" [pressable]="false" [graphType]="graphType.humidity" [title]="'Luftfeuchtigkeitsverlauf'"></app-history-tile-view>
+   <p>Durchschnittstemperatur: {{dataSet[index].temperatureAverage}}</p> 
+   <p>Durchschnittsluftfeuchtigkeit: {{dataSet[index].humidityAverage}}</p> 
 
    <article lang="de"> 
     <h4>Good to know</h4>

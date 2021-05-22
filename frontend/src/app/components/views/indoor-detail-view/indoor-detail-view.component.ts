@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Tile, WeatherData } from 'src/app/model/weather';
-import { TileService } from 'src/app/services/tile.service';
+import { WeatherDataService } from 'src/app/services/weather-data.service';
 
 @Component({
   selector: 'app-indoor-detail-view',
@@ -9,14 +9,15 @@ import { TileService } from 'src/app/services/tile.service';
 })
 export class IndoorDetailViewComponent implements OnInit {
   indoorRoomTiles?: Tile<WeatherData>[];
-  constructor(private tileService: TileService) { }
+
+  constructor(private weatherDataService: WeatherDataService) { }
 
   ngOnInit(): void {
     this.loadIndoorRoomData();
   }
 
   loadIndoorRoomData() {
-    this.tileService.getIndoorTiles()
+    this.weatherDataService.getIndoorTiles()
                         .subscribe(data => this.indoorRoomTiles = data);
   }
 
