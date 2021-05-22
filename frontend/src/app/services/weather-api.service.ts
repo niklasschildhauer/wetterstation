@@ -36,9 +36,17 @@ export class WeatherAPIService {
     return forecastData;
   }
 
-  getHistoryData(): Observable<WeatherHistoryData> {
+  getHistoryData(fromDate: Date, toDate: Date): Observable<WeatherHistoryData> {
     let forecastData = of(WEATHERHISTORY);
+    console.log(this.createServerFriendlyDate(fromDate));
+    console.log(this.createServerFriendlyDate(toDate));
     return forecastData;
+  }
+
+  private createServerFriendlyDate(date: Date): string {
+    let dateString = date.toISOString().slice(0, 10);
+    let timeString = date.toTimeString().slice(0, 8);
+    return dateString + " " + timeString;
   }
 
   // NICHT DURCHDACHT... Wie wollen wir das lösen?

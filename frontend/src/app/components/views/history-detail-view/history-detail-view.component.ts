@@ -12,7 +12,19 @@ import { HistoryGraphType } from '../history-tile-view/history-tile-view.compone
 export class HistoryDetailViewComponent implements OnInit {
   private _weatherHistory?: WeatherHistoryData
   dataSet?: GraphDataSet[] // FIXME: NAMING überall??
-  index = 0;
+ 
+  set index(value: number) {
+    this._index = value;
+    if(this.dataSet && !(this.dataSet.length > value + 1)) {
+      this.weatherDataService.loadMoreHistoryData().subscribe(data => {
+        this.reload();
+      });
+    }
+  }
+  get index() {
+    return this._index;
+  }
+  _index = 0;
   graphType = HistoryGraphType
   
   constructor(private historyTileService: HistoryTileService,
@@ -25,9 +37,13 @@ export class HistoryDetailViewComponent implements OnInit {
   loadWeatherHistoryData(): void {
     this.weatherDataService.getHistoryData().subscribe(data => {
       this._weatherHistory = data
-      if(this._weatherHistory)
-      this.dataSet = this.historyTileService.getHistoryDataSetDaysPerWeekFrom(this._weatherHistory);
+      this.reload();
     });
+  }
+
+  reload() {
+    if(this._weatherHistory)
+    this.dataSet = this.historyTileService.getHistoryDataSetDaysPerWeekFrom(this._weatherHistory);
   }
 
   forward(): void {

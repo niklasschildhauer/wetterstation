@@ -2,6 +2,11 @@
     stroke: var(--text);
 }
 
+.round-button {
+    height: 50px;
+    width: 70px;
+}
+
 button.disabled * {
     stroke: var(--secondary);
 
@@ -18,4 +23,11 @@ button.disabled * {
 .flex-container {
     display: flex;
     justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.tile-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
 }

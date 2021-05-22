@@ -13,27 +13,31 @@
             </svg>        
         </button>
     </div>
-    <app-history-tile-view 
-        [data]="dataSet[index]" 
-        [pressable]="false" 
-        [graphType]="graphType.temperature" 
-        [title]="'Temperaturverlauf'">
-    </app-history-tile-view>
-    <app-history-tile-view 
-        [data]="dataSet[index]" 
-        [pressable]="false" 
-        [graphType]="graphType.humidity" 
-        [title]="'Luftfeuchtigkeitsverlauf'">
-    </app-history-tile-view>
     <div class="flex-container">
-        <app-simple-tile-view
-            [title]="'Ø Temperatur'"
-            [value]="getAverageTempString()">
-        </app-simple-tile-view>
-        <app-simple-tile-view
-            [title]="'Ø Luftfeuchtigkeit'"
-            [value]="getAverageHumidityString()">
-        </app-simple-tile-view>
+        <div class="tile-container">
+            <app-history-tile-view 
+                [data]="dataSet[index]" 
+                [pressable]="false" 
+                [graphType]="graphType.temperature" 
+                [title]="'Temperaturverlauf'">
+            </app-history-tile-view>
+            <app-simple-tile-view
+                [title]="'Ø Temperatur'"
+                [value]="getAverageTempString()">
+            </app-simple-tile-view>
+        </div>
+        <div class="tile-container">
+            <app-history-tile-view 
+                [data]="dataSet[index]" 
+                [pressable]="false" 
+                [graphType]="graphType.humidity" 
+                [title]="'Luftfeuchtigkeitsverlauf'">
+            </app-history-tile-view>
+            <app-simple-tile-view
+                [title]="'Ø Luftfeuchtigkeit'"
+                [value]="getAverageHumidityString()">
+            </app-simple-tile-view>
+        </div>
     </div>
     <article lang="de"> 
         <h4>Good to know</h4>

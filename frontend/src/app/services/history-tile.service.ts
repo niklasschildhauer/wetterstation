@@ -29,6 +29,7 @@ export class HistoryTileService {
 
   getHistoryDataSetDaysPerWeekFrom(weatherHistoryData: WeatherHistoryData): 
   GraphDataSet[] {
+    console.log(weatherHistoryData.datapoints.length)
     if (weatherHistoryData.datapoints.length > 0) {
       var dataSet: GraphDataSet[] = []
       var dataPoints = weatherHistoryData.datapoints
@@ -77,6 +78,8 @@ export class HistoryTileService {
         humidityDataPoints.push(Math.round(averageHumidity));
         xAxisLabels.push(this.getWeekDayStringFromDate(lastDate))
         dataSet.push(this.createWeatherGraphDataSet(temperatureDataPoints, humidityDataPoints, xAxisLabels, label));
+
+        console.log("Created History By Week")
         return dataSet;
       }
       return [];
