@@ -55,6 +55,19 @@ export class HistoryDetailViewComponent implements OnInit {
     }
     return false;
   }
+
+  getAverageTempString(): string {
+    if(this.dataSet){
+      return this.dataSet[this.index].temperatureAverage + "°C"
+    }
+    return ""
+  }
+  getAverageHumidityString(): string {
+    if(this.dataSet){
+      return this.dataSet[this.index].humidityAverage + "%"
+    }
+    return ""
+  }
 }
 
 enum TimeInterval {

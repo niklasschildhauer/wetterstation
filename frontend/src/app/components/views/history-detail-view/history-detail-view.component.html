@@ -13,13 +13,32 @@
             </svg>        
         </button>
     </div>
-    <app-history-tile-view [data]="dataSet[index]" [pressable]="false" [graphType]="graphType.temperature" [title]="'Temperaturverlauf'"></app-history-tile-view>
-    <app-history-tile-view [data]="dataSet[index]" [pressable]="false" [graphType]="graphType.humidity" [title]="'Luftfeuchtigkeitsverlauf'"></app-history-tile-view>
-   <p>Durchschnittstemperatur: {{dataSet[index].temperatureAverage}}</p> 
-   <p>Durchschnittsluftfeuchtigkeit: {{dataSet[index].humidityAverage}}</p> 
-
-   <article lang="de"> 
-    <h4>Good to know</h4>
-        <p>Die Wetterbeobachtung und Wetteraufzeichnung existiert schon seit Jahrtausenden. Neben den Beobachtungsdaten der Wetterstationen werden zur Bewertung der Klimamodelle häufig auch aufbereitete Daten eingesetzt, die, ausgehend von den Beobachtungen, auf ein regelmäßiges räumliches Raster umgerechnet werden. Zusätzlich zu den traditionellen Beobachtungen wurde das Wetter während der vergangenen Jahrzehnte auch mit Satelliten und Wetterradaren beobachtet.Wie signifikant ein Trend ausfällt, hängt von der betrachteten Klimagröße, der Region, der Jahreszeit und dem Zeitraum der Auswertung ab.</p>
-        </article>
+    <app-history-tile-view 
+        [data]="dataSet[index]" 
+        [pressable]="false" 
+        [graphType]="graphType.temperature" 
+        [title]="'Temperaturverlauf'">
+    </app-history-tile-view>
+    <app-history-tile-view 
+        [data]="dataSet[index]" 
+        [pressable]="false" 
+        [graphType]="graphType.humidity" 
+        [title]="'Luftfeuchtigkeitsverlauf'">
+    </app-history-tile-view>
+    <div class="flex-container">
+        <app-simple-tile-view
+            [title]="'Ø Temperatur'"
+            [value]="getAverageTempString()">
+        </app-simple-tile-view>
+        <app-simple-tile-view
+            [title]="'Ø Luftfeuchtigkeit'"
+            [value]="getAverageHumidityString()">
+        </app-simple-tile-view>
+    </div>
+    <article lang="de"> 
+        <h4>Good to know</h4>
+            <p>
+                Die Wetterbeobachtung und Wetteraufzeichnung existiert schon seit Jahrtausenden. Neben den Beobachtungsdaten der Wetterstationen werden zur Bewertung der Klimamodelle häufig auch aufbereitete Daten eingesetzt, die, ausgehend von den Beobachtungen, auf ein regelmäßiges räumliches Raster umgerechnet werden. Zusätzlich zu den traditionellen Beobachtungen wurde das Wetter während der vergangenen Jahrzehnte auch mit Satelliten und Wetterradaren beobachtet.Wie signifikant ein Trend ausfällt, hängt von der betrachteten Klimagröße, der Region, der Jahreszeit und dem Zeitraum der Auswertung ab.
+            </p>
+    </article>
 </div>

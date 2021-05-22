@@ -23,6 +23,7 @@ import { HumidityTileViewComponent } from './humidity-tile-view/humidity-tile-vi
 import { ApparentTemperatureTileViewComponent } from './apparent-temperature-tile-view/apparent-temperature-tile-view.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { NgApexchartsModule } from "ng-apexcharts";
+import { SimpleTileViewComponent } from './simple-tile-view/simple-tile-view.component';
 
 
 
@@ -45,7 +46,8 @@ import { NgApexchartsModule } from "ng-apexcharts";
     OutdoorWeatherDetailViewComponent,
     HumidityTileViewComponent,
     ApparentTemperatureTileViewComponent,
-    IndoorTilePopUpDialogView
+    IndoorTilePopUpDialogView,
+    SimpleTileViewComponent
   ],
   imports: [
     CommonModule,
