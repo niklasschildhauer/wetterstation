@@ -3,6 +3,7 @@ import { GraphDataSet, WeatherHistoryData } from 'src/app/model/weather';
 import { HistoryTileService } from 'src/app/services/history-tile.service';
 import { WeatherDataService } from 'src/app/services/weather-data.service';
 import { HistoryGraphType } from '../history-tile-view/history-tile-view.component';
+import { MatButtonToggleAppearance } from '@angular/material/button-toggle'
 
 @Component({
   selector: 'app-history-detail-view',
@@ -11,8 +12,8 @@ import { HistoryGraphType } from '../history-tile-view/history-tile-view.compone
 })
 export class HistoryDetailViewComponent implements OnInit {
   private _weatherHistory?: WeatherHistoryData
-  dataSet?: GraphDataSet[] // FIXME: NAMING überall??
- 
+  dataSet?: GraphDataSet[] 
+  // Index
   set index(value: number) {
     this._index = value;
     if(this.dataSet && !(this.dataSet.length > value + 1)) {
@@ -25,8 +26,11 @@ export class HistoryDetailViewComponent implements OnInit {
     return this._index;
   }
   _index = 0;
+
   graphType = HistoryGraphType
-  
+  selectedTimeInterval = TimeInterval.week;
+  timeIntervalType = TimeInterval
+
   constructor(private historyTileService: HistoryTileService,
     private weatherDataService: WeatherDataService) { }
 
@@ -41,9 +45,27 @@ export class HistoryDetailViewComponent implements OnInit {
     });
   }
 
+  selectInterval() {
+    this.reload();
+    this.index = 0;
+  }
+
   reload() {
-    if(this._weatherHistory)
-    this.dataSet = this.historyTileService.getHistoryDataSetDaysPerWeekFrom(this._weatherHistory);
+    if(this._weatherHistory) {
+
+      if(this.selectedTimeInterval == TimeInterval.day) {
+        this.dataSet = this.historyTileService.getHistoryDataSetHoursPerDayFrom(this._weatherHistory);
+        return
+      }
+      if(this.selectedTimeInterval == TimeInterval.week) {
+        this.dataSet = this.historyTileService.getHistoryDataSetDaysPerWeekFrom(this._weatherHistory);
+        return
+      }
+      if(this.selectedTimeInterval == TimeInterval.month) {
+        this.dataSet = this.historyTileService.getHistoryDataSetHoursPerDayFrom(this._weatherHistory);
+        return
+      }
+    }
   }
 
   forward(): void {
@@ -90,5 +112,4 @@ enum TimeInterval {
   day,
   week,
   month,
-  year
 }

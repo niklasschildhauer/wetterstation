@@ -31,3 +31,14 @@ button.disabled * {
     flex-direction: column;
     justify-content: flex-start;
 }
+
+.sort-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: flex-end;
+    padding-bottom: var(--padding);
+    p {
+        padding-right: 0.5em;
+    }
+}
