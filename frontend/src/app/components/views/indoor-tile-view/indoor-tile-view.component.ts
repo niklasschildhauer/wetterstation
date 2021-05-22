@@ -39,6 +39,7 @@ export class IndoorTileViewComponent implements OnInit {
 @Component({
   selector: 'indoor-tile-popup-view',
   templateUrl: 'indoor-tile-popup-view.component.html',
+  styleUrls: ['./indoor-tile-popup-view.component.scss']
 })
 export class IndoorTilePopUpDialogView {
   name = new FormControl('');

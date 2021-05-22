@@ -26,7 +26,7 @@ export class HistoryDetailViewComponent implements OnInit {
     this.weatherDataService.getHistoryData().subscribe(data => {
       this._weatherHistory = data
       if(this._weatherHistory)
-      this.dataSet = this.historyTileService.getHistoryDataSetHoursPerDayFrom(this._weatherHistory);
+      this.dataSet = this.historyTileService.getHistoryDataSetDaysPerWeekFrom(this._weatherHistory);
     });
   }
 
@@ -35,8 +35,6 @@ export class HistoryDetailViewComponent implements OnInit {
      this.index = this.index + 1;
     }
   }
-
-
 
   isForwardPossible(): boolean {
     if(this.dataSet && this.dataSet.length > this.index + 1)  {

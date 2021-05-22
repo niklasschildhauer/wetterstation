@@ -40,18 +40,20 @@ button {
 @media(max-width: 770px) {
     @media (prefers-reduced-motion: no-preference) {
 
-        @keyframes fontColor {
+        @keyframes color {
             from {
                 color: white;
+                fill: white;
             }
         
             to {
                 color: var(--text);
+                fill: var(--secondary);
             }
         }
 
-        h1.motion-allowed {
-            animation-name: fontColor;
+        h1.motion-allowed, svg.motion-allowed{
+            animation-name: color;
             @include linear-animation;
         }
     }

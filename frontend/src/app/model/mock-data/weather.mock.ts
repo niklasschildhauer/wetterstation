@@ -89,6 +89,127 @@ export var OUTDOORWEATHER14: OutdoorWeatherData = {
     location: "Stuttgart"
 };
 
+export var OUTDOORWEATHER11: OutdoorWeatherData = {
+    temperature: 15,
+    maxTemperature: 20,
+    minTemperature: 4,
+    humidity: 50,
+    timestamp: new Date('May 13, 2021 08:24:00'),
+    weather: WeatherType.cloudy,
+    apparentTemperature: 12,
+    location: "Stuttgart"
+};
+
+export var OUTDOORWEATHER321: OutdoorWeatherData = {
+    temperature: 20,
+    maxTemperature: 20,
+    minTemperature: 4,
+    humidity: 40,
+    timestamp: new Date('May 13, 2021 09:24:00'),
+    weather: WeatherType.cloudy,
+    apparentTemperature: 12,
+    location: "Stuttgart"
+};
+
+export var OUTDOORWEATHER41: OutdoorWeatherData = {
+    temperature: 18,
+    maxTemperature: 20,
+    minTemperature: 4,
+    humidity: 70,
+    timestamp: new Date('May 18, 2021 10:24:00'),
+    weather: WeatherType.cloudy,
+    apparentTemperature: 12,
+    location: "Stuttgart"
+};
+
+export var OUTDOORWEATHER110: OutdoorWeatherData = {
+    temperature: 14,
+    maxTemperature: 20,
+    minTemperature: 4,
+    humidity: 66,
+    timestamp: new Date('May 19, 2021 07:24:00'),
+    weather: WeatherType.cloudy,
+    apparentTemperature: 12,
+    location: "Stuttgart"
+};
+
+export var OUTDOORWEATHER112: OutdoorWeatherData = {
+    temperature: 15,
+    maxTemperature: 20,
+    minTemperature: 4,
+    humidity: 50,
+    timestamp: new Date('May 12, 2021 08:24:00'),
+    weather: WeatherType.cloudy,
+    apparentTemperature: 12,
+    location: "Stuttgart"
+};
+
+export var OUTDOORWEATHER113: OutdoorWeatherData = {
+    temperature: 20,
+    maxTemperature: 20,
+    minTemperature: 4,
+    humidity: 40,
+    timestamp: new Date('May 11, 2021 09:24:00'),
+    weather: WeatherType.cloudy,
+    apparentTemperature: 12,
+    location: "Stuttgart"
+};
+
+export var OUTDOORWEATHER114: OutdoorWeatherData = {
+    temperature: 18,
+    maxTemperature: 20,
+    minTemperature: 4,
+    humidity: 70,
+    timestamp: new Date('May 10, 2021 10:24:00'),
+    weather: WeatherType.cloudy,
+    apparentTemperature: 12,
+    location: "Stuttgart"
+};
+
+export var OUTDOORWEATHE3R114: OutdoorWeatherData = {
+    temperature: 20,
+    maxTemperature: 20,
+    minTemperature: 4,
+    humidity: 70,
+    timestamp: new Date('May 19, 2021 10:34:00'),
+    weather: WeatherType.cloudy,
+    apparentTemperature: 12,
+    location: "Stuttgart"
+};
+export var OUTDOORWEA3THE3R114: OutdoorWeatherData = {
+    temperature: 8,
+    maxTemperature: 20,
+    minTemperature: 4,
+    humidity: 70,
+    timestamp: new Date('May 19, 2021 10:24:00'),
+    weather: WeatherType.cloudy,
+    apparentTemperature: 12,
+    location: "Stuttgart"
+};
+
+
+export var WEATHERHISTORY: WeatherHistoryData = {
+    datapoints: [
+        OUTDOORWEATHER,
+        OUTDOORWEATHER10,
+        OUTDOORWEATHER2,
+        OUTDOORWEATHER13,
+        OUTDOORWEATHER14,
+        OUTDOORWEATHER4,
+        OUTDOORWEATHER3,
+        OUTDOORWEATHER12,
+        OUTDOORWEATHER114,
+        OUTDOORWEATHER113,
+        OUTDOORWEATHER112,
+        OUTDOORWEATHER110,
+        OUTDOORWEATHER41,
+        OUTDOORWEATHER321,
+        OUTDOORWEATHER11,
+        OUTDOORWEATHE3R114,
+        OUTDOORWEA3THE3R114,
+    ]
+}
+
 export var FORECAST: WeatherForecastData = {
     forecast: "Sonnig"
 }
@@ -260,19 +381,7 @@ export var INDOORROOM2: Tile<IndoorRoomData> = {
     priority: TilePriority.low,
 }
 
-export var WEATHERHISTORY: WeatherHistoryData = {
-    datapoints: [
-        OUTDOORWEATHER,
-        OUTDOORWEATHER10,
-        OUTDOORWEATHER2,
-        OUTDOORWEATHER13,
-        OUTDOORWEATHER14,
-        OUTDOORWEATHER4,
-        OUTDOORWEATHER3,
-        OUTDOORWEATHER12,
-       
-    ]
-}
+
 
 export var WEATHERHISTORYBYDAY: WeatherHistoryByDayData = {
     averageHumidity: 40,

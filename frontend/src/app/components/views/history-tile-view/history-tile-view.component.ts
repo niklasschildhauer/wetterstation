@@ -13,7 +13,7 @@ import {
   ApexGrid,
   ApexTitleSubtitle,
   ApexLegend,
-  ApexTheme
+  ApexTheme,
 } from "ng-apexcharts";
 
 export type ChartOptions = {
@@ -28,6 +28,9 @@ export type ChartOptions = {
   grid: ApexGrid;
   legend: ApexLegend;
   theme: ApexTheme;
+  animation: {
+    enabled: boolean,
+  }
 };
 
 @Component({
@@ -108,13 +111,18 @@ export class HistoryTileViewComponent implements OnInit {
     },
     theme: {
       mode: 'dark', 
+    },
+    animation: {
+      enabled: false,
     }
   };
 
   constructor() { 
+    
   }
 
   ngOnInit(): void { 
+    
   }
   
   updateChartData(chartOptions: ChartOptions, dataSet: GraphDataSet, graphType: HistoryGraphType) {

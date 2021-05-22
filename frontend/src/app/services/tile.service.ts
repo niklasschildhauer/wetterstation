@@ -157,7 +157,7 @@ export class TileService  {
         // FIXME: Implement algorithm
       }
       case TileType.history: {
-        return TilePriority.high
+        return TilePriority.low
       }
     }
     return TilePriority.middle
