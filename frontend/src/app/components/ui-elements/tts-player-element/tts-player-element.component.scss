@@ -1,0 +1,147 @@
+@import "../../shared/styles";
+
+.action-button {
+    height: 1.5em;
+}
+
+.action-button-icon {
+    height: 1.5em;
+}
+
+.action-button-icon * {
+    fill: var(--text);
+}
+
+.container {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    width: 190px;
+
+    background-color: var(--surface);
+    padding: var(--padding);
+    margin: 0 var(--border-padding-right) var(--border-padding-right) var(--border-padding-left);
+    border-radius: var(--corner-radius);
+
+    @include drop-shadow;
+}
+
+.bars {
+    height: 1.5em;
+    left: calc(var(--border-padding-left) + 55px);
+    margin: -30px 0 0 -20px;
+    position: absolute;
+    top: 100%;
+    width: 40px;
+
+    .bar {
+        background: var(--secondary);
+        bottom: 1px;
+        height: 3px;
+        position: absolute;
+        width: 5px;      
+    }
+    
+    @keyframes sound {
+        0% {
+            opacity: .35;
+            height: 3px; 
+        }
+        100% {
+            opacity: 1;       
+            height: 28px;        
+        }
+    }
+    
+    .bar:nth-child(1)  { 
+        left: 1px; 
+        animation-duration: 474ms; 
+    }
+    .bar:nth-child(2)  { 
+        left: 8px; 
+        animation-duration: 433ms; 
+    }
+    .bar:nth-child(3)  { 
+        left: 15px; 
+        animation-duration: 407ms; 
+    }
+    .bar:nth-child(4)  { 
+        left: 22px; 
+        animation-duration: 458ms; 
+    }
+    .bar:nth-child(5)  { 
+        left: 29px; 
+        animation-duration: 400ms; 
+    }
+    .bar:nth-child(6)  { 
+        left: 36px; 
+        animation-duration: 427ms; 
+    }
+    .bar:nth-child(7)  { 
+        left: 43px; 
+        animation-duration: 441ms; 
+    }
+    .bar:nth-child(8)  { 
+        left: 50px; 
+        animation-duration: 419ms; 
+    }
+    .bar:nth-child(9)  { 
+        left: 57px; 
+        animation-duration: 487ms; 
+    }
+    .bar:nth-child(10) { 
+        left: 64px; 
+        animation-duration: 442ms; 
+    }​
+    .bar:nth-child(11)  { 
+        left: 71px; 
+        animation-duration: 474ms; 
+    }
+    .bar:nth-child(12)  { 
+        left: 78px; 
+        animation-duration: 433ms; 
+    }
+    .bar:nth-child(13)  { 
+        left: 85px; 
+        animation-duration: 407ms; 
+    }
+    .bar:nth-child(14)  { 
+        left: 92px; 
+        animation-duration: 458ms; 
+    }
+    .bar:nth-child(15)  { 
+        left: 99px; 
+        animation-duration: 400ms; 
+    }
+    .bar:nth-child(16)  { 
+        left: 106px; 
+        animation-duration: 427ms; 
+    }
+    .bar:nth-child(17)  { 
+        left: 113px; 
+        animation-duration: 441ms; 
+    }
+    .bar:nth-child(18)  { 
+        left: 120px; 
+        animation-duration: 419ms; 
+    }
+    .bar:nth-child(19)  { 
+        left: 127px; 
+        animation-duration: 487ms; 
+    }
+    .bar:nth-child(20) { 
+        left: 134px; 
+        animation-duration: 442ms; 
+    }​
+    
+    {}
+}
+
+.bars-play {
+    .bar {
+        animation: sound 0ms -800ms linear infinite alternate;
+    }
+}

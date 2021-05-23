@@ -9,7 +9,7 @@
   border-radius: var(--corner-radius);
   background-color: var(--surface);
   height: 12em;
-  width: 11em;
+  width: 10.3em;
 }
 
 span {
@@ -17,6 +17,7 @@ span {
   word-wrap: break-word;
   text-align: center;
   margin-top: 0.7em;
+  font-weight: 700;
 }
 
 .container.checked {
