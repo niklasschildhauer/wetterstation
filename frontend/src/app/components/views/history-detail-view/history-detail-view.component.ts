@@ -28,7 +28,7 @@ export class HistoryDetailViewComponent implements OnInit {
   _index = 0;
 
   graphType = HistoryGraphType
-  selectedTimeInterval = TimeInterval.week;
+  selectedTimeInterval = TimeInterval.day;
   timeIntervalType = TimeInterval
 
   constructor(private historyTileService: HistoryTileService,
