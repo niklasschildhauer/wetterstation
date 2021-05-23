@@ -163,4 +163,14 @@
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#d861cc",endColorstr="#4643db",GradientType=1);
 }
 
+.high-contrast {
+    background: black;
+    border: 1px solid var(--border);
+    filter: none;
+}
+
+.high-contrast * {
+    color: var(--text);
+
+}
 

@@ -3,6 +3,7 @@ import { Daytime, OutdoorWeatherData } from 'src/app/model/weather';
 import { WeatherAPIService } from '../../../services/weather-api.service'
 import { UserContextService } from 'src/app/services/user-context.service';
 import { WeatherDataService } from 'src/app/services/weather-data.service';
+import { Themes, UserContext } from 'src/app/model/user-context';
 
 @Component({
   selector: 'app-outdoor-weather-view',
@@ -15,6 +16,8 @@ export class OutdoorWeatherViewComponent implements OnInit {
   daytime: Daytime = Daytime.noon
   daytimeType = Daytime;
   showWeatherDescription: boolean = true;
+  userContext?: UserContext
+  themeType = Themes
 
   constructor(private weatherService: WeatherAPIService,
     private userContextService: UserContextService,
@@ -24,14 +27,14 @@ export class OutdoorWeatherViewComponent implements OnInit {
     // this.loadOutdoorWeather();
     this.listenToScrollEvent();
     this.loadDaytime();
+    this.loadUserContext();
     this.weatherDataService.getOutdoorWeatherData().subscribe(data => this.outdoorWeather = data);
   }
 
-  loadReduceMotionValue() {
+  loadUserContext() {
     this.userContextService.getUserContext()
     .subscribe(data => {
-      let reduceMotionValue = data.reduceMotion;
-      this.reduceMotion = reduceMotionValue
+      this.userContext = data;
     });
   }
 

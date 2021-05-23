@@ -5,7 +5,7 @@
 }
 
 .action-button-icon {
-    height: 1.5em;
+    height: 1.4em;
 }
 
 .action-button-icon * {
@@ -25,13 +25,14 @@
     padding: var(--padding);
     margin: 0 var(--border-padding-right) var(--border-padding-right) var(--border-padding-left);
     border-radius: var(--corner-radius);
+    border: 1px solid var(--border);
 
     @include drop-shadow;
 }
 
 .bars {
     height: 1.5em;
-    left: calc(var(--border-padding-left) + 55px);
+    left: calc(var(--border-padding-right) + 55px);
     margin: -30px 0 0 -20px;
     position: absolute;
     top: 100%;

@@ -10,6 +10,7 @@
   background-color: var(--surface);
   height: 12em;
   width: 10.3em;
+  border: 1px solid var(--border);
 }
 
 span {
@@ -24,7 +25,7 @@ span {
   background-color: var(--accent);
 
   span {
-    color: white;
+    color: var(--inverted);
   }
 }
 
