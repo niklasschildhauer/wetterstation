@@ -1,3 +1,33 @@
 .container {
-   
+    
 }
+
+.button-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-content: space-between;
+  }
+
+.b1, .b2 {
+    border-radius: var(--corner-radius);
+    color: white;
+    padding: calc(var(--padding)/2);
+}
+
+.b2 {
+    margin: 0;
+    background-color: #4480DB;
+}
+
+.b1 {
+    margin-top: 20px;
+}
+
+.input-field{
+    background-color: rgba(0,0,0, .25);
+    outline: none;
+    caret-color: orchid;
+}
+
+ 
