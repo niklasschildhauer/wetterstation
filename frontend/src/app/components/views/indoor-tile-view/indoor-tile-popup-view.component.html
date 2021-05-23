@@ -8,12 +8,12 @@
             [formControl]="name"
             id="name"
             type="text" 
-            placeholder="{{data}}">
-        <input type="submit" value="Ok">
+            placeholder="{{data}}"
+            class="input-field">
+            <div class="button-container">
+                <input class="b2" type="submit" value="Speichern">
+                <button class="b1" (click)="onNoClick()">Abbrechen</button>
+            </div>
     </form>
-    <div>
-    <button (click)="onNoClick()">Abbrechen</button>
-    <button (click)="onSubmit()">Speichern</button>
-    <!-- <button [mat-dialog-close]="data" cdkFocusInitial>Ok</button> -->
-    </div>
+   
 </div>
