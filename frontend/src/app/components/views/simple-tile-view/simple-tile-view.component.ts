@@ -10,6 +10,8 @@ import { CardSize } from '../../ui-elements/card-element/card-element.component'
 export class SimpleTileViewComponent implements OnInit {
   @Input() value: string = "";
   @Input() title: string = "";
+  @Input() subtitle: string = "";
+
   cardSizeType = CardSize;
   constructor() { }
 
