@@ -18,7 +18,7 @@ export class TileService  {
     private userContextService: UserContextService,
     private historyTileService: HistoryTileService) { }
 
-  createTiles(outDoorWeather: OutdoorWeatherData, 
+  createTiles(outdoorWeather: OutdoorWeatherData, 
     pollen: PollenData[], 
     forecast: WeatherForecastData, 
     history: WeatherHistoryData, 
@@ -27,7 +27,7 @@ export class TileService  {
       var pollenTiles: Tile<WeatherData>[] = []
       var indoorRoomTiles: Tile<WeatherData>[] = []
 
-      this.createOutdoorWeatherTiles(outDoorWeather, dashboardTiles);
+      this.createOutdoorWeatherTiles(outdoorWeather, dashboardTiles);
       this.createForecastTile(forecast, dashboardTiles)
       this.createHistoryTile(history, dashboardTiles)
       this.createIndoorRoomTiles(indoorRoom, dashboardTiles, indoorRoomTiles)

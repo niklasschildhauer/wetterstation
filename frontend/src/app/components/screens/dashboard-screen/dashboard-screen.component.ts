@@ -5,6 +5,7 @@ import { BreakpointObserver, BreakpointState } from '@angular/cdk/layout';
 import { reducePollen } from 'src/app/model/mock-data/weather.mock';
 import { Router } from '@angular/router';
 import { WeatherDataService } from 'src/app/services/weather-data.service';
+import { SpeechAPIService } from 'src/app/services/speech-api.service';
 
 
 @Component({
@@ -21,7 +22,8 @@ export class DashboardScreenComponent implements OnInit {
   constructor(private userContextService: UserContextService,
     private weatherDataService: WeatherDataService,
     private breakpointObserver: BreakpointObserver,
-    private router: Router) { }
+    private router: Router,
+    private speechService: SpeechAPIService) { }
 
   ngOnInit(): void {
     this.loadReduceMotionValue();
@@ -63,5 +65,14 @@ export class DashboardScreenComponent implements OnInit {
     this.router.routeReuseStrategy.shouldReuseRoute = () => false;
     this.router.onSameUrlNavigation = 'reload';
     this.router.navigate([currentUrl]);
+  }
+
+  testReadAloud(): void {
+    if(this.dashboardTiles)
+    this.speechService.readAloudTiles(this.dashboardTiles)
+    }
+
+  stopReadAloud(): void {
+
   }
 }
