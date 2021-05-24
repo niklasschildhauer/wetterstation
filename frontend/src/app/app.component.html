@@ -1,6 +1,8 @@
 <div [@triggerName]="prepareRoute(outlet)" 
   class="main-container container" 
-  [ngClass]="{'light-theme' : userContext?.theme === ThemeType.Light, 'dark-theme' : userContext?.theme === ThemeType.Dark  }">
+  [ngClass]="{'light-theme' : userContext?.theme === ThemeType.Light, 
+              'dark-theme' : userContext?.theme === ThemeType.Dark,
+              'high-contrast' : userContext?.theme === ThemeType.HighContrast}">
   <div (click)="clickedOutdoorWeatherView()">
     <app-outdoor-weather-view 
       class="outdoor-weather" 
@@ -10,5 +12,4 @@
   <router-outlet 
     #outlet="outlet">
   </router-outlet>
-  <p>{{userContext?.theme}}</p>
 </div>

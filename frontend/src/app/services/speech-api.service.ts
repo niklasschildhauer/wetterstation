@@ -7,12 +7,11 @@ import { WeatherData } from '../model/weather';
   providedIn: 'root'
 })
 
-// Class to test the TTS from Firefox
 export class SpeechAPIService {
   synth = window.speechSynthesis;
-  constructor() {
+  delegate?: SpeechServiceDelegate
 
-  }
+  constructor() {}
   init() {
   }
 
@@ -82,17 +81,28 @@ export class SpeechAPIService {
     return voices[4];
   }
 
-  startOutput(readAloud: string) {
-    var utterThis = new SpeechSynthesisUtterance(readAloud);
-    utterThis.voice = this.getGermanVoice();
 
+  startOutput(text: string) {
+    var utterThis = new SpeechSynthesisUtterance(text);
+    utterThis.lang = "de-DE"
     utterThis.pitch = 1;
     utterThis.rate = 1;
 
+    this.synth.cancel();
     this.synth.speak(utterThis);
+    this.synth.resume();
   }
 
   stopOutput() {
+    this.synth.pause()
+  }
 
+  isOutputRunning(): boolean{
+    return this.synth.speaking
   }
 }
+
+export interface SpeechServiceDelegate {
+  outputFinished(): void
+}
+
