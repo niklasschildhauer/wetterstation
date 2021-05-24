@@ -6,6 +6,7 @@ import { reducePollen } from 'src/app/model/mock-data/weather.mock';
 import { Router } from '@angular/router';
 import { WeatherDataService } from 'src/app/services/weather-data.service';
 import { SpeechAPIService } from 'src/app/services/speech-api.service';
+import { TextService } from 'src/app/services/text.service';
 
 
 @Component({
@@ -18,12 +19,14 @@ export class DashboardScreenComponent implements OnInit {
   dashboardTiles?: Tile<WeatherData>[];
   tileType = TileType;
   desktop: boolean = false;
+  ttsTextGeneratorFunction = () => this.textService.createTextFromTilesArray(this.dashboardTiles)
 
   constructor(private userContextService: UserContextService,
     private weatherDataService: WeatherDataService,
     private breakpointObserver: BreakpointObserver,
     private router: Router,
-    private speechService: SpeechAPIService) { }
+    private speechService: SpeechAPIService,
+    private textService: TextService) { }
 
   ngOnInit(): void {
     this.loadReduceMotionValue();
@@ -68,11 +71,9 @@ export class DashboardScreenComponent implements OnInit {
   }
 
   testReadAloud(): void {
-    if(this.dashboardTiles)
-    this.speechService.readAloudTiles(this.dashboardTiles)
+    if(this.dashboardTiles){
+      let tts = this.textService.createTextFromTilesArray(this.dashboardTiles);
+      
     }
-
-  stopReadAloud(): void {
-
   }
 }

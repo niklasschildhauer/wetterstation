@@ -10,19 +10,16 @@ import { UserContextService } from 'src/app/services/user-context.service';
 })
 export class TtsPlayerElementComponent implements OnInit {
   play: boolean = false;
-  selfVoicingEnabled : boolean = false;
   userContext?: UserContext
-  @Input() ttsString = "Test";
+  @Input() ttsTextGeneratorFunction: () => string = () => "";
 
   constructor(private userContextService: UserContextService,
     private speechService: SpeechAPIService) { }
 
   ngOnInit(): void {
     this.userContextService.getUserContext().subscribe(data => {
-      this.selfVoicingEnabled = data.selfVoicingEnabled;
       this.userContext = data;
     })
-    console.log("here")
   }
 
   onPause() {
@@ -32,7 +29,8 @@ export class TtsPlayerElementComponent implements OnInit {
 
   onPlay() {
     this.play = true;
-    this.speechService.startOutput(this.ttsString);
+    let text = this.ttsTextGeneratorFunction();
+    this.speechService.startOutput(text);
     this.listenForStop(this.speechService);
   }
 
