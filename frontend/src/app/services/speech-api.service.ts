@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+//import { read } from 'node:fs';
 import { IndoorRoomData, OutdoorWeatherData, PollenData, Tile, TileType, WeatherForecastData } from '../model/weather';
 import { WeatherData } from '../model/weather';
 
@@ -26,8 +27,12 @@ export class SpeechAPIService {
           });
         break;
         case TileType.indoorRoom: 
+          let indoorArray = element.data as IndoorRoomData;
+          readAloud = readAloud + this.createIndoorRoomString(indoorArray);
         break;
         case TileType.forecast: 
+          let forecastData = element.data as WeatherForecastData;
+          readAloud = readAloud + this.createForecastString(forecastData);
         break;
         case TileType.pollenSmall: 
           let pollenData = element.data as PollenData;
@@ -47,12 +52,16 @@ export class SpeechAPIService {
   }
 
   createForecastString(data: WeatherForecastData): string {
-
-    return ""
+    let forecast = data.forecast
+    return "Heute wird es " + forecast + ". ";
   }
 
   createIndoorRoomString(data: IndoorRoomData): string {
-    return ""
+    let room = data.roomName
+    let quality = data.airQuality
+    let temperature = data.temperature
+
+    return "Im " + room + " hat es " + temperature + " Grad Celsius und die Luftqualität liegt bei " + quality + ". ";
   }
 
   createPollenString(data: PollenData): string {
