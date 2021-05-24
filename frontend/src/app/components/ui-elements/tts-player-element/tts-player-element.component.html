@@ -1,4 +1,4 @@
-<div class="container" *ngIf="userContext && userContext.selfVoicingEnabled && ttsString !== ''">
+<div class="container" *ngIf="userContext && userContext.selfVoicingEnabled">
     <button  class="action-button" (click)="onPlay()" *ngIf="!play">
         <svg class="action-button-icon"viewBox="0 0 71 94" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
             <title>Path</title>

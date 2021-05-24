@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { WeatherForecastData } from 'src/app/model/weather';
+import { TextService } from 'src/app/services/text.service';
 import { WeatherDataService } from 'src/app/services/weather-data.service';
 
 @Component({
@@ -9,7 +10,10 @@ import { WeatherDataService } from 'src/app/services/weather-data.service';
 })
 export class ForecastDetailViewComponent implements OnInit {
   forecast?: WeatherForecastData;
-  constructor(private weatherDataService: WeatherDataService) { }
+  ttsTextGeneratorFunction = () => this.textService.createForecastText(this.forecast)
+
+  constructor(private weatherDataService: WeatherDataService,
+    private textService: TextService) { }
 
   ngOnInit(): void {
     this.loadForecastData();

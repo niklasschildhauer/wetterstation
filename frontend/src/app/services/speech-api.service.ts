@@ -6,11 +6,10 @@ import { Injectable } from '@angular/core';
 
 export class SpeechAPIService {
   synth = window.speechSynthesis;
-  delegate?: SpeechServiceDelegate
 
   constructor() {}
-  init() {
-  }
+
+  init() {}
 
   getGermanVoice() : SpeechSynthesisVoice {
     let voices = this.synth.getVoices();
@@ -20,7 +19,6 @@ export class SpeechAPIService {
   startOutput(text: string) {
     var utterThis = new SpeechSynthesisUtterance(text);
     utterThis.lang = "de-DE"
-
     utterThis.pitch = 1;
     utterThis.rate = 1;
 
@@ -30,15 +28,11 @@ export class SpeechAPIService {
   }
 
   stopOutput() {
-    this.synth.pause()
+    this.synth.cancel()
   }
 
   isOutputRunning(): boolean{
     return this.synth.speaking
   }
-}
-
-export interface SpeechServiceDelegate {
-  outputFinished(): void
 }
 

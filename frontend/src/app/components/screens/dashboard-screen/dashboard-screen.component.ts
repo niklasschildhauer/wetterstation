@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { Tile, TileType, WeatherData } from 'src/app/model/weather';
+import { OutdoorWeatherData, Tile, TileType, WeatherData } from 'src/app/model/weather';
 import { UserContextService } from 'src/app/services/user-context.service';
 import { BreakpointObserver, BreakpointState } from '@angular/cdk/layout';
 import { reducePollen } from 'src/app/model/mock-data/weather.mock';
 import { Router } from '@angular/router';
 import { WeatherDataService } from 'src/app/services/weather-data.service';
+import { SpeechAPIService } from 'src/app/services/speech-api.service';
+import { TextService } from 'src/app/services/text.service';
 
 
 @Component({
@@ -15,17 +17,25 @@ import { WeatherDataService } from 'src/app/services/weather-data.service';
 export class DashboardScreenComponent implements OnInit {
   reduceMotion: boolean = false;
   dashboardTiles?: Tile<WeatherData>[];
+  outdoorData?: OutdoorWeatherData;
   tileType = TileType;
   desktop: boolean = false;
+  ttsTextGeneratorFunction = () => {
+    let tilesText = this.textService.createTextFromTilesArray(this.dashboardTiles);
+    let outdoorText = this.textService.createOutdoorText(this.outdoorData);
+    return outdoorText + tilesText;
+  }
 
   constructor(private userContextService: UserContextService,
     private weatherDataService: WeatherDataService,
     private breakpointObserver: BreakpointObserver,
-    private router: Router) { }
+    private router: Router,
+    private speechService: SpeechAPIService,
+    private textService: TextService) { }
 
   ngOnInit(): void {
     this.loadReduceMotionValue();
-    this.loadDashboardTiles();
+    this.loadData();
     this.desktopBreakpointObserver();    
   }
 
@@ -49,10 +59,13 @@ export class DashboardScreenComponent implements OnInit {
     });
   }
 
-  loadDashboardTiles(): void {
+  loadData(): void {
     this.weatherDataService.getDashboardTiles()
                       .subscribe(data => {
                         this.dashboardTiles = data});
+    this.weatherDataService.getOutdoorWeatherData()
+                        .subscribe(data => {
+                          this.outdoorData = data});
   }
 
   // DELETE ME?
@@ -63,5 +76,12 @@ export class DashboardScreenComponent implements OnInit {
     this.router.routeReuseStrategy.shouldReuseRoute = () => false;
     this.router.onSameUrlNavigation = 'reload';
     this.router.navigate([currentUrl]);
+  }
+
+  testReadAloud(): void {
+    if(this.dashboardTiles){
+      let tts = this.textService.createTextFromTilesArray(this.dashboardTiles);
+      
+    }
   }
 }
