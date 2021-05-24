@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Tile, TileType, WeatherData } from 'src/app/model/weather';
+import { OutdoorWeatherData, Tile, TileType, WeatherData } from 'src/app/model/weather';
 import { UserContextService } from 'src/app/services/user-context.service';
 import { BreakpointObserver, BreakpointState } from '@angular/cdk/layout';
 import { reducePollen } from 'src/app/model/mock-data/weather.mock';
@@ -17,9 +17,14 @@ import { TextService } from 'src/app/services/text.service';
 export class DashboardScreenComponent implements OnInit {
   reduceMotion: boolean = false;
   dashboardTiles?: Tile<WeatherData>[];
+  outdoorData?: OutdoorWeatherData;
   tileType = TileType;
   desktop: boolean = false;
-  ttsTextGeneratorFunction = () => this.textService.createTextFromTilesArray(this.dashboardTiles)
+  ttsTextGeneratorFunction = () => {
+    let tilesText = this.textService.createTextFromTilesArray(this.dashboardTiles);
+    let outdoorText = this.textService.createOutdoorText(this.outdoorData);
+    return outdoorText + tilesText;
+  }
 
   constructor(private userContextService: UserContextService,
     private weatherDataService: WeatherDataService,
@@ -30,7 +35,7 @@ export class DashboardScreenComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadReduceMotionValue();
-    this.loadDashboardTiles();
+    this.loadData();
     this.desktopBreakpointObserver();    
   }
 
@@ -54,10 +59,13 @@ export class DashboardScreenComponent implements OnInit {
     });
   }
 
-  loadDashboardTiles(): void {
+  loadData(): void {
     this.weatherDataService.getDashboardTiles()
                       .subscribe(data => {
                         this.dashboardTiles = data});
+    this.weatherDataService.getOutdoorWeatherData()
+                        .subscribe(data => {
+                          this.outdoorData = data});
   }
 
   // DELETE ME?
