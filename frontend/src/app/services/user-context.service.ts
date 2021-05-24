@@ -16,7 +16,8 @@ export interface UserContextDelegte {
 export class UserContextService {
   public delegate?: UserContextDelegte;
   private _token: string;
-  private _userContext: BehaviorSubject<UserContext> = new BehaviorSubject<UserContext>(INITIAL_USER_CONTEXT); // FIXME
+  private _userContext: BehaviorSubject<UserContext> = new BehaviorSubject<UserContext>(INITIAL_USER_CONTEXT); 
+  private loginURL = '/auth/login'
   
   set token(value: string) {
     this._token = value;
@@ -65,8 +66,6 @@ export class UserContextService {
   get pollen() {
     return this._userContext.getValue().pollen;
   }
-
-  private loginURL = '/auth/login'
 
   constructor(private localStorageService: LocalStorageService,
     private router: Router,
