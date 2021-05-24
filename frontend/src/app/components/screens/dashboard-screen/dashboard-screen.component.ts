@@ -5,7 +5,6 @@ import { BreakpointObserver, BreakpointState } from '@angular/cdk/layout';
 import { reducePollen } from 'src/app/model/mock-data/weather.mock';
 import { Router } from '@angular/router';
 import { WeatherDataService } from 'src/app/services/weather-data.service';
-import { SpeechAPIService } from 'src/app/services/speech-api.service';
 import { TextService } from 'src/app/services/text.service';
 
 
@@ -30,7 +29,6 @@ export class DashboardScreenComponent implements OnInit {
     private weatherDataService: WeatherDataService,
     private breakpointObserver: BreakpointObserver,
     private router: Router,
-    private speechService: SpeechAPIService,
     private textService: TextService) { }
 
   ngOnInit(): void {
