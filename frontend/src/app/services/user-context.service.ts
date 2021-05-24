@@ -4,6 +4,7 @@ import { Observable, of } from 'rxjs';
 import { LocalStorageService } from './local-storage.service';
 import { Router } from '@angular/router';
 import { WeatherDataService } from './weather-data.service';
+import { HttpClient } from '@angular/common/http';
 
 export interface UserContextDelegte {
   updatedUserContext(from: UserContextService): void
@@ -13,8 +14,17 @@ export interface UserContextDelegte {
   providedIn: 'root'
 })
 export class UserContextService {
-  public delegate?: UserContextDelegte
-  _userContext: UserContext; // FIXME
+  public delegate?: UserContextDelegte;
+  private _token: string;
+  private _userContext: UserContext; // FIXME
+
+  set token(value: string) {
+    this._token = value;
+    this.saveTokenToLocalStorage();
+  }
+  get token(): string {
+    return this._token;
+  }
   set userContext(object: UserContext) {
     this._userContext = object
     this.saveUserContext()
@@ -50,25 +60,23 @@ export class UserContextService {
     return this._userContext.pollen
   }
 
+  private loginURL = '/auth/login'
+
   constructor(private localStorageService: LocalStorageService,
-    private router: Router) { 
+    private router: Router,
+    private httpClient: HttpClient) { 
     this._userContext = this.localStorageService.getUserContext();
+    this._token = this.localStorageService.getToken();
   }
   
-  login(): Promise<UserContext> {
+  login(): Observable<any> {
+    let response = this.httpClient.post<LoginResponse>(this.loginURL, {username: "admin", password: "admin"});
+    response.subscribe(data => {
+      this.token = data.token;
+    })
     this.resetUserContext()
-    // DELETE ME
-    this.reduceMotion = true;
-    this.theme = Themes.Dark;
-    // this.fontSize = 80;
-    return new Promise((resolve) => {
-      resolve(this._userContext);
-    });
-  }
 
-  logout() {
-    this.resetUserContext();
-    this.router.navigateByUrl('/onboarding/login'); //FIXME
+    return response;
   }
 
   register(): Promise<UserContext> {
@@ -77,6 +85,11 @@ export class UserContextService {
     return new Promise((resolve) => {
       resolve(this._userContext);
     });
+  }
+
+  logout() {
+    this.resetUserContext();
+    this.router.navigateByUrl('/onboarding/login'); //FIXME
   }
 
   getUserContext(): Observable<UserContext> {
@@ -101,7 +114,19 @@ export class UserContextService {
     this.delegate?.updatedUserContext(this);
   }
 
+  private saveTokenToLocalStorage() {
+    this.localStorageService.saveToken(this._token);
+  }
+
   private saveUserContextToLocalStorage() {
     this.localStorageService.saveUserContext(this._userContext)
   }
 }
+
+interface LoginResponse {
+    success: boolean,
+    message: string,
+    user: string,
+    token: string,
+  }
+

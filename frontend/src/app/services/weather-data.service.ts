@@ -1,6 +1,6 @@
 import { ThisReceiver } from '@angular/compiler';
 import { Injectable } from '@angular/core';
-import { forkJoin, Observable, of } from 'rxjs';
+import { BehaviorSubject, forkJoin, Observable, of, Subject} from 'rxjs';
 import { IndoorRoomData, OutdoorWeatherData, PollenData, Tile, WeatherData, WeatherForecastData, WeatherHistoryData } from '../model/weather';
 import { TileService, TileArrays } from './tile.service';
 import { UserContextDelegte, UserContextService } from './user-context.service';
@@ -10,15 +10,15 @@ import { WeatherAPIService } from './weather-api.service';
   providedIn: 'root'
 })
 export class WeatherDataService implements UserContextDelegte{
-  private _dashboardTiles: Tile<WeatherData>[] = [];
-  private _pollenTiles: Tile<WeatherData>[] = [];
-  private _indoorRoomTiles: Tile<WeatherData>[]= [];
+  private _dashboardTiles: BehaviorSubject<Tile<WeatherData>[]> = new BehaviorSubject<Tile<WeatherData>[]>([]);
+  private _pollenTiles: BehaviorSubject<Tile<WeatherData>[]> =  new BehaviorSubject<Tile<WeatherData>[]>([]);
+  private _indoorRoomTiles: BehaviorSubject<Tile<WeatherData>[]> =  new BehaviorSubject<Tile<WeatherData>[]>([]);
 
-  private _pollenData?: PollenData[];
-  private _indoorRoomsData?: IndoorRoomData[];
-  private _forecastData?: WeatherForecastData;
-  private _historyData?: WeatherHistoryData;
-  private _outdoorWeatherData?: OutdoorWeatherData;
+  private _pollenData: BehaviorSubject<PollenData[] | undefined> = new BehaviorSubject<PollenData[]  | undefined>(undefined);
+  private _indoorRoomsData: BehaviorSubject<IndoorRoomData[] | undefined> = new BehaviorSubject<IndoorRoomData[]  | undefined>(undefined);
+  private _forecastData: BehaviorSubject<WeatherForecastData | undefined> = new BehaviorSubject<WeatherForecastData | undefined>(undefined);
+  private _historyData: BehaviorSubject<WeatherHistoryData | undefined> = new BehaviorSubject<WeatherHistoryData | undefined>(undefined);
+  private _outdoorWeatherData: BehaviorSubject<OutdoorWeatherData | undefined> = new BehaviorSubject<OutdoorWeatherData | undefined>(undefined);
 
   private _oldestHistoryData = Date.now();
 
@@ -30,43 +30,43 @@ export class WeatherDataService implements UserContextDelegte{
     }
       // NETWORK ACCESS
   private loadWeatherData() {
-    let outDoorWeather = this.weatherAPIService.getOutdoorWeather();
+    let outDoorWeather = this.weatherAPIService.getOutdoorWeather()
     let pollen = this.weatherAPIService.getPollen()
     let forecast = this.weatherAPIService.getForecastData()
     let history = this.loadMonthFromHistory(new Date(this._oldestHistoryData));
     let indoorRoom = this.weatherAPIService.getIndoorRoomData()
 
     forkJoin([outDoorWeather, pollen, forecast, history, indoorRoom]).subscribe(results => {
-      this._outdoorWeatherData = results[0]
-      this._pollenData = results[1]
-      this._forecastData = results[2]
-      this._historyData = results[3]
-      this._indoorRoomsData = results[4]
+      this._outdoorWeatherData.next(results[0]);
+      this._pollenData.next(results[1]);
+      this._forecastData.next(results[2]);
+      this._historyData.next(results[3]);
+      this._indoorRoomsData.next(results[4]);
 
       this.reloadTiles();
     });
   }
 
   reloadTiles() {
-    this.resetData();
+    let outdoorWeatherData = this._outdoorWeatherData.getValue()
+    let pollenData = this._pollenData.getValue();
+    let forecastData = this._forecastData.getValue();
+    let historyData = this._historyData.getValue();
+    let indoorRoomData = this._indoorRoomsData.getValue();
 
-    if(this._pollenData && this._indoorRoomsData && this._forecastData && this._historyData && this._outdoorWeatherData) {
-      let result = this.tileService.createTiles(this._outdoorWeatherData, 
-        this._pollenData, 
-        this._forecastData, 
-        this._historyData, 
-        this._indoorRoomsData )
+    if(pollenData && forecastData && historyData && indoorRoomData && outdoorWeatherData) {
 
-      this._dashboardTiles = result.dashboard
-      this._pollenTiles = result.pollen
-      this._indoorRoomTiles = result.indoorRooms
+      let result = this.tileService.createTiles(outdoorWeatherData, 
+        pollenData, 
+        forecastData, 
+        historyData, 
+        indoorRoomData)
+
+      console.log("We are in here4");
+      this._dashboardTiles.next(result.dashboard);
+      this._pollenTiles.next(result.pollen);
+      this._indoorRoomTiles.next(result.indoorRooms);
     }
-  }
-
-  private resetData() {
-    this._dashboardTiles = [];
-    this._pollenTiles = [];
-    this._indoorRoomTiles = [];
   }
 
   reloadData(): void {
@@ -78,43 +78,40 @@ export class WeatherDataService implements UserContextDelegte{
   }
 
   // Getter methods
-  getDashboardTiles(): Observable<Tile<WeatherData>[]>{
-    let tiles = of(this._dashboardTiles);
-    return tiles;
+  getDashboardTiles(): BehaviorSubject<Tile<WeatherData>[]>{
+    return this._dashboardTiles;
   }  
 
-  getIndoorTiles() : Observable<Tile<WeatherData>[]>{
-    let tiles = of(this._indoorRoomTiles);
-    return tiles;
+  getIndoorTiles() : BehaviorSubject<Tile<WeatherData>[]>{
+    return this._indoorRoomTiles
   }
 
-  getPollenTiles(): Observable<Tile<WeatherData>[]>{
-    let tiles = of(this._pollenTiles);
-    return tiles;
+  getPollenTiles(): BehaviorSubject<Tile<WeatherData>[]>{
+    return this._pollenTiles
   } 
 
-  getOutdoorWeatherData(): Observable<OutdoorWeatherData | undefined> {
-    let data = of(this._outdoorWeatherData);
-    return data
+  getOutdoorWeatherData(): BehaviorSubject<OutdoorWeatherData | undefined> {
+    return this._outdoorWeatherData
   }
 
-  getForecastData(): Observable<WeatherForecastData | undefined> {
-    let data = of(this._forecastData);
-    return data
+  getForecastData(): BehaviorSubject<WeatherForecastData | undefined> {
+    return this._forecastData;
   }
 
-  getHistoryData(): Observable<WeatherHistoryData | undefined> {
-    let data = of(this._historyData);
-    return data
+  getHistoryData(): BehaviorSubject<WeatherHistoryData | undefined> {
+    return this._historyData;
   }
 
   loadMoreHistoryData(): Observable<WeatherHistoryData> {
     let observable = this.loadMonthFromHistory(new Date(this._oldestHistoryData));
     observable.subscribe( data => {
-      if(this._historyData) {
+      let historyData = this._historyData.getValue();
+      if(historyData) {
         console.log(data);
         console.log(this._historyData);
-        this._historyData.datapoints = this._historyData.datapoints.concat(data.datapoints);
+        this._historyData.next({
+          datapoints: historyData.datapoints.concat(data.datapoints)
+        });
         console.log(this._historyData);
       }
     });
