@@ -58,16 +58,18 @@ export class WeatherAPIService {
     return forecastData;
   }
 
-  getHistoryData(fromDate: Date, toDate: Date): Observable<WeatherHistoryData> {
+  getHistoryData(endDate: Date, beginDate: Date): Observable<WeatherHistoryData> {
     if (environment.testData) {
       let forecastData = of(WEATHERHISTORY);
       return forecastData;
     }
+    console.log(this.createServerFriendlyDate(beginDate));
+    console.log(this.createServerFriendlyDate(endDate));
     let returnObservable = new Observable<WeatherHistoryData>((observer) => { 
         this.httpClient.post<OutdoorWeatherResponse[]>(this.historyURL,
           {
-            "begin": this.createServerFriendlyDate(fromDate),
-            "end": this.createServerFriendlyDate(toDate)
+            "begin": this.createServerFriendlyDate(beginDate),
+            "end": this.createServerFriendlyDate(endDate)
           })
         .subscribe(data => {
           let dataPoints: OutdoorWeatherData[] = data.map((element) => {
