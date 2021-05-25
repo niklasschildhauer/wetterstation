@@ -7,10 +7,10 @@
 
 Adafruit_BME280 bme; // I2C
 
-const char* ssid     = "Vodafone-1F7F"; //name of your wifi
-const char* password = "ABbpgU3aGaNmedUm"; //pw of your wifi
+const char* ssid     = "Mantz";                   //"Vodafone-1F7F"; //name of your wifi
+const char* password = "m-nt.b18";                 //"ABbpgU3aGaNmedUm"; //pw of your wifi
 const char* serverip = "192.168.0.136:4204"; //add server ip and port
-#define SERVER_IP "192.168.0.136:4201"
+#define SERVER_IP "192.168.0.115:4201"                                //"192.168.0.136:4201"
 
 void setup() {
   
@@ -87,9 +87,11 @@ void loop() {
     Serial.print("[HTTP] POST...\n");
     // start connection and send HTTP header and body
     char buffer[200];
-
-    sprintf(buffer, "{\"temperature\":\"%d\",\"pressure\":\"%.2f\",\"humidity\":\"%.2f\"}", bme.readTemperature(), bme.readPressure(), bme.readHumidity());
+    
+    char location[] = "hier";
+    sprintf(buffer, "{\"humidity\":\"%.2f\",\"temperature\":\"%.2f\",\"pressure\":\"%.2f\",\"location\":\"%s\"}", bme.readHumidity(), bme.readTemperature(), bme.readPressure()/ 100.0F, location);
     Serial.println(buffer);
+    
     int httpCode = http.POST(buffer);
    
     // httpCode will be negative on error
