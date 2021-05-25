@@ -119,7 +119,6 @@ void loop() {
     char location[] = "hier";
     sprintf(buffer, "{\"humidity\":\"%.2f\",\"temperature\":\"%.2f\",\"pressure\":\"%.2f\",\"gasVal\":\"%d\",\"location\":\"%s\"}", bme.readHumidity(), bme.readTemperature(), bme.readPressure()/ 100.0F, gasVal, location);
 
-  //  sprintf(buffer, "{\"temperature\":\"%d\",\"pressure\":\"%.2f\",\"humidity\":\"%.2f\",\"gasVal\":\"%.2f\"}", bme.readTemperature(), bme.readPressure(), bme.readHumidity(), gasVal);
     Serial.println(buffer);
     int httpCode = http.POST(buffer);
    
