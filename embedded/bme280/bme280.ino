@@ -7,10 +7,10 @@
 
 Adafruit_BME280 bme; // I2C
 
-const char* ssid     = "Mantz";                   //"Vodafone-1F7F"; //name of your wifi
-const char* password = "m-nt.b18";                 //"ABbpgU3aGaNmedUm"; //pw of your wifi
+const char* ssid     = "FRITZ!Box 7590 UK";                   //"Vodafone-1F7F"; //name of your wifi
+const char* password = "81352968356302772244";                 //"ABbpgU3aGaNmedUm"; //pw of your wifi
 const char* serverip = "192.168.0.136:4204"; //add server ip and port
-#define SERVER_IP "192.168.0.115:4201"                                //"192.168.0.136:4201"
+#define SERVER_IP "192.168.178.30:4201"                                //"192.168.0.136:4201"
 
 void setup() {
   
