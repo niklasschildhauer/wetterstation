@@ -1,0 +1,7 @@
+{
+	roomName:"meins",
+	transmissionFrequency:"1",
+	postalCode:"70567",
+	ssid:"FRITZ!Box 7590 UK",
+	password:"81352968356302772244"
+}
