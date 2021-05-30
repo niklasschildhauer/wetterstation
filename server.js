@@ -105,7 +105,6 @@ app.use(express.json({ limit: "1mb", type: "application/json" }));
 * @property {string} location
 * @property {string} timestamp
 * @property {string} weather
-* @property {integer} apparentTemperature
 */
 
 /**
@@ -118,7 +117,18 @@ app.use(express.json({ limit: "1mb", type: "application/json" }));
 * @property {string} timestamp
 */
 
-// ------------------------------------------------ Routes ------------------------------------------------
+/**
+* @typedef Pollen
+* @property {string} pollenName
+*/
+
+/**
+* @typedef Pollen_object
+* @property {integer} id
+* @property {string} pollenName
+*/
+
+// -------------------------------------------- Routes - Auth -------------------------------------------
 
 /**
  * Login a user with username and password
@@ -149,6 +159,8 @@ app.get("/v1/auth/checkToken", (req, res) => {
   const token = req.headers["x-access-token"] || req.headers["authorization"];
   genericRequest(token, "GET", "http://localhost:4202/checkToken", res);
 });
+
+// ----------------------------------------- Routes - Sensors -----------------------------------------
 
 //TODO: Returns?
 /**
@@ -218,7 +230,48 @@ app.post("/v1/weather-data/outdoor/history", (req, res) => {
   genericRequestWithPayload("", "POST", "http://localhost:4205/indoor/history", JSON.stringify(req.body), res);
 });
 
+// ------------------------------------------ Routes - Pollen ------------------------------------------
+
+/**
+ * Receive all Pollen types from the database
+ * @route GET /pollen/all
+ * @group Pollen - Pollen data CRUD
+ * @returns {Array<Pollen_object>} 200 - An array of PollenTypes and 
+ */
+ app.get("/v1/pollen/all", (req, res) => {
+  genericRequest("", "GET", "http://localhost:4205/pollen/all", res);
+});
+
+
+/**
+ * Receive one Pollen object from the database determined by specified id
+ * @route GET /pollen
+ * @group Pollen - Pollen data CRUD
+ * @param {integer} id.query.required - id of the Pollen object
+ * @returns {Pollen_object} 200 - a single Pollen object
+ */
+ app.get("/v1/pollen", (req, res) => {
+  genericRequest("", "GET", "http://localhost:4205/pollen/" + req.query.id, res);
+});
+
  
+/**
+ * Create a new Pollen object
+ * @route POST /pollen/insert
+ * @group Pollen - Pollen data CRUD
+ * @param {Pollen.model} pollen.body.required - Pollen object with pollenName
+ * @returns {Pollen_object} 200 - a single Pollen object
+ */
+ app.post("/v1/pollen/insert", (req, res) => {
+  genericRequestWithPayload("", "POST", "http://localhost:4205/pollen/insert", JSON.stringify(req.body) , res);
+});
+
+
+// ------------------------------------------ Routes - UserContext ------------------------------------------
+
+//TODO: Needs to be combined into personalization service using personalization-service
+// Needs openAPE
+
 
 // ------------------------------------------------ Helper ------------------------------------------------
 
@@ -259,6 +312,7 @@ const genericRequestWithPayload = (token, method, uri, body, res) => {
 };
 
 const genericCallback = (error, response, body, res) => {
+  console.log("body", body)
   if (error) {
     res.sendStatus("400");
   } else {

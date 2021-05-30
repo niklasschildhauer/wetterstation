@@ -9,9 +9,11 @@
    },
    "dependencies": {
       "express": "^4.17.1",
+      "morgan": "^1.10.0",
       "reflect-metadata": "^0.1.10",
       "sqlite3": "^5.0.2",
-      "typeorm": "0.2.32"
+      "typeorm": "0.2.32",
+      "typeorm-encrypted": "^0.5.6"
    },
    "scripts": {
       "start": "ts-node src/index.ts"

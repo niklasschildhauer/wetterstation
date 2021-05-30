@@ -22,10 +22,7 @@ export class Outdoor {
   @CreateDateColumn()
   timestamp: string;
 
-  // @CreateDateColumn({ type: 'string', name: 'create_date', default: () => 'LOCALTIMESTAMP' })
-  // createDate: string;
-
-  @Column()
-  apparentTemperature: number;
+  // @Column()
+  // apparentTemperature: number;
 
 }
