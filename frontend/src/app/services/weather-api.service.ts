@@ -63,8 +63,6 @@ export class WeatherAPIService {
       let forecastData = of(WEATHERHISTORY);
       return forecastData;
     }
-    console.log(this.createServerFriendlyDate(beginDate));
-    console.log(this.createServerFriendlyDate(endDate));
     let returnObservable = new Observable<WeatherHistoryData>((observer) => { 
         this.httpClient.post<OutdoorWeatherResponse[]>(this.historyURL,
           {
