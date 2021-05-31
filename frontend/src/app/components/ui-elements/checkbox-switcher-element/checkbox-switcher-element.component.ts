@@ -11,9 +11,9 @@ import { UserContextService } from 'src/app/services/user-context.service';
 export class CheckboxSwitcherElementComponent implements OnInit {
   @Input() label?: string;
   @Input() value?: boolean;
-  @Input() checkedImage?: string = "microphone"
-  @Input() unCheckedImageLight?: string = "reduce-motion-unchecked-light";
-  @Input() unCheckedImageDark?: string = "reduce-motion-unchecked-dark";
+  @Input() checkedImage?: string
+  @Input() unCheckedImageLight?: string;
+  @Input() unCheckedImageDark?: string;
   @Output() toggled = new EventEmitter<boolean>();
   private userContext?: UserContext
   private systemTheme = Themes.Light
@@ -55,11 +55,19 @@ export class CheckboxSwitcherElementComponent implements OnInit {
         return this.unCheckedImageLight
       }
     } 
-    if(userContextTheme == Themes.Dark) {
+    if(userContextTheme == Themes.Dark || userContextTheme == Themes.HighContrast ) {
       return this.unCheckedImageDark
     }
     return this.unCheckedImageLight
+  }
 
+  getCheckedImageSrc(): string | undefined {
+    let userContextTheme = this.userContext?.theme
+    if(userContextTheme == Themes.HighContrast ) {
+      if (this.checkedImage)
+      return this.checkedImage + "-black"
+    }
+    return this.checkedImage 
   }
 
 

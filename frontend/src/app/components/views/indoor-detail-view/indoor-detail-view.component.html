@@ -1,8 +1,8 @@
 <app-nav-bar-element [titleLabel]="'Raumluftqualität'" [backLabel]="'Dashboard'"></app-nav-bar-element>
-<div *ngIf="rooms">
+<div *ngIf="indoorRoomTiles" class="container">
     <app-indoor-tile-view 
-        *ngFor="let item of rooms" 
-        [data]="item"
+        *ngFor="let item of indoorRoomTiles" 
+        [data]="item.data"
         [hideSubtitle]="true">
     </app-indoor-tile-view>
 </div>
@@ -12,3 +12,5 @@
         Der Mensch hält sich einen Großteil der Zeit des Tages in Innenräumen auf. Gute Raumluftqualität ist daher eine der Grundlagen für Gesundheit, Wohlbefinden, Leistungsfähigkeit und für gutes Arbeiten, Lernen und Lehren. Schlechte Raumluft kann krankmachen, auch wenn die Zusammenhänge hier wissenschaftlich oft noch nicht abschließend geklärt sind gibt es eine Vielzahl unterschiedlichster Krankheitssymptome, die offenbar mit dem Aufenthalt in Räumen verbunden sind. Eine wichtige Voraussetzung für gute Raumluftqualität ist deshalb eine ausreichende Lüftung des Raumes.
     </p>
 </article>
+
+<app-tts-player-element [ttsTextGeneratorFunction]="ttsTextGeneratorFunction"></app-tts-player-element>

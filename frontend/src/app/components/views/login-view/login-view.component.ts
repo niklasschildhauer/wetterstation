@@ -23,12 +23,9 @@ export class LoginViewComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  
-
-
   onSubmit(): void {
     console.log('Submitted:', this.loginForm.value);
-    this.userContextService.login().then(() => {
+    this.userContextService.login(this.loginForm.get("email")?.value, this.loginForm.get("password")?.value).subscribe(() => {
       this.router.navigateByUrl('/dashboard');
     });
   }

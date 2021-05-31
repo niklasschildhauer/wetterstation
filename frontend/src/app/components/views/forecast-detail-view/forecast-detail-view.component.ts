@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { WeatherForecastData } from 'src/app/model/weather';
-import { WeatherService } from 'src/app/services/weather.service';
+import { TextService } from 'src/app/services/text.service';
+import { WeatherDataService } from 'src/app/services/weather-data.service';
 
 @Component({
   selector: 'app-forecast-detail-view',
@@ -9,14 +10,17 @@ import { WeatherService } from 'src/app/services/weather.service';
 })
 export class ForecastDetailViewComponent implements OnInit {
   forecast?: WeatherForecastData;
-  constructor(private weatherService: WeatherService) { }
+  ttsTextGeneratorFunction = () => this.textService.createForecastText(this.forecast)
+
+  constructor(private weatherDataService: WeatherDataService,
+    private textService: TextService) { }
 
   ngOnInit(): void {
     this.loadForecastData();
   }
 
   loadForecastData() {
-    this.weatherService.getForecastData()
+    this.weatherDataService.getForecastData()
                         .subscribe(data => this.forecast = data);
   }
 }

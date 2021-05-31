@@ -1,9 +1,5 @@
-@mixin gradient {
-    background: rgb(97,194,216);
-    background: -moz-linear-gradient(0deg, rgba(97,194,216,1) 0%, rgba(67,125,219,1) 100%);
-    background: -webkit-linear-gradient(0deg, rgba(97,194,216,1) 0%, rgba(67,125,219,1) 100%);
-    background: linear-gradient(0deg, rgba(97,194,216,1) 0%, rgba(67,125,219,1) 100%);
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#61c2d8",endColorstr="#437ddb",GradientType=1);
+@mixin background {
+    background: var(--accent);
 }
 
 @mixin thumb {
@@ -38,7 +34,7 @@ input[type=range] {
     @include height;
     cursor: pointer;
     box-shadow: 0px 0px 0px #000000, 0px 0px 0px #0d0d0d;
-    @include gradient();
+    @include background();
     border-radius: 25px;
     border: 0px solid #000101;
   }
@@ -50,7 +46,7 @@ input[type=range] {
 
   }
   input[type=range]:focus::-webkit-slider-runnable-track {
-    @include gradient();
+    @include background();
   }
   input[type=range]::-moz-range-track {
     width: 100%;
@@ -58,7 +54,7 @@ input[type=range] {
     cursor: pointer;
     animate: 0.2s;
     box-shadow: 0px 0px 0px #000000, 0px 0px 0px #0d0d0d;
-    @include gradient();
+    @include background();
     border-radius: 25px;
     border: 0px solid #000101;
   }
@@ -80,13 +76,13 @@ input[type=range] {
     color: transparent;
   }
   input[type=range]::-ms-fill-lower {
-    @include gradient();
+    @include background();
     border: 0px solid #000101;
     border-radius: 50px;
     box-shadow: 0px 0px 0px #000000, 0px 0px 0px #0d0d0d;
   }
   input[type=range]::-ms-fill-upper {
-    @include gradient();
+    @include background();
     border: 0px solid #000101;
     border-radius: 50px;
     box-shadow: 0px 0px 0px #000000, 0px 0px 0px #0d0d0d;
@@ -99,11 +95,11 @@ input[type=range] {
     cursor: pointer;
   }
   input[type=range]:focus::-ms-fill-lower {
-    @include gradient();
+    @include background();
 
   }
   input[type=range]:focus::-ms-fill-upper {
-    @include gradient();
+    @include background();
 
   }
   

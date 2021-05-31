@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Themes } from 'src/app/model/user-context';
-import { WeatherGraphDataSet, WeatherData, GraphDataPoints } from 'src/app/model/weather';
+import { GraphDataSet, WeatherData } from 'src/app/model/weather';
+import { DatasetColor, ChartLabel, ChartColor, ChartDataset } from '@rinminase/ng-charts';
 
 @Component({
   selector: 'app-history-tile-view',
@@ -10,64 +11,62 @@ import { WeatherGraphDataSet, WeatherData, GraphDataPoints } from 'src/app/model
 export class HistoryTileViewComponent implements OnInit {
   @Input() pressable: boolean = false;
   @Input() title?: string;
-  @Input() graphType: HistoryGraphType = HistoryGraphType.temperature
+  @Input() 
+  set graphType(type: HistoryGraphType) {
+    this._graphType = type;
+    if(this._dataSet) {
+      this.updateChartData(this.chartData, this.chartColors, this._dataSet, this._graphType)
+    }
+  }
+  _graphType: HistoryGraphType = HistoryGraphType.temperature
   @Input()
   set data(data: WeatherData) {
-    this._dataSet = data as WeatherGraphDataSet;
+    this._dataSet = data as GraphDataSet;
+    if(this._dataSet) {
+      this.updateChartData(this.chartData, this.chartColors, this._dataSet, this._graphType)
+    }
   }
-  _dataSet?: WeatherGraphDataSet;
+  _dataSet?: GraphDataSet;
   theme: Themes = Themes.Light;
-  ThemeType = Themes;
 
-  temperatureColorScheme = {
-    domain: ['#E44A4A']
+
+  // Chart data
+  chartData: ChartDataset[] = [
+    { data: [], label: '' },
+  ];
+  chartLabels: ChartLabel[] = [];
+  chartOptions = {
+    responsive: true,
   };
+  chartColors: ChartColor = [];
+  chartLegend = false;
+  chartPlugins = [];
 
-  humidityColorScheme = {
-    domain: ['#335BF0']
-  };
+  constructor() { }
 
-  showXAxis = true;
-  showYAxis = true;
-  gradient = false;
-  showLegend = true;
-  legendTitle = 'Legend';
-  legendPosition = 'right';
-  showXAxisLabel = true;
-  xAxisLabel = 'Country';
-  showYAxisLabel = true;
-  yAxisLabel = 'GDP Per Capita';
-  showGridLines = true;
-  innerPadding = '10%';
-  animations: boolean = true;
-  showRightYAxisLabel: boolean = true;
-  yAxisLabelRight: string = 'Utilization';
-
-  constructor() { 
-  }
-
-  ngOnInit(): void { 
-  }
-  getDataPoint(): GraphDataPoints[] | undefined{
-    switch (this.graphType) {
-      case HistoryGraphType.temperature: {
-        return this._dataSet?.temperatureDataPoints
-      }
-      case HistoryGraphType.humidity: {
-        return this._dataSet?.humidityDataPoints
-      }
+  ngOnInit(): void { }
+  
+  updateChartData(chartDataset: ChartDataset[], chartColors: ChartColor, dataSet: GraphDataSet, graphType: HistoryGraphType) {
+    switch (graphType) {
+      case HistoryGraphType.temperature:
+        chartDataset[0].data = dataSet.temperatureDataPoints
+        chartDataset[0].label = "°C"
+        chartColors[0] = {
+          borderColor: 'red',
+          backgroundColor: 'rgba(255,0,0,0.1)',
+        };
+        break;
+      case HistoryGraphType.humidity:
+        chartDataset[0].data = dataSet.humidityDataPoints
+        chartDataset[0].label = "%"
+        chartColors[0] = {
+          borderColor: 'blue',
+          backgroundColor: 'rgba(0,0,255,0.1)',
+        };
+        break;
     }
-  }
+    this.chartLabels = dataSet.xAxisLabel
 
-  getColorScheme(){
-    switch (this.graphType) {
-      case HistoryGraphType.temperature: {
-        return this.temperatureColorScheme
-      }
-      case HistoryGraphType.humidity: {
-        return this.humidityColorScheme
-      }
-    }
   }
 
 }

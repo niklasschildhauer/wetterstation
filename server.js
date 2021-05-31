@@ -306,7 +306,6 @@ const genericRequestWithPayload = (token, method, uri, body, res) => {
 };
 
 const genericCallback = (error, response, body, res) => {
-  console.log("body", body)
   if (error) {
     res.sendStatus("400");
   } else {
@@ -323,15 +322,8 @@ const genericCallback = (error, response, body, res) => {
   }
 };
 
-
-
-
-
-
-
 console.log("listening on port 4201")
 app.listen(4201);
-
 
 
 /*

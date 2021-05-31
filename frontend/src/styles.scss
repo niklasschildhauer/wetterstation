@@ -120,6 +120,7 @@ article {
     --status-green: green; 
     --status-yellow: yellow;  
     --status-orange: orange; //FIXME: I need a better color
+    --border: clear;
 }
 
 .main-container.dark-theme {
@@ -127,10 +128,11 @@ article {
     --accent: #4480DB;
     --secondary:  #8A8A8A;
     --inverted:  #FFFFFF;
-    --surface:  #3e3e3e;
+    --surface:  #424242;
     --background: #1C2026;
     --pressed: #BABABA;
     --disabled: #1D1D1D;
+    --border: clear;
 }
 
 @media(prefers-color-scheme: dark) {
@@ -139,10 +141,11 @@ article {
         --accent: #4480DB;
         --secondary:  #8A8A8A;
         --inverted:  #FFFFFF;
-        --surface:  #3e3e3e;
+        --surface:  #424242;
         --background: #1C2026;
         --pressed: #BABABA;
         --disabled: #1D1D1D;
+        --border: clear;
     }
 
     .main-container.light-theme {
@@ -154,7 +157,20 @@ article {
         --background: #FFFFFF;
         --pressed: #BABABA;
         --disabled: #1D1D1D;
+        --border: clear;
       }
+}
+
+.main-container.high-contrast {
+    --text: #FFFFFF;
+    --accent: yellow;
+    --secondary:  #FFFFFF;
+    --inverted:  black;
+    --surface:  black;
+    --background: black;
+    --pressed: #BABABA;
+    --disabled: #8A8A8A;
+    --border: #FFFFFF;
 }
 
 p, h1, h2, h3, h4, h5, a, label, span, input, li {  
@@ -260,13 +276,13 @@ button.disabled, input[type=submit].disabled {
 input[type=submit], .button-full-width {
     width: 100%;
     background-color: var(--accent);
-    color: white;
+    color: var(--inverted);
     padding: 12px 20px;
-    margin: 8px 0;
     border: none;
     border-radius: var(--corner-radius);
     cursor: pointer;
     height: 3.3em;
+    margin-top: var(--padding);
 }
 
 input[type=text], input[type=password] {
@@ -274,13 +290,12 @@ input[type=text], input[type=password] {
     padding: 12px 20px;
     margin: 8px 0 22px 0;
     display: inline-block;
-    border: 0px solid #ccc;
+    border: 1px solid var(--border);
     border-radius: calc(var(--corner-radius) * 0.5);
     box-sizing: border-box;
     background-color: var(--surface);
     color: var(--text);
     height: 4.0em;
-
 }
 //////////////////////
 //

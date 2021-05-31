@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { IndoorRoomData } from 'src/app/model/weather';
-import { WeatherService } from 'src/app/services/weather.service';
+import { Tile, WeatherData } from 'src/app/model/weather';
+import { TextService } from 'src/app/services/text.service';
+import { WeatherDataService } from 'src/app/services/weather-data.service';
 
 @Component({
   selector: 'app-indoor-detail-view',
@@ -8,16 +9,19 @@ import { WeatherService } from 'src/app/services/weather.service';
   styleUrls: ['./indoor-detail-view.component.scss']
 })
 export class IndoorDetailViewComponent implements OnInit {
-  rooms?: IndoorRoomData[];
-  constructor(private weatherService: WeatherService) { }
+  indoorRoomTiles?: Tile<WeatherData>[];
+  ttsTextGeneratorFunction = () => this.textService.createTextFromTilesArray(this.indoorRoomTiles)
+
+  constructor(private weatherDataService: WeatherDataService,
+    private textService: TextService) { }
 
   ngOnInit(): void {
     this.loadIndoorRoomData();
   }
 
   loadIndoorRoomData() {
-    this.weatherService.getIndoorRoomData()
-                        .subscribe(data => this.rooms = data);
+    this.weatherDataService.getIndoorTiles()
+                        .subscribe(data => this.indoorRoomTiles = data);
   }
 
 }

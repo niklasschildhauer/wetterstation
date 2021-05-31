@@ -1,6 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { OutdoorWeatherData } from 'src/app/model/weather';
 import { UserContextService } from 'src/app/services/user-context.service';
-import { WeatherService } from 'src/app/services/weather.service';
+import { WeatherDataService } from 'src/app/services/weather-data.service';
 
 @Component({
   selector: 'app-menu-bar-element',
@@ -9,10 +11,12 @@ import { WeatherService } from 'src/app/services/weather.service';
 })
 export class MenuBarElementComponent implements OnInit {
   locationLabel?: string;
+  outdoorWeatherData?: OutdoorWeatherData
   reduceMotion: boolean = false; // We need this value, because the menu bar changes the font color, based on it
 
-  constructor(private weatherService: WeatherService,
-    private userContextService: UserContextService) { }
+  constructor(private weatherDataService: WeatherDataService,
+    private userContextService: UserContextService,
+    private router: Router) { }
 
   ngOnInit(): void {
     this.getLocation();
@@ -28,7 +32,17 @@ export class MenuBarElementComponent implements OnInit {
   }
 
   getLocation(): void {
-    this.weatherService.getOutdoorWeather()
-                        .subscribe(data => this.locationLabel = data.location);
+    this.weatherDataService.getOutdoorWeatherData()
+                        .subscribe(data => {
+                          this.outdoorWeatherData = data
+                        });
+  }
+
+  reloadData() {
+    this.weatherDataService.reloadData();
+    let currentUrl = this.router.url;
+    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+    this.router.onSameUrlNavigation = 'reload';
+    this.router.navigate([currentUrl]);
   }
 }

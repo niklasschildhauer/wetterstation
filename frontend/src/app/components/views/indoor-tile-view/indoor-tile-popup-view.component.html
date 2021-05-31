@@ -1,0 +1,19 @@
+<div class="container">
+    <h1>Raumname ändern</h1>
+    <form (ngSubmit)="onSubmit()">
+        <label for="name">
+            Raumname
+        </label>
+        <input
+            [formControl]="name"
+            id="name"
+            type="text" 
+            placeholder="{{data}}"
+            class="input-field">
+            <div class="button-container">
+                <input class="b2" type="submit" value="Speichern">
+                <button class="b1" (click)="onNoClick()">Abbrechen</button>
+            </div>
+    </form>
+   
+</div>

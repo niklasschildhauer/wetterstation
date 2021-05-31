@@ -65,6 +65,7 @@ createConnection().then(connection => {
         }
     });
 
+
     app.post('/indoor/history', async (req, res) => {
         const beginTimestamp = req.body.begin;
         const endTimestamp = req.body.end;
@@ -176,7 +177,6 @@ createConnection().then(connection => {
         let dateFormatRegex: RegExp = /(20[0-9]{2})-([0-2]{1}[0-9]{1})-([0-2]{1}[0-9]{1}) ([0-5]{1}[0-9]{1}:){2}([0-9]){2}/
         return dateFormatRegex.test(date);
     }
-
 
     console.log("listening on port", port)
     app.listen(port);

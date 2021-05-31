@@ -4,6 +4,8 @@
     padding: var(--padding);
     margin: var(--padding) 0 0 0;
     width: auto;
+    height: auto;
+    border: 1px solid var(--border);
 }
 
 .flex-child-container {
@@ -12,6 +14,17 @@
 
 .flex-child-container.small {
     width: calc(((100vw) - var(--border-padding-left) - var(--border-padding-right)) / 2 - var(--padding) / 2);
+}
+
+// CSS for big screens
+@media (min-width: 1000px) {
+    .flex-child-container {
+        width: calc((100vw - var(--border-padding-left) - var(--border-padding-right)) / 2 - var(--padding) / 2);
+    }
+    
+    .flex-child-container.small {
+        width: calc(((100vw) - var(--border-padding-left) - var(--border-padding-right)) / 4 - var(--padding) / 2);
+    }
 }
 
 p {

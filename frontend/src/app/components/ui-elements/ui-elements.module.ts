@@ -12,6 +12,7 @@ import { SliderElementComponent } from './slider-element/slider-element.componen
 import { FormsModule } from '@angular/forms';
 import { PollenListElementComponent } from './pollen-list-element/pollen-list-element.component';
 import { PollenTagElementComponent } from './pollen-tag-element/pollen-tag-element.component';
+import { TtsPlayerElementComponent } from './tts-player-element/tts-player-element.component';
 
 
 
@@ -29,6 +30,7 @@ import { PollenTagElementComponent } from './pollen-tag-element/pollen-tag-eleme
     SliderElementComponent,
     PollenListElementComponent,
     PollenTagElementComponent,
+    TtsPlayerElementComponent,
   ],
   imports: [
     CommonModule,
@@ -46,7 +48,7 @@ import { PollenTagElementComponent } from './pollen-tag-element/pollen-tag-eleme
     SliderElementComponent,
     PollenListElementComponent,
     PollenTagElementComponent,
-
+    TtsPlayerElementComponent,
   ]
 })
 export class UiElementsModule { }

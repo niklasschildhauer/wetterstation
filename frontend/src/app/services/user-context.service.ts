@@ -1,94 +1,131 @@
 import { Injectable } from '@angular/core';
 import { UserContext, Themes, INITIAL_USER_CONTEXT, Pollen } from '../model/user-context';
-import { Observable, of } from 'rxjs';
+import { BehaviorSubject, Observable, of } from 'rxjs';
 import { LocalStorageService } from './local-storage.service';
+import { Router } from '@angular/router';
+import { WeatherDataService } from './weather-data.service';
+import { HttpClient } from '@angular/common/http';
 
 export interface UserContextDelegte {
   updatedUserContext(from: UserContextService): void
 }
 
-
 @Injectable({
   providedIn: 'root'
 })
 export class UserContextService {
-  public delegate?: UserContextDelegte
-  _userContext: UserContext; // FIXME
+  public delegate?: UserContextDelegte;
+  private _token: string;
+  private _userContext: BehaviorSubject<UserContext> = new BehaviorSubject<UserContext>(INITIAL_USER_CONTEXT); // FIXME
+  
+  set token(value: string) {
+    this._token = value;
+    this.saveTokenToLocalStorage();
+  }
+  get token(): string {
+    return this._token;
+  }
   set userContext(object: UserContext) {
-    this._userContext = object
-    this.saveUserContextToLocalStorage();
-    this.delegate?.updatedUserContext(this);
+    this._userContext.next(object);
+    this.saveUserContext();
   }
   get theme() {
-    return this._userContext.theme
+    return this._userContext.getValue().theme;
   }
   set theme(value: Themes) {
-    this._userContext.theme = value;
-    this.saveUserContextToLocalStorage();
-    this.delegate?.updatedUserContext(this);
+    let userContext = this._userContext.getValue()
+    userContext.theme = value;
+    this.userContext = userContext;
   }
   set reduceMotion(value: boolean) {
-    this._userContext.reduceMotion = value
-    this.saveUserContextToLocalStorage();
-    this.delegate?.updatedUserContext(this);
+    let userContext = this._userContext.getValue()
+    userContext.reduceMotion = value;
+    this.userContext = userContext;
   }
   set selfVoicingEnabled(value: boolean) {
-    this._userContext.selfVoicingEnabled = value
-    this.saveUserContextToLocalStorage();
-    this.delegate?.updatedUserContext(this);
+    let userContext = this._userContext.getValue()
+    userContext.selfVoicingEnabled = value;
+    this.userContext = userContext;
   }
   set doVentilationReminder(value: boolean) {
-    this._userContext.doVentilationReminder = value
-    this.saveUserContextToLocalStorage();
-    this.delegate?.updatedUserContext(this);
+    let userContext = this._userContext.getValue()
+    userContext.doVentilationReminder = value;
+    this.userContext = userContext;
   }
   set fontSize(value: number) {
-    this._userContext.fontSize = value
-    this.saveUserContextToLocalStorage();
-    this.delegate?.updatedUserContext(this);
+    let userContext = this._userContext.getValue()
+    userContext.fontSize = value;
+    this.userContext = userContext;
   }
   set pollen(value: Pollen[]) {
-    this._userContext.pollen = value
-    this.saveUserContextToLocalStorage();
-    this.delegate?.updatedUserContext(this);
+    let userContext = this._userContext.getValue()
+    userContext.pollen = value;
+    this.userContext = userContext;
   }
   get pollen() {
-    return this._userContext.pollen
+    return this._userContext.getValue().pollen;
   }
 
-  constructor(private localStorageService: LocalStorageService) { 
-    this._userContext = this.localStorageService.getUserContext();
+  private loginURL = '/auth/login'
+
+  constructor(private localStorageService: LocalStorageService,
+    private router: Router,
+    private httpClient: HttpClient) { 
+    this._userContext.next(this.localStorageService.getUserContext());
+    this._token = this.localStorageService.getToken();
   }
   
-  login(): Promise<UserContext> {
-    // DELETE ME
-    this.reduceMotion = true;
-    this.theme = Themes.Dark;
-    // this.fontSize = 80;
+  login(username: string, password: string): Observable<any> {
+    console.log(username + password)
+    let response = this.httpClient.post<LoginResponse>(this.loginURL, {username: username, password: password});
+    response.subscribe(data => {
+      this.token = data.token;
+    })
+    this.resetUserContext()
+
+    return response;
+  }
+
+  // DELETE ME
+  register(): Promise<UserContext> {
+    this.resetUserContext();
+    console.log(INITIAL_USER_CONTEXT);
     return new Promise((resolve) => {
-      resolve(this._userContext);
+      resolve(this._userContext.getValue());
     });
   }
 
   logout() {
-    console.log("Reset user context");
+    this.resetUserContext();
+    this.router.navigateByUrl('/onboarding/login'); //FIXME
+  }
+
+  getUserContext(): BehaviorSubject<UserContext> {
+    return this._userContext;
+  }
+
+  private resetUserContext() {
     this.userContext = INITIAL_USER_CONTEXT;
   }
 
-  register(): Promise<UserContext> {
-    this.userContext = INITIAL_USER_CONTEXT;
-    console.log(INITIAL_USER_CONTEXT);
-    return new Promise((resolve) => {
-      resolve(this._userContext);
-    });
+  private saveUserContext() {
+    this.saveUserContextToLocalStorage()
+    this.delegate?.updatedUserContext(this);
   }
 
-  getUserContext(): Observable<UserContext> {
-    const userContext = of(this._userContext);
-    return userContext;
+  private saveTokenToLocalStorage() {
+    this.localStorageService.saveToken(this._token);
   }
 
-  saveUserContextToLocalStorage() {
-    this.localStorageService.saveUserContext(this._userContext)
+  private saveUserContextToLocalStorage() {
+    this.localStorageService.saveUserContext(this._userContext.getValue())
   }
 }
+
+interface LoginResponse {
+    success: boolean,
+    message: string,
+    user: string,
+    token: string,
+  }
+

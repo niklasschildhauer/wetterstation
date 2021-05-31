@@ -1,5 +1,21 @@
 @import "../../shared/styles";
 
+.button-container {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    height: 2.6em;
+}
+
+button {
+    margin: 0;
+    padding: 0;
+    fill: var(--secondary);
+    svg {
+        height: 1.7em; 
+    }
+} 
+
 .container {
     position: fixed;
     top: 0;
@@ -24,18 +40,20 @@
 @media(max-width: 770px) {
     @media (prefers-reduced-motion: no-preference) {
 
-        @keyframes fontColor {
+        @keyframes color {
             from {
                 color: white;
+                fill: white;
             }
         
             to {
                 color: var(--text);
+                fill: var(--secondary);
             }
         }
 
-        h1.motion-allowed {
-            animation-name: fontColor;
+        h1.motion-allowed, svg.motion-allowed{
+            animation-name: color;
             @include linear-animation;
         }
     }
@@ -46,7 +64,7 @@
     .container {
         backdrop-filter: blur(20px);
         left: calc(var(--border-padding-left) - var(--border-padding-right));
-        padding: var(--border-padding-top) 0 0 var(--border-padding-right);
+        padding: var(--border-padding-top) var(--border-padding-right) 0 var(--border-padding-right);
     }
 
 }

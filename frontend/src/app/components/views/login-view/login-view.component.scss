@@ -48,7 +48,7 @@ button {
     }
 }
 .container *:not(input, .error-message) {
-    color: white;
+    color: var(--text);
 } 
 
 h1 {

@@ -34,7 +34,6 @@ export interface OutdoorWeatherData extends WeatherData {
     timestamp: Date, 
     weather: WeatherType, // TODO: external API required
     apparentTemperature: number, // in °C ---> die "gefühlte" Temperatur
-    //textTTS: string // TODO: Generate in frontend (with i18n ?)
     location: string, // e.g. "Stuttgart" TODO: Make configurable in ESP Wlan-Board
 }
 
@@ -67,14 +66,10 @@ export interface WeatherHistoryData extends WeatherData {
     datapoints: OutdoorWeatherData[],
 }
 
-export interface GraphDataPoints {
-    name: string;
-    value: number;
-}
-
-export interface WeatherGraphDataSet extends WeatherData {
-    temperatureDataPoints: GraphDataPoints[];
-    humidityDataPoints: GraphDataPoints[];
+export interface GraphDataSet extends WeatherData {
+    temperatureDataPoints: number[];
+    humidityDataPoints: number[];
+    xAxisLabel: string[];
     label: string;
     temperatureAverage: number;
     humidityAverage: number;

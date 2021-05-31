@@ -28,8 +28,11 @@
     text-align: center;
 }
 
-.blue {
-    background-color: var(--accent);
+.yellow {
+    background-color: yellow;
+    p {
+        color: black;
+    }
 }
 .red {
     background-color: red;
@@ -41,4 +44,7 @@
 .orange {
     background-color: orange;
     color: black;
+    p {
+        color: black;
+    }
 }
