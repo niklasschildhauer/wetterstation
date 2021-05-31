@@ -71,16 +71,16 @@ void setup()
   */
 
   //Erase flash memory ssid to force to use our config file
-  WiFi.mode(WIFI_STA);
-  delay(100);
-  WiFi.begin();
-  if (WiFi.waitForConnectResult() == WL_CONNECTED)
-  {
-    WiFi.disconnect();
-    while (WiFi.status() == WL_CONNECTED)
-      delay(100);
-  }
-  Serial.println("Flash memory should be erased");
+  //WiFi.mode(WIFI_STA);
+  //delay(100);
+  //WiFi.begin();
+  //if (WiFi.waitForConnectResult() == WL_CONNECTED)
+  //{
+  //  WiFi.disconnect();
+  //  while (WiFi.status() == WL_CONNECTED)
+  //    delay(100);
+  //}
+  //Serial.println("Flash memory should be erased");
 
   // -----------------------------------------------------------------------------
 
