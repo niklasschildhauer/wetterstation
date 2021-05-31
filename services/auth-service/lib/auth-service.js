@@ -2,7 +2,7 @@
 
 let jwt = require('jsonwebtoken');
 let config = require('./config');
-
+let request = require('request')
 
 class AuthService {
   login (req, res) {
@@ -11,48 +11,65 @@ class AuthService {
     let username = req.body.username;
     let password = req.body.password;
 
-    // Use mocked data for now. This has to be refactored into requesting db
-    let mockedUsername = 'admin';
-    let mockedPassword = 'admin';
+    request(
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json"
+        },
+        uri: 'http://localhost:4205/userContext/' + username,
+        method: 'GET'
+      },
+      function (error, response, body) {
+        let _body = JSON.parse(body);
 
-    if (username && password) {
-      if (username === mockedUsername && password === mockedPassword) {
-        //Credentials are correct -> deliver token to client
-        let token = jwt.sign({username: username}, config.secret,
-          { 
-            expiresIn: '24h'
+        let db_username = _body.username;
+        //TODO: Deliver decoded pw here? What is the most "secure case" - 
+        //can only be done if this route stays inside our network
+        let db_password = _body.password;
+
+        if (db_username && db_password) {
+          if (username === db_username && password === db_password) {
+            //Credentials are correct -> deliver token to client
+            let token = jwt.sign({username: username}, config.secret,
+              { 
+                expiresIn: '24h'
+              }
+            );
+            res.json({
+              success: true,
+              message: 'Authentication successful!',
+              user: username,
+              token: token
+            });
+          } else {
+            //Wrong credentials provided
+            res.json({
+              success: false,
+              message: 'Incorrect username or password'
+            });
           }
-        );
-        res.json({
-          success: true,
-          message: 'Authentication successful!',
-          user: mockedUsername,
-          token: token
-        });
-      } else {
-        //Wrong credentials provided
-        res.json({
-          success: false,
-          message: 'Incorrect username or password'
-        });
+        } else {
+          //No credentials provided
+          res.json({
+            success: false,
+            message: 'Authentication failed! Please check the request'
+          });
+        }
       }
-    } else {
-      //No credentials provided
-      res.json({
-        success: false,
-        message: 'Authentication failed! Please check the request'
-      });
-    }
+    );
   }
   validateToken(req, res){
     res.json("Token is valid")
   }
 }
 
+
+
+
 module.exports = {
   AuthService: AuthService
 };
-
 
 /*
 Original blueprint

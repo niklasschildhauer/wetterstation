@@ -127,8 +127,8 @@ createConnection().then(connection => {
     // -------------------------------------- Users -----------------------------
 
     //Request a UserContext object from the db
-    app.get('/userContext/:id', async (req, res) => {
-        const userCtx = await userCtxData.findOne({id: req.params.id});
+    app.get('/userContext/:username', async (req, res) => {
+        const userCtx = await userCtxData.findOne({username: req.params.username});
         returnNotNull(userCtx, res);
     })
 
@@ -157,29 +157,6 @@ createConnection().then(connection => {
 
         returnNotNull(result, res);
     });
-
-    
-    app.get('/test', async(req, res) => {
-        
-        let allergy1 = new Allergy()
-        await connection.manager.save(allergy1);
-
-        let allergy2 = new Allergy()
-        await connection.manager.save(allergy2);
-
-        let test = new UserContext()
-        test.username = 'hans-dieter'
-        test.password = '123'
-        test.allergies = [allergy1, allergy2];
-        await connection.manager.save(test);
-
-        let pollen = await pollenData.findOne({id:1})
-        pollen.allergies = [allergy1, allergy2];
-        await connection.manager.save(pollen);
-
-        return res.send("ok");
-    })
-
 
     // ------------------------------------------------ Helper ------------------------------------------------
 

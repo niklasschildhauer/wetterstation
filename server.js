@@ -139,13 +139,7 @@ app.use(express.json({ limit: "1mb", type: "application/json" }));
  * @returns {Error}  Http 400 - Bad Request if user credentials are not correct
  */
 app.post("/v1/auth/login", (req, res) => {
-  genericRequestWithPayload(
-    "",
-    "POST",
-    "http://localhost:4202/login",
-    JSON.stringify(req.body),
-    res
-  );
+  genericRequestWithPayload("", "POST", "http://localhost:4202/login", JSON.stringify(req.body), res );
 });
 
 /**
@@ -270,7 +264,7 @@ app.post("/v1/weather-data/outdoor/history", (req, res) => {
 // ------------------------------------------ Routes - UserContext ------------------------------------------
 
 //TODO: Needs to be combined into personalization service using personalization-service
-// Needs openAPE
+// Needs openAPE...
 
 
 // ------------------------------------------------ Helper ------------------------------------------------
