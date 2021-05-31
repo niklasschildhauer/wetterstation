@@ -1,0 +1,5 @@
+{
+	roomName:"denndasistmeinraum",
+	transmissionFrequency:"1",
+	postalCode:"70567",
+}
