@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "backend": "npm i && nodemon server.js",
     "frontend": "cd frontend && npm i && ng serve --open",
-    "services" : "node_modules/.bin/npm-run-all --parallel auth pers data",
+    "services": "node_modules/.bin/npm-run-all --parallel auth pers data",
     "servicesWin": "node_modules\\.bin\\npm-run-all --parallel auth pers data",
     "auth": "cd services/auth-service && npm i && nodemon index.js",
     "pers": "cd services/personalization-service && npm i && nodemon index.js",
