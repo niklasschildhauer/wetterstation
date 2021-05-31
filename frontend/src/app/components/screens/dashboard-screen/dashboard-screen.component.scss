@@ -1,0 +1,25 @@
+.card-container {
+    padding-top: calc(var(--dashboard-outdoor-weather-size) + var(--navbar-height) + var(--padding));
+    left: 0;
+    right: 0;
+}
+
+.flex-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    // align-items: stretch;
+}
+
+.card-container.motion-disabled {
+    padding: var(--navbar-height) 0 var(--border-padding-bottom) 0;
+}
+
+
+// Responsive design -> only one breakpoint to reduce complexity
+// css code for desktop
+@media(min-width: 770px), (prefers-reduced-motion: reduce){
+    .card-container {
+        padding-top: var(--navbar-height);
+    }
+}

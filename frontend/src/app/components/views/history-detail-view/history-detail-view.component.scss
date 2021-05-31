@@ -1,0 +1,44 @@
+.round-button * {
+    stroke: var(--text);
+}
+
+.round-button {
+    height: 50px;
+    width: 70px;
+}
+
+button.disabled * {
+    stroke: var(--secondary);
+
+}
+
+.button-container {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 0 var(--padding) 0;
+    flex-wrap: nowrap;
+    align-items: center;
+}
+
+.flex-container {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.tile-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.sort-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: flex-end;
+    padding-bottom: var(--padding);
+    p {
+        padding-right: 0.5em;
+    }
+}

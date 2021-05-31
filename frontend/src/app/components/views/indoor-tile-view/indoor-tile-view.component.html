@@ -1,0 +1,24 @@
+<card-element 
+    *ngIf="_indoorRoom" 
+    [title]="_indoorRoom.roomName" 
+    [subtitle]="'Innenraumluftqualität'" 
+    [pressable]="pressable"
+    [hideSubtitle]="hideSubtitle">
+    <div class="data-container">
+        <h1>{{_indoorRoom.airQuality}}</h1>
+        <div>
+            <div class="temp-humidity-data">
+                <p>Temperatur: {{_indoorRoom.temperature}}°C</p>
+            </div>
+            <div class="temp-humidity-data">
+                <p>Luftfeuchtigkeit: {{_indoorRoom.humidity}}%</p>
+            </div>
+        </div>
+    </div>
+    <app-progress-chart-element [value]="_indoorRoom.airQuality"></app-progress-chart-element>
+
+    <button class="btn" (click)="openDialog()">Rename</button>
+        <!-- <svg class="rename-image"></svg> -->
+
+        
+</card-element>

@@ -1,0 +1,29 @@
+.emoji {
+    height: 2.2em;
+}
+
+.textValue{
+    padding: 0 1em 0 1em;
+    width: 3em;
+    text-align: center;
+    border-radius: 1.5em;
+}
+
+.blue {
+    background-color: var(--accent);
+}
+.red {
+    background-color: red;
+
+}
+.green {
+    background-color: green;
+}
+.orange {
+    background-color: orange;
+    color: black;
+}
+
+.flex-container {
+    display: flex;
+}

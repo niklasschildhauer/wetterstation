@@ -1,0 +1,62 @@
+@import "../../shared/styles";
+
+.menu-button {
+    margin: 0;
+    padding-left: 0;
+    border: none;
+
+    display: flex;
+    align-items: center;
+
+
+}
+
+button {
+    font-size: 1.0em;
+}
+
+.menu-image {
+    fill: var(--secondary);
+    width: 2.5em;
+    height: 1.7em; 
+} 
+
+.menu-image {
+    padding-right: 10px;
+}
+
+.menu-label {
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    color: var(--secondary);
+}
+
+// css for mobile 
+@media(max-width: 770px) {
+    @media (prefers-reduced-motion: no-preference) {
+        .menu-image.motion-allowed {
+            fill: white;
+        } 
+
+        .menu-label.motion-allowed {
+            color: white;
+        }
+
+        @keyframes buttonColor {
+            from {
+                color: white;
+                fill: white;
+            }
+        
+            to {
+                color: var(--secondary);
+                fill: var(--secondary);
+            }
+        }
+
+        .menu-label.motion-allowed, .menu-image.motion-allowed {
+            animation-name: buttonColor;
+            @include linear-animation;
+        }
+    }
+}

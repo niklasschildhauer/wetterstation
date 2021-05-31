@@ -1,0 +1,12 @@
+.container {
+    display: flex;
+    justify-content: space-between;
+    align-content: center;
+    align-items: center;
+    padding: calc(var(--padding)/2) 0  calc(var(--padding)/2) 0 ;
+    border-bottom: 0.5pt solid var(--secondary);
+}
+
+.title {
+    width: 5em;
+}

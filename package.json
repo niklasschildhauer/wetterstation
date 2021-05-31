@@ -11,15 +11,23 @@
     "servicesWin": "node_modules\\.bin\\npm-run-all --parallel auth pers data",
     "auth": "cd services/auth-service && npm i && nodemon index.js",
     "pers": "cd services/personalization-service && npm i && nodemon index.js",
-    "data": "cd services/data-service && npm i && nodemon index.js"
+    "data": "cd services/data-service && npm i && nodemon index.js",
+    "database": "cd services/database-service && npm i && nodemon src/index.ts"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@types/node": "^15.3.0",
+    "cors": "^2.8.5",
     "express": "^4.17.1",
-    "morgan": "^1.10.0"
+    "morgan": "^1.10.0",
+    "reflect-metadata": "^0.1.13",
+    "request": "^2.88.2",
+    "sqlite3": "^5.0.2",
+    "typeorm": "^0.2.32"
   },
   "devDependencies": {
+    "express-swagger-generator": "^1.1.17",
     "npm-run-all": "^4.1.5"
   }
 }

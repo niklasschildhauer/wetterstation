@@ -1,1 +1,28 @@
-<p>history-tile-view works!</p>
+<card-element *ngIf="_dataSet" [title]="title ? title : _dataSet.label" [subtitle]="pressable ? 'Historie': ''" [pressable]="pressable">
+    <div class="container">
+      <!-- <apx-chart
+        [series]="chartOptions.series"
+        [chart]="chartOptions.chart"
+        [xaxis]="chartOptions.xaxis"
+        [stroke]="chartOptions.stroke"
+        [colors]="chartOptions.colors"
+        [dataLabels]="chartOptions.dataLabels"
+        [legend]="chartOptions.legend"
+        [markers]="chartOptions.markers"
+        [grid]="chartOptions.grid"
+        [yaxis]="chartOptions.yaxis"
+        [theme]="chartOptions.theme"
+        ></apx-chart> -->
+    </div>
+
+    <canvas baseChart
+        chartType="line"
+        [datasets]="chartData"
+        [labels]="chartLabels"
+        [options]="chartOptions"
+        [colors]="chartColors"
+        [legend]="chartLegend"
+        [plugins]="chartPlugins"
+        class="chart">
+    </canvas>
+</card-element>

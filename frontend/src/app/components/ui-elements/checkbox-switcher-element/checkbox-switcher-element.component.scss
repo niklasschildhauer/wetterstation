@@ -1,0 +1,35 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  margin: var(--padding) 0 0 0;
+
+  border-radius: var(--corner-radius);
+  background-color: var(--surface);
+  height: 12em;
+  width: 10.3em;
+  border: 1px solid var(--border);
+}
+
+span {
+  color: var(--text);
+  word-wrap: break-word;
+  text-align: center;
+  margin-top: 0.7em;
+  font-weight: 700;
+}
+
+.container.checked {
+  background-color: var(--accent);
+
+  span {
+    color: var(--inverted);
+  }
+}
+
+.icon {
+  height: 2.5em;
+}
+

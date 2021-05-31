@@ -1,1 +1,318 @@
 /* You can add global styles to this file, and also import other style files */
+
+
+// F O N T S
+//////////////////////
+/* Global font size */
+@font-face {
+    font-family: 'Montserrat';
+    src: url("/assets/fonts/Montserrat/Montserrat-Regular.ttf") format("truetype");
+    font-weight: 500;
+}
+
+@font-face {
+    font-family: 'Montserrat';
+    src: url("/assets/fonts/Montserrat/Montserrat-SemiBold.ttf") format("truetype");
+    font-weight: 700;
+}
+
+@font-face {
+    font-family: 'Montserrat';
+    src: url("/assets/fonts/Montserrat/Montserrat-Thin.ttf") format("truetype");
+    font-weight: 300;
+}
+
+@font-face {
+    font-family: 'Roboto';
+    src: url("/assets/fonts/Roboto/Roboto-Regular.ttf") format("truetype");
+    font-weight: 500;
+}
+
+@font-face {
+    font-family: 'Roboto';
+    src: url("/assets/fonts/Roboto/Roboto-Light.ttf") format("truetype");
+    font-weight: 300;
+}
+
+@font-face {
+    font-family: 'Roboto';
+    src: url("/assets/fonts/Roboto/Roboto-Medium.ttf") format("truetype");
+    font-weight: 700;
+}
+
+:root {
+    --letter-spacing: 0.04em;
+}
+/* Set the default font family to Roboto */
+html, button, label, input {
+    font-family: 'Roboto', Arial, sans-serif;
+}
+p, span, li, button, input[type=submit] {
+    font-size: 1.6em;
+    margin: 0;
+    line-height: 1.5em;
+    letter-spacing: calc(var(--letter-spacing));
+    hyphens: auto;
+}
+/* Set the default font family for headings to Montserrat */
+h1, h2, h3, h4, h5 {
+    font-family: 'Montserrat', Arial, sans-serif;
+    font-weight: 700;
+    letter-spacing: var(--letter-spacing);
+    margin: var(--padding) 0 var(--padding);
+    hyphens: auto;
+}
+
+input[type=text], input[type=password], label {
+    font-size: 1.3em;
+    letter-spacing: var(--letter-spacing);
+}
+
+label {
+    font-weight: 700;
+}
+
+h1 {
+    font-size: 3.0em;
+}
+h2 {
+    font-size: 2.5em;
+}
+h3 {
+    font-size: 2.0em;
+}
+h4 {
+    font-size: 2.0em;
+    margin-top: calc(var(--padding) * 2);
+    margin-bottom: 10px;
+}
+h5 {
+    font-size: 1.6em;
+    font-weight: 500;
+    letter-spacing: calc(var(--letter-spacing) * 2);
+}
+
+article {
+    text-align: justify;
+    hyphens: auto;
+    p {
+        padding-bottom: var(--padding);
+    }
+}
+//////////////////////
+//
+
+
+
+// C O L O R S
+//////////////////////
+/* Global font size */
+.main-container {
+    --text: #1C2026;
+    --accent: #4480DB;
+    --secondary:  #8A8A8A;
+    --inverted:  #FFFFFF;
+    --surface:  #F5F4F7;
+    --background: #FFFFFF;
+    --pressed: #BABABA;
+    --disabled: #1D1D1D;
+    --status-red: red;
+    --status-green: green; 
+    --status-yellow: yellow;  
+    --status-orange: orange; //FIXME: I need a better color
+    --border: clear;
+}
+
+.main-container.dark-theme {
+    --text: #FFFFFF;
+    --accent: #4480DB;
+    --secondary:  #8A8A8A;
+    --inverted:  #FFFFFF;
+    --surface:  #424242;
+    --background: #1C2026;
+    --pressed: #BABABA;
+    --disabled: #1D1D1D;
+    --border: clear;
+}
+
+@media(prefers-color-scheme: dark) {
+    .main-container {
+        --text: #FFFFFF;
+        --accent: #4480DB;
+        --secondary:  #8A8A8A;
+        --inverted:  #FFFFFF;
+        --surface:  #424242;
+        --background: #1C2026;
+        --pressed: #BABABA;
+        --disabled: #1D1D1D;
+        --border: clear;
+    }
+
+    .main-container.light-theme {
+        --text: #1C2026;
+        --accent: #4480DB;
+        --secondary:  #8A8A8A;
+        --inverted:  #FFFFFF;
+        --surface:  #F5F4F7;
+        --background: #FFFFFF;
+        --pressed: #BABABA;
+        --disabled: #1D1D1D;
+        --border: clear;
+      }
+}
+
+.main-container.high-contrast {
+    --text: #FFFFFF;
+    --accent: yellow;
+    --secondary:  #FFFFFF;
+    --inverted:  black;
+    --surface:  black;
+    --background: black;
+    --pressed: #BABABA;
+    --disabled: #8A8A8A;
+    --border: #FFFFFF;
+}
+
+p, h1, h2, h3, h4, h5, a, label, span, input, li {  
+    color: var(--text);
+    text-decoration: none;
+}
+
+html {
+    background-color: var(--background);
+}
+
+//////////////////////
+//
+
+
+// P A D D I N G / S I Z E S
+//////////////////////
+/* Global font size */
+:root {
+    --border-padding-left: 25px;
+    --border-padding-right: 25px;
+    --border-padding-top: 40px;
+    --border-padding-bottom: 80px;
+    --padding: 20px;
+    --corner-radius: 30px;
+    --navbar-height: 10em;
+    --outdoor-weather-image-size: 150px;
+    --dashboard-outdoor-weather-size: calc(var(--outdoor-weather-image-size) + var(--navbar-height) + 10em);
+    --shrinked-dashboard-outdoor-weather-size: 70px;
+  }
+
+// Responsive design -> only one breakpoint to reduce complexity
+@media(min-width: 770px) {
+    :root {
+        --border-padding-left: 370px;
+      }
+}
+
+.layout {
+    padding: var(--border-padding-top) var(--border-padding-right) var(--border-padding-bottom) var(--border-padding-left);
+    background-color: var(--background);
+    min-height: calc(100vh - var(--border-padding-top) - var(--border-padding-bottom));
+    height: auto;
+}
+
+body {
+    margin: 0;
+}
+//////////////////////
+//
+
+
+// B U T T O N S & I N P U T S
+//////////////////////
+button, input[type=submit] {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    outline: none;
+    text-decoration: none;
+    background-color: transparent;
+    cursor: pointer;
+    border: none;
+}
+
+.round-button {
+    height: 5em;
+    width: 5em;
+    border-radius: 2.5em;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+    background-color: var(--surface);
+}
+
+button:active, input[type=submit]:active {
+    background-color: var(--pressed);
+}
+
+button, input[type=submit] {
+    // display: inline-block;
+    vertical-align: middle;
+    -webkit-transform: perspective(1px) translateZ(0);
+    transform: perspective(1px) translateZ(0);
+    box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+    -webkit-transition-duration: 0.3s;
+    transition-duration: 0.3s;
+    -webkit-transition-property: transform;
+    transition-property: transform;
+}
+
+button:hover, button:focus, button:active, input[type=submit]:focus,  input[type=submit]:hover  {
+    -webkit-transform: scale(0.95);
+    transform: scale(0.95);
+}
+
+button.disabled, input[type=submit].disabled {
+    -webkit-transform: none;
+    transform: none;
+    background-color: var(--disabled);
+}
+
+input[type=submit], .button-full-width {
+    width: 100%;
+    background-color: var(--accent);
+    color: var(--inverted);
+    padding: 12px 20px;
+    border: none;
+    border-radius: var(--corner-radius);
+    cursor: pointer;
+    height: 3.3em;
+    margin-top: var(--padding);
+}
+
+input[type=text], input[type=password] {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0 22px 0;
+    display: inline-block;
+    border: 1px solid var(--border);
+    border-radius: calc(var(--corner-radius) * 0.5);
+    box-sizing: border-box;
+    background-color: var(--surface);
+    color: var(--text);
+    height: 4.0em;
+}
+//////////////////////
+//
+
+
+
+// D I S A B L E  S E L E C T I O N
+//////////////////////
+.main-container {
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+    -khtml-user-select: none; /* Konqueror HTML */
+    -moz-user-select: none; /* Old versions of Firefox */
+    -ms-user-select: none; /* Internet Explorer/Edge */
+    user-select: none; /* Non-prefixed version, currently
+                                    supported by Chrome, Edge, Opera and Firefox */
+}
+//////////////////////
+//
+

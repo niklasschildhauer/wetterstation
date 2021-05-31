@@ -1,0 +1,50 @@
+.emoji {
+    height: 2.2em;
+    padding: calc(var(--padding) / 4);
+
+}
+
+.emoji-container {
+    background-color: var(--surface);
+    border-radius: 1.7em;
+    margin: calc(var(--padding) / 4);
+    height: 3.2em;
+    width: 3.2em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.tag-container {
+    border-radius: 2em;
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+}
+
+.textValue{
+    padding: 0 1em 0 0.5em;
+    text-align: center;
+}
+
+.yellow {
+    background-color: yellow;
+    p {
+        color: black;
+    }
+}
+.red {
+    background-color: red;
+
+}
+.green {
+    background-color: green;
+}
+.orange {
+    background-color: orange;
+    color: black;
+    p {
+        color: black;
+    }
+}

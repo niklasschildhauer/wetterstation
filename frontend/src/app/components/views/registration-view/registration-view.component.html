@@ -1,0 +1,56 @@
+<div class="layout">
+    <app-nav-bar-element [titleLabel]="'Registrieren'" [backLabel]="'Login'"></app-nav-bar-element>
+    <div class="container">
+        <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
+            <div>
+                <label for="username">
+                    Username
+                </label>
+                <input id="username" 
+                type="text" 
+                formControlName="username"
+                placeholder="Nutzername eingeben"
+                >
+            </div>
+
+            <div>
+                <label for="email">
+                    Email
+                </label>
+                <input id="email" 
+                type="text" 
+                formControlName="email"
+                placeholder="E-Mail eingeben"
+                >
+                
+            </div>
+
+            <div>
+                <label for="password">
+                    Passwort
+                </label>
+                <input id="password" 
+                type="password" 
+                formControlName="password"
+                placeholder="Passwort eingeben"
+                >
+            </div>
+
+            <div>
+                <label for="repeated-password">
+                    Passwort wiederholen
+                </label>
+                <input id="repeated-password" 
+                type="password" 
+                formControlName="repeatedPassword"
+                placeholder="Passwort wiederholen"
+                >
+            </div>
+
+            <p *ngIf="error" class="error-message">{{error}}</p>
+
+            <input type="submit" value="Registrieren">
+        
+        </form>
+    </div>
+</div>

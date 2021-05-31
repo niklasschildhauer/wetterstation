@@ -1,0 +1,62 @@
+.noon-gradient {
+    background: rgb(97,194,216);
+    background: -moz-linear-gradient(0deg, rgba(97,194,216,1) 0%, rgba(67,125,219,1) 100%);
+    background: -webkit-linear-gradient(0deg, rgba(97,194,216,1) 0%, rgba(67,125,219,1) 100%);
+    background: linear-gradient(0deg, rgba(97,194,216,1) 0%, rgba(67,125,219,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#61c2d8",endColorstr="#437ddb",GradientType=1);
+}
+
+h5 {
+    text-align: center;
+}
+
+.logo {
+    height: 10.0em;
+    margin-bottom: var(--padding);
+}
+
+form {
+    width: 100%;
+}
+
+button {
+    text-decoration: underline;
+    padding: var(--padding) 0 0 0;
+}
+
+.button-container {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+
+    justify-content: space-between;
+    align-content: space-between;
+
+}
+
+.container {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-items: stretch;
+    // margin-left: calc(var(--border-padding-left) - var(--border-padding-right));
+}
+
+@media (min-width: 770px) {
+    .container {
+        border-left: 0.5px solid var(--background);
+    }
+}
+.container *:not(input, .error-message) {
+    color: var(--text);
+} 
+
+h1 {
+    margin: 0;
+}
+
+.error-message {
+    color: var(--status-red);
+    padding-top: calc(var(--padding) / 2 );
+    text-align: center;
+}

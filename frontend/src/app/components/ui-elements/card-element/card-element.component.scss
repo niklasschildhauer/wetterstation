@@ -1,0 +1,57 @@
+.container {
+    border-radius: var(--corner-radius);
+    background-color: var(--surface);
+    padding: var(--padding);
+    margin: var(--padding) 0 0 0;
+    width: auto;
+    height: auto;
+    border: 1px solid var(--border);
+}
+
+.flex-child-container {
+    width: calc((100vw - var(--border-padding-left) - var(--border-padding-right)));
+}
+
+.flex-child-container.small {
+    width: calc(((100vw) - var(--border-padding-left) - var(--border-padding-right)) / 2 - var(--padding) / 2);
+}
+
+// CSS for big screens
+@media (min-width: 1000px) {
+    .flex-child-container {
+        width: calc((100vw - var(--border-padding-left) - var(--border-padding-right)) / 2 - var(--padding) / 2);
+    }
+    
+    .flex-child-container.small {
+        width: calc(((100vw) - var(--border-padding-left) - var(--border-padding-right)) / 4 - var(--padding) / 2);
+    }
+}
+
+p {
+    color: var(--secondary);
+    letter-spacing: var(--letter-spacing);
+}
+
+h3 {
+    margin-top: calc(var(--padding) / 4);
+    margin-bottom: calc(var(--padding) / 2);
+}
+
+.pressable:active {
+    background-color: var(--pressed);
+}
+
+.shrink-on-hover {
+    vertical-align: middle;
+    -webkit-transform: perspective(1px) translateZ(0);
+    transform: perspective(1px) translateZ(0);
+    box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+    -webkit-transition-duration: 0.3s;
+    transition-duration: 0.3s;
+    -webkit-transition-property: transform;
+    transition-property: transform;
+  }
+.shrink-on-hover:hover, .shrink-on-hover:focus, .shrink-on-hover:active {
+    -webkit-transform: scale(0.97);
+    transform: scale(0.97);
+}

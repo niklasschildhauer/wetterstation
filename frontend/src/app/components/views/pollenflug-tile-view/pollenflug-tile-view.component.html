@@ -1,9 +1,9 @@
-<p>pollenflug-tile-view works! 123</p>
-<div *ngIf="pollen">
-    <ul>
-        <li *ngFor="let item of pollen">
-            {{item.name}} Heute:  {{item.today}} 
-        </li>
-    </ul>
-</div>
+<card-element 
+    [subtitle]="'Pollenflug'"  
+    [pressable]="pressable"
+    [hideSubtitle]="hideSubtitle">
+    <div class="list-container">
+        <app-pollen-list-element *ngFor="let item of _pollen" [title]="item.name" [value]="item.today"></app-pollen-list-element>
+    </div>
+</card-element>
 

@@ -2,12 +2,32 @@
 
 const port = 4204;
 
-var express = require('express');
-var app = express();
+//Use with genericRequestHandlers.genericRequest(...)
+const genericRequestHandlers = require("./lib/shared");
+const apparentTemp = require("./lib/apparentTemperature")
 
-app.get('/', function(req, res){
-    res.status(200).send("Hello from port " + port);
+const express = require('express');
+const app = express();
+
+
+app.use(express.json());
+
+app.post('/sensorout', (req, res) => {
+	let _body = {
+		"humidity" : req.body.humidity,
+		"temperature": req.body.temperature,
+		"pressure" : req.body.pressure,
+		"location" : req.body.location,
+		"apparentTemperature": apparentTemp.calculateApparentTemperature()
+	}
+	genericRequestHandlers.genericRequestWithPayload("POST", 'http://localhost:4205/outdoor/insert', JSON.stringify(_body), res);
 });
+
+app.post('/sensorin', (req, res) => {
+	let body = JSON.stringify(req.body);
+	genericRequestHandlers.genericRequestWithPayload("POST", 'http://localhost:4205/indoor/insert', body, res);
+});
+
 
 console.log("listening on port", port)
 app.listen(port);

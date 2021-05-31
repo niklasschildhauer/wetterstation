@@ -1,0 +1,87 @@
+<div class="container" 
+    *ngIf="userContextData">
+    <app-slider-element 
+        [label]="'Schriftgröße'" 
+        [value]="userContextData.fontSize" 
+        (valueChanged)="setFontSize($event)"
+        class="slider">
+    </app-slider-element>
+    <div class="switch-container">
+        <app-checkbox-switcher-element 
+            [label]="'Reduce motion'" 
+            [value]="userContextData.reduceMotion" 
+            [checkedImage]="'snail'"
+            [unCheckedImageLight]="'no-snail-light'"
+            [unCheckedImageDark]="'no-snail-dark'"
+            (toggled)="this.userContextService.reduceMotion=$event">
+        </app-checkbox-switcher-element>
+        <app-checkbox-switcher-element 
+            [label]="'Lüftungs-erinnerung'" 
+            [value]="userContextData.doVentilationReminder" 
+            [checkedImage]="'fan'"
+            [unCheckedImageLight]="'no-fan-light'"
+            [unCheckedImageDark]="'no-fan-dark'"
+            (toggled)="this.userContextService.doVentilationReminder=$event">
+        </app-checkbox-switcher-element>
+        <app-checkbox-switcher-element 
+            [label]="'Self-Voicing Funktion'" 
+            [value]="userContextData.selfVoicingEnabled" 
+            [checkedImage]="'microphone'"
+            [unCheckedImageLight]="'no-microphone-light'"
+            [unCheckedImageDark]="'no-microphone-dark'"
+            (toggled)="this.userContextService.selfVoicingEnabled=$event">
+        </app-checkbox-switcher-element>
+    </div>
+
+    <card-element 
+        [subtitle]="'Pollenflug'"  
+        [pressable]="false">
+        <div class="flex-container">
+            <div *ngFor="let a of numberOfPollen(); let index = index" 
+                class="pollen-item">
+                <input 
+                    type="checkbox" 
+                    [checked]="getPollenValueAt(index)" 
+                    (change)="togglePollenValueAt(index)"/>
+                <label>
+                    {{getPollenStringAt(index)}}
+                </label>
+            </div>
+        </div>
+    </card-element>
+
+    <card-element 
+        [subtitle]="'Theme'"  
+        [pressable]="false">
+        <div class="flex-container">
+            <div *ngFor="let a of numberOfThemes(); let index = index" 
+                class="theme-item">
+                <input 
+                    id="getThemeTypeAt(index)" 
+                    type="radio" 
+                    [value]="getThemeTypeAt(index)" 
+                    name="theme" 
+                    [(ngModel)]="this.userContextService.theme"/>
+                <label>{{getThemeStringAt(index)}}</label>
+            </div>
+        </div>
+    </card-element>
+
+    <card-element 
+        [subtitle]="'Wetterdatenabrufintervall'"
+        [pressable]="false">
+        <!-- FIX ME STYLE ME AND MAKE ME SMART -->
+        <select name="interval" id="interval">
+            <option value="0.5">Alle 30 Sekunden</option>
+            <option value="1">Jede Minute</option>
+            <option value="2">Alle 2 Minuten</option>
+            <option value="4">Alle 4 Minuten</option>
+            <option value="5">Alle 5 Minuten</option>
+            <option value="10">Alle 10 Minuten</option>
+            <option value="15">Alle 15 Minuten</option>
+            <option value="20">Alle 20 Minuten</option>
+        </select>
+    </card-element>
+
+   
+</div>

@@ -1,6 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { OutdoorWeather } from 'src/app/model/weather';
-import { WeatherService } from '../../../services/weather.service'
+import { Component, Input, OnInit } from '@angular/core';
+import { Daytime, OutdoorWeatherData } from 'src/app/model/weather';
+import { WeatherAPIService } from '../../../services/weather-api.service'
+import { UserContextService } from 'src/app/services/user-context.service';
+import { WeatherDataService } from 'src/app/services/weather-data.service';
+import { Themes, UserContext } from 'src/app/model/user-context';
 
 @Component({
   selector: 'app-outdoor-weather-view',
@@ -8,21 +11,69 @@ import { WeatherService } from '../../../services/weather.service'
   styleUrls: ['./outdoor-weather-view.component.scss']
 })
 export class OutdoorWeatherViewComponent implements OnInit {
-  outdoorWeather?: OutdoorWeather;
+  @Input() reduceMotion: boolean = false; // FIXME: wieso Input?
+  outdoorWeather?: OutdoorWeatherData;
+  daytime: Daytime = Daytime.noon
+  daytimeType = Daytime;
+  showWeatherDescription: boolean = true;
+  userContext?: UserContext
+  themeType = Themes
 
-  constructor(private weatherService: WeatherService) { }
+  constructor(private weatherService: WeatherAPIService,
+    private userContextService: UserContextService,
+    private weatherDataService: WeatherDataService) { }
 
   ngOnInit(): void {
-    this.getOutdoorWeather();
+    // this.loadOutdoorWeather();
+    this.listenToScrollEvent();
+    this.loadDaytime();
+    this.loadUserContext();
+    this.weatherDataService.getOutdoorWeatherData().subscribe(data => this.outdoorWeather = data);
   }
 
-  getOutdoorWeather(): void {
+  loadUserContext() {
+    this.userContextService.getUserContext()
+    .subscribe(data => {
+      this.userContext = data;
+    });
+  }
+
+  loadOutdoorWeather(): void {
     this.weatherService.getOutdoorWeather()
-      .subscribe(outdoorWeather => this.outdoorWeather = outdoorWeather);
+      .subscribe(outdoorWeather => { 
+        this.outdoorWeather = outdoorWeather 
+        console.log("test24");
+      });
   }
 
-  changeTemp(): void {
-    this.weatherService.changeTemp();
+  loadDaytime(): void {
+    this.daytime = this.weatherService.getDaytime()
   }
 
+  // changes the css --scroll variable everytime the user scrolls. Main part of the animation
+  listenToScrollEvent() {
+    window.addEventListener('scroll', () => {
+      if(!this.reduceMotion) {
+        let scrollValue = (window.pageYOffset) / 240; // FIXME: Wert berechnen für angepasste schriftgröße
+        if(scrollValue < 0) {
+          scrollValue = 0;
+        }
+        if(scrollValue > 1) {
+          scrollValue = 1;
+        }
+        scrollValue > 0.2 ?
+          this.showWeatherDescription = false 
+          :
+          this.showWeatherDescription = true;
+        document.body.style.setProperty('--scroll', "" + scrollValue );
+      } else {
+        document.body.style.setProperty('--scroll', "" + 0 );
+      }
+    }, false);
+  }
+
+ 
+  getWeatherDescription(): string {
+    return "Heute ist es sonnig";
+  }
 }
