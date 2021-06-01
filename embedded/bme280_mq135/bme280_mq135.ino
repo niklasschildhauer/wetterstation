@@ -15,7 +15,7 @@
 // I2C für bme
 Adafruit_BME280 bme;
 
-StaticJsonDocument<300> doc;
+StaticJsonDocument<400> doc;
 
 WebServer Server;
 AutoConnect Portal(Server);
@@ -28,17 +28,18 @@ void rootPage()
   Server.send(200, "text/plain", content);
 }
 
-char *ssid = "";                        // "FRITZ!Box 7590 UK";
-char *password = "";                    //"81352968356302772244"; //pw of your wifi
+char *ssid = "";                        // "";
+char *password = "";                    //""; //pw of your wifi
 #define SERVER_IP "192.168.178.30:4201" //"192.168.0.136:4201"
 
 uint16_t gasVal;
 boolean isgas = false;
 String gas;
 
-char *roomName;
-char *transmissionFrequency;
-char *postalCode;
+char *roomName = "-1";
+char *transmissionFrequency = "-1";
+char *postalCode = "-1";
+char *id = "-1";
 
 char *sanitizeStr(String s)
 {
@@ -64,10 +65,10 @@ void setup()
   pinMode(DIGITAL_PIN, INPUT);
 
   /*
-  * -----------------------------------------------------------------------------
-  *       Keep this code for debugging purposes
-  *       to simulate "1st install" and wipe all stored credentials
-  *       in the ESP32 flash memory
+    -----------------------------------------------------------------------------
+          Keep this code for debugging purposes
+          to simulate "1st install" and wipe all stored credentials
+          in the ESP32 flash memory
   */
 
   //Erase flash memory ssid to force to use our config file
@@ -109,43 +110,6 @@ void setup()
   {
     Serial.println("Communication established!\n");
 
-    //Test filesystem access
-    if (!SPIFFS.begin(true))
-    {
-      Serial.println("An Error has occurred while mounting SPIFFS");
-      return;
-    }
-
-    File file = SPIFFS.open("/ESPconfig.txt");
-    if (!file)
-    {
-      Serial.println("Failed to open file for reading");
-      return;
-    }
-
-    JsonArray arr = doc.to<JsonArray>();
-    for (int i = 0; i <= 7; i++)
-    {
-      String s = file.readStringUntil('\n');
-      arr.add(s);
-    }
-
-    //Only print
-    // for (JsonVariant v : arr)
-    // {
-    //   Serial.println(v.as<String>());
-    // }
-
-    //Fill variables from config file
-    char a[50];
-    char b[50];
-    char c[50];
-    strcpy(a, sanitizeStr(arr[1]));
-    strcpy(b, sanitizeStr(arr[2]));
-    strcpy(c, sanitizeStr(arr[3]));
-    roomName = a;
-    transmissionFrequency = b;
-    postalCode = c;
   }
 
   // Connecting to a WiFi network
@@ -189,6 +153,65 @@ void loop()
 {
   //WIFI Autoconfig-Page
   Portal.handleClient();
+
+  Serial.println("debug 1");
+
+  // -------------------------------- Handle opening / reading of Config File ESPConfig.txt ------------------------------
+
+  //Test filesystem access
+  if (!SPIFFS.begin(true))
+  {
+    Serial.println("An Error has occurred while mounting SPIFFS");
+    return;
+  }
+
+  Serial.println("debug 2");
+
+  File file = SPIFFS.open("/ESPconfig.txt");
+  if (!file)
+  {
+    Serial.println("Failed to open file for reading");
+    return;
+  }
+
+  Serial.println("debug 3");
+
+  JsonArray arr = doc.to<JsonArray>();
+  for (int i = 0; i <= 7; i++)
+  {
+    String s = file.readStringUntil('\n');
+    arr.add(s);
+  }
+
+  Serial.println("debug 4");
+
+  //Only print
+  for (JsonVariant v : arr)
+  {
+     Serial.println(v.as<String>());
+  }
+
+  Serial.println("debug 5");
+
+  //Fill variables from config file
+  char a[50];
+  char b[50];
+  char c[50];
+  char d[50];
+  strcpy(a, sanitizeStr(arr[1]));
+  strcpy(b, sanitizeStr(arr[2]));
+  strcpy(c, sanitizeStr(arr[3]));
+  strcpy(d, sanitizeStr(arr[4]));
+  roomName = a;
+  transmissionFrequency = b;
+  postalCode = c;
+  id = d;
+
+  Serial.println("debug 5");
+  Serial.println(roomName);
+  Serial.println(transmissionFrequency);
+  Serial.println(postalCode);
+  Serial.println(id);
 
   // bme280 Sensor auslesen
   Serial.print("Temperature = ");
@@ -237,8 +260,9 @@ void loop()
     char buffer[300];
 
     char location[] = "hier";
-    sprintf(buffer, "{\"humidity\":\"%.2f\",\"temperature\":\"%.2f\",\"pressure\":\"%.2f\",\"gasVal\":\"%d\",\"location\":\"%s\"}", bme.readHumidity(), bme.readTemperature(), bme.readPressure() / 100.0F, gasVal, location);
-
+    //sprintf(buffer, "{\"humidity\":\"%.2f\",\"temperature\":\"%.2f\",\"pressure\":\"%.2f\",\"gasVal\":\"%d\",\"location\":\"%s\"}", bme.readHumidity(), bme.readTemperature(), bme.readPressure() / 100.0F, gasVal, location);
+    sprintf(buffer, "{\"humidity\":\"%.2f\",\"temperature\":\"%.2f\",\"deviceID\":\"%s\",\"gasVal\":\"%d\",\"location\":\"%s\"}", bme.readHumidity(), bme.readTemperature(), id, gasVal, postalCode);
+    
     Serial.println(buffer);
     int httpCode = http.POST(buffer);
 
@@ -248,7 +272,7 @@ void loop()
       // HTTP header has been send and Server response header has been handled
       Serial.printf("[HTTP] POST... code: %d\n", httpCode);
 
-      // file found at server
+      // resource found at server
       if (httpCode == HTTP_CODE_OK)
       {
         const String &payload = http.getString();
@@ -263,6 +287,7 @@ void loop()
     }
 
     http.end();
-    delay(60000);
+    file.close();
+    delay(50000);
   }
 }
