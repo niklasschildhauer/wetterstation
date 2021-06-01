@@ -15,8 +15,6 @@
 // I2C für bme
 Adafruit_BME280 bme;
 
-StaticJsonDocument<400> doc;
-
 WebServer Server;
 AutoConnect Portal(Server);
 AutoConnectConfig Config;
@@ -36,24 +34,6 @@ uint16_t gasVal;
 boolean isgas = false;
 String gas;
 
-char *roomName = "-1";
-char *transmissionFrequency = "-1";
-char *postalCode = "-1";
-char *id = "-1";
-
-char *sanitizeStr(String s)
-{
-  char delimiter[] = "\"";
-  char Buf[50];
-  char *token;
-  s.toCharArray(Buf, 50);
-  token = strtok(Buf, delimiter);
-  token = strtok(NULL, delimiter);
-  //Serial.println("token");
-  //Serial.println(token);
-  return token;
-}
-
 void setup()
 {
 
@@ -63,27 +43,6 @@ void setup()
   Serial.println("The sensor is warming up...");
   delay(15000);
   pinMode(DIGITAL_PIN, INPUT);
-
-  /*
-    -----------------------------------------------------------------------------
-          Keep this code for debugging purposes
-          to simulate "1st install" and wipe all stored credentials
-          in the ESP32 flash memory
-  */
-
-  //Erase flash memory ssid to force to use our config file
-  //WiFi.mode(WIFI_STA);
-  //delay(100);
-  //WiFi.begin();
-  //if (WiFi.waitForConnectResult() == WL_CONNECTED)
-  //{
-  //  WiFi.disconnect();
-  //  while (WiFi.status() == WL_CONNECTED)
-  //    delay(100);
-  //}
-  //Serial.println("Flash memory should be erased");
-
-  // -----------------------------------------------------------------------------
 
   //Config.autoReconnect=true;
   //Config.hostName = 'esp32-01';
@@ -109,7 +68,6 @@ void setup()
   else
   {
     Serial.println("Communication established!\n");
-
   }
 
   // Connecting to a WiFi network
@@ -154,8 +112,6 @@ void loop()
   //WIFI Autoconfig-Page
   Portal.handleClient();
 
-  Serial.println("debug 1");
-
   // -------------------------------- Handle opening / reading of Config File ESPConfig.txt ------------------------------
 
   //Test filesystem access
@@ -165,8 +121,6 @@ void loop()
     return;
   }
 
-  Serial.println("debug 2");
-
   File file = SPIFFS.open("/ESPconfig.txt");
   if (!file)
   {
@@ -174,44 +128,36 @@ void loop()
     return;
   }
 
-  Serial.println("debug 3");
+  DynamicJsonDocument doc(600);
 
-  JsonArray arr = doc.to<JsonArray>();
-  for (int i = 0; i <= 7; i++)
+  String str;
+  Serial.println("File content");
+  while (file.available())
   {
-    String s = file.readStringUntil('\n');
-    arr.add(s);
+    str = file.readString();
+    Serial.println(str);
   }
 
-  Serial.println("debug 4");
-
-  //Only print
-  for (JsonVariant v : arr)
+  // Parse JSON object
+  DeserializationError error = deserializeJson(doc, str);
+  if (error)
   {
-     Serial.println(v.as<String>());
+    Serial.print(F("deserializeJson() failed: "));
+    Serial.println(error.f_str());
+    return;
   }
 
-  Serial.println("debug 5");
+  //char* roomName = "raum";
+  //int transmissionFrequency = 10;
+  //char* postalCode = "-1";
+  //int id = -1;
 
-  //Fill variables from config file
-  char a[50];
-  char b[50];
-  char c[50];
-  char d[50];
-  strcpy(a, sanitizeStr(arr[1]));
-  strcpy(b, sanitizeStr(arr[2]));
-  strcpy(c, sanitizeStr(arr[3]));
-  strcpy(d, sanitizeStr(arr[4]));
-  roomName = a;
-  transmissionFrequency = b;
-  postalCode = c;
-  id = d;
+  //roomName = doc["roomName"];
+  int transmissionFrequency = doc["transmissionFrequency"];
+  const char *postalCode = doc["postalCode"].as<char *>();
+  int id = doc["id"];
 
-  Serial.println("debug 5");
-  Serial.println(roomName);
-  Serial.println(transmissionFrequency);
-  Serial.println(postalCode);
-  Serial.println(id);
+  file.close();
 
   // bme280 Sensor auslesen
   Serial.print("Temperature = ");
@@ -259,10 +205,8 @@ void loop()
     // start connection and send HTTP header and body
     char buffer[300];
 
-    char location[] = "hier";
-    //sprintf(buffer, "{\"humidity\":\"%.2f\",\"temperature\":\"%.2f\",\"pressure\":\"%.2f\",\"gasVal\":\"%d\",\"location\":\"%s\"}", bme.readHumidity(), bme.readTemperature(), bme.readPressure() / 100.0F, gasVal, location);
-    sprintf(buffer, "{\"humidity\":\"%.2f\",\"temperature\":\"%.2f\",\"deviceID\":\"%s\",\"gasVal\":\"%d\",\"location\":\"%s\"}", bme.readHumidity(), bme.readTemperature(), id, gasVal, postalCode);
-    
+    sprintf(buffer, "{\"humidity\":\"%.2f\",\"temperature\":\"%.2f\",\"deviceID\":\"%d\",\"gasVal\":\"%d\",\"location\":\"%s\"}", bme.readHumidity(), bme.readTemperature(), id, gasVal, postalCode);
+
     Serial.println(buffer);
     int httpCode = http.POST(buffer);
 
@@ -279,6 +223,25 @@ void loop()
         Serial.println("received payload:\n<<");
         Serial.println(payload);
         Serial.println(">>");
+
+        //Test filesystem access
+        if (!SPIFFS.begin(true))
+        {
+          Serial.println("An Error has occurred while mounting SPIFFS");
+          return;
+        }
+
+        File file = SPIFFS.open("/ESPconfig.txt", FILE_WRITE);
+        if (!file)
+        {
+          Serial.println("Failed to open file for writing");
+          return;
+        }
+
+        file.print(payload);
+        Serial.println("File written!");
+        Serial.println("==============================");
+        file.close();
       }
     }
     else
@@ -287,7 +250,7 @@ void loop()
     }
 
     http.end();
-    file.close();
     delay(50000);
+    // delay(60000 * transmissionFrequency - 10000)
   }
 }
