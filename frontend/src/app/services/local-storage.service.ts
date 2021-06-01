@@ -29,6 +29,7 @@ export class LocalStorageService {
 
   public saveToken(token: string) {
     this.setItem(LocalStorageService.tokenIdentifier, token);
+    console.log(token);
     console.log("SAVED TOKEN");
   }
 

@@ -40,9 +40,5 @@ export class MenuBarElementComponent implements OnInit {
 
   reloadData() {
     this.weatherDataService.reloadData();
-    let currentUrl = this.router.url;
-    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
-    this.router.onSameUrlNavigation = 'reload';
-    this.router.navigate([currentUrl]);
   }
 }

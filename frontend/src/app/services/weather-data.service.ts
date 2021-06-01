@@ -9,7 +9,7 @@ import { WeatherAPIService } from './weather-api.service';
 @Injectable({
   providedIn: 'root'
 })
-export class WeatherDataService implements UserContextDelegte{
+export class WeatherDataService {
   private _dashboardTiles: BehaviorSubject<Tile<WeatherData>[]> = new BehaviorSubject<Tile<WeatherData>[]>([]);
   private _pollenTiles: BehaviorSubject<Tile<WeatherData>[]> =  new BehaviorSubject<Tile<WeatherData>[]>([]);
   private _indoorRoomTiles: BehaviorSubject<Tile<WeatherData>[]> =  new BehaviorSubject<Tile<WeatherData>[]>([]);
@@ -26,9 +26,9 @@ export class WeatherDataService implements UserContextDelegte{
     private weatherAPIService: WeatherAPIService,
     private userContextService: UserContextService) { 
       this.loadWeatherData();
-      userContextService.delegate = this
+      this.registerForUserContextChange()
     }
-      // NETWORK ACCESS
+
   private loadWeatherData() {
     let outDoorWeather = this.weatherAPIService.getOutdoorWeather()
     let pollen = this.weatherAPIService.getPollen()
@@ -47,6 +47,12 @@ export class WeatherDataService implements UserContextDelegte{
     });
   }
 
+  private registerForUserContextChange() {
+    this.userContextService.getUserContext().subscribe(() => {
+      this.reloadTiles()
+    })
+  }
+
   reloadTiles() {
     let outdoorWeatherData = this._outdoorWeatherData.getValue()
     let pollenData = this._pollenData.getValue();
@@ -55,14 +61,11 @@ export class WeatherDataService implements UserContextDelegte{
     let indoorRoomData = this._indoorRoomsData.getValue();
 
     if(pollenData && forecastData && historyData && indoorRoomData && outdoorWeatherData) {
-
       let result = this.tileService.createTiles(outdoorWeatherData, 
-        pollenData, 
-        forecastData, 
-        historyData, 
-        indoorRoomData)
-
-      console.log("We are in here4");
+                                                pollenData, 
+                                                forecastData, 
+                                                historyData, 
+                                                indoorRoomData)
       this._dashboardTiles.next(result.dashboard);
       this._pollenTiles.next(result.pollen);
       this._indoorRoomTiles.next(result.indoorRooms);
@@ -71,10 +74,6 @@ export class WeatherDataService implements UserContextDelegte{
 
   reloadData(): void {
     this.loadWeatherData();
-  }
-
-  updatedUserContext(from: UserContextService): void {
-    this.reloadData();
   }
 
   // Getter methods
