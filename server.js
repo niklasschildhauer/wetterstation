@@ -86,15 +86,16 @@ app.use(express.json({ limit: "1mb", type: "application/json" }));
 * @property {integer} temperature.required
 * @property {integer} pressure.required
 * @property {string} location.required
+* @property {integer} deviceID.required
 */
 
 /**
 * @typedef SensordataIndoors
 * @property {integer} humidity.required
 * @property {integer} temperature.required
-* @property {integer} pressure.required
 * @property {integer} gasVal.required
 * @property {string} location.required
+* @property {integer} deviceID.required
 */
 
 /**
@@ -111,7 +112,6 @@ app.use(express.json({ limit: "1mb", type: "application/json" }));
 * @typedef IndoorRoomData
 * @property {integer} roomHumidity
 * @property {integer} roomTemperature
-* @property {integer} roomPressure
 * @property {integer} gasVal
 * @property {string} location
 * @property {string} timestamp
@@ -128,6 +128,21 @@ app.use(express.json({ limit: "1mb", type: "application/json" }));
 * @property {string} pollenName
 */
 
+/**
+* @typedef ESPConfig
+* @property {string} roomName
+* @property {integer} transmissionFrequency
+* @property {string} postalCode
+*/
+
+/**
+* @typedef ESPConfig_return_object
+* @property {integer} id
+* @property {string} roomName
+* @property {integer} transmissionFrequency
+* @property {string} postalCode
+*/
+
 // -------------------------------------------- Routes - Auth -------------------------------------------
 
 /**
@@ -139,7 +154,7 @@ app.use(express.json({ limit: "1mb", type: "application/json" }));
  * @returns {Error}  Http 400 - Bad Request if user credentials are not correct
  */
 app.post("/v1/auth/login", (req, res) => {
-  genericRequestWithPayload("", "POST", "http://localhost:4202/login", JSON.stringify(req.body), res );
+  genericRequestWithPayload("", "POST", "http://localhost:4202/login", JSON.stringify(req.body), res);
 });
 
 /**
@@ -174,7 +189,7 @@ app.post("/v1/sensors/outdoor", (req, res) => {
  * @group sensors - Receiving of sensor data
  * @param {SensordataIndoors.model} sensordata.body.required sensordata
  */
- app.post("/v1/sensors/indoor", (req, res) => {
+app.post("/v1/sensors/indoor", (req, res) => {
   genericRequestWithPayload("", "POST", "http://localhost:4204/sensorin", JSON.stringify(req.body), res);
 });
 
@@ -185,7 +200,7 @@ app.post("/v1/sensors/outdoor", (req, res) => {
  * @group weather-data - Request weather data
  * @returns {OutdoorWeatherData.model} 200 - The latest recorded weather data
  */
- app.get("/v1/weather-data/outdoor/latest", (req, res) => {
+app.get("/v1/weather-data/outdoor/latest", (req, res) => {
   genericRequest("", "GET", "http://localhost:4205/outdoor/latest", res);
 });
 
@@ -196,7 +211,7 @@ app.post("/v1/sensors/outdoor", (req, res) => {
  * @group weather-data - Request weather data
  * @returns {IndoorRoomData.model} 200 - The latest recorded weather data
  */
- app.get("/v1/weather-data/indoor/latest", (req, res) => {
+app.get("/v1/weather-data/indoor/latest", (req, res) => {
   genericRequest("", "GET", "http://localhost:4205/indoor/latest", res);
 });
 
@@ -220,7 +235,7 @@ app.post("/v1/weather-data/outdoor/history", (req, res) => {
  * @param {Interval.model} interval.body.required interval
  * @returns {Array<IndoorRoomData>} 200 - An array of IndoorRoomData objects for a given interval
  */
- app.post("/v1/weather-data/indoor/history", (req, res) => {
+app.post("/v1/weather-data/indoor/history", (req, res) => {
   genericRequestWithPayload("", "POST", "http://localhost:4205/indoor/history", JSON.stringify(req.body), res);
 });
 
@@ -232,7 +247,7 @@ app.post("/v1/weather-data/outdoor/history", (req, res) => {
  * @group Pollen - Pollen data CRUD
  * @returns {Array<Pollen_object>} 200 - An array of PollenTypes and 
  */
- app.get("/v1/pollen/all", (req, res) => {
+app.get("/v1/pollen/all", (req, res) => {
   genericRequest("", "GET", "http://localhost:4205/pollen/all", res);
 });
 
@@ -244,11 +259,11 @@ app.post("/v1/weather-data/outdoor/history", (req, res) => {
  * @param {integer} id.query.required - id of the Pollen object
  * @returns {Pollen_object} 200 - a single Pollen object
  */
- app.get("/v1/pollen", (req, res) => {
+app.get("/v1/pollen", (req, res) => {
   genericRequest("", "GET", "http://localhost:4205/pollen/" + req.query.id, res);
 });
 
- 
+
 /**
  * Create a new Pollen object
  * @route POST /pollen/insert
@@ -256,8 +271,8 @@ app.post("/v1/weather-data/outdoor/history", (req, res) => {
  * @param {Pollen.model} pollen.body.required - Pollen object with pollenName
  * @returns {Pollen_object} 200 - a single Pollen object
  */
- app.post("/v1/pollen/insert", (req, res) => {
-  genericRequestWithPayload("", "POST", "http://localhost:4205/pollen/insert", JSON.stringify(req.body) , res);
+app.post("/v1/pollen/insert", (req, res) => {
+  genericRequestWithPayload("", "POST", "http://localhost:4205/pollen/insert", JSON.stringify(req.body), res);
 });
 
 
@@ -266,6 +281,30 @@ app.post("/v1/weather-data/outdoor/history", (req, res) => {
 //TODO: Needs to be combined into personalization service using personalization-service
 // Needs openAPE...
 
+
+// ---------------------------------------- Routes - ESPConfig ----------------------------------------
+
+/**
+ * List all available ESPConfig objects in the database
+ * @route GET /espconfig/all
+ * @group ESPConfig - ESPConfig object creation and change
+ * @returns {ESPConfig_return_object} 200 - all available ESPConfig objects
+ */
+app.get("/v1/espconfig/all", (req, res) => {
+  genericRequest("", "GET", "http://localhost:4205/espconfig/all", res);
+});
+
+
+/**
+ * Create a new Pollen object
+ * @route POST /espconfig/change
+ * @group ESPConfig - ESPConfig object creation and change
+ * @param {ESPConfig.model} espconfig.body.required - ESPConfig object
+ * @returns {Array<ESPConfig_return_object>} 200 - a complete ESPConfig object
+ */
+app.post("/v1/espconfig/change", (req, res) => {
+  genericRequestWithPayload("", "POST", "http://localhost:4205/espconfig/change", JSON.stringify(req.body), res);
+});
 
 // ------------------------------------------------ Helper ------------------------------------------------
 
@@ -316,7 +355,8 @@ const genericCallback = (error, response, body, res) => {
       let out = "The request is unauthorized";
       res.status("401").json(out);
     } else {
-      let out = "Bad request";
+      console.log("body.message", body)
+      let out = body.message || "Bad request";
       res.status("400").json(out);
     }
   }
