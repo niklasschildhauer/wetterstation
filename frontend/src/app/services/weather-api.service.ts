@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { FORECAST, INDOORAIRQUALITY, INDOORAIRQUALITY2, OUTDOORWEATHER, POLLEN, WEATHERHISTORY } from '../model/mock-data/weather.mock';
 import { OutdoorWeatherData, PollenData, IndoorRoomData, Daytime, WeatherForecastData, WeatherHistoryData, WeatherType } from '../model/weather';
-import { Observable, of, Subject } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 
@@ -14,10 +14,8 @@ export class WeatherAPIService {
   private indoorURL = "/weather-data/indoor/latest"
   private historyURL = "/weather-data/outdoor/history"
 
-
   constructor(private httpClient: HttpClient) { }
 
-  // DELETE ME
   getOutdoorWeather(): Observable<OutdoorWeatherData> {
     if (environment.testData) {
       return of(OUTDOORWEATHER);
@@ -55,18 +53,12 @@ export class WeatherAPIService {
     return returnObservable;
   }
 
-  // DELETE ME
-  getIndoorRoomData2(): Observable<IndoorRoomData[]> {
-    let indoorData = of(INDOORAIRQUALITY2);
-    return indoorData;
-  }
-
   getForecastData(): Observable<WeatherForecastData> {
     let forecastData = of(FORECAST);
     return forecastData;
   }
 
-  getHistoryData(fromDate: Date, toDate: Date): Observable<WeatherHistoryData> {
+  getHistoryData(endDate: Date, beginDate: Date): Observable<WeatherHistoryData> {
     if (environment.testData) {
       let forecastData = of(WEATHERHISTORY);
       return forecastData;
@@ -74,8 +66,8 @@ export class WeatherAPIService {
     let returnObservable = new Observable<WeatherHistoryData>((observer) => { 
         this.httpClient.post<OutdoorWeatherResponse[]>(this.historyURL,
           {
-            "begin": this.createServerFriendlyDate(fromDate),
-            "end": this.createServerFriendlyDate(toDate)
+            "begin": this.createServerFriendlyDate(beginDate),
+            "end": this.createServerFriendlyDate(endDate)
           })
         .subscribe(data => {
           let dataPoints: OutdoorWeatherData[] = data.map((element) => {
@@ -139,11 +131,11 @@ interface OutdoorWeatherResponse {
 }
 
 interface IndoorRoomResponse{
-  "id": number,
-  "humidity": number,
-  "temperature": number,
-  "pressure": number,
-  "gasVal": number,
-  "location": string,
-  "timestamp": string,
+  id: number,
+  humidity: number,
+  temperature: number,
+  pressure: number,
+  gasVal: number,
+  location: string,
+  timestamp: string,
 }

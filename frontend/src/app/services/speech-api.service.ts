@@ -9,13 +9,6 @@ export class SpeechAPIService {
 
   constructor() {}
 
-  init() {}
-
-  getGermanVoice() : SpeechSynthesisVoice {
-    let voices = this.synth.getVoices();
-    return voices[4];
-  }
-
   startOutput(text: string) {
     var utterThis = new SpeechSynthesisUtterance(text);
     utterThis.lang = "de-DE"
