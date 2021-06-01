@@ -1,16 +1,22 @@
 import "reflect-metadata";
-import { Between, createConnection, LessThan, LessThanOrEqual, MoreThan, MoreThanOrEqual } from "typeorm";
+import { Between, createConnection } from "typeorm";
 import { Outdoor } from "./entity/Outdoor";
 import { Indoor } from "./entity/Indoor";
+import { UserContext } from "./entity/UserContext";
+import { Allergy } from "./entity/Allergy";
+import { Pollen } from "./entity/Pollen";
+import { ESPConfig } from "./entity/ESPconfig";
 
 "use strict"
-
 
 // create typeorm connection
 createConnection().then(connection => {
     const outdoorData = connection.getRepository(Outdoor);
     const indoorData = connection.getRepository(Indoor);
-
+    const userCtxData = connection.getRepository(UserContext);
+    const allergyData = connection.getRepository(Allergy);
+    const pollenData = connection.getRepository(Pollen);
+    const espConfigData = connection.getRepository(ESPConfig);
 
     //set up express 
     const port = 4205;
@@ -18,6 +24,8 @@ createConnection().then(connection => {
     var app = express();
     app.use(express.json());
 
+
+    // -------------------------------------- Outdoor / Indoor requests -----------------------------
 
     //Get the latest data from the outdoor table  
     app.get('/outdoor/latest', async (req, res) => {
@@ -39,15 +47,14 @@ createConnection().then(connection => {
         returnNotNull(latest, res)
     });
 
-
     app.post('/outdoor/history', async (req, res) => {
         const beginTimestamp = req.body.begin;
         const endTimestamp = req.body.end;
 
-        if(parseDateHelper(beginTimestamp) && parseDateHelper(endTimestamp)){
+        if (parseDateHelper(beginTimestamp) && parseDateHelper(endTimestamp)) {
             // console.log("begin", beginTimestamp)
             // console.log("end", endTimestamp)
-    
+
             const history = await outdoorData.find({
                 where: [
                     { timestamp: Between(beginTimestamp, endTimestamp) }
@@ -65,10 +72,10 @@ createConnection().then(connection => {
         const beginTimestamp = req.body.begin;
         const endTimestamp = req.body.end;
 
-        if(parseDateHelper(beginTimestamp) && parseDateHelper(endTimestamp)){
+        if (parseDateHelper(beginTimestamp) && parseDateHelper(endTimestamp)) {
             // console.log("begin", beginTimestamp)
             // console.log("end", endTimestamp)
-    
+
             const history = await indoorData.find({
                 where: [
                     { timestamp: Between(beginTimestamp, endTimestamp) }
@@ -81,28 +88,155 @@ createConnection().then(connection => {
         }
     });
 
+    // -------------------------------------- Insert sensor data -----------------------------
 
     //The outdoor sensors insert data on this route
     app.post('/outdoor/insert', async (req, res) => {
-        const outdoor = await outdoorData.create(req.body);
-        const results = await outdoorData.save(outdoor);
-        return res.send(results);
+        const outdoor = new Outdoor();
+        outdoor.humidity = req.body.humidity;
+        outdoor.temperature = req.body.temperature;
+        outdoor.location = req.body.location;
+        outdoor.pressure = req.body.pressure;
+        const deviceID = req.body.deviceID;
+
+        await outdoorData.create(outdoor);
+        await outdoorData.save(outdoor);
+
+        if (deviceID !== -1) {
+            const return_val = await espConfigData.findOne({ id: deviceID });
+            return res.send(return_val);
+        } else {
+            const result = await registerNewDeviceESPConfig();
+            
+            return res.send(result);
+        }
     });
 
     //The indoor sensors insert data on this route
     app.post('/indoor/insert', async (req, res) => {
-        const indoor = await indoorData.create(req.body);
-        const results = await indoorData.save(indoor);
+        const indoor = new Indoor();
+        indoor.humidity = req.body.humidity;
+        indoor.gasVal = req.body.gasVal;
+        indoor.temperature = req.body.temperature;
+        indoor.location = req.body.location;
+
+        const deviceID = req.body.deviceID;
+
+        await indoorData.create(indoor);
+        await indoorData.save(indoor);
+
+        if (deviceID !== -1) {
+            const return_val = await espConfigData.findOne({ id: deviceID });
+            
+            return res.send(return_val);
+        }
+        else {
+            const result = await registerNewDeviceESPConfig();
+            return res.send(result);
+        }
+    });
+
+    // -------------------------------------- Pollen -----------------------------
+
+    //Request all pollen objects
+    app.get('/pollen/all', async (req, res) => {
+        const pollen = await pollenData.find();
+        returnNotNull(pollen, res);
+    });
+
+    //Request one pollen object by id
+    app.get('/pollen/:id', async (req, res) => {
+        console.log("hello", req.params.id);
+        const pollen = await pollenData.findOne({ id: req.params.id })
+        console.log("pollen", pollen)
+        returnNotNull(pollen, res);
+    })
+
+    //Create a new pollen object into the db
+    app.post('/pollen/insert', async (req, res) => {
+        const entry = await pollenData.create(req.body);
+        const results = await pollenData.save(entry);
         return res.send(results);
     });
 
+    // -------------------------------------- Users -----------------------------
+
+    //Request a UserContext object from the db
+    app.get('/userContext/:username', async (req, res) => {
+        const userCtx = await userCtxData.findOne({ username: req.params.username });
+        returnNotNull(userCtx, res);
+    })
+
+    //Save a new UserContext object to the db
+    app.post('/userContext/save', async (req, res) => {
+        const entry = await userCtxData.create(req.body)
+        const results = await userCtxData.save(entry);
+        return res.send(results);
+    });
+
+    // -------------------------------------- Allergy -----------------------------
+
+    //Save a new Allergy object to the db
+    app.post('/allergy/save', async (req, res) => {
+        const userId = req.body.userId;
+        const pollenId = req.body.pollenId;
+        const user = await userCtxData.findOne({ id: userId });
+        const pollen = await pollenData.findOne({ id: pollenId });
+
+        const allergy = new Allergy();
+        const result = await connection.manager.save(allergy)
+        user.allergies = [allergy];
+        await connection.manager.save(user);
+        pollen.allergies = [allergy];
+        await connection.manager.save(pollen);
+
+        returnNotNull(result, res);
+    });
+
+    // -------------------------------------- ESPConfig -----------------------------
+
+    app.post('/espconfig/change', async (req, res) => {
+        const espconf = await espConfigData.findOne({ id: req.body.id });
+        espconf.transmissionFrequency = req.body.transmissionFrequency;
+        espconf.postalCode = req.body.postalCode;
+        espconf.roomName = req.body.roomName;
+        const result = await connection.manager.save(espconf);
+
+        return res.send(result);
+    })
+
+    app.get('/espconfig/all', async (req, res) => {
+        const allEsps = await espConfigData.find();
+        return res.send(allEsps);
+    })
+
+
+    // app.get('/test', async (req, res) => {
+    //     const test1 = new ESPConfig()
+    //     test1.postalCode = "787878"
+    //     test1.roomName = "raum123"
+    //     test1.transmissionFrequency = 14
+    //     const result = await connection.manager.save(test1)
+
+    //     const test2 = new ESPConfig();
+    //     test2.postalCode = "787878123231321321"
+    //     test2.roomName = "schmurx"
+    //     test2.transmissionFrequency = 141414
+    //     const resT2 = await connection.manager.save(test2)
+
+    //     const user = await userCtxData.findOne({id: 1});
+    //     user.sensors = [test1, test2]
+    //     await connection.manager.save(user);
+
+    //     return res.send("ok")
+    // })
 
     // ------------------------------------------------ Helper ------------------------------------------------
 
     const returnNotNull = (databaseOutput: any, res: any): void => {
         if (databaseOutput === undefined) {
             console.log("database input was undefined");
-            res.status(204).json({});
+            res.status(400).json({message:"Requested entry did not exist"});
         }
         else {
             res.status(200).json(databaseOutput);
@@ -114,6 +248,18 @@ createConnection().then(connection => {
         //but this is not really solvable with regex since you are only able to specify allowed character (ranges) and not e.g. number values
         let dateFormatRegex: RegExp = /(20[0-9]{2})-([0-2]{1}[0-9]{1})-([0-2]{1}[0-9]{1}) ([0-5]{1}[0-9]{1}:){2}([0-9]){2}/
         return dateFormatRegex.test(date);
+    }
+
+    const registerNewDeviceESPConfig = async (): Promise<ESPConfig> => {
+        // const rndInt =  Math.floor(Math.random() * (max - min + 1) + min)
+        const rndInt = Math.floor(Math.random() * (500 - 1 + 1) + 1)
+        const newDevice = new ESPConfig();
+        newDevice.roomName = "device" + rndInt;
+        newDevice.postalCode = "70565";
+        newDevice.transmissionFrequency = 10
+
+        const result = await connection.manager.save(newDevice);
+        return result;
     }
 
     console.log("listening on port", port)
