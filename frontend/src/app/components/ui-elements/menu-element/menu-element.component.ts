@@ -2,6 +2,7 @@ import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { trigger, style, animate, transition } from '@angular/animations';
 import { UserContextService } from 'src/app/services/user-context.service';
+import { ImageModel, ImageService } from 'src/app/services/image.service';
 
 @Component({
   selector: 'app-menu-element',
@@ -34,10 +35,20 @@ import { UserContextService } from 'src/app/services/user-context.service';
 
 export class MenuElementComponent implements OnInit {
   @Output() closeEvent = new EventEmitter();
-  // @Input() closeFunction?: () => void;
+  public settingsIcon: ImageModel = {
+    light: "setting-button-light.png",
+    dark: "setting-button-dark.png",
+    highContrast: "setting-button-high.png"
+  }
+  public logoutIcon: ImageModel = {
+    light: "logout-button-light.png",
+    dark: "logout-button-dark.png",
+    highContrast: "logout-button-high.png"
+  }
 
   constructor(private router: Router,
-    private userContextService: UserContextService) { }
+    private userContextService: UserContextService,
+    public imageService: ImageService) { }
 
   ngOnInit(): void {
   }

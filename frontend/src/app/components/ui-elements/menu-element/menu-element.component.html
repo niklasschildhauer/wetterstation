@@ -2,14 +2,14 @@
 </div>
 
 <div class="menu-container" [@animate]>
-    <p class="fertig" (click)="closeMenu()">Fertig</p>
-    <div class="menu-button">
-        <span (click)="openPersonalizationSettings()">Personalisierung</span>
-        <img class="icon" src="assets/icons/setting-button.svg">
-    </div>
+    <button class="fertig" (click)="closeMenu()"><span>Fertig</span></button>
+    <button (click)="openPersonalizationSettings()" class="menu-button">
+        <span>Personalisierung</span>
+        <img class="icon" [src]="imageService.getImageSrcFrom(settingsIcon)">
+    </button>
 
-    <div class="menu-button">
-        <span (click)="logout()">Logout</span>
-        <img class="icon" src="assets/icons/logout-button.svg">
-    </div>
+    <button (click)="logout()" class="menu-button">
+        <span>Logout</span>
+        <img class="icon" [src]="imageService.getImageSrcFrom(logoutIcon)">
+    </button>
 </div>
