@@ -1,8 +1,7 @@
-import { Injectable, OnInit } from '@angular/core';
-import { UserContextDelegte, UserContextService } from './user-context.service';
+import { Injectable } from '@angular/core';
+import { UserContextService } from './user-context.service';
 import { WeatherData, Tile, PollenData, TileType, IndoorRoomData, WeatherForecastData, TilePriority, WeatherHistoryData, GraphDataSet, OutdoorWeatherData } from '../model/weather';
 import { HistoryTileService } from './history-tile.service';
-import { Pollen } from '../model/user-context';
 
 export interface TileArrays {
   dashboard: Tile<WeatherData>[],
@@ -59,17 +58,17 @@ export class TileService  {
   }
   
   private createPollenTiles(data: PollenData[], dashboard: Tile<WeatherData>[], pollen: Tile<WeatherData>[]): void {
-    let preferredPollen: Pollen[] = this.userContextService.pollen
+    let preferredPollen: string[] = this.userContextService.pollen
     let pollenData = data
 
     if(preferredPollen.length > 0) {
       preferredPollen.forEach(item => {
-        let pollenItem = pollenData.find(dataItem => dataItem.type == item)
+        let pollenItem = pollenData.find(dataItem => dataItem.pollenName == item)
         if (pollenItem) {
           let smallTile: Tile<PollenData> = {
             type: TileType.pollenSmall,
             data: pollenItem,
-            id: pollenItem.name,
+            id: pollenItem.pollenName,
             priority: this.getPrioritiyOf(pollenItem, TileType.pollenSmall),
           }
           this.addTileTo(dashboard, smallTile);

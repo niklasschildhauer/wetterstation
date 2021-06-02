@@ -68,7 +68,7 @@ export class TextService {
     var readAloud = ""
     if(data) {
       // CHANGE VALUE OF 1 to LEICH, MITTEL, STARK und KEINE
-      let name = data.name
+      let name = data.pollenName
       let value = data.today
       readAloud = "Pollen der Art " + name + " hat heute eine Belastung von " + value +  ". ";
     }

@@ -4,6 +4,7 @@ const PROXY_CONFIG = [
             "/api",
             "/auth",
             "/weather-data",
+            "/pollen",
         ],
         target: "http://localhost:4201/v1",
         secure: false,

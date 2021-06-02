@@ -1,7 +1,7 @@
 export interface UserContext {
     theme: Themes,
     fontSize: number, // in %
-    pollen: Pollen[], // Um die Mockdaten einfacher zu erstellen in Array konvertiert. Kann auch wieder in Map<Pollen, boolean> gewandelt werden. 
+    pollen: string[], // Um die Mockdaten einfacher zu erstellen in Array konvertiert. Kann auch wieder in Map<Pollen, boolean> gewandelt werden. 
     selfVoicingEnabled: boolean,
     language: Language, // ietf-bcp47
     doVentilationReminder: boolean, // TODO: What if multiple users have concurring settings here?
@@ -17,15 +17,9 @@ export enum Themes {
     HighContrast
 }
 
-export enum Pollen {
-    Ambrosia,
-    Beifuss,
-    Birke,
-    Erle,
-    Esche,
-    Graeser,
-    Hasel,
-    Roggen,
+export interface PollenType {
+    id: number,
+    pollenName: string
 }
 
 export enum Language {

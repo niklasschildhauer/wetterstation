@@ -38,6 +38,7 @@
     padding: calc(var(--padding) / 2) 0 calc(var(--padding) / 2) 0;
     border-top: 0.2px solid var(--secondary);
     cursor: pointer;
+    font-size: 1.0em;
 }
 
 p {
@@ -47,4 +48,7 @@ p {
 
 .fertig {
     cursor: pointer;
+    padding: 0;
+    padding-bottom: 0.5em;
+    font-size: 1.0em;
 }

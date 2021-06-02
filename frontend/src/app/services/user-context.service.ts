@@ -1,24 +1,20 @@
 import { Injectable } from '@angular/core';
-import { UserContext, Themes, INITIAL_USER_CONTEXT, Pollen } from '../model/user-context';
+import { UserContext, Themes, INITIAL_USER_CONTEXT, PollenType } from '../model/user-context';
 import { BehaviorSubject, Observable, of } from 'rxjs';
 import { LocalStorageService } from './local-storage.service';
 import { Router } from '@angular/router';
-import { WeatherDataService } from './weather-data.service';
 import { HttpClient } from '@angular/common/http';
-
-export interface UserContextDelegte {
-  updatedUserContext(from: UserContextService): void
-}
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserContextService {
-  public delegate?: UserContextDelegte;
   private _token: string;
   private _userContext: BehaviorSubject<UserContext> = new BehaviorSubject<UserContext>(INITIAL_USER_CONTEXT); 
+  private _pollenTypes: BehaviorSubject<PollenType[]> = new BehaviorSubject<PollenType[]>([]); 
   private loginURL = '/auth/login'
-  
+  private allPollenTypesURL = '/pollen/all'
+
   set token(value: string) {
     this._token = value;
     this.saveTokenToLocalStorage();
@@ -58,7 +54,7 @@ export class UserContextService {
     userContext.fontSize = value;
     this.userContext = userContext;
   }
-  set pollen(value: Pollen[]) {
+  set pollen(value: string[]) {
     let userContext = this._userContext.getValue()
     userContext.pollen = value;
     this.userContext = userContext;
@@ -66,12 +62,26 @@ export class UserContextService {
   get pollen() {
     return this._userContext.getValue().pollen;
   }
+  get pollenTypes(): PollenType[] {
+    return this._pollenTypes.value
+  }
+
 
   constructor(private localStorageService: LocalStorageService,
     private router: Router,
     private httpClient: HttpClient) { 
     this._userContext.next(this.localStorageService.getUserContext());
     this._token = this.localStorageService.getToken();
+    this.loadPollenTypes();
+  }
+
+  loadPollenTypes() {
+    let response = this.httpClient.get<PollenType[]>(this.allPollenTypesURL);
+    response.subscribe(data => {
+      this._pollenTypes.next(data);
+      console.log(this._pollenTypes.value)
+
+    })
   }
   
   login(username: string, password: string): Observable<any> {
@@ -109,7 +119,6 @@ export class UserContextService {
 
   private saveUserContext() {
     this.saveUserContextToLocalStorage()
-    this.delegate?.updatedUserContext(this);
   }
 
   private saveTokenToLocalStorage() {
@@ -127,4 +136,5 @@ interface LoginResponse {
     user: string,
     token: string,
   }
+
 

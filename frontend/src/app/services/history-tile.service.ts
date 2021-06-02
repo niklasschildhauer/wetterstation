@@ -11,6 +11,10 @@ export class HistoryTileService {
   constructor() { 
   }
 
+  private getHourString(hour: number): string {
+    return hour + " Uhr";
+  }
+
   private getWeekStringFromWeekNumber(week: number): string {
     return "Kalenderwoche " + week;
   }
@@ -24,12 +28,10 @@ export class HistoryTileService {
     let month = MONTHS[date.getMonth()];
     let year = date.getFullYear();
 
-    return day + " " + month + " " + year
+    return DAYS[date.getDay()] + ", " + day + " " + month + " " + year
   }
 
-  getHistoryDataSetDaysPerWeekFrom(weatherHistoryData: WeatherHistoryData): 
-  GraphDataSet[] {
-    console.log(weatherHistoryData.datapoints.length)
+  getHistoryDataSetDaysPerWeekFrom(weatherHistoryData: WeatherHistoryData): GraphDataSet[] {
     if (weatherHistoryData.datapoints.length > 0) {
       var dataSet: GraphDataSet[] = []
       var dataPoints = weatherHistoryData.datapoints
@@ -85,7 +87,6 @@ export class HistoryTileService {
       return [];
     }
 
-  // FIXME: Horrible unreadable code LOL
   getHistoryDataSetHoursPerDayFrom(weatherHistoryData: WeatherHistoryData): GraphDataSet[] {
     if (weatherHistoryData.datapoints.length > 0) {
       var dataSet: GraphDataSet[] = []
@@ -95,34 +96,53 @@ export class HistoryTileService {
         return b.timestamp.getTime() - a.timestamp.getTime()
       });
 
+      var lastDate: Date = dataPoints[0].timestamp;
+      var lastHour: number = lastDate.getHours();
+      var label: string = this.getDateStringFromDate(lastDate);
       var temperatureDataPoints: number[]  = []; 
       var humidityDataPoints : number[] = [];
       var xAxisLabels: string[] = [];
-      var lastDate: Date = dataPoints[0].timestamp;
-      var label = this.getDateStringFromDate(lastDate);
+      var temperatureSumOfWeek = 0
+      var humiditySumOfWeek = 0
+      let index = 0
 
       for (let item of dataPoints) {
-        if(lastDate.getDate() > item.timestamp.getDate()) {
-          dataSet.push(this.createWeatherGraphDataSet(temperatureDataPoints, humidityDataPoints, xAxisLabels, label));
-          temperatureDataPoints = [];
-          humidityDataPoints = [];
-          xAxisLabels = [];
+        if(lastDate.getHours() > item.timestamp.getHours()) {
+          let averageTemperature = temperatureSumOfWeek / index;
+          let averageHumidity = humiditySumOfWeek / index;
+          temperatureDataPoints.push(Math.round(averageTemperature));
+          humidityDataPoints.push(Math.round(averageHumidity));
+          xAxisLabels.push(this.getHourString(lastHour))
+          index = 0;
+          temperatureSumOfWeek = 0;
+          humiditySumOfWeek = 0;
+          lastDate = item.timestamp
+          if(lastDate > item.timestamp) {
+            dataSet.push(this.createWeatherGraphDataSet(temperatureDataPoints, humidityDataPoints, xAxisLabels, label));
+            temperatureDataPoints = [];
+            humidityDataPoints = [];
+            xAxisLabels = [];
+            lastDate = item.timestamp;
+            lastHour = lastDate.getHours();
+            label = this.getDateStringFromDate(lastDate);
+          }
         }
-        lastDate = item.timestamp;
-        label = this.getDateStringFromDate(lastDate);
-        let name = item.timestamp.getHours() + " Uhr";
-        let temperature = item.temperature;
-        let humidity = item.humidity;
-
-        temperatureDataPoints.push(temperature) 
-        humidityDataPoints.push(humidity) 
-        xAxisLabels.push(name);
+        index = index + 1;
+        temperatureSumOfWeek = temperatureSumOfWeek + item.temperature;
+        humiditySumOfWeek = humiditySumOfWeek + item.humidity;
       }
-      dataSet.push(this.createWeatherGraphDataSet(temperatureDataPoints, humidityDataPoints, xAxisLabels, label));
-      return dataSet;
+        let averageTemperature = temperatureSumOfWeek / index;
+        let averageHumidity = humiditySumOfWeek / index;
+        temperatureDataPoints.push(Math.round(averageTemperature));
+        humidityDataPoints.push(Math.round(averageHumidity));
+        xAxisLabels.push(this.getHourString(lastHour))
+        dataSet.push(this.createWeatherGraphDataSet(temperatureDataPoints, humidityDataPoints, xAxisLabels, label));
+
+        console.log("Created History By Week")
+        return dataSet;
+      }
+      return [];
     }
-    return [];
-  }
 
   private createWeatherGraphDataSet(temperatureData: number[], humidityData: number[], xAxisLabels: string[], label: string): GraphDataSet{
     let tempSum = temperatureData.reduce(function (accumulator, currentValue) {

@@ -84,10 +84,20 @@ export class WeatherAPIService {
 
   // NICHT DURCHDACHT... Wie wollen wir das lösen?
   getDaytime(): Daytime {
-    const date = new Date()
-    console.log(date.getHours())
+    const date = new Date();
+    const dayHour = date.getHours();
+    if (dayHour > 6) {
+      return Daytime.noon;
+    }
+    if(dayHour > 18) {
+      return Daytime.dawn;
+    }
+    if(dayHour > 21 || dayHour > 0){
+      return Daytime.night;
+    } 
     return Daytime.noon;
   }
+  
 
   private createServerFriendlyDate(date: Date): string {
     let dateString = date.toISOString().slice(0, 10);

@@ -52,7 +52,6 @@ export class HistoryDetailViewComponent implements OnInit {
 
   reload() {
     if(this._weatherHistory) {
-
       if(this.selectedTimeInterval == TimeInterval.day) {
         this.dataSet = this.historyTileService.getHistoryDataSetHoursPerDayFrom(this._weatherHistory);
         return
