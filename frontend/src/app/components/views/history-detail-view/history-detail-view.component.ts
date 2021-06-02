@@ -52,16 +52,17 @@ export class HistoryDetailViewComponent implements OnInit {
 
   reload() {
     if(this._weatherHistory) {
-      switch(this.selectedTimeInterval) {
-        case TimeInterval.day: 
-          this.dataSet = this.historyTileService.getHistoryDataSetHoursPerDayFrom2(this._weatherHistory);
-          return
-        case TimeInterval.week: 
-          this.dataSet = this.historyTileService.getHistoryDataSetDaysPerWeekFrom(this._weatherHistory);
-          return
-        case TimeInterval.month: 
-          this.dataSet = this.historyTileService.getHistoryDataSetHoursPerDayFrom(this._weatherHistory);
-          return
+      if(this.selectedTimeInterval == TimeInterval.day) {
+        this.dataSet = this.historyTileService.getHistoryDataSetHoursPerDayFrom(this._weatherHistory);
+        return
+      }
+      if(this.selectedTimeInterval == TimeInterval.week) {
+        this.dataSet = this.historyTileService.getHistoryDataSetDaysPerWeekFrom(this._weatherHistory);
+        return
+      }
+      if(this.selectedTimeInterval == TimeInterval.month) {
+        this.dataSet = this.historyTileService.getHistoryDataSetHoursPerDayFrom(this._weatherHistory);
+        return
       }
     }
   }
