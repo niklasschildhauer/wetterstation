@@ -1,5 +1,3 @@
-import { Pollen } from './user-context';
-
 export interface WeatherData { }
 
 export enum TileType {
@@ -46,8 +44,8 @@ export interface WeatherForecastData extends WeatherData {
 
 //From external API
 export interface PollenData extends WeatherData {
-    name: string, // TODO: Maybe we should use the same Pollen enum as in user-context.ts
-    type: Pollen
+    pollenName: string, // TODO: Maybe we should use the same Pollen enum as in user-context.ts
+    id: number,
     today: number, // -1 <--> 3
     tomorrow: number, // -1 <--> 3
 }

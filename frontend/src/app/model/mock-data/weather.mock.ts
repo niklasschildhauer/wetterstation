@@ -1,5 +1,4 @@
 import { IndoorRoomData, OutdoorWeatherData, WeatherHistoryByDayData, PollenData, WeatherForecastData, WeatherHistoryData, WeatherType, Tile, TileType, WeatherData, TilePriority } from '../weather';
-import { Pollen } from '../user-context';
 
 export var OUTDOORWEATHER: OutdoorWeatherData = {
     temperature: 14,
@@ -222,36 +221,36 @@ export var FORECASTTILE: Tile<WeatherForecastData> = {
 }
 
 export var ESCHE: PollenData =  {
-    name: "Esche",
-    type: Pollen.Esche,
+    pollenName: "Esche",
+    id : 1,
     today: 0,
     tomorrow: 0,
 }
 
 export var ROGGEN: PollenData =  {
-    name: "Roggen",
-    type: Pollen.Roggen,
+    pollenName: "Roggen",
+    id: 2,
     today: 1,
     tomorrow: 0,
 }
 
 export var HASEL: PollenData =  {
-    name: "Hasel",
-    type: Pollen.Hasel,
+    pollenName: "Hasel",
+    id: 3,
     today: 1,
     tomorrow: 0,
 }
 
 export var BIRKE: PollenData =  {
-    name: "Birke",
-    type: Pollen.Birke,
+    pollenName: "Birke",
+    id: 4,
     today: 2,
     tomorrow: 0,
 }
 
 export var AMBROSIA: PollenData =  {
-    name: "Ambrosia",
-    type: Pollen.Ambrosia,
+    pollenName: "Ambrosia",
+    id: 5,
     today: 3,
     tomorrow: 0,
 }
@@ -263,22 +262,22 @@ export var POLLEN: PollenData[] = [
     AMBROSIA,
     BIRKE,
     {
-        name: "Beifuß",
-        type: Pollen.Beifuss,
+        pollenName: "Beifuß",
+        id: 6,
         today: 0,
         tomorrow: 0,
     },
 
     {
-        name: "Gräser",
-        type: Pollen.Graeser,
+        pollenName: "Gräser",
+        id: 7,
         today: 3,
         tomorrow: 0,
     },
 
     {
-        name: "Erle",
-        type: Pollen.Erle,
+        pollenName: "Erle",
+        id: 8,
         today: 0,
         tomorrow: 0,
     },
@@ -301,14 +300,14 @@ export var reducePollen = () => {
 export var POLLENSMALL: Tile<PollenData> = {
     type: TileType.pollenSmall,
     data: ESCHE,
-    id: ESCHE.name,
+    id: ESCHE.id + "",
     priority: TilePriority.low,
 }
   
 export var POLLENSMALL2: Tile<PollenData> = {
     type: TileType.pollenSmall,
     data: BIRKE,
-    id: BIRKE.name,
+    id: BIRKE.id + "",
     priority: TilePriority.low,
 }
   

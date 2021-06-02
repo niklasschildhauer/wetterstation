@@ -1,7 +1,6 @@
 import { Component, OnInit, Renderer2 } from '@angular/core';
 import { UserContextService } from 'src/app/services/user-context.service';
-import { Pollen, Themes, UserContext } from 'src/app/model/user-context';
-import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import { Themes, UserContext, PollenType } from 'src/app/model/user-context';
 
 
 
@@ -14,9 +13,7 @@ export class PersonalizationSettingsViewComponent implements OnInit {
   desktop: boolean = false;
   userContextData?: UserContext;
 
-  pollenType = Pollen;
-  themesType = Themes
-  
+  themesType = Themes  
 
   constructor(
     public userContextService: UserContextService,
@@ -24,7 +21,6 @@ export class PersonalizationSettingsViewComponent implements OnInit {
 
   ngOnInit(): void {
     this.getUserContext();
-    this.userContextData?.pollen
   }
 
   getUserContext() {
@@ -65,54 +61,39 @@ export class PersonalizationSettingsViewComponent implements OnInit {
 
 
   numberOfPollen(): any[] {
-    let count = Object.keys(Pollen).length / 2;
+    let count = this.userContextService.pollenTypes.length
     return new Array(count);
   }
 
 
   getPollenValueAt(index: number): boolean {
-    let polle: Pollen = this.getPollenTypeAt(index) // FIXME: Heißt ich wirklich polle?
+    let polle: PollenType = this.userContextService.pollenTypes[index] // FIXME: Heißt ich wirklich polle?
     let pollen = this.userContextService.pollen
 
-    if(pollen && pollen.includes(polle)) {
+    if(pollen && pollen.includes(polle.pollenName)) {
       return true
     }
     return false;
   }
 
   getPollenStringAt(index: number): string {
-    return Pollen[this.getPollenTypeAt(index)]
+    return this.userContextService.pollenTypes[index].pollenName
   }
 
   togglePollenValueAt(index: number) {
-    let polle: Pollen = this.getPollenTypeAt(index)
+    let polle: PollenType = this.userContextService.pollenTypes[index]
     var pollen = this.userContextService.pollen  
     let oldValue = this.getPollenValueAt(index);  
     let newValue = !oldValue;
 
     if(pollen){
-      if(newValue && !pollen.includes(polle)) {
-        pollen.push(polle);
+      if(newValue && !pollen.includes(polle.pollenName)) {
+        pollen.push(polle.pollenName);
       }
-      if(oldValue && pollen.includes(polle)) {
-        pollen = pollen.filter(item => item != polle)
+      if(oldValue && pollen.includes(polle.pollenName)) {
+        pollen = pollen.filter(item => item != polle.pollenName)
       }
       this.userContextService.pollen = pollen
-    }
-  }
-
-  getPollenTypeAt(index: number): Pollen {
-    let pollenString = Pollen[index]
-    switch (pollenString) {
-      case "Esche": return Pollen.Esche
-      case "Ambrosia": return Pollen.Ambrosia
-      case "Birke": return Pollen.Birke
-      case "Beifuss": return Pollen.Beifuss
-      case "Erle": return Pollen.Erle
-      case "Roggen": return Pollen.Roggen
-      case "Graeser": return Pollen.Graeser
-      case "Hasel": return Pollen.Hasel
-      default: return Pollen.Ambrosia
     }
   }
 

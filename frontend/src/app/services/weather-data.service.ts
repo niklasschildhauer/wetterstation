@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, forkJoin, Observable, of, Subject} from 'rxjs';
 import { IndoorRoomData, OutdoorWeatherData, PollenData, Tile, WeatherData, WeatherForecastData, WeatherHistoryData } from '../model/weather';
 import { TileService, TileArrays } from './tile.service';
-import { UserContextDelegte, UserContextService } from './user-context.service';
+import { UserContextService } from './user-context.service';
 import { WeatherAPIService } from './weather-api.service';
 
 @Injectable({
