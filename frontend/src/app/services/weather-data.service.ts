@@ -30,6 +30,8 @@ export class WeatherDataService {
     }
 
   private loadWeatherData() {
+    this._oldestHistoryData = Date.now();
+    
     let outDoorWeather = this.weatherAPIService.getOutdoorWeather()
     let pollen = this.weatherAPIService.getPollen()
     let forecast = this.weatherAPIService.getForecastData()
