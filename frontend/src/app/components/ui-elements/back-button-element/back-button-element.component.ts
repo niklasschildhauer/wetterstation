@@ -1,5 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
+import { ImageModel, ImageService } from 'src/app/services/image.service';
+import { Button } from 'selenium-webdriver';
 
 @Component({
   selector: 'app-back-button-element',
@@ -8,7 +10,12 @@ import { Location } from '@angular/common';
 })
 export class BackButtonElementComponent implements OnInit {
   @Input() label?: string;
-  constructor(private location: Location) { }
+  backIconModel: ImageModel = {
+    light: "back-button.svg",
+    dark: "back-button.svg",
+  }
+  constructor(private location: Location,
+    public imageService: ImageService) { }
 
   ngOnInit(): void {
   }
@@ -16,6 +23,5 @@ export class BackButtonElementComponent implements OnInit {
   goBack(): void {
     this.location.back();
   }
-
 
 }

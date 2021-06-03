@@ -4,6 +4,7 @@ import { WeatherAPIService } from '../../../services/weather-api.service'
 import { UserContextService } from 'src/app/services/user-context.service';
 import { WeatherDataService } from 'src/app/services/weather-data.service';
 import { Themes, UserContext } from 'src/app/model/user-context';
+import { ImageService } from 'src/app/services/image.service';
 
 @Component({
   selector: 'app-outdoor-weather-view',
@@ -21,7 +22,8 @@ export class OutdoorWeatherViewComponent implements OnInit {
 
   constructor(private weatherService: WeatherAPIService,
     private userContextService: UserContextService,
-    private weatherDataService: WeatherDataService) { }
+    private weatherDataService: WeatherDataService,
+    private imageService: ImageService) { }
 
   ngOnInit(): void {
     // this.loadOutdoorWeather();
@@ -42,12 +44,19 @@ export class OutdoorWeatherViewComponent implements OnInit {
     this.weatherService.getOutdoorWeather()
       .subscribe(outdoorWeather => { 
         this.outdoorWeather = outdoorWeather 
-        console.log("test24");
       });
   }
 
   loadDaytime(): void {
     this.daytime = this.weatherService.getDaytime()
+  }
+
+  getWeatherImage(): string {
+    // if(this.outdoorWeather){
+    //   let weatherString = this.outdoorWeather.weather.toString()
+    //   return this.imageService.getWeatherIconString(weatherString);
+    // }
+    return "/assets/weather/day/rainy.png"
   }
 
   // changes the css --scroll variable everytime the user scrolls. Main part of the animation

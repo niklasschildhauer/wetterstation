@@ -86,16 +86,16 @@ export class WeatherAPIService {
   getDaytime(): Daytime {
     const date = new Date();
     const dayHour = date.getHours();
-    if (dayHour > 6) {
-      return Daytime.noon;
-    }
-    if(dayHour > 18) {
-      return Daytime.dawn;
-    }
-    if(dayHour > 21 || dayHour > 0){
+    if(dayHour < 6){
       return Daytime.night;
     } 
-    return Daytime.noon;
+    if (dayHour < 18) {
+      return Daytime.noon;
+    }
+    if(dayHour < 21) {
+      return Daytime.dawn;
+    }
+    return Daytime.night;
   }
   
 

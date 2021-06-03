@@ -117,6 +117,8 @@ export class HistoryTileService {
           temperatureSumOfWeek = 0;
           humiditySumOfWeek = 0;
           lastDate = item.timestamp
+          lastHour = lastDate.getHours();
+
           if(lastDate > item.timestamp) {
             dataSet.push(this.createWeatherGraphDataSet(temperatureDataPoints, humidityDataPoints, xAxisLabels, label));
             temperatureDataPoints = [];
