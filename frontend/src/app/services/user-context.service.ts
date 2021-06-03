@@ -3,15 +3,12 @@ import { UserContext, Themes, INITIAL_USER_CONTEXT, PollenType } from '../model/
 import { BehaviorSubject, Observable, of } from 'rxjs';
 import { LocalStorageService } from './local-storage.service';
 import { Router } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
+import { UserContextApiService } from './user-context-api.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserContextService {
-  private loginURL = '/auth/login'
-  private allPollenTypesURL = '/pollen/all'
-
   set token(value: string) {
     this._token = value;
     this.saveTokenToLocalStorage();
@@ -32,7 +29,7 @@ export class UserContextService {
   public getUserContextSubject(): BehaviorSubject<UserContext> {
     return this._userContext;
   }
-  
+
   get theme() {
     return this.userContext.theme;
   }
@@ -78,21 +75,20 @@ export class UserContextService {
   private _pollenTypes: BehaviorSubject<PollenType[]> = new BehaviorSubject<PollenType[]>([]); 
 
   constructor(private localStorageService: LocalStorageService,
-    private router: Router,
-    private httpClient: HttpClient) { 
+              private router: Router,
+              private userContextAPI: UserContextApiService) { 
     this._userContext.next(this.localStorageService.userContext);
     this._token = this.localStorageService.token;
-    this.loadPollenTypes();
+    this.loadPollenTypes()
   }
   
-  public login(username: string, password: string): Observable<any> {
-    console.log(username + password)
-    let response = this.httpClient.post<LoginResponse>(this.loginURL, {username: username, password: password});
-    response.subscribe(data => {
-      this.token = data.token;
-    })
+  public login(username: string, password: string): Observable<any> {  
     this.resetUserContext()
-
+    let response = this.userContextAPI.postLogin(password, username)
+    response.subscribe((data) => {
+      this.token = data.token,
+      this.userContext = data.userContext
+    })
     return response;
   }
 
@@ -107,15 +103,32 @@ export class UserContextService {
 
   public logout() {
     this.resetUserContext();
-    this.router.navigateByUrl('/onboarding/login'); //FIXME
+    this.showLoginScreen();
+  }
+
+  public checkToken() {
+    this.userContextAPI.postIsTokenValid(this.token).subscribe((data) => {
+      if(data) {
+        console.log("Token is valid");
+      } else {
+        this.showLoginScreen();
+      }
+    })
+  }
+
+  private showLoginScreen() {
+    this.router.navigateByUrl('/onboarding/login');
   }
 
   private resetUserContext() {
+    this.localStorageService.clear();
     this.userContext = INITIAL_USER_CONTEXT;
+    this.token = "";
   }
 
   private saveUserContext() {
     this.saveUserContextToLocalStorage()
+    // FIXME: server post request
   }
 
   private saveTokenToLocalStorage() {
@@ -127,18 +140,10 @@ export class UserContextService {
   }
 
   private loadPollenTypes() {
-    let response = this.httpClient.get<PollenType[]>(this.allPollenTypesURL);
-    response.subscribe(data => {
-      this.pollenTypes = data
-    })
+    this.userContextAPI.loadPollenTypes().subscribe((data) => {
+      this.pollenTypes = data;
+    });
   }
-}
-
-interface LoginResponse {
-  success: boolean,
-  message: string,
-  user: string,
-  token: string,
 }
 
 

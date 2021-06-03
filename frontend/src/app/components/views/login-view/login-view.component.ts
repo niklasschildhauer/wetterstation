@@ -24,9 +24,15 @@ export class LoginViewComponent implements OnInit {
   }
 
   onSubmit(): void {
-    console.log('Submitted:', this.loginForm.value);
-    this.userContextService.login(this.loginForm.get("email")?.value, this.loginForm.get("password")?.value).subscribe(() => {
+    const email = this.loginForm.get("email")?.value;
+    const password = this.loginForm.get("password")?.value;
+    this.error = undefined;
+
+    this.userContextService.login(email, password).subscribe(() => {
       this.router.navigateByUrl('/dashboard');
+    },
+    (error) => {
+      this.error = error
     });
   }
 

@@ -1,4 +1,6 @@
+import { MapType } from '@angular/compiler';
 import { Injectable } from '@angular/core';
+
 import { IndoorRoomData, OutdoorWeatherData, PollenData, Tile, TileType, WeatherForecastData } from '../model/weather';
 import { WeatherData } from '../model/weather';
 
@@ -62,7 +64,7 @@ export class TextService {
     let readAloud = ''
     if(data) {
       let forecast = data.forecast
-      readAloud = 'Heute wird es ' + forecast + '. ';
+      readAloud = "Im Verlaufe des Tages wird es " + forecast + "werden. ";
     }
     return readAloud
   }
@@ -100,6 +102,7 @@ export class TextService {
       let value = data.today
       readAloud = 'Pollen der Art ' + name + ' hat heute eine Belastung von ' + value +  '. ';
     }
+
     return readAloud
   }
 
@@ -112,9 +115,18 @@ export class TextService {
   public createOutdoorText(data: OutdoorWeatherData | undefined): string {
     let readAloud = ''
     if(data) {
-      // NOT FINISHED
+      // adjust number pronounciation
+      let location = data.location
       let temperature = data.temperature
-      readAloud = 'Aktuell hat es ' + temperature + ' Grad Celsius. ';
+      let apparentTemperature = data.apparentTemperature
+      let maxTemperature = data.maxTemperature
+      let minTemperature = data.minTemperature
+      let humidity = data.humidity
+
+      readAloud = "In " + location + "hat es aktuell " + temperature + " Grad Celsius. Diese fühlen sich an wie  "
+      + apparentTemperature + ". Die heutigen Extremwerte liegen bei " + maxTemperature + " und " + minTemperature + "Grad Celsius. Die Luftfeuchtigkeit beträgt aktuell  "
+      + humidity + ". ";
+      ;
     }
     return readAloud
   }
