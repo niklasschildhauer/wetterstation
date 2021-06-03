@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, forkJoin, Observable, of, Subject} from 'rxjs';
-import { IndoorRoomData, OutdoorWeatherData, PollenData, Tile, WeatherData, WeatherForecastData, WeatherHistoryData } from '../model/weather';
+import { Daytime, IndoorRoomData, OutdoorWeatherData, PollenData, Tile, WeatherData, WeatherForecastData, WeatherHistoryData } from '../model/weather';
 import { TileService } from './tile.service';
 import { UserContextService } from './user-context.service';
 import { WeatherAPIService } from './weather-api.service';
@@ -85,8 +85,8 @@ export class WeatherDataService {
   private oldestHistoryData = Date.now();
 
   constructor(private tileService: TileService,
-    private weatherAPIService: WeatherAPIService,
-    private userContextService: UserContextService) { 
+              private weatherAPIService: WeatherAPIService,
+              private userContextService: UserContextService) { 
       this.loadWeatherData();
       this.registerForUserContextChange()
     }
@@ -94,11 +94,11 @@ export class WeatherDataService {
   private loadWeatherData() {
     this.oldestHistoryData = Date.now();
     
-    let outDoorWeather = this.weatherAPIService.getOutdoorWeather()
-    let pollen = this.weatherAPIService.getPollen()
-    let forecast = this.weatherAPIService.getForecastDataSubject()
+    let outDoorWeather = this.weatherAPIService.loadOutdoorWeather()
+    let pollen = this.weatherAPIService.loadPollen()
+    let forecast = this.weatherAPIService.loadForecastDataSubject()
     let history = this.loadMonthFromHistory(new Date(this.oldestHistoryData));
-    let indoorRoom = this.weatherAPIService.getIndoorRoomData()
+    let indoorRoom = this.weatherAPIService.loadIndoorRoomData()
 
     forkJoin([outDoorWeather, pollen, forecast, history, indoorRoom]).subscribe(results => {
       this.outdoorWeatherData = results[0];
@@ -140,6 +140,21 @@ export class WeatherDataService {
     this.loadWeatherData();
   }
 
+  public getDaytime(): Daytime {
+    const date = new Date();
+    const dayHour = date.getHours();
+    if(dayHour < 6){
+      return Daytime.night;
+    } 
+    if (dayHour < 18) {
+      return Daytime.noon;
+    }
+    if(dayHour < 21) {
+      return Daytime.dawn;
+    }
+    return Daytime.night;
+  }
+
   public loadMoreHistoryData(): Observable<WeatherHistoryData> {
     let observable = this.loadMonthFromHistory(new Date(this.oldestHistoryData));
     observable.subscribe(data => {
@@ -163,6 +178,6 @@ export class WeatherDataService {
       this.oldestHistoryData = oldestHistoryDate.setMonth(oldestHistoryDate.getMonth() - 1);
     }
     toDate = new Date(this.oldestHistoryData);
-    return this.weatherAPIService.getHistoryDataSubject(fromDate, toDate)
+    return this.weatherAPIService.loadHistoryDataSubject(fromDate, toDate)
   }
 }

@@ -4,7 +4,7 @@ import { ImageModel } from '../model/image';
 import { Themes, UserContext } from '../model/user-context';
 import { Daytime } from '../model/weather';
 import { UserContextService } from './user-context.service';
-import { WeatherAPIService } from './weather-api.service';
+import { WeatherDataService } from './weather-data.service';
 
 /**
  * Image service injectable
@@ -22,7 +22,7 @@ export class ImageService {
 
   constructor(private userContextService: UserContextService,
               private breakpointObserver: BreakpointObserver,
-              private weatherAPI: WeatherAPIService) { 
+              private weatherDataService: WeatherDataService) { 
     this.loadUserContext();
     this.systemThemeBreakpointObserver();
   }
@@ -60,7 +60,7 @@ export class ImageService {
    */
    public getWeatherIconString(weather: string): string {
     let src = this.baseURLWeather;
-    switch (this.weatherAPI.getDaytime()) {
+    switch (this.weatherDataService.getDaytime()) {
       case Daytime.night: {
         src = src + 'night/' + weather + '.png';
         break;

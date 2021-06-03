@@ -20,10 +20,9 @@ export class OutdoorWeatherViewComponent implements OnInit {
   userContext?: UserContext
   themeType = Themes
 
-  constructor(private weatherService: WeatherAPIService,
-    private userContextService: UserContextService,
-    private weatherDataService: WeatherDataService,
-    private imageService: ImageService) { }
+  constructor(private userContextService: UserContextService,
+              private weatherDataService: WeatherDataService,
+              private imageService: ImageService) { }
 
   ngOnInit(): void {
     // this.loadOutdoorWeather();
@@ -41,14 +40,14 @@ export class OutdoorWeatherViewComponent implements OnInit {
   }
 
   loadOutdoorWeather(): void {
-    this.weatherService.getOutdoorWeather()
+    this.weatherDataService.getOutdoorWeatherDataSubject()
       .subscribe(outdoorWeather => { 
         this.outdoorWeather = outdoorWeather 
       });
   }
 
   loadDaytime(): void {
-    this.daytime = this.weatherService.getDaytime()
+    this.daytime = this.weatherDataService.getDaytime()
   }
 
   getWeatherImage(): string {

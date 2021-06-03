@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { FORECAST, INDOORAIRQUALITY, INDOORAIRQUALITY2, OUTDOORWEATHER, POLLEN, WEATHERHISTORY } from '../model/mock-data/weather.mock';
-import { OutdoorWeatherData, PollenData, IndoorRoomData, Daytime, WeatherForecastData, WeatherHistoryData, WeatherType } from '../model/weather';
+import { FORECAST, INDOORAIRQUALITY, OUTDOORWEATHER, POLLEN, WEATHERHISTORY } from '../model/mock-data/weather.mock';
+import { OutdoorWeatherData, PollenData, IndoorRoomData, WeatherForecastData, WeatherHistoryData, WeatherType } from '../model/weather';
 import { Observable, of } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
@@ -15,7 +15,7 @@ export class WeatherAPIService {
 
   constructor(private httpClient: HttpClient) { }
 
-  getOutdoorWeather(): Observable<OutdoorWeatherData> {
+  loadOutdoorWeather(): Observable<OutdoorWeatherData> {
     if (environment.testData) {
       return of(OUTDOORWEATHER);
     }
@@ -31,12 +31,12 @@ export class WeatherAPIService {
   }
   
 
-  getPollen(): Observable<PollenData[]> {
+  loadPollen(): Observable<PollenData[]> {
     let pollen = of(POLLEN);
     return pollen;
   }
 
-  getIndoorRoomData(): Observable<IndoorRoomData[]> {
+  loadIndoorRoomData(): Observable<IndoorRoomData[]> {
     if (environment.testData) {
       let indoorData = of(INDOORAIRQUALITY);
       return indoorData;
@@ -52,12 +52,12 @@ export class WeatherAPIService {
     return returnObservable;
   }
 
-  getForecastDataSubject(): Observable<WeatherForecastData> {
+  loadForecastDataSubject(): Observable<WeatherForecastData> {
     let forecastData = of(FORECAST);
     return forecastData;
   }
 
-  getHistoryDataSubject(endDate: Date, beginDate: Date): Observable<WeatherHistoryData> {
+  loadHistoryDataSubject(endDate: Date, beginDate: Date): Observable<WeatherHistoryData> {
     if (environment.testData) {
       let forecastData = of(WEATHERHISTORY);
       return forecastData;
@@ -80,23 +80,6 @@ export class WeatherAPIService {
     );
     return returnObservable;
   }
-
-  // NICHT DURCHDACHT... Wie wollen wir das lösen?
-  getDaytime(): Daytime {
-    const date = new Date();
-    const dayHour = date.getHours();
-    if(dayHour < 6){
-      return Daytime.night;
-    } 
-    if (dayHour < 18) {
-      return Daytime.noon;
-    }
-    if(dayHour < 21) {
-      return Daytime.dawn;
-    }
-    return Daytime.night;
-  }
-  
 
   private createServerFriendlyDate(date: Date): string {
     let dateString = date.toISOString().slice(0, 10);
