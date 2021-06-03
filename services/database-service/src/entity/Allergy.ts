@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, ManyToOne } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, ManyToOne, ManyToMany, JoinTable } from "typeorm";
 import { Pollen } from "./Pollen";
 import { UserContext } from './UserContext';
 
@@ -8,9 +8,11 @@ export class Allergy {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @ManyToOne(() => UserContext, user => user.allergies)
-    user: UserContext;
+    @ManyToMany(() => UserContext)
+    @JoinTable()
+    users: UserContext[];
 
-    @ManyToOne(() => Pollen, pollen => pollen.allergies)
-    pollen: Pollen;
+    @ManyToMany(() => Pollen)
+    @JoinTable()
+    pollen: Pollen[];
 }

@@ -6,8 +6,6 @@ let request = require('request')
 
 class AuthService {
   login(req, res) {
-    console.log(req.body)
-
     // Credentials provided by user
     let username = req.body.username;
     let password = req.body.password;
@@ -22,10 +20,7 @@ class AuthService {
         method: 'GET'
       },
       function (error, response, body) {
-        console.log("body", body, typeof body, body === {}, typeof {})
-
         let _body = JSON.parse(body);
-        console.log("_body", _body)
 
         let db_username = _body.username;
         //TODO: Deliver decoded pw here? What is the most "secure case" - 
@@ -40,14 +35,30 @@ class AuthService {
                 expiresIn: '24h'
               }
             );
-            res.json({
-              success: true,
-              message: 'Authentication successful!',
-              user: username,
-              token: token,
-              //TODO: Return user context
-              userContext: ""
-            });
+            //Request full user_context from pers-service through utility method
+            request(
+              {
+                headers: {
+                  "Content-Type": "application/json",
+                  "Accept": "application/json"
+                },
+                uri: 'http://localhost:4203/userContextUtility',
+                method: 'POST',
+                body: body
+              },
+              function (error, response, body) {
+                if (error) {
+                  res.status(400).json("Unknown error");
+                }
+                else {
+                  res.json({
+                    success: true,
+                    message: 'Authentication successful!',
+                    token: token,
+                    userContext: JSON.parse(body)
+                  });
+                }
+              })
           } else {
             //Wrong credentials provided
             res.json({
@@ -66,8 +77,60 @@ class AuthService {
     );
   }
   validateToken(req, res) {
-    res.json("Token is valid")
+    res.status(200).json({success:true, message:"Token is valid"})
   }
+
+  currentUser(req, res) {
+    let token = req.headers["x-access-token"] || req.headers["authorization"]; // Express headers are auto converted to lowercase
+    let user = getDecodedUser(token);
+
+    request(
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json"
+        },
+        uri: 'http://localhost:4205/userContext/' + user,
+        method: 'GET'
+      }, function (error, response, body) {
+        var _body = JSON.parse(body)
+        request(
+          {
+            headers: {
+              "Content-Type": "application/json",
+              "Accept": "application/json"
+            },
+            uri: 'http://localhost:4203/userContextUtility',
+            method: 'POST',
+            body: JSON.stringify(_body)
+          }, function (error, response, body) {
+            if (error) {
+              res.status(400).json(error);
+            }
+            else {
+              res.status(200).json({
+                userContext: JSON.parse(body)
+              });
+            }
+          })
+      })
+  }
+}
+
+const getDecodedUser = (token) => {
+  let decodedUser;
+
+  if (token.startsWith("Bearer ")) {
+    // Remove Bearer from string
+    token = token.slice(7, token.length);
+  }
+  jwt.verify(token, config.secret, (err, decoded) => {
+    if (err) {
+      return err;
+    }
+    decodedUser = decoded.username;
+  });
+  return decodedUser;
 }
 
 

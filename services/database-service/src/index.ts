@@ -159,6 +159,20 @@ createConnection().then(connection => {
         return res.send(results);
     });
 
+    app.get('/pollen/byUsername/:username', async (req, res) => {
+        const username = req.params.username;
+        let userPollenNames: Array<string> = [];
+        const allergies = await allergyData.find({ relations: ["users", "pollen"] });
+        allergies.forEach(allergy => {
+            if(allergy.users[0].username === username){
+                // console.log("pollen in this allergy object", allergy.pollen);
+                userPollenNames.push(allergy.pollen[0].pollenName);
+            }
+        });
+        // console.log("pollen for user", username, ":", userPollenNames);
+        returnNotNull(userPollenNames, res);
+    })
+
     // -------------------------------------- Users -----------------------------
 
     //Request a UserContext object from the db
@@ -176,6 +190,8 @@ createConnection().then(connection => {
 
     // -------------------------------------- Allergy -----------------------------
 
+    // CURL-TEST-CLI: --> curl -H "Content-Type: application/json" -X POST http://localhost:4205/allergy -d "{\"userId\":1, \"pollenId\":1}"
+
     //Save a new Allergy object to the db
     app.post('/allergy/save', async (req, res) => {
         const userId = req.body.userId;
@@ -184,14 +200,27 @@ createConnection().then(connection => {
         const pollen = await pollenData.findOne({ id: pollenId });
 
         const allergy = new Allergy();
-        const result = await connection.manager.save(allergy)
-        user.allergies = [allergy];
-        await connection.manager.save(user);
-        pollen.allergies = [allergy];
-        await connection.manager.save(pollen);
+        allergy.pollen = [pollen];
+        allergy.users = [user];
+        await connection.manager.save(allergy);
 
-        returnNotNull(result, res);
+        returnNotNull(allergy, res);
     });
+
+    // app.get('/allergy/byUsername/:username', async (req, res) => {
+    //     const username = req.params.username;
+    //     let userAllergies: Array<Allergy> = [];
+    //     const allergies = await allergyData.find({ relations: ["users", "pollen"] });
+    //     allergies.forEach(allergy => {
+    //         if(allergy.users[0].username = username){
+    //             userAllergies.push(allergy);
+    //         }
+    //     });
+    //     console.log("allergies for user", username, ":", userAllergies);
+    //     return res.send(userAllergies);
+    // })
+
+    
 
     // -------------------------------------- ESPConfig -----------------------------
 
