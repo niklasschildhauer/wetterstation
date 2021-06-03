@@ -2,7 +2,8 @@ import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { trigger, style, animate, transition } from '@angular/animations';
 import { UserContextService } from 'src/app/services/user-context.service';
-import { ImageModel, ImageService } from 'src/app/services/image.service';
+import { ImageService } from 'src/app/services/image.service';
+import { ImageModel } from 'src/app/model/image';
 
 @Component({
   selector: 'app-menu-element',

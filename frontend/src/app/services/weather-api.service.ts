@@ -5,14 +5,13 @@ import { Observable, of } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 
-
 @Injectable({
   providedIn: 'root'
 })
 export class WeatherAPIService {
-  private outdoorURL = "/weather-data/outdoor/latest"
-  private indoorURL = "/weather-data/indoor/latest"
-  private historyURL = "/weather-data/outdoor/history"
+  private outdoorURL = '/weather-data/outdoor/latest'
+  private indoorURL = '/weather-data/indoor/latest'
+  private historyURL = '/weather-data/outdoor/history'
 
   constructor(private httpClient: HttpClient) { }
 
@@ -53,12 +52,12 @@ export class WeatherAPIService {
     return returnObservable;
   }
 
-  getForecastData(): Observable<WeatherForecastData> {
+  getForecastDataSubject(): Observable<WeatherForecastData> {
     let forecastData = of(FORECAST);
     return forecastData;
   }
 
-  getHistoryData(endDate: Date, beginDate: Date): Observable<WeatherHistoryData> {
+  getHistoryDataSubject(endDate: Date, beginDate: Date): Observable<WeatherHistoryData> {
     if (environment.testData) {
       let forecastData = of(WEATHERHISTORY);
       return forecastData;
@@ -66,15 +65,15 @@ export class WeatherAPIService {
     let returnObservable = new Observable<WeatherHistoryData>((observer) => { 
         this.httpClient.post<OutdoorWeatherResponse[]>(this.historyURL,
           {
-            "begin": this.createServerFriendlyDate(beginDate),
-            "end": this.createServerFriendlyDate(endDate)
+            'begin': this.createServerFriendlyDate(beginDate),
+            'end': this.createServerFriendlyDate(endDate)
           })
         .subscribe(data => {
           let dataPoints: OutdoorWeatherData[] = data.map((element) => {
             return this.createOutdoorWeatherDataFromServerResponse(element);
           });
           console.log(dataPoints);
-          observer.next({"datapoints": dataPoints});
+          observer.next({'datapoints': dataPoints});
           observer.complete();
         })
       }
@@ -102,7 +101,7 @@ export class WeatherAPIService {
   private createServerFriendlyDate(date: Date): string {
     let dateString = date.toISOString().slice(0, 10);
     let timeString = date.toTimeString().slice(0, 8);
-    return dateString + " " + timeString;
+    return dateString + ' ' + timeString;
   }
 
   private createOutdoorWeatherDataFromServerResponse(response: OutdoorWeatherResponse): OutdoorWeatherData {
@@ -120,7 +119,7 @@ export class WeatherAPIService {
 
   private createIndoorRoomDataFromServerResponse(response: IndoorRoomResponse): IndoorRoomData {
     return {
-            roomID: response.id + "",
+            roomID: response.id + '',
             roomName: response.location,
             airQuality: response.gasVal, 
             temperature: response.temperature, 

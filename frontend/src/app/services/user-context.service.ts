@@ -9,9 +9,6 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root'
 })
 export class UserContextService {
-  private _token: string;
-  private _userContext: BehaviorSubject<UserContext> = new BehaviorSubject<UserContext>(INITIAL_USER_CONTEXT); 
-  private _pollenTypes: BehaviorSubject<PollenType[]> = new BehaviorSubject<PollenType[]>([]); 
   private loginURL = '/auth/login'
   private allPollenTypesURL = '/pollen/all'
 
@@ -22,69 +19,73 @@ export class UserContextService {
   get token(): string {
     return this._token;
   }
+  private _token: string;
+
   set userContext(object: UserContext) {
     this._userContext.next(object);
     this.saveUserContext();
   }
+  get userContext(): UserContext {
+    return this._userContext.getValue();
+  }
+  private _userContext: BehaviorSubject<UserContext> = new BehaviorSubject<UserContext>(INITIAL_USER_CONTEXT); 
+  public getUserContextSubject(): BehaviorSubject<UserContext> {
+    return this._userContext;
+  }
+  
   get theme() {
-    return this._userContext.getValue().theme;
+    return this.userContext.theme;
   }
   set theme(value: Themes) {
-    let userContext = this._userContext.getValue()
+    let userContext = this.userContext;
     userContext.theme = value;
     this.userContext = userContext;
   }
   set reduceMotion(value: boolean) {
-    let userContext = this._userContext.getValue()
+    let userContext = this.userContext;
     userContext.reduceMotion = value;
     this.userContext = userContext;
   }
   set selfVoicingEnabled(value: boolean) {
-    let userContext = this._userContext.getValue()
+    let userContext = this.userContext;
     userContext.selfVoicingEnabled = value;
     this.userContext = userContext;
   }
   set doVentilationReminder(value: boolean) {
-    let userContext = this._userContext.getValue()
+    let userContext = this.userContext;
     userContext.doVentilationReminder = value;
     this.userContext = userContext;
   }
   set fontSize(value: number) {
-    let userContext = this._userContext.getValue()
+    let userContext = this.userContext;
     userContext.fontSize = value;
     this.userContext = userContext;
   }
   set pollen(value: string[]) {
-    let userContext = this._userContext.getValue()
+    let userContext = this.userContext;
     userContext.pollen = value;
     this.userContext = userContext;
   }
   get pollen() {
-    return this._userContext.getValue().pollen;
+    return this.userContext.pollen;
+  }
+  set pollenTypes(value: PollenType[]) {
+    this._pollenTypes.next(value);
   }
   get pollenTypes(): PollenType[] {
     return this._pollenTypes.value
   }
-
+  private _pollenTypes: BehaviorSubject<PollenType[]> = new BehaviorSubject<PollenType[]>([]); 
 
   constructor(private localStorageService: LocalStorageService,
     private router: Router,
     private httpClient: HttpClient) { 
-    this._userContext.next(this.localStorageService.getUserContext());
-    this._token = this.localStorageService.getToken();
+    this._userContext.next(this.localStorageService.userContext);
+    this._token = this.localStorageService.token;
     this.loadPollenTypes();
   }
-
-  loadPollenTypes() {
-    let response = this.httpClient.get<PollenType[]>(this.allPollenTypesURL);
-    response.subscribe(data => {
-      this._pollenTypes.next(data);
-      console.log(this._pollenTypes.value)
-
-    })
-  }
   
-  login(username: string, password: string): Observable<any> {
+  public login(username: string, password: string): Observable<any> {
     console.log(username + password)
     let response = this.httpClient.post<LoginResponse>(this.loginURL, {username: username, password: password});
     response.subscribe(data => {
@@ -96,7 +97,7 @@ export class UserContextService {
   }
 
   // DELETE ME
-  register(): Promise<UserContext> {
+  public register(): Promise<UserContext> {
     this.resetUserContext();
     console.log(INITIAL_USER_CONTEXT);
     return new Promise((resolve) => {
@@ -104,13 +105,9 @@ export class UserContextService {
     });
   }
 
-  logout() {
+  public logout() {
     this.resetUserContext();
     this.router.navigateByUrl('/onboarding/login'); //FIXME
-  }
-
-  getUserContext(): BehaviorSubject<UserContext> {
-    return this._userContext;
   }
 
   private resetUserContext() {
@@ -122,19 +119,26 @@ export class UserContextService {
   }
 
   private saveTokenToLocalStorage() {
-    this.localStorageService.saveToken(this._token);
+    this.localStorageService.token = this._token;
   }
 
   private saveUserContextToLocalStorage() {
-    this.localStorageService.saveUserContext(this._userContext.getValue())
+    this.localStorageService.userContext = this._userContext.getValue();
+  }
+
+  private loadPollenTypes() {
+    let response = this.httpClient.get<PollenType[]>(this.allPollenTypesURL);
+    response.subscribe(data => {
+      this.pollenTypes = data
+    })
   }
 }
 
 interface LoginResponse {
-    success: boolean,
-    message: string,
-    user: string,
-    token: string,
-  }
+  success: boolean,
+  message: string,
+  user: string,
+  token: string,
+}
 
 

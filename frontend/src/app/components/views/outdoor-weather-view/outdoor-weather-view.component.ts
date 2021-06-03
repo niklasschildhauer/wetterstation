@@ -30,11 +30,11 @@ export class OutdoorWeatherViewComponent implements OnInit {
     this.listenToScrollEvent();
     this.loadDaytime();
     this.loadUserContext();
-    this.weatherDataService.getOutdoorWeatherData().subscribe(data => this.outdoorWeather = data);
+    this.weatherDataService.getOutdoorWeatherDataSubject().subscribe(data => this.outdoorWeather = data);
   }
 
   loadUserContext() {
-    this.userContextService.getUserContext()
+    this.userContextService.getUserContextSubject()
     .subscribe(data => {
       this.userContext = data;
     });

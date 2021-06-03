@@ -1,5 +1,4 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { OutdoorWeatherData } from 'src/app/model/weather';
 import { UserContextService } from 'src/app/services/user-context.service';
 import { WeatherDataService } from 'src/app/services/weather-data.service';
@@ -11,12 +10,10 @@ import { WeatherDataService } from 'src/app/services/weather-data.service';
 })
 export class MenuBarElementComponent implements OnInit {
   locationLabel?: string;
-  outdoorWeatherData?: OutdoorWeatherData
   reduceMotion: boolean = false; // We need this value, because the menu bar changes the font color, based on it
 
   constructor(private weatherDataService: WeatherDataService,
-    private userContextService: UserContextService,
-    private router: Router) { }
+              private userContextService: UserContextService) { }
 
   ngOnInit(): void {
     this.getLocation();
@@ -24,17 +21,16 @@ export class MenuBarElementComponent implements OnInit {
   }
 
   loadReduceMotionValue() {
-    this.userContextService.getUserContext()
-    .subscribe(data => {
-      let reduceMotionValue = data.reduceMotion;
-      this.reduceMotion = reduceMotionValue
-    });
+    this.userContextService.getUserContextSubject()
+                          .subscribe(data => {
+                              this.reduceMotion = data.reduceMotion;
+                            });
   }
 
   getLocation(): void {
-    this.weatherDataService.getOutdoorWeatherData()
+    this.weatherDataService.getOutdoorWeatherDataSubject()
                         .subscribe(data => {
-                          this.outdoorWeatherData = data
+                          this.locationLabel = data?.location
                         });
   }
 

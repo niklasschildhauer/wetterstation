@@ -39,7 +39,7 @@ export class HistoryDetailViewComponent implements OnInit {
   }
 
   loadWeatherHistoryData(): void {
-    this.weatherDataService.getHistoryData().subscribe(data => {
+    this.weatherDataService.getHistoryDataSubject().subscribe(data => {
       this._weatherHistory = data
       this.reload();
     });

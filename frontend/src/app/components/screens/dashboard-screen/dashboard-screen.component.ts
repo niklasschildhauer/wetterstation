@@ -50,7 +50,7 @@ export class DashboardScreenComponent implements OnInit {
   }
 
   loadReduceMotionValue() {
-    this.userContextService.getUserContext()
+    this.userContextService.getUserContextSubject()
     .subscribe(data => {
       let reduceMotionValue = data.reduceMotion;
       this.reduceMotion = reduceMotionValue;
@@ -58,10 +58,10 @@ export class DashboardScreenComponent implements OnInit {
   }
 
   loadData(): void {
-    this.weatherDataService.getDashboardTiles()
+    this.weatherDataService.getDashboardTilesSubject()
                       .subscribe(data => {
                         this.dashboardTiles = data});
-    this.weatherDataService.getOutdoorWeatherData()
+    this.weatherDataService.getOutdoorWeatherDataSubject()
                         .subscribe(data => {
                           this.outdoorData = data});
   }

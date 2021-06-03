@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
-import { ImageModel, ImageService } from 'src/app/services/image.service';
-import { Button } from 'selenium-webdriver';
+import { ImageService } from 'src/app/services/image.service';
+import { ImageModel } from 'src/app/model/image';
 
 @Component({
   selector: 'app-back-button-element',

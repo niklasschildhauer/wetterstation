@@ -24,7 +24,7 @@ export class PersonalizationSettingsViewComponent implements OnInit {
   }
 
   getUserContext() {
-    this.userContextService.getUserContext()
+    this.userContextService.getUserContextSubject()
     .subscribe(data => this.userContextData = data)
   }
 
