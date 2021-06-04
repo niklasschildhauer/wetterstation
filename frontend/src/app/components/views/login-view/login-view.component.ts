@@ -42,6 +42,7 @@ export class LoginViewComponent implements OnInit {
   }
 
   onClickPersonalization() {
+    this.userContextService.disableOpenApe = true;
     this.router.navigateByUrl('/onboarding/personalization');
   }
 }

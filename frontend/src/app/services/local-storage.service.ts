@@ -46,9 +46,29 @@ export class LocalStorageService {
   /**
   * Load token from local storage
   */
-  get token(): string {
+   get token(): string {
     const token = this.getItem(TOKEN_IDENTIFIER);
     return token ? token : '';
+  }  
+
+  /**
+  * Load disable open ape value from local storage
+  */
+  get disableOpenApe(): boolean {
+    const disableOpenApeValue = this.getItem(DISABLE_OPEN_APE_IDENTIFIER);
+    if(disableOpenApeValue) {
+      return JSON.parse(disableOpenApeValue)
+    }
+    return false;
+  }
+
+  /**
+  * Save disable open ape value to local storage
+  * 
+  * @param {boolean} value  Disable open ape value to save
+  */
+  set disableOpenApe(value: boolean) {
+    this.setItem(DISABLE_OPEN_APE_IDENTIFIER, value + '');
   }
 
   constructor() { }
@@ -70,7 +90,7 @@ export class LocalStorageService {
   /**
    * Helper function to get item in local storage
    */ 
-  private getItem(key: string){ 
+  private getItem(key: string): string | null{ 
     return localStorage.getItem(key)
   }
 
@@ -87,3 +107,4 @@ export class LocalStorageService {
  */
 const TOKEN_IDENTIFIER = 'wetterstation-token';
 const USER_CONTEXT_IDENTIFIER = 'wetterstation-user-context'
+const DISABLE_OPEN_APE_IDENTIFIER = 'wetterstation-disable-open-ape'

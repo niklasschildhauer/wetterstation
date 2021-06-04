@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { INITIAL_USER_CONTEXT, PollenType, UserContext } from '../model/user-context';
+import { INITIAL_USER_CONTEXT, PollenType, Themes, UserContext } from '../model/user-context';
 
 @Injectable({
   providedIn: 'root'
@@ -24,9 +24,10 @@ export class UserContextApiService {
 
         if(body){
             if(body.success) {
+              console.log(this.createUserContextFromServerResponse(body.userContext));
               observer.next({
                 token: body.token,
-                userContext: INITIAL_USER_CONTEXT // FIXME
+                userContext: this.createUserContextFromServerResponse(body.userContext) // FIXME
               });
             } else {
               observer.error(body.message);
@@ -61,14 +62,48 @@ export class UserContextApiService {
       let httpOptions = {
         headers: new HttpHeaders({ 'Authorization': 'Bearer ' + token })
       };
-      let response = this.httpClient.post<CheckTokenResponse>(this.checkTokenURL, httpOptions);
+
+      console.log(httpOptions);
+      let response = this.httpClient.get<CheckTokenResponse>(this.checkTokenURL, httpOptions);
       response.subscribe(data => {
-        console.log(data);
-        observer.next(true);
+        observer.next(data.success);
+        observer.complete();
+      }, 
+      () => {
+        observer.next(false);
         observer.complete();
       })
     });
     return returnObservable;
+  }
+
+  private createUserContextFromServerResponse(userContext: UserContextResponse): UserContext {
+    return {
+      theme: this.getThemeTypeFromServerResponse(userContext.theme),
+      fontSize: userContext.fontSize * 3.90,
+      pollen: userContext.pollen, 
+      doVentilationReminder: userContext.doVentilationReminder,
+      reduceMotion: userContext.reduceMotion,
+      selfVoicingEnabled: userContext.selfVoicingEnabled
+    }
+  }
+
+  private getThemeTypeFromServerResponse(theme: string): Themes {
+    switch(theme) {
+      case "dark": return Themes.Dark;
+      case "light": return Themes.Light;
+      case "highContrast": return Themes.HighContrast;
+      default: return Themes.Automatic;
+    }
+  }
+
+  private createThemeTypeForServerRequest(theme: Themes) {
+    switch(theme) {
+      case Themes.Dark: return "dark";
+      case Themes.Light: return "light";
+      case Themes.HighContrast: return "highContrast";
+      default: return "automatic";
+    }
   }
 }
 
@@ -76,8 +111,19 @@ export class UserContextApiService {
 interface LoginResponse {
   success: boolean,
   message: string,
-  user: string,
+  userContext: UserContextResponse,
   token: string,
+}
+
+interface UserContextResponse {
+  id: number,
+  username: string,
+  theme: string,
+  fontSize: number,
+  selfVoicingEnabled: boolean,
+  doVentilationReminder: boolean,
+  reduceMotion: boolean,
+  pollen: string[]
 }
 
 interface CheckTokenResponse {

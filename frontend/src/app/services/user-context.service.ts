@@ -10,13 +10,18 @@ import { UserContextApiService } from './user-context-api.service';
 })
 export class UserContextService {
   set token(value: string) {
-    this._token = value;
-    this.saveTokenToLocalStorage();
+    this.localStorageService.token = value
   }
   get token(): string {
-    return this._token;
+    return this.localStorageService.token
   }
-  private _token: string;
+
+  set disableOpenApe(value: boolean) {
+    this.localStorageService.disableOpenApe = value
+  }
+  get disableOpenApe(): boolean {
+    return this.localStorageService.disableOpenApe
+  }
 
   set userContext(object: UserContext) {
     this._userContext.next(object);
@@ -78,7 +83,6 @@ export class UserContextService {
               private router: Router,
               private userContextAPI: UserContextApiService) { 
     this._userContext.next(this.localStorageService.userContext);
-    this._token = this.localStorageService.token;
     this.loadPollenTypes()
   }
   
@@ -86,8 +90,9 @@ export class UserContextService {
     this.resetUserContext()
     let response = this.userContextAPI.postLogin(password, username)
     response.subscribe((data) => {
-      this.token = data.token,
-      this.userContext = data.userContext
+      this.token = data.token;
+      this.userContext = data.userContext;
+      this.disableOpenApe = false;
     })
     return response;
   }
@@ -107,6 +112,10 @@ export class UserContextService {
   }
 
   public checkToken() {
+    if(this.disableOpenApe) {
+      return 
+    }
+
     this.userContextAPI.postIsTokenValid(this.token).subscribe((data) => {
       if(data) {
         console.log("Token is valid");
@@ -129,10 +138,6 @@ export class UserContextService {
   private saveUserContext() {
     this.saveUserContextToLocalStorage()
     // FIXME: server post request
-  }
-
-  private saveTokenToLocalStorage() {
-    this.localStorageService.token = this._token;
   }
 
   private saveUserContextToLocalStorage() {
