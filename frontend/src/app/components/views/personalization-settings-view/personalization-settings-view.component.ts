@@ -1,7 +1,6 @@
 import { Component, DoCheck, OnDestroy, OnInit, Renderer2 } from '@angular/core';
 import { UserContextService } from 'src/app/services/user-context.service';
 import { Themes, UserContext, PollenType } from 'src/app/model/user-context';
-import { Router } from '@angular/router';
 
 
 
@@ -10,7 +9,7 @@ import { Router } from '@angular/router';
   templateUrl: './personalization-settings-view.component.html',
   styleUrls: ['./personalization-settings-view.component.scss']
 })
-export class PersonalizationSettingsViewComponent implements OnInit {
+export class PersonalizationSettingsViewComponent implements OnInit, OnDestroy {
   desktop: boolean = false;
   userContextData?: UserContext;
 
@@ -18,19 +17,18 @@ export class PersonalizationSettingsViewComponent implements OnInit {
 
   constructor(
     public userContextService: UserContextService,
-    private renderer: Renderer2,
-    private router: Router) { }
+    private renderer: Renderer2) { }
+    
+  ngOnDestroy(): void {
+    this.userContextService.checkToken();
+  }
 
   ngOnInit(): void {
     this.getUserContext();
+    this.userContextService.checkToken();
   }
 
   getUserContext() {
-    this.userContextService.refreshUserContextIfNeeded().subscribe((data => {
-      if(!data) {
-        this.router.navigateByUrl('/onboarding/login');
-      }
-    }));;
     this.userContextService.getUserContextSubject()
     .subscribe(data => this.userContextData = data)
   }

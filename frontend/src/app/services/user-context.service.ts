@@ -111,28 +111,18 @@ export class UserContextService {
     this.showLoginScreen();
   }
 
-  public refreshUserContextIfNeeded(): Observable<boolean> {
-    console.log("Refresh if needed")
-    let returnObservable = new Observable<boolean>((observer) => {
-      if(this.disableOpenApe || this.token === '') {
-        observer.next(true);
-        observer.complete(); 
+  public checkToken() {
+    if(this.disableOpenApe) {
+      return 
+    }
+
+    this.userContextAPI.postIsTokenValid(this.token).subscribe((data) => {
+      if(data) {
+        console.log("Token is valid");
+      } else {
+        this.showLoginScreen();
       }
-      console.log("Wir checken den token")
-      this.userContextAPI.postIsTokenValid(this.token).subscribe((data) => {
-        if(data) {
-          this.userContextAPI.loadUserContext(this.token).subscribe(data => {
-            this.userContext = data
-            observer.next(true);
-            observer.complete(); 
-          });
-        } else {
-          observer.next(false);
-          observer.complete(); 
-        }
-      })
-    });
-    return returnObservable
+    })
   }
 
   private showLoginScreen() {

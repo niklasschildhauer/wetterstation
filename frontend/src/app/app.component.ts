@@ -24,6 +24,7 @@ export class AppComponent {
   constructor(private renderer: Renderer2,
               private userContextService: UserContextService,
               private http: HttpClient,
+              private speechAPI: SpeechService,
               private breakpointObserver: BreakpointObserver,
               private router: Router) { }
 
@@ -68,11 +69,6 @@ export class AppComponent {
   }
 
   private loadUserContext() {
-    this.userContextService.refreshUserContextIfNeeded().subscribe((data) => {
-      if(!data) {
-        console.log('Login is needed to update the user context');
-      }
-    })
     this.userContextService.getUserContextSubject()
     .subscribe(data => this.userContext = data);
   }
