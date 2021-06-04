@@ -48,7 +48,7 @@ export class WeatherAPIService {
           observer.complete();
         },
         (error) => {
-          console.log(error)
+          console.log(error);
           observer.next([]);
           observer.complete();
 

@@ -84,6 +84,7 @@ export class UserContextService {
               private userContextAPI: UserContextApiService) { 
     this._userContext.next(this.localStorageService.userContext);
     this.loadPollenTypes()
+
   }
   
   public login(username: string, password: string): Observable<any> {  
@@ -110,20 +111,30 @@ export class UserContextService {
     this.resetUserContext();
     this.showLoginScreen();
   }
-
-  public checkToken() {
-    if(this.disableOpenApe) {
-      return 
-    }
-
+  public refreshUserContextIfNeeded(): Observable<boolean> {
+    console.log("Refresh if needed")
+    let returnObservable = new Observable<boolean>((observer) => {
+      if(this.disableOpenApe || this.token === '') {
+        observer.next(true);
+        observer.complete(); 
+      }
+    console.log("Wir checken den token")
     this.userContextAPI.postIsTokenValid(this.token).subscribe((data) => {
       if(data) {
-        console.log("Token is valid");
+        this.userContextAPI.loadUserContext(this.token).subscribe(data => {
+          this.userContext = data
+          observer.next(true);
+          observer.complete(); 
+        });
       } else {
-        this.showLoginScreen();
+        observer.next(false);
+        observer.complete(); 
       }
     })
+  });
+  return returnObservable
   }
+
 
   private showLoginScreen() {
     this.router.navigateByUrl('/onboarding/login');

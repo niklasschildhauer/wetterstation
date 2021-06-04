@@ -1,7 +1,6 @@
 import { Component, Renderer2 } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { UserContextService } from './services/user-context.service';
-import { SpeechService } from './services/speech.service';
 import { HttpClient } from "@angular/common/http";
 import { Observable } from 'rxjs';
 import { routeTransitionAnimations } from './route-transition-animation';
@@ -24,7 +23,6 @@ export class AppComponent {
   constructor(private renderer: Renderer2,
               private userContextService: UserContextService,
               private http: HttpClient,
-              private speechAPI: SpeechService,
               private breakpointObserver: BreakpointObserver,
               private router: Router) { }
 

@@ -10,6 +10,7 @@ export class UserContextApiService {
   private loginURL = '/auth/login'
   private checkTokenURL = '/auth/checkToken'
   private allPollenTypesURL = '/pollen/all'
+  private currentUserContextURL = 'auth/currentUser'
 
   constructor(private httpClient: HttpClient) { }
 
@@ -76,6 +77,26 @@ export class UserContextApiService {
     });
     return returnObservable;
   }
+
+  public loadUserContext(token: string): Observable<UserContext>{
+    let returnObservable = new Observable<UserContext>((observer) => {
+      let httpOptions = {
+        headers: new HttpHeaders({ 'Authorization': 'Bearer ' + token })
+      };
+      let response = this.httpClient.get<{userContext: UserContextResponse}>(this.currentUserContextURL, httpOptions);
+      response.subscribe(data => {
+        console.log(this.createUserContextFromServerResponse(data.userContext));
+        observer.next(this.createUserContextFromServerResponse(data.userContext));
+        observer.complete();
+      }, 
+      () => {
+        observer.error("An error occured")
+        observer.complete();
+      })
+    });
+    return returnObservable;
+  }
+
 
   private createUserContextFromServerResponse(userContext: UserContextResponse): UserContext {
     return {
