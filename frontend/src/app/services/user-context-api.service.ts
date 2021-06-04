@@ -35,11 +35,11 @@ export class UserContextApiService {
           }
         },
         (error)=> {
-          observer.error("Ein Fehler ist aufgetreten. Bitte versuche es später erneut.");
+          observer.error("Ein Fehler ist aufgetreten. Bitte versuche es später erneut. " + error);
+          observer.complete();
         },() => {
           observer.complete();
         }
-
       );
     }
   );

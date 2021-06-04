@@ -46,6 +46,12 @@ export class WeatherAPIService {
           let indoorData = this.createIndoorRoomDataFromServerResponse(data);
           observer.next([indoorData]);
           observer.complete();
+        },
+        (error) => {
+          console.log(error)
+          observer.next([]);
+          observer.complete();
+
         })
       }
     );
