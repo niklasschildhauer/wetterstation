@@ -30,9 +30,11 @@ export class HistoryTileService {
         return b.timestamp.getTime() - a.timestamp.getTime()
       });
 
+      console.log(dataPoints);
+
       let lastDate: Date = dataPoints[0].timestamp;
       let lastWeek: number = this.getWeekNumber(lastDate);
-      let label: string = this.getWeekStringFromWeekNumber(lastWeek);
+      let label: string = this.getWeekStringFromWeekNumber(lastWeek)
       let temperatureDataPoints: number[]  = []; 
       let humidityDataPoints : number[] = [];
       let xAxisLabels: string[] = [];
@@ -41,7 +43,7 @@ export class HistoryTileService {
       let index = 0
 
       for (const item of dataPoints) {
-        if(lastDate.getDate() > item.timestamp.getDate()) {
+        if(lastDate.getDate() > item.timestamp.getDate() || lastDate.getMonth() > item.timestamp.getMonth()) {
           const averageTemperature = temperatureSumOfWeek / index;
           const averageHumidity = humiditySumOfWeek / index;
           temperatureDataPoints.push(Math.round(averageTemperature));
@@ -105,7 +107,7 @@ export class HistoryTileService {
       let index = 0
 
       for (const item of dataPoints) {
-        if(lastDate.getHours() > item.timestamp.getHours()) {
+        if(lastDate.getHours() > item.timestamp.getHours() || lastDate.getDate() > item.timestamp.getDate() || lastDate.getMonth() > item.timestamp.getMonth()) {
           const averageTemperature = temperatureSumOfWeek / index;
           const averageHumidity = humiditySumOfWeek / index;
           temperatureDataPoints.push(Math.round(averageTemperature));
@@ -114,18 +116,16 @@ export class HistoryTileService {
           index = 0;
           temperatureSumOfWeek = 0;
           humiditySumOfWeek = 0;
-          lastDate = item.timestamp
-          lastHour = lastDate.getHours();
-
-          if(lastDate > item.timestamp) {
+          if(lastDate.getDate() > item.timestamp.getDate() || lastDate.getMonth() > item.timestamp.getMonth()) {
             dataSet.push(this.createWeatherGraphDataSet(temperatureDataPoints, humidityDataPoints, xAxisLabels, label));
             temperatureDataPoints = [];
             humidityDataPoints = [];
             xAxisLabels = [];
+          }
             lastDate = item.timestamp;
             lastHour = lastDate.getHours();
             label = this.getDateStringFromDate(lastDate);
-          }
+          
         }
         index = index + 1;
         temperatureSumOfWeek = temperatureSumOfWeek + item.temperature;
@@ -139,6 +139,7 @@ export class HistoryTileService {
       dataSet.push(this.createWeatherGraphDataSet(temperatureDataPoints, humidityDataPoints, xAxisLabels, label));
 
       console.log('Created History By Day')
+      console.log(dataSet);
       return dataSet;
     }
     return [];
@@ -165,7 +166,7 @@ export class HistoryTileService {
    * @returns A readable string of the WEEKDAY
    */
   private getWeekDayStringFromDate(date: Date): string {
-    return DAYS[date.getDay()]
+    return DAYS[date.getDay()] + ', ' + date.getDate() + '. ' + date.getMonth() + '.' ;
   }
 
   /**
@@ -189,6 +190,9 @@ export class HistoryTileService {
     let dayNum = date.getUTCDay() || 7;
     date.setUTCDate(date.getUTCDate() + 4 - dayNum);
     let yearStart = new Date(Date.UTC(date.getUTCFullYear(),0,1));
+
+    console.log(Math.ceil((((date.valueOf() - yearStart.valueOf()) / 86400000) + 1)/7) + ' for: ' + inputDate);
+
     return Math.ceil((((date.valueOf() - yearStart.valueOf()) / 86400000) + 1)/7)
   };
 
