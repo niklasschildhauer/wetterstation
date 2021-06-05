@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { UserContext } from 'src/app/model/user-context';
-import { SpeechAPIService } from 'src/app/services/speech-api.service';
+import { SpeechService } from 'src/app/services/speech.service';
 import { UserContextService } from 'src/app/services/user-context.service';
 
 @Component({
@@ -14,10 +14,10 @@ export class TtsPlayerElementComponent implements OnInit {
   @Input() ttsTextGeneratorFunction: () => string = () => "";
 
   constructor(private userContextService: UserContextService,
-    private speechService: SpeechAPIService) { }
+    private speechService: SpeechService) { }
 
   ngOnInit(): void {
-    this.userContextService.getUserContext().subscribe(data => {
+    this.userContextService.getUserContextSubject().subscribe(data => {
       this.userContext = data;
     })
   }
@@ -35,7 +35,7 @@ export class TtsPlayerElementComponent implements OnInit {
   }
 
   // little bit hacky
-  listenForStop(speechService: SpeechAPIService) {
+  listenForStop(speechService: SpeechService) {
     let service = speechService
     if(service.isOutputRunning()) {
       setTimeout(() => this.listenForStop(service), 1000);

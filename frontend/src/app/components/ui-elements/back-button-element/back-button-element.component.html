@@ -1,5 +1,5 @@
 <button class="back-button" (click)="goBack()">
-    <img class="back-image" src="assets/icons/back-button.svg" alt="Zurück">
+    <img class="back-image" [src]="imageService.getImageSrcFrom(backIconModel)" alt="Zurück">
     <span class="back-label">
         <div *ngIf="label">{{label}}</div>
     </span>

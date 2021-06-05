@@ -4,15 +4,27 @@ import { Injectable } from '@angular/core';
 import { IndoorRoomData, OutdoorWeatherData, PollenData, Tile, TileType, WeatherForecastData } from '../model/weather';
 import { WeatherData } from '../model/weather';
 
+/**
+ * Text service injectable
+ * 
+ * Use this service to create text from WeatherData objects, e.g. create text to read it aloud
+ * with the speech service. 
+ */
 @Injectable({
   providedIn: 'root'
 })
 export class TextService {
 
   constructor() { }
-
-  createTextFromTilesArray(array: Tile<WeatherData>[] | undefined): string {
-    var readAloud = ""
+  
+  /**
+  * Create a readable text from tiles array object of WeatherData
+  * 
+  * @param {Tile<WeatherData>[]} array  The data array
+  * @returns A readable text version from the input array. 
+  */
+  public createTextFromTilesArray(array: Tile<WeatherData>[] | undefined): string {
+    let readAloud = ''
     if(array) {
       array.forEach(element => {
         switch(element.type){
@@ -21,20 +33,20 @@ export class TextService {
             pollenDataArray.forEach(element => {
               readAloud = readAloud + this.createPollenText(element);
             });
-          break;
+            break;
           case TileType.indoorRoom: 
             let indoorArray = element.data as IndoorRoomData;
             readAloud = readAloud + this.createIndoorRoomText(indoorArray);
-          break;
+            break;
           case TileType.forecast: 
             let forecastData = element.data as WeatherForecastData;
             readAloud = readAloud + this.createForecastText(forecastData);
-          break;
+            break;
           case TileType.pollenSmall: 
             let pollenData = element.data as PollenData;
             readAloud = readAloud + this.createPollenText(pollenData);
-          break
-          default: "Not implemented"
+            break
+          default: 'Not implemented'
         }
       });
     }
@@ -42,8 +54,14 @@ export class TextService {
     return readAloud;
   }
 
-  createForecastText(data: WeatherForecastData | undefined): string {
-    var readAloud = ""
+  /**
+  * Create a readable text from WeatherForecastData object
+  * 
+  * @param {WeatherForecastData | undefined} data 
+  * @returns A readable text version from the input data. 
+  */
+  public createForecastText(data: WeatherForecastData | undefined): string {
+    let readAloud = ''
     if(data) {
       let forecast = data.forecast
       readAloud = "Im Verlaufe des Tages wird es " + forecast + "werden. ";
@@ -51,33 +69,51 @@ export class TextService {
     return readAloud
   }
 
-  createIndoorRoomText(data: IndoorRoomData | undefined): string {
-    var readAloud = ""
+  /**
+  * Create a readable text from IndoorRoomData object
+  * 
+  * @param {IndoorRoomData | undefined} data 
+  * @returns A readable text version from the input data. 
+  */
+  public createIndoorRoomText(data: IndoorRoomData | undefined): string {
+    let readAloud = ''
     if(data) {
       let room = data.roomName
       let quality = data.airQuality
       let temperature = data.temperature
 
-      readAloud = "Im " + room + " hat es " + temperature + " Grad Celsius und die Luftqualität liegt bei " + quality + ". ";
+      readAloud = 'Im ' + room + ' hat es ' + temperature + ' Grad Celsius und die Luftqualität liegt bei ' + quality + '. ';
     }
     return readAloud
 
   }
 
-  createPollenText(data: PollenData | undefined): string {
-    var readAloud = ""
+  /**
+  * Create a readable text from PollenData object
+  * 
+  * @param {PollenData | undefined} data 
+  * @returns A readable text version from the input data. 
+  */
+  public createPollenText(data: PollenData | undefined): string {
+    let readAloud = ''
     if(data) {
       // CHANGE VALUE OF 1 to LEICH, MITTEL, STARK und KEINE
       let name = data.pollenName
       let value = data.today
-      readAloud = "Pollen der Art " + name + " hat heute eine Belastung von " + value +  ". ";
+      readAloud = 'Pollen der Art ' + name + ' hat heute eine Belastung von ' + value +  '. ';
     }
 
     return readAloud
   }
 
-  createOutdoorText(data: OutdoorWeatherData | undefined): string {
-    var readAloud = ""
+ /**
+  * Create a readable text from OutdoorWeatherData object
+  * 
+  * @param {OutdoorWeatherData | undefined} data 
+  * @returns A readable text version from the input data. 
+  */
+  public createOutdoorText(data: OutdoorWeatherData | undefined): string {
+    let readAloud = ''
     if(data) {
       // adjust number pronounciation
       let location = data.location

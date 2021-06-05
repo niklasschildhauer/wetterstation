@@ -12,8 +12,6 @@
 .menu-container {
     border-radius: var(--corner-radius);
     position: fixed;
-    // left: var(--border-padding-left);
-    // top: var(--border-padding-top);
     background-color: var(--surface);
     padding: var(--padding);
     z-index: 103;
@@ -39,11 +37,18 @@
     border-top: 0.2px solid var(--secondary);
     cursor: pointer;
     font-size: 1.0em;
+    hyphens: none;
+
 }
 
 p {
     font-weight: 700;
     padding: 0 0 calc(var(--padding) / 2) 0;
+    hyphens: none;
+}
+
+span {
+    hyphens: none;
 }
 
 .fertig {

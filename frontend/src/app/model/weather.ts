@@ -10,6 +10,13 @@ export enum TileType {
     apparentTemperature,
 }
 
+export interface TileArrays {
+    dashboard: Tile<WeatherData>[],
+    pollen : Tile<WeatherData>[],
+    indoorRooms: Tile<WeatherData>[]
+  }
+  
+
 export enum TilePriority {
     important, //Highest 
     high,

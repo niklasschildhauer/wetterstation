@@ -1,9 +1,11 @@
 import { Injectable } from '@angular/core';
 import { GraphDataSet, OutdoorWeatherData, WeatherHistoryData } from '../model/weather';
 
-const DAYS = ['So','Mo','Di','Mi','Do','Fr','Sa'];
-const MONTHS = ['Januar','Februar','März','April','Mai','Juni','Juli','August','September','Oktober','November','Dezember'];
-
+/**
+ * History tile service injectable
+ * 
+ * Use this service to convert WeatherHistoryData objects to GraphDataSet[ ] objects.
+ */
 @Injectable({
   providedIn: 'root'
 })
@@ -11,49 +13,39 @@ export class HistoryTileService {
   constructor() { 
   }
 
-  private getHourString(hour: number): string {
-    return hour + " Uhr";
-  }
-
-  private getWeekStringFromWeekNumber(week: number): string {
-    return "Kalenderwoche " + week;
-  }
-
-  private getWeekDayStringFromDate(date: Date): string {
-    return DAYS[date.getDay()]
-  }
-
-  private getDateStringFromDate(date: Date): string {
-    let day = date.getDate();
-    let month = MONTHS[date.getMonth()];
-    let year = date.getFullYear();
-
-    return DAYS[date.getDay()] + ", " + day + " " + month + " " + year
-  }
-
-  getHistoryDataSetDaysPerWeekFrom(weatherHistoryData: WeatherHistoryData): GraphDataSet[] {
+  /**
+   * Converts the datapoints of a WeahterHistoryData object to a GraphDataSet[ ] object
+   * In this way all components which are using the external charts library can easily
+   * show the prefered data without any further conversion. 
+   * 
+   * @param {WeatherHistoryData} weatherHistoryData  The history data object to convert 
+   * @returns The history data sorted by days per week per GraphDataSet object
+   */
+  public getHistoryDataSetDaysPerWeekFrom(weatherHistoryData: WeatherHistoryData): GraphDataSet[] {
     if (weatherHistoryData.datapoints.length > 0) {
-      var dataSet: GraphDataSet[] = []
-      var dataPoints = weatherHistoryData.datapoints
+      let dataSet: GraphDataSet[] = []
+      let dataPoints = weatherHistoryData.datapoints
 
       dataPoints.sort((a, b) => {
         return b.timestamp.getTime() - a.timestamp.getTime()
       });
 
-      var lastDate: Date = dataPoints[0].timestamp;
-      var lastWeek: number = this.getWeekNumber(lastDate);
-      var label: string = this.getWeekStringFromWeekNumber(lastWeek);
-      var temperatureDataPoints: number[]  = []; 
-      var humidityDataPoints : number[] = [];
-      var xAxisLabels: string[] = [];
-      var temperatureSumOfWeek = 0
-      var humiditySumOfWeek = 0
+      console.log(dataPoints);
+
+      let lastDate: Date = dataPoints[0].timestamp;
+      let lastWeek: number = this.getWeekNumber(lastDate);
+      let label: string = this.getWeekStringFromWeekNumber(lastWeek)
+      let temperatureDataPoints: number[]  = []; 
+      let humidityDataPoints : number[] = [];
+      let xAxisLabels: string[] = [];
+      let temperatureSumOfWeek = 0
+      let humiditySumOfWeek = 0
       let index = 0
 
-      for (let item of dataPoints) {
-        if(lastDate.getDate() > item.timestamp.getDate()) {
-          let averageTemperature = temperatureSumOfWeek / index;
-          let averageHumidity = humiditySumOfWeek / index;
+      for (const item of dataPoints) {
+        if(lastDate.getDate() > item.timestamp.getDate() || lastDate.getMonth() > item.timestamp.getMonth()) {
+          const averageTemperature = temperatureSumOfWeek / index;
+          const averageHumidity = humiditySumOfWeek / index;
           temperatureDataPoints.push(Math.round(averageTemperature));
           humidityDataPoints.push(Math.round(averageHumidity));
           xAxisLabels.push(this.getWeekDayStringFromDate(lastDate))
@@ -74,86 +66,156 @@ export class HistoryTileService {
         temperatureSumOfWeek = temperatureSumOfWeek + item.temperature;
         humiditySumOfWeek = humiditySumOfWeek + item.humidity;
       }
-        let averageTemperature = temperatureSumOfWeek / index;
-        let averageHumidity = humiditySumOfWeek / index;
-        temperatureDataPoints.push(Math.round(averageTemperature));
-        humidityDataPoints.push(Math.round(averageHumidity));
-        xAxisLabels.push(this.getWeekDayStringFromDate(lastDate))
-        dataSet.push(this.createWeatherGraphDataSet(temperatureDataPoints, humidityDataPoints, xAxisLabels, label));
+      const averageTemperature = temperatureSumOfWeek / index;
+      const averageHumidity = humiditySumOfWeek / index;
+      temperatureDataPoints.push(Math.round(averageTemperature));
+      humidityDataPoints.push(Math.round(averageHumidity));
+      xAxisLabels.push(this.getWeekDayStringFromDate(lastDate))
+      dataSet.push(this.createWeatherGraphDataSet(temperatureDataPoints, humidityDataPoints, xAxisLabels, label));
 
-        console.log("Created History By Week")
-        return dataSet;
-      }
-      return [];
+      console.log('Created History By Week')
+      return dataSet;
     }
+    return [];
+  }
 
-  getHistoryDataSetHoursPerDayFrom(weatherHistoryData: WeatherHistoryData): GraphDataSet[] {
+  /**
+   * Converts the datapoints of a WeahterHistoryData object to a GraphDataSet[ ] object
+   * In this way all components which are using the external charts library can easily
+   * show the prefered data without any further conversion. 
+   * 
+   * @param {WeatherHistoryData} weatherHistoryData  The history data object to convert 
+   * @returns The history data sorted by hours per day per GraphDataSet object
+   */
+   public getHistoryDataSetHoursPerDayFrom(weatherHistoryData: WeatherHistoryData): GraphDataSet[] {
     if (weatherHistoryData.datapoints.length > 0) {
-      var dataSet: GraphDataSet[] = []
-      var dataPoints = weatherHistoryData.datapoints
+      let dataSet: GraphDataSet[] = []
+      let dataPoints = weatherHistoryData.datapoints
 
       dataPoints.sort((a, b) => {
         return b.timestamp.getTime() - a.timestamp.getTime()
       });
 
-      var lastDate: Date = dataPoints[0].timestamp;
-      var lastHour: number = lastDate.getHours();
-      var label: string = this.getDateStringFromDate(lastDate);
-      var temperatureDataPoints: number[]  = []; 
-      var humidityDataPoints : number[] = [];
-      var xAxisLabels: string[] = [];
-      var temperatureSumOfWeek = 0
-      var humiditySumOfWeek = 0
+      let lastDate: Date = dataPoints[0].timestamp;
+      let lastHour: number = lastDate.getHours();
+      let label: string = this.getDateStringFromDate(lastDate);
+      let temperatureDataPoints: number[]  = []; 
+      let humidityDataPoints : number[] = [];
+      let xAxisLabels: string[] = [];
+      let temperatureSumOfWeek = 0
+      let humiditySumOfWeek = 0
       let index = 0
 
-      for (let item of dataPoints) {
-        if(lastDate.getHours() > item.timestamp.getHours()) {
-          let averageTemperature = temperatureSumOfWeek / index;
-          let averageHumidity = humiditySumOfWeek / index;
+      for (const item of dataPoints) {
+        if(lastDate.getHours() > item.timestamp.getHours() || lastDate.getDate() > item.timestamp.getDate() || lastDate.getMonth() > item.timestamp.getMonth()) {
+          const averageTemperature = temperatureSumOfWeek / index;
+          const averageHumidity = humiditySumOfWeek / index;
           temperatureDataPoints.push(Math.round(averageTemperature));
           humidityDataPoints.push(Math.round(averageHumidity));
           xAxisLabels.push(this.getHourString(lastHour))
           index = 0;
           temperatureSumOfWeek = 0;
           humiditySumOfWeek = 0;
-          lastDate = item.timestamp
-          if(lastDate > item.timestamp) {
+          if(lastDate.getDate() > item.timestamp.getDate() || lastDate.getMonth() > item.timestamp.getMonth()) {
             dataSet.push(this.createWeatherGraphDataSet(temperatureDataPoints, humidityDataPoints, xAxisLabels, label));
             temperatureDataPoints = [];
             humidityDataPoints = [];
             xAxisLabels = [];
+          }
             lastDate = item.timestamp;
             lastHour = lastDate.getHours();
             label = this.getDateStringFromDate(lastDate);
-          }
+          
         }
         index = index + 1;
         temperatureSumOfWeek = temperatureSumOfWeek + item.temperature;
         humiditySumOfWeek = humiditySumOfWeek + item.humidity;
       }
-        let averageTemperature = temperatureSumOfWeek / index;
-        let averageHumidity = humiditySumOfWeek / index;
-        temperatureDataPoints.push(Math.round(averageTemperature));
-        humidityDataPoints.push(Math.round(averageHumidity));
-        xAxisLabels.push(this.getHourString(lastHour))
-        dataSet.push(this.createWeatherGraphDataSet(temperatureDataPoints, humidityDataPoints, xAxisLabels, label));
+      const averageTemperature = temperatureSumOfWeek / index;
+      const averageHumidity = humiditySumOfWeek / index;
+      temperatureDataPoints.push(Math.round(averageTemperature));
+      humidityDataPoints.push(Math.round(averageHumidity));
+      xAxisLabels.push(this.getHourString(lastHour))
+      dataSet.push(this.createWeatherGraphDataSet(temperatureDataPoints, humidityDataPoints, xAxisLabels, label));
 
-        console.log("Created History By Week")
-        return dataSet;
-      }
-      return [];
+      console.log('Created History By Day')
+      console.log(dataSet);
+      return dataSet;
     }
+    return [];
+  }
 
+  /**
+   * @param {number} hour 
+   * @returns A readable string of the hour
+   */
+  private getHourString(hour: number): string {
+    return hour + ' Uhr';
+  }
+
+  /**
+   * @param {number} week 
+   * @returns A readable string of the week
+   */
+  private getWeekStringFromWeekNumber(week: number): string {
+    return 'Kalenderwoche ' + week;
+  }
+  
+  /**
+   * @param {date} date 
+   * @returns A readable string of the WEEKDAY
+   */
+  private getWeekDayStringFromDate(date: Date): string {
+    return DAYS[date.getDay()] + ', ' + date.getDate() + '. ' + date.getMonth() + '.' ;
+  }
+
+  /**
+   * @param {number} hour 
+   * @returns A readable string of the date
+   */
+  private getDateStringFromDate(date: Date): string {
+    const day = date.getDate();
+    const month = MONTHS[date.getMonth()];
+    const year = date.getFullYear();
+
+    return DAYS[date.getDay()] + ', ' + day + ' ' + month + ' ' + year
+  }
+
+  /**
+   * @param {Date} date 
+   * @returns A readable string of the week number of the year
+   */
+  private getWeekNumber(inputDate: Date) {
+    let date = new Date(Date.UTC(inputDate.getFullYear(), inputDate.getMonth(), inputDate.getDate()));
+    let dayNum = date.getUTCDay() || 7;
+    date.setUTCDate(date.getUTCDate() + 4 - dayNum);
+    let yearStart = new Date(Date.UTC(date.getUTCFullYear(),0,1));
+
+    console.log(Math.ceil((((date.valueOf() - yearStart.valueOf()) / 86400000) + 1)/7) + ' for: ' + inputDate);
+
+    return Math.ceil((((date.valueOf() - yearStart.valueOf()) / 86400000) + 1)/7)
+  };
+
+  /**
+   * Calculates the average temperature and humidity for the 
+   * GraphDataSet object
+   * 
+   * @param {number[]} temperatureData 
+   * @param {number[]} humidityData 
+   * @param {string[]} xAxisLabels
+   * @param {string} label
+   * @returns A GraphDataSet object
+   */
   private createWeatherGraphDataSet(temperatureData: number[], humidityData: number[], xAxisLabels: string[], label: string): GraphDataSet{
-    let tempSum = temperatureData.reduce(function (accumulator, currentValue) {
+    const tempSum = temperatureData.reduce(function (accumulator, currentValue) {
       return accumulator + currentValue;
     }, 0)
-    let humiditySum = humidityData.reduce(function (accumulator, currentValue) {
+    const humiditySum = humidityData.reduce(function (accumulator, currentValue) {
       return accumulator + currentValue;
     }, 0)
 
-    let tempAverage = tempSum / temperatureData.length
-    let humidityAverage = humiditySum / humidityData.length
+    const tempAverage = tempSum / temperatureData.length
+    const humidityAverage = humiditySum / humidityData.length
 
     return {
       temperatureDataPoints: temperatureData.reverse(),
@@ -164,12 +226,10 @@ export class HistoryTileService {
       humidityAverage: Math.round(humidityAverage),
     }
   }
-
-  private getWeekNumber(date: Date) {
-    var date = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()));
-    var dayNum = date.getUTCDay() || 7;
-    date.setUTCDate(date.getUTCDate() + 4 - dayNum);
-    var yearStart = new Date(Date.UTC(date.getUTCFullYear(),0,1));
-    return Math.ceil((((date.valueOf() - yearStart.valueOf()) / 86400000) + 1)/7)
-  };
 }
+
+/**
+ * Readable string constants of days and months
+ */
+const DAYS = ['So','Mo','Di','Mi','Do','Fr','Sa'];
+const MONTHS = ['Januar','Februar','März','April','Mai','Juni','Juli','August','September','Oktober','November','Dezember'];

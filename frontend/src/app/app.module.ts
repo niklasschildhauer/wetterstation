@@ -1,7 +1,6 @@
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { ServicesModule } from './services/services.module';
 import { UiElementsModule } from './components/ui-elements/ui-elements.module';
 import { ScreensModule } from './components/screens/screens.module';
 import { ViewsModule } from './components/views/views.module';
@@ -18,7 +17,6 @@ import { environment } from '../environments/environment';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    ServicesModule,
     UiElementsModule,
     ScreensModule,
     ViewsModule,

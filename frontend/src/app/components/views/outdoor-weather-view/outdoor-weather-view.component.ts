@@ -4,6 +4,7 @@ import { WeatherAPIService } from '../../../services/weather-api.service'
 import { UserContextService } from 'src/app/services/user-context.service';
 import { WeatherDataService } from 'src/app/services/weather-data.service';
 import { Themes, UserContext } from 'src/app/model/user-context';
+import { ImageService } from 'src/app/services/image.service';
 
 @Component({
   selector: 'app-outdoor-weather-view',
@@ -19,35 +20,42 @@ export class OutdoorWeatherViewComponent implements OnInit {
   userContext?: UserContext
   themeType = Themes
 
-  constructor(private weatherService: WeatherAPIService,
-    private userContextService: UserContextService,
-    private weatherDataService: WeatherDataService) { }
+  constructor(private userContextService: UserContextService,
+              private weatherDataService: WeatherDataService,
+              private imageService: ImageService) { }
 
   ngOnInit(): void {
     // this.loadOutdoorWeather();
     this.listenToScrollEvent();
     this.loadDaytime();
     this.loadUserContext();
-    this.weatherDataService.getOutdoorWeatherData().subscribe(data => this.outdoorWeather = data);
+    this.weatherDataService.getOutdoorWeatherDataSubject().subscribe(data => this.outdoorWeather = data);
   }
 
   loadUserContext() {
-    this.userContextService.getUserContext()
+    this.userContextService.getUserContextSubject()
     .subscribe(data => {
       this.userContext = data;
     });
   }
 
   loadOutdoorWeather(): void {
-    this.weatherService.getOutdoorWeather()
+    this.weatherDataService.getOutdoorWeatherDataSubject()
       .subscribe(outdoorWeather => { 
         this.outdoorWeather = outdoorWeather 
-        console.log("test24");
       });
   }
 
   loadDaytime(): void {
-    this.daytime = this.weatherService.getDaytime()
+    this.daytime = this.weatherDataService.getDaytime()
+  }
+
+  getWeatherImage(): string {
+    // if(this.outdoorWeather){
+    //   let weatherString = this.outdoorWeather.weather.toString()
+    //   return this.imageService.getWeatherIconString(weatherString);
+    // }
+    return "/assets/weather/day/rainy.png"
   }
 
   // changes the css --scroll variable everytime the user scrolls. Main part of the animation

@@ -22,33 +22,7 @@ export const routeTransitionAnimations = trigger('triggerName', [
 		]),
 		query(':enter', animateChild())
 	]),
-    // transition('Dashboard => Detail', [
-    //     query(':enter, :leave', style({ position: 'fixed'}), { optional: true }),
-    //     group([
-    //       query(':enter', [style({ transform: 'translateX(100%)' }), animate('.7s ease-out', style({ transform: 'translateX(0%)' }))], {
-    //         optional: true,
-    //       }),
-    //       query(':leave', [style({ transform: 'translateX(0%)' }), animate('.7s ease-out', style({ transform: 'translateX(-100%)' }))], {
-    //         optional: true,
-    //       }),
-    //     ]),
-    //   ]),
-
-    // transition('Dashboard => Detail', [
-    //     query(':enter', [
-    //         style({ opacity: 0, transform: 'translateX(100%)' }),
-    //         animate(
-    //             '300ms ease-in',
-    //             style({ opacity: 1, transform: 'translateX(0)' })
-    //         ),
-    // 	]),
-	//     query(':leave', [
-    //         animate(
-    //             '300ms ease-in',
-    //             style({ opacity: 0, transform: 'translateX(-100px)' })
-    //         ),
-	//     ]),
-    // ]),
+	
 	transition('Detail => Dashboard', [
 		style({ position: 'relative' }),
 		query(':enter, :leave', [

@@ -1,7 +1,6 @@
 import { Component, Renderer2 } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { UserContextService } from './services/user-context.service';
-import { SpeechAPIService } from './services/speech-api.service';
 import { HttpClient } from "@angular/common/http";
 import { Observable } from 'rxjs';
 import { routeTransitionAnimations } from './route-transition-animation';
@@ -24,7 +23,6 @@ export class AppComponent {
   constructor(private renderer: Renderer2,
               private userContextService: UserContextService,
               private http: HttpClient,
-              private speechAPI: SpeechAPIService,
               private breakpointObserver: BreakpointObserver,
               private router: Router) { }
 
@@ -61,7 +59,7 @@ export class AppComponent {
   }
 
   private loadDefaultFontSize() {
-    this.userContextService.getUserContext()
+    this.userContextService.getUserContextSubject()
     .subscribe(data => {
       let fontSize = data.fontSize
       this.setDefaultFontSize(fontSize);
@@ -69,7 +67,7 @@ export class AppComponent {
   }
 
   private loadUserContext() {
-    this.userContextService.getUserContext()
+    this.userContextService.getUserContextSubject()
     .subscribe(data => this.userContext = data);
   }
 

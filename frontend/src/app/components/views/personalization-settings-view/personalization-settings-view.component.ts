@@ -1,6 +1,7 @@
-import { Component, OnInit, Renderer2 } from '@angular/core';
+import { Component, DoCheck, OnDestroy, OnInit, Renderer2 } from '@angular/core';
 import { UserContextService } from 'src/app/services/user-context.service';
 import { Themes, UserContext, PollenType } from 'src/app/model/user-context';
+import { Router } from '@angular/router';
 
 
 
@@ -17,14 +18,20 @@ export class PersonalizationSettingsViewComponent implements OnInit {
 
   constructor(
     public userContextService: UserContextService,
-    private renderer: Renderer2) { }
-
+    private renderer: Renderer2,
+    private router: Router) { }
+    
   ngOnInit(): void {
     this.getUserContext();
+    this.userContextService.refreshUserContextIfNeeded().subscribe((data => {
+      if(!data) {
+        this.router.navigateByUrl('/onboarding/login');
+      }
+    }));;
   }
 
   getUserContext() {
-    this.userContextService.getUserContext()
+    this.userContextService.getUserContextSubject()
     .subscribe(data => this.userContextData = data)
   }
 
