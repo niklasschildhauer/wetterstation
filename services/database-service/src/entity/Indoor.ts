@@ -16,9 +16,6 @@ export class Indoor {
     gasVal: number;
 
     @Column()
-    pressure: number;
-
-    @Column()
     location: string;
 
     @CreateDateColumn()
