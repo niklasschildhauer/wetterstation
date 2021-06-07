@@ -23,7 +23,7 @@ void rootPage()
 
 Adafruit_BME280 bme; // I2C
 
-#define SERVER_IP "192.168.178.30:4201" //"192.168.0.136:4201"
+#define SERVER_IP "192.168.0.136:4201" //"192.168.0.136:4201"
 
 
 void lightSleep(){
@@ -162,7 +162,10 @@ void loop()
   Serial.println(ssid);
   Serial.println(password);
 
-  if((strcmp(password,"") == 1) && (strcmp(ssid,"") == 1)){
+  Serial.println(strcmp("", password));
+  Serial.println(strcmp("", ssid));
+
+  if((strcmp("",password) != 0) && (strcmp("", ssid) != 0)){
     Serial.println("Trying to connect to stored credentials");
     WiFi.begin(ssid, password);
 
