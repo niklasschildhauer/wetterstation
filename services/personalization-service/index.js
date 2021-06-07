@@ -30,29 +30,28 @@ app.post('/userContextUtility', (req, res) => {
     })
 })
 
-app.get('/userContext', (req, res) => {
-    const db_user = ""
+app.post('/register', (req, res) => {
+    //TODO: OpenAPE stuff register
+    saveExternalData();
 
-    // export interface UserContext {
-    //     theme: Themes,
-    //     fontSize: number, // in %
-    //     pollen: Pollen[], // Um die Mockdaten einfacher zu erstellen in Array konvertiert. Kann auch wieder in Map<Pollen, boolean> gewandelt werden. 
-    //     selfVoicingEnabled: boolean,
-    //     doVentilationReminder: boolean, // TODO: What if multiple users have concurring settings here?
-    //     //simpleLanguage: boolean, //TODO: Is this neccessary? Because we have few text elements in the UI.
-    //     reduceMotion: boolean, // New element: For people with vestibular disorders is animation triggerd by scrolling not good.
-    // }
+    grh.genericRequestWithPayload("POST", 'http://localhost:4205/userContext/save', JSON.stringify(req.body), res).then((response) => {
+        let externals = getExternalData()
+        let db_user = JSON.parse(response)
 
-    // export enum Pollen {
-    //     Ambrosia,
-    //     Beifuss,
-    //     Birke,
-    //     Erle,
-    //     Esche,
-    //     Graeser,
-    //     Hasel,
-    //     Roggen,
-    // }
+        //No pollen allergies recorded here
+        let out = {
+            id : db_user.id,
+            username: db_user.username,
+            theme: externals.theme,
+            fontSize: externals.fontSize,
+            selfVoicingEnabled : externals.selfVoicingEnabled,
+            doVentilationReminder : externals.doVentilationReminder,
+            reduceMotion : externals.reduceMotion,
+            pollen : []
+        };
+
+        res.status(200).json(out);
+    });
 })
 
 const getExternalData = () => {
@@ -64,6 +63,10 @@ const getExternalData = () => {
         doVentilationReminder: true, //TODO: Request from APE, speaker must be configurable on Raspberry
         reduceMotion: true, //TODO: Request from APE
     }
+}
+
+const saveExternalData = () => {
+    //TODO: implement@
 }
 
 console.log("listening on port", port)

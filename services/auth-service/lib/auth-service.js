@@ -22,6 +22,8 @@ class AuthService {
       function (error, response, body) {
         let _body = JSON.parse(body);
 
+        // console.log("body", _body)
+
         let db_username = _body.username;
         //TODO: Deliver decoded pw here? What is the most "secure case" - 
         //can only be done if this route stays inside our network
@@ -47,6 +49,8 @@ class AuthService {
                 body: body
               },
               function (error, response, body) {
+                // console.log("error", error)
+                // console.log("body 2nd", body)
                 if (error) {
                   res.status(400).json("Unknown error");
                 }

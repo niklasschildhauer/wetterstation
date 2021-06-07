@@ -1,5 +1,5 @@
 import { Entity, PrimaryGeneratedColumn, Column, OneToMany, ManyToMany } from "typeorm";
-import { Allergy } from "./Allergy";
+import { Pollen } from "./Pollen";
 
 @Entity()
 export class UserContext {
@@ -13,4 +13,10 @@ export class UserContext {
     //TODO: Encryption
     @Column()
     password: string;
+
+    // @ManyToMany(() => Allergy, allergy => allergy.users)
+    // allergies: Allergy[];
+
+    // @ManyToMany(() => Pollen, pollen => pollen.users)
+    // pollen: Allergy[];
 }
