@@ -14,14 +14,13 @@ AutoConnect Portal(Server);
 AutoConnectConfig Config;
 AutoConnectAux auxUpload;
 
+Adafruit_BME280 bme; // I2C
 
 void rootPage()
 {
   char content[] = "it works";
   Server.send(200, "text/plain", content);
 }
-
-Adafruit_BME280 bme; // I2C
 
 #define SERVER_IP "192.168.178.30:4201" //"192.168.0.136:4201"
 
