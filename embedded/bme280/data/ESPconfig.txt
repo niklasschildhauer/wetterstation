@@ -1,0 +1,1 @@
+{"roomName":"denndasistmeinraum", "transmissionFrequency":10, "postalCode":"70567", "id":-1, "ssid":"", "password":""}
