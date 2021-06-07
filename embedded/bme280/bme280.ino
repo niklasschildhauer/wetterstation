@@ -23,7 +23,7 @@ void rootPage()
 
 Adafruit_BME280 bme; // I2C
 
-#define SERVER_IP "192.168.0.136:4201" //"192.168.0.136:4201"
+#define SERVER_IP "192.168.178.30:4201" //"192.168.0.136:4201"
 
 
 void lightSleep(){
@@ -37,13 +37,16 @@ String viewSSID() {
   station_config_t  entry;
   String ssid = "";
   uint8_t  count = ac.entries();          // Get number of entries.
+  Serial.println("ct");
+  Serial.println(count);
 
   for (int8_t i = 0; i < count; i++) {    // Loads all entries.
     ac.load(i, &entry);
     // Build a SSID line of an HTML.
     ssid = String((char *)entry.ssid); 
   }
-  // Returns the '<li>SSID</li>' container.
+  Serial.println("ssid");
+  Serial.println(ssid);
   return ssid;
 }
 
@@ -57,9 +60,10 @@ String viewPW() {
     ac.load(i, &entry);
     // Build a SSID line of an HTML.
     password = String((char *)entry.password);
-   
+    Serial.println((char *)entry.password);
   }
-  // Returns the '<li>SSID</li>' container.
+  Serial.println("pwd");
+  Serial.println(password);
   return password;
 }
 
@@ -73,7 +77,8 @@ void setup()
 
   Config.apid = "test";
   Config.psk = "12345678";
-  
+
+  delay(10000);
 
   // 0x76 and 0x77 are possible
   // bool communication = bme.begin();
@@ -110,20 +115,6 @@ void setup()
 
 void loop()
 {
-
-  
-
-//  AutoConnectCredential credential;
-//  station_config_t config;
-//  uint8_t ent = credential.entries();
-//  uint8_t letsload = credential.load(ent, &config); 
-//  Serial.printf("Delete for %s ", (char *)entry.ssid);
-//  Serial.println(letsload); 
-//  
-  //Serial.println(credential);
-//  Serial.println(viewCredential());
-
-
  
   // -------------------------------- Handle opening / reading of Config File ESPConfig.txt ------------------------------
 
@@ -134,7 +125,7 @@ void loop()
     return;
   }
 
-  File file = SPIFFS.open("/ESPconfig.txt");
+  File file = SPIFFS.open("/ESPconfig.txt", FILE_READ);
   if (!file)
   {
     Serial.println("Failed to open file for reading");
@@ -167,7 +158,6 @@ void loop()
   const char *ssid = doc["ssid"].as<char *>();
   const char *password = doc["password"].as<char *>();
 
-  
   Serial.println("lalalala");
   Serial.println(ssid);
   Serial.println(password);
@@ -242,7 +232,7 @@ void loop()
     char buffer[220];
 
     sprintf(buffer, "{\"humidity\":\"%.2f\",\"temperature\":\"%.2f\",\"pressure\":\"%.2f\",\"deviceID\":\"%d\",\"location\":\"%s\"}", bme.readHumidity(), bme.readTemperature(), bme.readPressure() / 100.0F, id, postalCode);
-    Serial.println(buffer);
+    //Serial.println(buffer);
 
     int httpCode = http.POST(buffer);
 
@@ -284,17 +274,14 @@ void loop()
         }
 
         doc["ssid"] = viewSSID();
-        
         doc["password"] = viewPW();
         
-//        Serial.print(doc["ssid"]);
-//        Serial.print(doc["password"]);
-        serializeJson(doc, Serial);
+        Serial.println("above: values, below: doc<asstring>");
         Serial.println(doc.as<String>());
 
-     //   file.print(payload);
-//        Serial.println("File written!");
-//        Serial.println("==============================");
+        file.print(doc.as<String>());
+        Serial.println("File written!");
+        Serial.println("==============================");
         file.close();
       }
     }
