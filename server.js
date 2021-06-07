@@ -318,21 +318,25 @@ app.post("/v1/pollen/insert", (req, res) => {
  * Save a new Allergy
  * @route POST /allergies/save
  * @group Allergies - Create and retrieve allergies
+ * @security JWT
  * @param {Allergy_request_object.model} pollen.body.required - userID and pollenID - determines the allergy
  */
  app.post("/v1/allergies/save", (req, res) => {
-  genericRequestWithPayload("", "POST", "http://localhost:4205/pollen/save", JSON.stringify(req.body), res);
+  const token = req.headers["x-access-token"] || req.headers["authorization"];
+  genericRequestWithPayload(token, "POST", "http://localhost:4205/pollen/save", JSON.stringify(req.body), res);
 });
 
 /**
  * Retrieve all pollen types a user is allergic to
  * @route GET /allergies/byUsername
  * @group Allergies - Create and retrieve allergies
+ * @security JWT
  * @param {string} username.query.required - username of the user to request
  * @returns {Array<string>} All Pollen types that the user is allergic to
  */
  app.get("/v1/allergies/byUsername", (req, res) => {
-  genericRequest("", "GET", "http://localhost:4205/pollen/byUsername/" + req.query.username, res);
+  const token = req.headers["x-access-token"] || req.headers["authorization"];
+  genericRequest(token, "GET", "http://localhost:4205/pollen/byUsername/" + req.query.username, res);
 });
 
 

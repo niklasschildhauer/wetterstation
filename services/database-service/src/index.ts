@@ -19,7 +19,10 @@ createConnection().then(connection => {
     //set up express 
     const port = 4205;
     var express = require('express');
+    var request = require('request');
+    var morgan = require('morgan');
     var app = express();
+    app.use(morgan("dev"));
     app.use(express.json());
 
 
@@ -105,7 +108,7 @@ createConnection().then(connection => {
             return res.send(return_val);
         } else {
             const result = await registerNewDeviceESPConfig();
-            
+
             return res.send(result);
         }
     });
@@ -125,7 +128,7 @@ createConnection().then(connection => {
 
         if (deviceID !== -1) {
             const return_val = await espConfigData.findOne({ id: deviceID });
-            
+
             return res.send(return_val);
         }
         else {
@@ -144,9 +147,9 @@ createConnection().then(connection => {
 
     //Request one pollen object by id
     app.get('/pollen/:id', async (req, res) => {
-        console.log("hello", req.params.id);
+        // console.log("hello", req.params.id);
         const pollen = await pollenData.findOne({ id: req.params.id })
-        console.log("pollen", pollen)
+        // console.log("pollen", pollen)
         returnNotNull(pollen, res);
     })
 
@@ -158,41 +161,53 @@ createConnection().then(connection => {
     });
 
     app.post('/pollen/save', async (req, res) => {
-        const userID = req.body.userID;
-        const pollenID = req.body.pollenID;
-        const pollen1 = await pollenData.findOne({id:pollenID})
-
-        const user = await userCtxData.findOne({id: userID})
-        pollen1.users = [user]
-
-        await connection.manager.save(user);
-        await connection.manager.save(pollen1);
-
-        const allergies = await pollenData.find({relations: ["users"]})
-        console.log(allergies);
-        res.send({"result": "OK"});
+        const token = req.headers["x-access-token"] || req.headers["authorization"];
+        genericRequest(token).then(async (success) => {
+            const userID = req.body.userID;
+            const pollenID = req.body.pollenID;
+            const pollen1 = await pollenData.findOne({ id: pollenID })
+    
+            const user = await userCtxData.findOne({ id: userID })
+            pollen1.users = [user]
+    
+            await connection.manager.save(user);
+            await connection.manager.save(pollen1);
+    
+            const allergies = await pollenData.find({ relations: ["users"] })
+            // console.log(allergies);
+            res.send({ "result": "OK" });
+        }).catch((error) => {
+            return res.send({"error": error});
+        })
     });
 
     app.get('/pollen/byUsername/:username', async (req, res) => {
-        const username = req.params.username;
-        let userPollenNames: Array<string> = [];
-        const allergies = await pollenData.find({ relations: ["users"] });
+        const token = req.headers["x-access-token"] || req.headers["authorization"];
+        genericRequest(token).then(async (success) => {
+            if (success) {
+                const username = req.params.username;
+                let userPollenNames: Array<string> = [];
+                const allergies = await pollenData.find({ relations: ["users"] });
 
-        allergies.forEach(allergy => {
-            // console.log("allergy:", allergy)
-            console.log(allergy.users)
-            if(allergy.users.length > 0){
-                if(allergy.users[0].username === username){
-                    // console.log("pollen in this allergy object", allergy.pollen);
-                    userPollenNames.push(allergy.pollenName);
-                }
+                allergies.forEach(allergy => {
+                    // console.log("allergy:", allergy)
+                    // console.log(allergy.users)
+                    if (allergy.users.length > 0) {
+                        if (allergy.users[0].username === username) {
+                            // console.log("pollen in this allergy object", allergy.pollen);
+                            userPollenNames.push(allergy.pollenName);
+                        }
+                    }
+                    else {
+                        // console.log("no allergies?")
+                    }
+                });
+                // console.log("pollen for user", username, ":", userPollenNames);
+                returnNotNull(userPollenNames, res);
             }
-            else{
-                // console.log("no allergies?")
-            }
-        });
-        // console.log("pollen for user", username, ":", userPollenNames);
-        returnNotNull(userPollenNames, res);
+        }).catch((error) => {
+            return res.send({"error": error});
+        })
     })
 
     // -------------------------------------- Users -----------------------------
@@ -253,7 +268,7 @@ createConnection().then(connection => {
     const returnNotNull = (databaseOutput: any, res: any): void => {
         if (databaseOutput === undefined) {
             console.log("database input was undefined");
-            res.status(400).json({message:"Requested entry did not exist"});
+            res.status(400).json({ message: "Requested entry did not exist" });
         }
         else {
             res.status(200).json(databaseOutput);
@@ -278,6 +293,34 @@ createConnection().then(connection => {
         const result = await connection.manager.save(newDevice);
         return result;
     }
+
+    const genericRequest = (token) => {
+        return new Promise((resolve, reject) => {
+            request(
+                {
+                    headers: {
+                        Authorization: token,
+                        "Content-Type": "application/json",
+                        Accept: "application/json"
+                    },
+                    uri: "http://localhost:4202/checkToken",
+                    method: "GET"
+                },
+                function (error, response, body) {
+                    if (error) {
+                        reject("Error in auth-service statusCode: " + response.statusCode);
+                    } else {
+                        let data = JSON.parse(body);
+                        if (data.success) {
+                            resolve(true)
+                        } else {
+                            reject("Error in request: The request is unauthorized");
+                        }
+                    }
+                }
+            );
+        })
+    };
 
     console.log("listening on port", port)
     app.listen(port);

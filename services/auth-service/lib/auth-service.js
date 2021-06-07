@@ -41,6 +41,7 @@ class AuthService {
             request(
               {
                 headers: {
+                  "Authorization": token,
                   "Content-Type": "application/json",
                   "Accept": "application/json"
                 },
@@ -101,6 +102,7 @@ class AuthService {
         request(
           {
             headers: {
+              "Authorization": token,
               "Content-Type": "application/json",
               "Accept": "application/json"
             },

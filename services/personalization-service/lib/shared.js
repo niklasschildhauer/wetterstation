@@ -3,11 +3,12 @@ const request = require("request");
 // ------------------------------------------------ Helper ------------------------------------------------
 
 
-const genericRequest = async (method, uri) => {
+const genericRequest = async (token, method, uri) => {
     return new Promise((resolve, reject) => {
         request(
             {
                 headers: {
+                    Authorization: token,
                     "Content-Type": "application/json",
                     Accept: "application/json"
                 },
@@ -24,11 +25,12 @@ const genericRequest = async (method, uri) => {
     })
 };
 
-const genericRequestWithPayload = (method, uri, body) => {
+const genericRequestWithPayload = (token, method, uri, body) => {
     return new Promise((resolve, reject) => {
         request(
             {
                 headers: {
+                    Authorization: token,
                     "Content-Type": "application/json",
                     Accept: "application/json"
                 },

@@ -13,9 +13,10 @@ app.get('/', function (req, res) {
 
 // Utility route when the user is already known
 app.post('/userContextUtility', (req, res) => {
+    const token = req.headers["x-access-token"] || req.headers["authorization"];
     let db_user = req.body;
     let externals = getExternalData();
-    grh.genericRequest("", 'http://localhost:4205/pollen/byUsername/' + db_user.username).then((pollen) => {
+    grh.genericRequest(token, "GET", 'http://localhost:4205/pollen/byUsername/' + db_user.username).then((pollen) => {
         let out = {
             id : db_user.id,
             username: db_user.username,
@@ -34,7 +35,7 @@ app.post('/register', (req, res) => {
     //TODO: OpenAPE stuff register
     saveExternalData();
 
-    grh.genericRequestWithPayload("POST", 'http://localhost:4205/userContext/save', JSON.stringify(req.body), res).then((response) => {
+    grh.genericRequestWithPayload("", "POST", 'http://localhost:4205/userContext/save', JSON.stringify(req.body), res).then((response) => {
         let externals = getExternalData()
         let db_user = JSON.parse(response)
 
