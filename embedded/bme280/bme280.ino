@@ -23,30 +23,23 @@ void rootPage()
 
 Adafruit_BME280 bme; // I2C
 
-#define SERVER_IP "192.168.0.136:4201" //"192.168.0.136:4201"
-
-
-void lightSleep(){
-  Serial.println("light sleep");
-  esp_sleep_enable_timer_wakeup(40000);
-  esp_light_sleep_start();
-}
+#define SERVER_IP "192.168.178.30:4201" //"192.168.0.136:4201"
 
 String viewSSID() {
   AutoConnectCredential  ac(0);
   station_config_t  entry;
   String ssid = "";
   uint8_t  count = ac.entries();          // Get number of entries.
-  Serial.println("ct");
-  Serial.println(count);
+  //Serial.println("ct");
+  //Serial.println(count);
 
   for (int8_t i = 0; i < count; i++) {    // Loads all entries.
     ac.load(i, &entry);
     // Build a SSID line of an HTML.
     ssid = String((char *)entry.ssid); 
   }
-  Serial.println("ssid");
-  Serial.println(ssid);
+  //Serial.println("ssid");
+  //Serial.println(ssid);
   return ssid;
 }
 
@@ -55,15 +48,16 @@ String viewPW() {
   station_config_t  entry;
   String password = "";
   uint8_t  count = ac.entries();          // Get number of entries.
+  //Serial.println("ct");
+  //Serial.println(count);
 
   for (int8_t i = 0; i < count; i++) {    // Loads all entries.
     ac.load(i, &entry);
     // Build a SSID line of an HTML.
     password = String((char *)entry.password);
-    Serial.println((char *)entry.password);
   }
-  Serial.println("pwd");
-  Serial.println(password);
+  //Serial.println("pwd");
+  //Serial.println(password);
   return password;
 }
 
@@ -78,10 +72,8 @@ void setup()
   Config.apid = "test";
   Config.psk = "12345678";
 
-  delay(10000);
-
-  // 0x76 and 0x77 are possible
-  // bool communication = bme.begin();
+  // For debugging so the 1st Serial print cycle can be read
+  //delay(10000);
 
   bool communication = bme.begin(0x76);
 
@@ -104,18 +96,13 @@ void setup()
     Serial.println("Communication established!\n");
   }
 
-
-  
-
   Server.on("/", rootPage);
-
 }
 
 /*------------------------------------loop---------------------------------*/
 
 void loop()
 {
- 
   // -------------------------------- Handle opening / reading of Config File ESPConfig.txt ------------------------------
 
   //Test filesystem access
@@ -158,12 +145,8 @@ void loop()
   const char *ssid = doc["ssid"].as<char *>();
   const char *password = doc["password"].as<char *>();
 
-  Serial.println("lalalala");
-  Serial.println(ssid);
-  Serial.println(password);
-
-  Serial.println(strcmp("", password));
-  Serial.println(strcmp("", ssid));
+  //Serial.println(ssid);
+  //Serial.println(password);
 
   if((strcmp("",password) != 0) && (strcmp("", ssid) != 0)){
     Serial.println("Trying to connect to stored credentials");
@@ -278,9 +261,6 @@ void loop()
 
         doc["ssid"] = viewSSID();
         doc["password"] = viewPW();
-        
-        Serial.println("above: values, below: doc<asstring>");
-        Serial.println(doc.as<String>());
 
         file.print(doc.as<String>());
         Serial.println("File written!");
@@ -295,15 +275,9 @@ void loop()
 
     http.end();
 
-   //lightSleep();
-    esp_sleep_enable_timer_wakeup(4000);
+    esp_sleep_enable_timer_wakeup(1000 * (60000 * transmissionFrequency - 8000));
     Serial.println("Going to sleep now");
     Serial.flush(); 
     esp_deep_sleep_start();
-    
-    Serial.println("wake up again");
-    
-    //delay(50000);
-    // delay(60000 * transmissionFrequency - 10000)
   }
 }
