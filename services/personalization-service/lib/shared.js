@@ -24,43 +24,30 @@ const genericRequest = async (method, uri) => {
     })
 };
 
-const genericRequestWithPayload = (method, uri, body, res) => {
-    request(
-        {
-            headers: {
-                "Content-Type": "application/json",
-                Accept: "application/json"
+const genericRequestWithPayload = (method, uri, body) => {
+    return new Promise((resolve, reject) => {
+        request(
+            {
+                headers: {
+                    "Content-Type": "application/json",
+                    Accept: "application/json"
+                },
+                uri: uri,
+                method: method,
+                body: body,
+                // json:true
             },
-            uri: uri,
-            method: method,
-            body: body
-        },
-        function (error, response, body) {
-            genericCallback(error, response, body, res);
-        }
-    );
+            function (error, response, body) {
+                if(error)
+                    reject(error)
+                else
+                    resolve(body)
+            }
+        );
+    })
 };
-
-const genericCallback = (error, response, body, res) => {
-    if (error) {
-        res.sendStatus("400");
-    } else {
-        if (response.statusCode === 200) {
-            let data = JSON.parse(body);
-            res.json(data);
-        } else if (response.statusCode === 401) {
-            let out = "The request is unauthorized";
-            res.status("401").json(out);
-        } else {
-            let out = "Bad request";
-            res.status("400").json(out);
-        }
-    }
-};
-
 
 module.exports = {
     genericRequest: genericRequest,
     genericRequestWithPayload: genericRequestWithPayload,
-    genericCallback: genericCallback
 }

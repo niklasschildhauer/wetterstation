@@ -3,7 +3,6 @@ import { Between, createConnection } from "typeorm";
 import { Outdoor } from "./entity/Outdoor";
 import { Indoor } from "./entity/Indoor";
 import { UserContext } from "./entity/UserContext";
-import { Allergy } from "./entity/Allergy";
 import { Pollen } from "./entity/Pollen";
 import { ESPConfig } from "./entity/ESPconfig";
 
@@ -14,7 +13,6 @@ createConnection().then(connection => {
     const outdoorData = connection.getRepository(Outdoor);
     const indoorData = connection.getRepository(Indoor);
     const userCtxData = connection.getRepository(UserContext);
-    const allergyData = connection.getRepository(Allergy);
     const pollenData = connection.getRepository(Pollen);
     const espConfigData = connection.getRepository(ESPConfig);
 
@@ -159,14 +157,38 @@ createConnection().then(connection => {
         return res.send(results);
     });
 
+    app.post('/pollen/save', async (req, res) => {
+        const userID = req.body.userID;
+        const pollenID = req.body.pollenID;
+        const pollen1 = await pollenData.findOne({id:pollenID})
+
+        const user = await userCtxData.findOne({id: userID})
+        pollen1.users = [user]
+
+        await connection.manager.save(user);
+        await connection.manager.save(pollen1);
+
+        const allergies = await pollenData.find({relations: ["users"]})
+        console.log(allergies);
+        res.send({"result": "OK"});
+    });
+
     app.get('/pollen/byUsername/:username', async (req, res) => {
         const username = req.params.username;
         let userPollenNames: Array<string> = [];
-        const allergies = await allergyData.find({ relations: ["users", "pollen"] });
+        const allergies = await pollenData.find({ relations: ["users"] });
+
         allergies.forEach(allergy => {
-            if(allergy.users[0].username === username){
-                // console.log("pollen in this allergy object", allergy.pollen);
-                userPollenNames.push(allergy.pollen[0].pollenName);
+            // console.log("allergy:", allergy)
+            console.log(allergy.users)
+            if(allergy.users.length > 0){
+                if(allergy.users[0].username === username){
+                    // console.log("pollen in this allergy object", allergy.pollen);
+                    userPollenNames.push(allergy.pollenName);
+                }
+            }
+            else{
+                // console.log("no allergies?")
             }
         });
         // console.log("pollen for user", username, ":", userPollenNames);
@@ -185,42 +207,8 @@ createConnection().then(connection => {
     app.post('/userContext/save', async (req, res) => {
         const entry = await userCtxData.create(req.body)
         const results = await userCtxData.save(entry);
-        return res.send(results);
+        returnNotNull(results, res);
     });
-
-    // -------------------------------------- Allergy -----------------------------
-
-    // CURL-TEST-CLI: --> curl -H "Content-Type: application/json" -X POST http://localhost:4205/allergy -d "{\"userId\":1, \"pollenId\":1}"
-
-    //Save a new Allergy object to the db
-    app.post('/allergy/save', async (req, res) => {
-        const userId = req.body.userId;
-        const pollenId = req.body.pollenId;
-        const user = await userCtxData.findOne({ id: userId });
-        const pollen = await pollenData.findOne({ id: pollenId });
-
-        const allergy = new Allergy();
-        allergy.pollen = [pollen];
-        allergy.users = [user];
-        await connection.manager.save(allergy);
-
-        returnNotNull(allergy, res);
-    });
-
-    // app.get('/allergy/byUsername/:username', async (req, res) => {
-    //     const username = req.params.username;
-    //     let userAllergies: Array<Allergy> = [];
-    //     const allergies = await allergyData.find({ relations: ["users", "pollen"] });
-    //     allergies.forEach(allergy => {
-    //         if(allergy.users[0].username = username){
-    //             userAllergies.push(allergy);
-    //         }
-    //     });
-    //     console.log("allergies for user", username, ":", userAllergies);
-    //     return res.send(userAllergies);
-    // })
-
-    
 
     // -------------------------------------- ESPConfig -----------------------------
 
