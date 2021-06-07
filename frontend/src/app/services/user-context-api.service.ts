@@ -10,7 +10,7 @@ export class UserContextApiService {
   private loginURL = '/auth/login'
   private checkTokenURL = '/auth/checkToken'
   private allPollenTypesURL = '/pollen/all'
-  private currentUserContextURL = 'auth/currentUser'
+  private currentUserContextURL = '/user/currentUser'
 
   constructor(private httpClient: HttpClient) { }
 

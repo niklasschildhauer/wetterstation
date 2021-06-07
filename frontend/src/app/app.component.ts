@@ -67,6 +67,7 @@ export class AppComponent {
   }
 
   private loadUserContext() {
+    this.userContextService.refreshUserContextIfNeeded().subscribe();
     this.userContextService.getUserContextSubject()
     .subscribe(data => this.userContext = data);
   }
