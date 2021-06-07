@@ -1,10 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Daytime, OutdoorWeatherData } from 'src/app/model/weather';
-import { WeatherAPIService } from '../../../services/weather-api.service'
 import { UserContextService } from 'src/app/services/user-context.service';
 import { WeatherDataService } from 'src/app/services/weather-data.service';
 import { Themes, UserContext } from 'src/app/model/user-context';
-import { ImageService } from 'src/app/services/image.service';
 
 @Component({
   selector: 'app-outdoor-weather-view',
@@ -21,8 +19,7 @@ export class OutdoorWeatherViewComponent implements OnInit {
   themeType = Themes
 
   constructor(private userContextService: UserContextService,
-              private weatherDataService: WeatherDataService,
-              private imageService: ImageService) { }
+              private weatherDataService: WeatherDataService) { }
 
   ngOnInit(): void {
     // this.loadOutdoorWeather();

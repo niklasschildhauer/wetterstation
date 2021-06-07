@@ -5,7 +5,7 @@ import { UiElementsModule } from '../ui-elements/ui-elements.module';
 import { RouterModule } from '@angular/router';
 import { OutdoorWeatherViewComponent } from './outdoor-weather-view/outdoor-weather-view.component';
 import { HistoryTileViewComponent } from './history-tile-view/history-tile-view.component';
-import { IndoorTileViewComponent, IndoorTilePopUpDialogView } from './indoor-tile-view/indoor-tile-view.component';
+import { IndoorTileViewComponent } from './indoor-tile-view/indoor-tile-view.component';
 import { IndoorDetailViewComponent } from './indoor-detail-view/indoor-detail-view.component';
 import { PollenflugDetailViewComponent } from './pollenflug-detail-view/pollenflug-detail-view.component';
 import { HistoryDetailViewComponent } from './history-detail-view/history-detail-view.component';
@@ -23,6 +23,8 @@ import { ApparentTemperatureTileViewComponent } from './apparent-temperature-til
 import { MatDialogModule } from '@angular/material/dialog';
 import { SimpleTileViewComponent } from './simple-tile-view/simple-tile-view.component';
 import { ChartsModule } from "@rinminase/ng-charts";
+import { ConfigurationViewComponent } from './configuration-view/configuration-view.component';
+import { ConfigurationTileViewComponent, ConfigurationTilePopUpDialogView } from './configuration-tile-view/configuration-tile-view.component';
 
 
 
@@ -45,8 +47,10 @@ import { ChartsModule } from "@rinminase/ng-charts";
     OutdoorWeatherDetailViewComponent,
     HumidityTileViewComponent,
     ApparentTemperatureTileViewComponent,
-    IndoorTilePopUpDialogView,
-    SimpleTileViewComponent
+    ConfigurationTilePopUpDialogView,
+    SimpleTileViewComponent,
+    ConfigurationViewComponent,
+    ConfigurationTileViewComponent
   ],
   imports: [
     CommonModule,

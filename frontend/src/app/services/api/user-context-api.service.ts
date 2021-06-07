@@ -1,12 +1,12 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { INITIAL_USER_CONTEXT, PollenType, Themes, UserContext } from '../model/user-context';
+import { INITIAL_USER_CONTEXT, PollenType, Themes, UserContext } from '../../model/user-context';
 
 @Injectable({
   providedIn: 'root'
 })
-export class UserContextApiService {
+export class UserContextAPIService {
   private loginURL = '/auth/login'
   private checkTokenURL = '/auth/checkToken'
   private allPollenTypesURL = '/pollen/all'

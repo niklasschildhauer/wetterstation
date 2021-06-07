@@ -3,7 +3,7 @@ import { BehaviorSubject, forkJoin, Observable, of, Subject} from 'rxjs';
 import { Daytime, IndoorRoomData, OutdoorWeatherData, PollenData, Tile, WeatherData, WeatherForecastData, WeatherHistoryData } from '../model/weather';
 import { TileService } from './tile.service';
 import { UserContextService } from './user-context.service';
-import { WeatherAPIService } from './weather-api.service';
+import { WeatherAPIService } from './api/weather-api.service';
 
 @Injectable({
   providedIn: 'root'

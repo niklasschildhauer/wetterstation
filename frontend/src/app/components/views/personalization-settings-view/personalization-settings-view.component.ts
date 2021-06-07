@@ -32,7 +32,7 @@ export class PersonalizationSettingsViewComponent implements OnInit {
 
   getUserContext() {
     this.userContextService.getUserContextSubject()
-    .subscribe(data => this.userContextData = data)
+      .subscribe(data => this.userContextData = data)
   }
 
   changedValue(event: any) {

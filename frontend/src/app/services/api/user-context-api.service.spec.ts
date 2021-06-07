@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { UserContextApiService } from './user-context-api.service';
+import { UserContextAPIService } from './user-context-api.service';
 
 describe('UserContextApiService', () => {
-  let service: UserContextApiService;
+  let service: UserContextAPIService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(UserContextApiService);
+    service = TestBed.inject(UserContextAPIService);
   });
 
   it('should be created', () => {

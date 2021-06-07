@@ -3,7 +3,7 @@ import { UserContext, Themes, INITIAL_USER_CONTEXT, PollenType } from '../model/
 import { BehaviorSubject, Observable, of } from 'rxjs';
 import { LocalStorageService } from './local-storage.service';
 import { Router } from '@angular/router';
-import { UserContextApiService } from './user-context-api.service';
+import { UserContextAPIService } from './api/user-context-api.service';
 
 @Injectable({
   providedIn: 'root'
@@ -81,7 +81,7 @@ export class UserContextService {
 
   constructor(private localStorageService: LocalStorageService,
               private router: Router,
-              private userContextAPI: UserContextApiService) { 
+              private userContextAPI: UserContextAPIService) { 
     this._userContext.next(this.localStorageService.userContext);
     this.loadPollenTypes()
 

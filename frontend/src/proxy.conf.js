@@ -6,6 +6,7 @@ const PROXY_CONFIG = [
             "/user",
             "/weather-data",
             "/pollen",
+            "/espconfig",
         ],
         target: "http://localhost:4201/v1",
         secure: false,

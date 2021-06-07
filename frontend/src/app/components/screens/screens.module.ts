@@ -8,7 +8,7 @@ import { ViewsModule } from '../views/views.module'
 import { RouterModule } from '@angular/router';
 import { LayoutModule } from '@angular/cdk/layout';
 import { AppRoutingModule } from 'src/app/app-routing.module';
-import { PersonalizationScreenComponent } from './personalization-screen/personalization-screen.component';
+import { SettingsScreenComponent } from './settings-screen/settings-screen.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
@@ -17,7 +17,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
   declarations: [
     DashboardScreenComponent,
     DetailScreenComponent,
-    PersonalizationScreenComponent,
+    SettingsScreenComponent,
     OnboardingScreenComponent,
   ],
   imports: [

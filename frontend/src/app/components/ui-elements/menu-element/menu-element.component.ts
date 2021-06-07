@@ -59,7 +59,7 @@ export class MenuElementComponent implements OnInit {
   }
 
   openPersonalizationSettings() {
-    this.router.navigateByUrl('/personalization');
+    this.router.navigateByUrl('/settings/personalization');
   }
 
   logout(): void {
