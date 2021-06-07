@@ -142,6 +142,12 @@ app.use(express.json({type: "application/json" }));
 */
 
 /**
+* @typedef Allergy_request_object
+* @property {integer} userID
+* @property {integer} pollenID
+*/
+
+/**
 * @typedef ESPConfig
 * @property {integer} id
 * @property {string} roomName
@@ -178,14 +184,25 @@ app.get("/v1/auth/checkToken", (req, res) => {
 
 /**
  * Get the current user's UserContext
- * @route GET /auth/currentUser
- * @group auth - Authentication operations
+ * @route GET /user/currentUser
+ * @group user - User / UserContext
  * @security JWT
  * @returns {UserContext.model} Authentication response message
  */
- app.get("/v1/auth/currentUser", (req, res) => {
+ app.get("/v1/user/currentUser", (req, res) => {
   const token = req.headers["x-access-token"] || req.headers["authorization"];
   genericRequest(token, "GET", "http://localhost:4202/currentUser", res);
+});
+
+/**
+ * Register a new user
+ * @route POST /user/register
+ * @group user - User / UserContext
+ * @param {LoginCredentials.model} loginCredentials.body.required - the new user's credentials
+ * @returns {UserContext.model} Authentication response message
+ */
+ app.post("/v1/user/register", (req, res) => {
+  genericRequestWithPayload("", "POST", "http://localhost:4203/register", JSON.stringify(req.body), res);
 });
 
 // ----------------------------------------- Routes - Sensors -----------------------------------------
@@ -292,6 +309,30 @@ app.get("/v1/pollen", (req, res) => {
  */
 app.post("/v1/pollen/insert", (req, res) => {
   genericRequestWithPayload("", "POST", "http://localhost:4205/pollen/insert", JSON.stringify(req.body), res);
+});
+
+
+//TODO: returns
+
+/**
+ * Save a new Allergy
+ * @route POST /allergies/save
+ * @group Allergies - Create and retrieve allergies
+ * @param {Allergy_request_object.model} pollen.body.required - userID and pollenID - determines the allergy
+ */
+ app.post("/v1/allergies/save", (req, res) => {
+  genericRequestWithPayload("", "POST", "http://localhost:4205/pollen/save", JSON.stringify(req.body), res);
+});
+
+/**
+ * Retrieve all pollen types a user is allergic to
+ * @route GET /allergies/byUsername
+ * @group Allergies - Create and retrieve allergies
+ * @param {string} username.query.required - username of the user to request
+ * @returns {Array<string>} All Pollen types that the user is allergic to
+ */
+ app.get("/v1/allergies/byUsername", (req, res) => {
+  genericRequest("", "GET", "http://localhost:4205/pollen/byUsername/" + req.query.username, res);
 });
 
 
