@@ -7,7 +7,6 @@ import { routeTransitionAnimations } from './route-transition-animation';
 import { Themes, UserContext } from './model/user-context';
 import { Router } from '@angular/router';
 import { BreakpointObserver, BreakpointState} from '@angular/cdk/layout';
-import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-root',
@@ -25,11 +24,9 @@ export class AppComponent {
               private userContextService: UserContextService,
               private http: HttpClient,
               private breakpointObserver: BreakpointObserver,
-              private router: Router,
-              private spinner: NgxSpinnerService) { }
+              private router: Router) { }
 
   ngOnInit(): void {
-    this.spinner.show();
     this.loadDefaultFontSize();
     this.loadUserContext();
     this.listenToThemeChange();  

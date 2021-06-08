@@ -41,6 +41,11 @@ export class MenuElementComponent implements OnInit {
     dark: "setting-button-dark.png",
     highContrast: "setting-button-high.png"
   }
+  public configurationIcon: ImageModel = {
+    light: "setting-button-light.png",
+    dark: "setting-button-dark.png",
+    highContrast: "setting-button-high.png"
+  }
   public logoutIcon: ImageModel = {
     light: "logout-button-light.png",
     dark: "logout-button-dark.png",
@@ -60,6 +65,10 @@ export class MenuElementComponent implements OnInit {
 
   openPersonalizationSettings() {
     this.router.navigateByUrl('/settings/personalization');
+  }
+
+  openConfigurationSettings() {
+    this.router.navigateByUrl('/settings/configuration');
   }
 
   logout(): void {

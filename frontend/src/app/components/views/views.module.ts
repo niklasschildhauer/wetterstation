@@ -25,6 +25,7 @@ import { SimpleTileViewComponent } from './simple-tile-view/simple-tile-view.com
 import { ChartsModule } from "@rinminase/ng-charts";
 import { ConfigurationViewComponent } from './configuration-view/configuration-view.component';
 import { ConfigurationTileViewComponent, ConfigurationTilePopUpDialogView } from './configuration-tile-view/configuration-tile-view.component';
+import { NgxSpinnerModule } from "ngx-spinner";
 
 
 
@@ -60,6 +61,7 @@ import { ConfigurationTileViewComponent, ConfigurationTilePopUpDialogView } from
     ReactiveFormsModule,
     MatDialogModule,
     ChartsModule,
+    NgxSpinnerModule,
   ],
   exports: [
     PollenflugTileViewComponent,

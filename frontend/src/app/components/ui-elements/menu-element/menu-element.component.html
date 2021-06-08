@@ -8,6 +8,11 @@
         <img class="icon" [src]="imageService.getImageSrcFrom(settingsIcon)">
     </button>
 
+    <button (click)="openConfigurationSettings()" class="menu-button">
+        <span>Konfiguration</span>
+        <img class="icon" [src]="imageService.getImageSrcFrom(configurationIcon)">
+    </button>
+
     <button (click)="logout()" class="menu-button">
         <span>Logout</span>
         <img class="icon" [src]="imageService.getImageSrcFrom(logoutIcon)">
