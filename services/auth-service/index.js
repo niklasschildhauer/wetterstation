@@ -23,6 +23,7 @@ app.use(express.json());
 */
 app.post('/login', handlers.login);
 app.get('/checkToken', middleware.checkToken, handlers.validateToken);
+app.get('/currentUser', middleware.checkToken, handlers.currentUser);
 
 console.log("listening on port", port)
 app.listen(port);

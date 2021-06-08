@@ -56,7 +56,7 @@ expressSwagger(swaggerOptions);
 
 app.use(cors(corsOptions));
 app.use(morgan("dev"));
-app.use(express.json({ limit: "1mb", type: "application/json" }));
+app.use(express.json({type: "application/json" }));
 
 
 
@@ -72,6 +72,7 @@ app.use(express.json({ limit: "1mb", type: "application/json" }));
 /**
  * @typedef Auth_Response
  * @property {string} success
+ * @property {UserContext.model} userContext
  */
 
 /**
@@ -86,15 +87,16 @@ app.use(express.json({ limit: "1mb", type: "application/json" }));
 * @property {integer} temperature.required
 * @property {integer} pressure.required
 * @property {string} location.required
+* @property {integer} deviceID.required
 */
 
 /**
 * @typedef SensordataIndoors
 * @property {integer} humidity.required
 * @property {integer} temperature.required
-* @property {integer} pressure.required
 * @property {integer} gasVal.required
 * @property {string} location.required
+* @property {integer} deviceID.required
 */
 
 /**
@@ -111,10 +113,21 @@ app.use(express.json({ limit: "1mb", type: "application/json" }));
 * @typedef IndoorRoomData
 * @property {integer} roomHumidity
 * @property {integer} roomTemperature
-* @property {integer} roomPressure
 * @property {integer} gasVal
 * @property {string} location
 * @property {string} timestamp
+*/
+
+/**
+* @typedef UserContext
+* @property {integer} id
+* @property {string} username
+* @property {string} theme
+* @property {integer} fontSize
+* @property {boolean} selfVoicingEnabled
+* @property {boolean} doVentilationReminder
+* @property {boolean} reduceMotion
+* @property {Array<string>} pollen
 */
 
 /**
@@ -134,6 +147,17 @@ app.use(express.json({ limit: "1mb", type: "application/json" }));
 * @property {string} weatherIcon
 * @property {string} weatherDescription
 * @property {integer} seaPressure
+* @typedef Allergy_request_object
+* @property {integer} userID
+* @property {integer} pollenID
+*/
+
+/**
+* @typedef ESPConfig
+* @property {integer} id
+* @property {string} roomName
+* @property {integer} transmissionFrequency
+* @property {string} postalCode
 */
 
 // -------------------------------------------- Routes - Auth -------------------------------------------
@@ -147,7 +171,7 @@ app.use(express.json({ limit: "1mb", type: "application/json" }));
  * @returns {Error}  Http 400 - Bad Request if user credentials are not correct
  */
 app.post("/v1/auth/login", (req, res) => {
-  genericRequestWithPayload("", "POST", "http://localhost:4202/login", JSON.stringify(req.body), res );
+  genericRequestWithPayload("", "POST", "http://localhost:4202/login", JSON.stringify(req.body), res);
 });
 
 /**
@@ -155,11 +179,35 @@ app.post("/v1/auth/login", (req, res) => {
  * @route GET /auth/checkToken
  * @group auth - Authentication operations
  * @security JWT
- * @returns {Auth_Response.model} Authentication response message
+ * @returns {object} An object including the auth token
  */
 app.get("/v1/auth/checkToken", (req, res) => {
   const token = req.headers["x-access-token"] || req.headers["authorization"];
   genericRequest(token, "GET", "http://localhost:4202/checkToken", res);
+});
+
+
+/**
+ * Get the current user's UserContext
+ * @route GET /user/currentUser
+ * @group user - User / UserContext
+ * @security JWT
+ * @returns {UserContext.model} Authentication response message
+ */
+ app.get("/v1/user/currentUser", (req, res) => {
+  const token = req.headers["x-access-token"] || req.headers["authorization"];
+  genericRequest(token, "GET", "http://localhost:4202/currentUser", res);
+});
+
+/**
+ * Register a new user
+ * @route POST /user/register
+ * @group user - User / UserContext
+ * @param {LoginCredentials.model} loginCredentials.body.required - the new user's credentials
+ * @returns {UserContext.model} Authentication response message
+ */
+ app.post("/v1/user/register", (req, res) => {
+  genericRequestWithPayload("", "POST", "http://localhost:4203/register", JSON.stringify(req.body), res);
 });
 
 // ----------------------------------------- Routes - Sensors -----------------------------------------
@@ -182,7 +230,7 @@ app.post("/v1/sensors/outdoor", (req, res) => {
  * @group sensors - Receiving of sensor data
  * @param {SensordataIndoors.model} sensordata.body.required sensordata
  */
- app.post("/v1/sensors/indoor", (req, res) => {
+app.post("/v1/sensors/indoor", (req, res) => {
   genericRequestWithPayload("", "POST", "http://localhost:4204/sensorin", JSON.stringify(req.body), res);
 });
 
@@ -193,7 +241,7 @@ app.post("/v1/sensors/outdoor", (req, res) => {
  * @group weather-data - Request weather data
  * @returns {OutdoorWeatherData.model} 200 - The latest recorded weather data
  */
- app.get("/v1/weather-data/outdoor/latest", (req, res) => {
+app.get("/v1/weather-data/outdoor/latest", (req, res) => {
   genericRequest("", "GET", "http://localhost:4205/outdoor/latest", res);
 });
 
@@ -204,7 +252,7 @@ app.post("/v1/sensors/outdoor", (req, res) => {
  * @group weather-data - Request weather data
  * @returns {IndoorRoomData.model} 200 - The latest recorded weather data
  */
- app.get("/v1/weather-data/indoor/latest", (req, res) => {
+app.get("/v1/weather-data/indoor/latest", (req, res) => {
   genericRequest("", "GET", "http://localhost:4205/indoor/latest", res);
 });
 
@@ -228,7 +276,7 @@ app.post("/v1/weather-data/outdoor/history", (req, res) => {
  * @param {Interval.model} interval.body.required interval
  * @returns {Array<IndoorRoomData>} 200 - An array of IndoorRoomData objects for a given interval
  */
- app.post("/v1/weather-data/indoor/history", (req, res) => {
+app.post("/v1/weather-data/indoor/history", (req, res) => {
   genericRequestWithPayload("", "POST", "http://localhost:4205/indoor/history", JSON.stringify(req.body), res);
 });
 
@@ -240,7 +288,7 @@ app.post("/v1/weather-data/outdoor/history", (req, res) => {
  * @group Pollen - Pollen data CRUD
  * @returns {Array<Pollen_object>} 200 - An array of PollenTypes and 
  */
- app.get("/v1/pollen/all", (req, res) => {
+app.get("/v1/pollen/all", (req, res) => {
   genericRequest("", "GET", "http://localhost:4205/pollen/all", res);
 });
 
@@ -252,11 +300,11 @@ app.post("/v1/weather-data/outdoor/history", (req, res) => {
  * @param {integer} id.query.required - id of the Pollen object
  * @returns {Pollen_object} 200 - a single Pollen object
  */
- app.get("/v1/pollen", (req, res) => {
+app.get("/v1/pollen", (req, res) => {
   genericRequest("", "GET", "http://localhost:4205/pollen/" + req.query.id, res);
 });
 
- 
+
 /**
  * Create a new Pollen object
  * @route POST /pollen/insert
@@ -264,8 +312,36 @@ app.post("/v1/weather-data/outdoor/history", (req, res) => {
  * @param {Pollen.model} pollen.body.required - Pollen object with pollenName
  * @returns {Pollen_object} 200 - a single Pollen object
  */
- app.post("/v1/pollen/insert", (req, res) => {
-  genericRequestWithPayload("", "POST", "http://localhost:4205/pollen/insert", JSON.stringify(req.body) , res);
+app.post("/v1/pollen/insert", (req, res) => {
+  genericRequestWithPayload("", "POST", "http://localhost:4205/pollen/insert", JSON.stringify(req.body), res);
+});
+
+
+//TODO: returns
+
+/**
+ * Save a new Allergy
+ * @route POST /allergies/save
+ * @group Allergies - Create and retrieve allergies
+ * @security JWT
+ * @param {Allergy_request_object.model} pollen.body.required - userID and pollenID - determines the allergy
+ */
+ app.post("/v1/allergies/save", (req, res) => {
+  const token = req.headers["x-access-token"] || req.headers["authorization"];
+  genericRequestWithPayload(token, "POST", "http://localhost:4205/pollen/save", JSON.stringify(req.body), res);
+});
+
+/**
+ * Retrieve all pollen types a user is allergic to
+ * @route GET /allergies/byUsername
+ * @group Allergies - Create and retrieve allergies
+ * @security JWT
+ * @param {string} username.query.required - username of the user to request
+ * @returns {Array<string>} All Pollen types that the user is allergic to
+ */
+ app.get("/v1/allergies/byUsername", (req, res) => {
+  const token = req.headers["x-access-token"] || req.headers["authorization"];
+  genericRequest(token, "GET", "http://localhost:4205/pollen/byUsername/" + req.query.username, res);
 });
 
 
@@ -307,6 +383,30 @@ app.post("/v1/weather-data/forecast/insert", (req, res) => {
 //TODO: Needs to be combined into personalization service using personalization-service
 // Needs openAPE...
 
+
+// ---------------------------------------- Routes - ESPConfig ----------------------------------------
+
+/**
+ * List all available ESPConfig objects in the database
+ * @route GET /espconfig/all
+ * @group ESPConfig - ESPConfig object creation and change
+ * @returns {ESPConfig.model} 200 - all available ESPConfig objects
+ */
+app.get("/v1/espconfig/all", (req, res) => {
+  genericRequest("", "GET", "http://localhost:4205/espconfig/all", res);
+});
+
+
+/**
+ * Create a new Pollen object
+ * @route POST /espconfig/change
+ * @group ESPConfig - ESPConfig object creation and change
+ * @param {ESPConfig.model} espconfig.body.required - ESPConfig object
+ * @returns {Array<ESPConfig>} 200 - a complete ESPConfig object
+ */
+app.post("/v1/espconfig/change", (req, res) => {
+  genericRequestWithPayload("", "POST", "http://localhost:4205/espconfig/change", JSON.stringify(req.body), res);
+});
 
 // ------------------------------------------------ Helper ------------------------------------------------
 
@@ -357,7 +457,8 @@ const genericCallback = (error, response, body, res) => {
       let out = "The request is unauthorized";
       res.status("401").json(out);
     } else {
-      let out = "Bad request";
+      console.log("body.message", body)
+      let out = body.message || "Bad request";
       res.status("400").json(out);
     }
   }

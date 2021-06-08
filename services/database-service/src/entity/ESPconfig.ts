@@ -14,8 +14,4 @@ export class ESPConfig {
 
     @Column()
     postalCode: string; // postalCode for determination of altitude (needed for weather forecast / analysis)
-
-    //TODO: User table reference
-    // @Column()
-    // user: User
 }
