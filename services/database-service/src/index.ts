@@ -5,6 +5,7 @@ import { Indoor } from "./entity/Indoor";
 import { UserContext } from "./entity/UserContext";
 import { Allergy} from "./entity/Allergy";
 import { Pollen } from "./entity/Pollen";
+import { Forecast } from "./entity/Forecast";
 
 "use strict"
 
@@ -15,6 +16,7 @@ createConnection().then(connection => {
     const userCtxData = connection.getRepository(UserContext);
     const allergyData = connection.getRepository(Allergy);
     const pollenData = connection.getRepository(Pollen);
+    const forecastData = connection.getRepository(Forecast);
 
     //set up express 
     const port = 4205;
@@ -32,6 +34,7 @@ createConnection().then(connection => {
                 id: "DESC"
             }
         });
+        console.log("Res", latest);
         returnNotNull(latest, res)
     });
 
@@ -159,6 +162,39 @@ createConnection().then(connection => {
         returnNotNull(result, res);
     });
 
+    // -------------------------------------- Forecast -----------------------------
+
+    //Get the latest data from the forecast table  
+    app.get('/forecast/latest', async (req, res) => {
+        const latest = await forecastData.findOne({
+            order: {
+                id: "DESC"
+            }
+        });
+        returnNotNull(latest, res)
+    });
+
+    //Insert new forecast entry into forecast table
+    app.post('/forecast/insert', async (req, res) => {
+        //console.log("body", req.body);
+        const forecast = await forecastData.create(req.body);
+        const results = await forecastData.save(forecast);
+        console.log("results", results);
+        returnNotNull(results, res);
+    });
+
+    //Get the last 9 forecast entries for new forecast
+    app.get('/forecast/history', async (req, res) => {
+        const history = await forecastData.find({
+            order: {
+                id: "DESC"
+            },
+            take: 9
+        });
+        console.log("history", history);
+        returnNotNull(history, res);
+    });
+    
     // ------------------------------------------------ Helper ------------------------------------------------
 
     const returnNotNull = (databaseOutput: any, res: any): void => {
