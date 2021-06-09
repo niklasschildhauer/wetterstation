@@ -142,6 +142,11 @@ app.use(express.json({type: "application/json" }));
 */
 
 /**
+* @typedef Forecast
+* @property {string} trend
+* @property {string} weatherIcon
+* @property {string} weatherDescription
+* @property {integer} seaPressure
 * @typedef Allergy_request_object
 * @property {integer} userID
 * @property {integer} pollenID
@@ -338,6 +343,39 @@ app.post("/v1/pollen/insert", (req, res) => {
   genericRequest(token, "GET", "http://localhost:4205/pollen/byUsername/" + req.query.username, res);
 });
 
+
+// ------------------------------------------ Routes - Forecast ------------------------------------------
+
+/**
+ * Receive latest data for forecast
+ * @route GET /weather-data/forecast/latest
+ * @group forecast - Insert forecast data
+ * @returns {Forecast} 200 - The latest recorded forecast data
+ */
+app.get("/v1/weather-data/forecast/latest", (req, res) => {
+  genericRequest("", "GET", "http://localhost:4205/forecast/latest", res);
+});
+
+/**
+ * Receive latest data for forecast
+ * @route GET /weather-data/forecast/history
+ * @group forecast - Insert forecast data
+ * @returns {Array<Forecast>} 200 - The latest recorded forecast data history
+ */
+app.get("/v1/weather-data/forecast/history", (req, res) => {
+  genericRequest("", "GET", "http://localhost:4205/forecast/history", res);
+});
+
+/**
+ * Receive latest data for forecast
+ * @route POST /weather-data/forecast/insert
+ * @group forecast - Insert forecast data
+ * @param {Forecast.model} forecast.body.required - Pollen object with pollenName
+ * @returns {Forecast} 200 - Returns single forecast
+ */
+app.post("/v1/weather-data/forecast/insert", (req, res) => {
+  genericRequestWithPayload("", "POST", "http://localhost:4205/forecast/insert", JSON.stringify(req.body), res);
+});
 
 // ------------------------------------------ Routes - UserContext ------------------------------------------
 

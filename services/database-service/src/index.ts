@@ -4,6 +4,7 @@ import { Outdoor } from "./entity/Outdoor";
 import { Indoor } from "./entity/Indoor";
 import { UserContext } from "./entity/UserContext";
 import { Pollen } from "./entity/Pollen";
+import { Forecast } from "./entity/Forecast";
 import { ESPConfig } from "./entity/ESPconfig";
 
 "use strict"
@@ -14,6 +15,7 @@ createConnection().then(connection => {
     const indoorData = connection.getRepository(Indoor);
     const userCtxData = connection.getRepository(UserContext);
     const pollenData = connection.getRepository(Pollen);
+    const forecastData = connection.getRepository(Forecast);
     const espConfigData = connection.getRepository(ESPConfig);
 
     //set up express 
@@ -35,6 +37,7 @@ createConnection().then(connection => {
                 id: "DESC"
             }
         });
+        console.log("Res", latest);
         returnNotNull(latest, res)
     });
 
@@ -144,6 +147,15 @@ createConnection().then(connection => {
     //Request all pollen objects
     app.get('/pollen/all', async (req, res) => {
         const pollen = await pollenData.find();
+        const pollenLoadsPerRegion = await genericRequestToURI("GET", 'https://opendata.dwd.de/climate_environment/health/alerts/s31fg.json');
+        const pollenLoadForRegionOfInterest = pollenLoadsPerRegion["content"].find(e => e.partregion_name=="Hohenlohe/mittlerer Neckar/Oberschwaben").Pollen;
+ 
+        //TODO: This expects the pollen data to be in the same order like the API response?  (which might change over time)
+        //--> re-code to directly adress the name mapping
+        pollen.forEach(pollenObj => {
+            pollenObj["loadRating"] = pollenLoadForRegionOfInterest[pollenObj.pollenName].today;
+        });
+
         returnNotNull(pollen, res);
     });
 
@@ -276,6 +288,39 @@ createConnection().then(connection => {
     //     return res.send("ok")
     // })
 
+    // -------------------------------------- Forecast -----------------------------
+
+    //Get the latest data from the forecast table  
+    app.get('/forecast/latest', async (req, res) => {
+        const latest = await forecastData.findOne({
+            order: {
+                id: "DESC"
+            }
+        });
+        returnNotNull(latest, res)
+    });
+
+    //Insert new forecast entry into forecast table
+    app.post('/forecast/insert', async (req, res) => {
+        //console.log("body", req.body);
+        const forecast = await forecastData.create(req.body);
+        const results = await forecastData.save(forecast);
+        console.log("results", results);
+        returnNotNull(results, res);
+    });
+
+    //Get the last 9 forecast entries for new forecast
+    app.get('/forecast/history', async (req, res) => {
+        const history = await forecastData.find({
+            order: {
+                id: "DESC"
+            },
+            take: 9
+        });
+        console.log("history", history);
+        returnNotNull(history, res);
+    });
+    
     // ------------------------------------------------ Helper ------------------------------------------------
 
     const returnNotNull = (databaseOutput: any, res: any): void => {
@@ -342,7 +387,26 @@ createConnection().then(connection => {
         })
     };
 
-
+    const genericRequestToURI = (method, uri) => {
+        return new Promise((resolve, reject) => {
+            request(
+                {
+                    headers: {
+                        "Content-Type": "application/json",
+                        Accept: "application/json"
+                    },
+                    uri: uri,
+                    method: method
+                },
+                function (error, response, body) {
+                    if (error) {
+                        reject(error);
+                    }
+                    resolve(JSON.parse(body))
+                }
+            );
+        });
+    }
 
     console.log("listening on port", port)
     app.listen(port);
