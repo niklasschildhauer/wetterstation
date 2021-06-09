@@ -8,6 +8,7 @@ import { INITIAL_USER_CONTEXT, PollenType, Themes, UserContext } from '../../mod
 })
 export class UserContextAPIService {
   private loginURL = '/auth/login'
+  private registerURL = '/user/register'
   private checkTokenURL = '/auth/checkToken'
   private allPollenTypesURL = '/pollen/all'
   private currentUserContextURL = '/user/currentUser'
@@ -24,24 +25,54 @@ export class UserContextAPIService {
         console.log(status);
 
         if(body){
-            if(body.success) {
-              console.log(this.createUserContextFromServerResponse(body.userContext));
-              observer.next({
-                token: body.token,
-                userContext: this.createUserContextFromServerResponse(body.userContext) // FIXME
-              });
-            } else {
-              observer.error(body.message);
-            }
+          if(body.success) {
+            console.log(this.createUserContextFromServerResponse(body.userContext));
+            observer.next({
+              token: body.token,
+              userContext: this.createUserContextFromServerResponse(body.userContext) // FIXME
+            });
+          } else {
+            observer.error(body.message);
           }
-        },
-        (error)=> {
-          observer.error("Ein Fehler ist aufgetreten. Bitte versuche es später erneut. " + error);
-          observer.complete();
-        },() => {
-          observer.complete();
         }
-      );
+      },
+      (error)=> {
+        observer.error("Ein Fehler ist aufgetreten. Bitte versuche es später erneut. ");
+        console.log(error);
+        observer.complete();
+      },() => {
+        observer.complete();
+      });
+    }
+  );
+  return returnObservable;
+  }
+
+
+  public postRegister(password: string, username: string): Observable<{success: boolean, error: string}> {
+    let returnObservable = new Observable<{success: boolean, error: string}>((observer) => {
+      let response = this.httpClient.post<UserContextResponse>(this.registerURL, 
+                                                        {username: username, password: password}, {observe: 'response'});
+      response.subscribe((response) => {
+        let body = response.body
+        let status = response.statusText
+        console.log(status);
+
+        if(body){
+          if(body.id) {
+            observer.next({success: true, error: ""});
+          } else {
+            observer.error("getreten");
+          }
+        }
+      },
+      (error)=> {
+        observer.error("Ein Fehler ist aufgetreten. Bitte versuche es später erneut");
+        console.log(error);
+        observer.complete();
+      },() => {
+        observer.complete();
+      });
     }
   );
   return returnObservable;

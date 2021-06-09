@@ -2,7 +2,7 @@
 </div>
 
 <div class="menu-container" [@animate]>
-    <button class="fertig" (click)="closeMenu()"><span>Fertig</span></button>
+    <button class="fertig" (click)="closeMenu()"><span class="done">Fertig</span></button>
     <button (click)="openPersonalizationSettings()" class="menu-button">
         <span>Personalisierung</span>
         <img class="icon" [src]="imageService.getImageSrcFrom(settingsIcon)">
@@ -13,8 +13,14 @@
         <img class="icon" [src]="imageService.getImageSrcFrom(configurationIcon)">
     </button>
 
-    <button (click)="logout()" class="menu-button">
-        <span>Logout</span>
+    <button *ngIf="userLoggedIn" (click)="logout()" class="menu-button">
+        <span>Ausloggen</span>
+        <img class="icon" [src]="imageService.getImageSrcFrom(logoutIcon)">
+    </button>
+
+
+    <button *ngIf="!userLoggedIn" (click)="logout()" class="menu-button">
+        <span>Einloggen</span>
         <img class="icon" [src]="imageService.getImageSrcFrom(logoutIcon)">
     </button>
 </div>

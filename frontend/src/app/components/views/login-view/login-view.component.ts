@@ -10,7 +10,7 @@ import { UserContextService } from 'src/app/services/user-context.service';
 })
 export class LoginViewComponent implements OnInit {
   loginForm = this.formBuilder.group({
-    email: new FormControl('', Validators.minLength(2)), // FIXME Validators funktionieren nicht 
+    username: new FormControl('', Validators.minLength(2)), // FIXME Validators funktionieren nicht 
     password: new FormControl('', Validators.minLength(2)),
   });
 
@@ -24,15 +24,19 @@ export class LoginViewComponent implements OnInit {
   }
 
   onSubmit(): void {
-    const email = this.loginForm.get("email")?.value;
+    const username = this.loginForm.get("username")?.value;
     const password = this.loginForm.get("password")?.value;
     this.error = undefined;
 
-    this.userContextService.login(email, password).subscribe(() => {
-      this.router.navigateByUrl('/dashboard');
+    this.userContextService.login(username, password).then((data) => {
+      if(data.success) {
+        this.router.navigateByUrl('/dashboard');
+      } else {
+        this.error = data.error;
+      }
     },
     (error) => {
-      this.error = error
+      this.error = error;
     });
   }
 
@@ -42,7 +46,7 @@ export class LoginViewComponent implements OnInit {
   }
 
   onClickPersonalization() {
-    this.userContextService.disableOpenApe = true;
+    this.userContextService.disableLogin = true;
     this.router.navigateByUrl('/onboarding/personalization');
   }
 }

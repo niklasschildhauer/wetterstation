@@ -52,6 +52,12 @@ export class MenuElementComponent implements OnInit {
     highContrast: "logout-button-high.png"
   }
 
+  get userLoggedIn(): boolean {
+    console.log("User eingeloggt: ", this.userContextService.userLoggedIn);
+
+    return this.userContextService.userLoggedIn;
+  }
+
   constructor(private router: Router,
     private userContextService: UserContextService,
     public imageService: ImageService) { }

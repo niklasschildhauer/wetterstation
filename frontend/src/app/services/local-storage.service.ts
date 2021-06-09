@@ -54,8 +54,8 @@ export class LocalStorageService {
   /**
   * Load disable open ape value from local storage
   */
-  get disableOpenApe(): boolean {
-    const disableOpenApeValue = this.getItem(DISABLE_OPEN_APE_IDENTIFIER);
+  get disableLogin(): boolean {
+    const disableOpenApeValue = this.getItem(DISABLE_LOGIN_IDENTIFIER);
     if(disableOpenApeValue) {
       return JSON.parse(disableOpenApeValue)
     }
@@ -67,8 +67,8 @@ export class LocalStorageService {
   * 
   * @param {boolean} value  Disable open ape value to save
   */
-  set disableOpenApe(value: boolean) {
-    this.setItem(DISABLE_OPEN_APE_IDENTIFIER, value + '');
+  set disableLogin(value: boolean) {
+    this.setItem(DISABLE_LOGIN_IDENTIFIER, value + '');
   }
 
   constructor() { }
@@ -107,4 +107,4 @@ export class LocalStorageService {
  */
 const TOKEN_IDENTIFIER = 'wetterstation-token';
 const USER_CONTEXT_IDENTIFIER = 'wetterstation-user-context'
-const DISABLE_OPEN_APE_IDENTIFIER = 'wetterstation-disable-open-ape'
+const DISABLE_LOGIN_IDENTIFIER = 'wetterstation-disable-login'

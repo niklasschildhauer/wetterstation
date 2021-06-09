@@ -16,11 +16,15 @@ export class UserContextService {
     return this.localStorageService.token
   }
 
-  set disableOpenApe(value: boolean) {
-    this.localStorageService.disableOpenApe = value
+  get userLoggedIn(): boolean {
+    return this.localStorageService.token !== "" && this.localStorageService.token !== undefined
   }
-  get disableOpenApe(): boolean {
-    return this.localStorageService.disableOpenApe
+
+  set disableLogin(value: boolean) {
+    this.localStorageService.disableLogin = value
+  }
+  get disableLogin(): boolean {
+    return this.localStorageService.disableLogin
   }
 
   set userContext(object: UserContext) {
@@ -87,24 +91,41 @@ export class UserContextService {
 
   }
   
-  public login(username: string, password: string): Observable<any> {  
-    this.resetUserContext()
-    let response = this.userContextAPI.postLogin(password, username)
-    response.subscribe((data) => {
-      this.token = data.token;
-      this.userContext = data.userContext;
-      this.disableOpenApe = false;
-    })
-    return response;
+  public login(username: string, password: string): Promise<{success: boolean, error: string}>  {  
+    let promise = new Promise<{success: boolean, error: string}>((resolve) => {
+      this.resetUserContext()
+      let response = this.userContextAPI.postLogin(password, username)
+      response.subscribe((data) => {
+        this.token = data.token;
+        this.userContext = data.userContext;
+        this.disableLogin = false;
+
+        resolve({success: true, error:""})
+      },
+      (error) => {
+        resolve({success: false, error: error})
+      })
+    });
+    return promise
   }
 
-  // DELETE ME
-  public register(): Promise<UserContext> {
-    this.resetUserContext();
-    console.log(INITIAL_USER_CONTEXT);
-    return new Promise((resolve) => {
-      resolve(this._userContext.getValue());
+  public register(username: string, password: string): Promise<{success: boolean, error: string}> {
+    let promise = new Promise<{success: boolean, error: string}>((resolve) => {
+      this.resetUserContext();
+      this.userContextAPI.postRegister(password, username).subscribe((registerData) => {
+        if(registerData.success) {
+          this.login(username, password).then(loginData => {
+            resolve(loginData);
+          })
+        } else {
+          resolve(registerData)
+        }
+      },
+      (error) => {
+        resolve({success: false, error: error})
+      })
     });
+    return promise
   }
 
   public logout() {
@@ -116,7 +137,7 @@ export class UserContextService {
     let returnObservable = new Observable<boolean>((observer) => {
       console.log("token", this.token)
 
-      if(this.disableOpenApe || this.token === '') {
+      if(this.disableLogin || this.token === '') {
         observer.next(true);
         observer.complete(); 
       }
@@ -137,7 +158,6 @@ export class UserContextService {
     return returnObservable
   }
 
-
   private showLoginScreen() {
     this.router.navigateByUrl('/onboarding/login');
   }
@@ -146,6 +166,7 @@ export class UserContextService {
     this.localStorageService.clear();
     this.userContext = INITIAL_USER_CONTEXT;
     this.token = "";
+    this.disableLogin = false;
   }
 
   private saveUserContext() {
