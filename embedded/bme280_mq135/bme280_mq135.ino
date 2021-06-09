@@ -126,7 +126,7 @@ void loop()
     return;
   }
 
-  File file = SPIFFS.open("/ESPconfig.txt");
+  File file = SPIFFS.open("/ESPconfig.txt", FILE_READ);
   if (!file)
   {
     Serial.println("Failed to open file for reading");

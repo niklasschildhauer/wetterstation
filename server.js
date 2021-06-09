@@ -231,6 +231,7 @@ app.post("/v1/sensors/outdoor", (req, res) => {
  * @param {SensordataIndoors.model} sensordata.body.required sensordata
  */
 app.post("/v1/sensors/indoor", (req, res) => {
+  console.log('hi');
   genericRequestWithPayload("", "POST", "http://localhost:4204/sensorin", JSON.stringify(req.body), res);
 });
 
