@@ -2,7 +2,7 @@ const request = require("request");
 
 // ------------------------------------------------ Helper ------------------------------------------------
 
-const genericRequest = (method, uri) => {
+const genericRequestToPromise = (method, uri) => {
     return new Promise((resolve, reject) => {
         request(
             {
@@ -23,7 +23,7 @@ const genericRequest = (method, uri) => {
     });
 }
 
-const genericRequestWithPayload = (method, uri, body) => {
+const genericRequestWithPayloadToPromise = (method, uri, body) => {
     return new Promise((resolve, reject) => {
         request(
             {
@@ -47,6 +47,6 @@ const genericRequestWithPayload = (method, uri, body) => {
 }
 
 module.exports = {
-    genericRequest: genericRequest,
-    genericRequestWithPayload: genericRequestWithPayload
+    genericRequestToPromise: genericRequestToPromise,
+    genericRequestWithPayloadToPromise: genericRequestWithPayloadToPromise
 }

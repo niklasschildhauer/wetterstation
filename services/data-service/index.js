@@ -23,7 +23,7 @@ app.post('/sensorout', (req, res) => {
 		"location" : req.body.location,
 		"deviceID" : parseInt(req.body.deviceID)
 	}
-	genericRequestHandlers.genericRequestWithPayload("POST", 'http://localhost:4205/outdoor/insert', JSON.stringify(_body)).then((response) => {
+	genericRequestHandlers.genericRequestWithPayloadToPromise("POST", 'http://localhost:4205/outdoor/insert', JSON.stringify(_body)).then((response) => {
 		res.status(200).send(response);
 	}).catch((error) => {
 		res.status(400).send({"error": error})
@@ -40,7 +40,7 @@ app.post('/sensorin', (req, res) => {
 	}
 
 	// console.log("body", _body);
-	genericRequestHandlers.genericRequestWithPayload("POST", 'http://localhost:4205/indoor/insert', JSON.stringify(_body)).then((response) => {
+	genericRequestHandlers.genericRequestWithPayloadToPromise("POST", 'http://localhost:4205/indoor/insert', JSON.stringify(_body)).then((response) => {
 		res.status(200).send(response);
 	}).catch((error) => {
 		res.status(400).send({"error": error})

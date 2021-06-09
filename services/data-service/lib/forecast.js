@@ -28,10 +28,10 @@ const forecast = () => {
     let latest_measurement;
 
     //--------------------------------------- Get DB data necessary for forecast -----------------------------
-    genericRequestHandlers.genericRequest("GET", "http://localhost:4205/outdoor/latest").then((data) => {
+    genericRequestHandlers.genericRequestToPromise("GET", "http://localhost:4205/outdoor/latest").then((data) => {
         console.log("latest");
         latest_measurement = data;
-        genericRequestHandlers.genericRequest("GET", "http://localhost:4205/forecast/history").then((data1) => {
+        genericRequestHandlers.genericRequestToPromise("GET", "http://localhost:4205/forecast/history").then((data1) => {
             let pressureArray = data1.map(a => a.seaPressure).reverse();
 
             let temp_in_degrees = latest_measurement["temperature"];
@@ -306,7 +306,7 @@ const forecast = () => {
 
             //------------------------------ write forecast to forecast table --------------------------------
 
-            genericRequestHandlers.genericRequestWithPayload("POST", "http://localhost:4205/forecast/insert", JSON.stringify(weather_forecast_response)).then((data) => {
+            genericRequestHandlers.genericRequestWithPayloadToPromise("POST", "http://localhost:4205/forecast/insert", JSON.stringify(weather_forecast_response)).then((data) => {
                 console.log("reqdata", data);
             });
 
