@@ -1,0 +1,1 @@
+{"roomName":"meins", "transmissionFrequency":10, "postalCode":"70567", "id":-1}
