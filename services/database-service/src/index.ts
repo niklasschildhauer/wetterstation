@@ -138,6 +138,7 @@ createConnection().then(connection => {
         }
         else {
             const result = await registerNewDeviceESPConfig();
+            console.log("result:", result);
             return res.send(result);
         }
     });
