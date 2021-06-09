@@ -6,6 +6,7 @@ import { reducePollen } from 'src/app/model/mock-data/weather.mock';
 import { Router } from '@angular/router';
 import { WeatherDataService } from 'src/app/services/weather-data.service';
 import { TextService } from 'src/app/services/text.service';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 
 @Component({
@@ -28,13 +29,13 @@ export class DashboardScreenComponent implements OnInit {
   constructor(private userContextService: UserContextService,
     private weatherDataService: WeatherDataService,
     private breakpointObserver: BreakpointObserver,
-    private router: Router,
-    private textService: TextService) { }
+    private textService: TextService,
+    private spinner: NgxSpinnerService) { }
 
   ngOnInit(): void {
     this.loadReduceMotionValue();
     this.loadData();
-    this.desktopBreakpointObserver();    
+    this.desktopBreakpointObserver(); 
   }
 
   private desktopBreakpointObserver() {
@@ -50,7 +51,7 @@ export class DashboardScreenComponent implements OnInit {
   }
 
   loadReduceMotionValue() {
-    this.userContextService.getUserContext()
+    this.userContextService.getUserContextSubject()
     .subscribe(data => {
       let reduceMotionValue = data.reduceMotion;
       this.reduceMotion = reduceMotionValue;
@@ -58,28 +59,15 @@ export class DashboardScreenComponent implements OnInit {
   }
 
   loadData(): void {
-    this.weatherDataService.getDashboardTiles()
+    this.spinner.show()
+    this.weatherDataService.getDashboardTilesSubject()
                       .subscribe(data => {
-                        this.dashboardTiles = data});
-    this.weatherDataService.getOutdoorWeatherData()
+                        this.dashboardTiles = data
+                        console.log("hide it")
+                        this.spinner.hide();
+                      });
+    this.weatherDataService.getOutdoorWeatherDataSubject()
                         .subscribe(data => {
                           this.outdoorData = data});
-  }
-
-  // DELETE ME?
-  reloadComponent(): void {
-    reducePollen();
-    this.weatherDataService.reloadData();
-    let currentUrl = this.router.url;
-    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
-    this.router.onSameUrlNavigation = 'reload';
-    this.router.navigate([currentUrl]);
-  }
-
-  testReadAloud(): void {
-    if(this.dashboardTiles){
-      let tts = this.textService.createTextFromTilesArray(this.dashboardTiles);
-      
-    }
   }
 }

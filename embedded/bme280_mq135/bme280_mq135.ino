@@ -7,18 +7,23 @@
 #include <ArduinoJson.h>
 #include <WebServer.h>
 #include <AutoConnect.h>
-
-//Pins für mq135 definieren
-#define DIGITAL_PIN 33
-#define ANALOG_PIN 35
-
-// I2C für bme
-Adafruit_BME280 bme;
+#include <AutoConnectCredential.h>
+//#define RLOAD 22.0
+#define RZERO 819
+#include "MQ135.h"
 
 WebServer Server;
 AutoConnect Portal(Server);
 AutoConnectConfig Config;
 AutoConnectAux auxUpload;
+
+//Pins für mq135 definieren
+#define DIGITAL_PIN 33
+#define ANALOG_PIN 35
+
+MQ135 gasSensor = MQ135(35);
+
+Adafruit_BME280 bme; //I2C
 
 void rootPage()
 {
@@ -26,29 +31,63 @@ void rootPage()
   Server.send(200, "text/plain", content);
 }
 
-char *ssid = "";                        // "";
-char *password = "";                    //""; //pw of your wifi
-#define SERVER_IP "192.168.178.30:4201" //"192.168.0.136:4201"
+#define SERVER_IP "192.168.0.136:4201" //"192.168.0.136:4201"
 
 uint16_t gasVal;
 boolean isgas = false;
 String gas;
+float ppm;
+
+String viewSSID() {
+  AutoConnectCredential  ac(0);
+  station_config_t  entry;
+  String ssid = "";
+  uint8_t  count = ac.entries();          // Get number of entries.
+  //Serial.println("ct");
+  //Serial.println(count);
+
+  for (int8_t i = 0; i < count; i++) {    // Loads all entries.
+    ac.load(i, &entry);
+    // Build a SSID line of an HTML.
+    ssid = String((char *)entry.ssid); 
+  }
+  //Serial.println("ssid");
+  //Serial.println(ssid);
+  return ssid;
+}
+
+String viewPW() {
+  AutoConnectCredential  ac(0);
+  station_config_t  entry;
+  String password = "";
+  uint8_t  count = ac.entries();          // Get number of entries.
+  //Serial.println("ct");
+  //Serial.println(count);
+
+  for (int8_t i = 0; i < count; i++) {    // Loads all entries.
+    ac.load(i, &entry);
+    // Build a SSID line of an HTML.
+    password = String((char *)entry.password);
+  }
+  //Serial.println("pwd");
+  //Serial.println(password);
+  return password;
+}
+
+/*-------------------------------setup----------------------------*/
 
 void setup()
 {
-
   Serial.begin(9600);
+
+  Config.apid = "test";
+  Config.psk = "12345678";
 
   // set up mq135
   Serial.println("The sensor is warming up...");
   delay(15000);
   pinMode(DIGITAL_PIN, INPUT);
 
-  //Config.autoReconnect=true;
-  //Config.hostName = 'esp32-01';
-  //Portal.Config(Config);
-
-  // 0x76 and 0x77 are possible for bme280
   bool communication = bme.begin(0x76);
 
   if (!communication)
@@ -70,48 +109,14 @@ void setup()
     Serial.println("Communication established!\n");
   }
 
-  // Connecting to a WiFi network
-  // Serial.println();
-  // Serial.println();
-  // Serial.print("Connecting to ");
-  // Serial.println(ssid);
-
-  // WiFi.begin(ssid, password);
-
-  // for (int i = 0; i < 10; i++)
-  // {
-  //   if (WiFi.status() != WL_CONNECTED)
-  //   {
-  //     delay(1000);
-  //     Serial.print(".");
-  //   }
-  //   else
-  //   {
-  //     continue;
-  //   }
-  // }
-
-  // if (WiFi.status() == WL_CONNECTED)
-  // {
-  //   Serial.println("");
-  //   Serial.println("WiFi connected");
-  //   Serial.println("IP address: ");
-  //   Serial.println(WiFi.localIP());
-  // }
-
   Server.on("/", rootPage);
 
-  if (Portal.begin())
-  {
-    Serial.println("Wifi connected to esp gedingsel: " + WiFi.localIP().toString());
-  }
 }
+
+/*------------------------------------loop---------------------------------*/
 
 void loop()
 {
-  //WIFI Autoconfig-Page
-  Portal.handleClient();
-
   // -------------------------------- Handle opening / reading of Config File ESPConfig.txt ------------------------------
 
   //Test filesystem access
@@ -147,19 +152,59 @@ void loop()
     return;
   }
 
-  //char* roomName = "raum";
-  //int transmissionFrequency = 10;
-  //char* postalCode = "-1";
-  //int id = -1;
-
-  //roomName = doc["roomName"];
+  const char *roomName = doc["roomName"].as<char *>();
   int transmissionFrequency = doc["transmissionFrequency"];
   const char *postalCode = doc["postalCode"].as<char *>();
   int id = doc["id"];
+  const char *ssid = doc["ssid"].as<char *>();
+  const char *password = doc["password"].as<char *>();
+
+  //Serial.println(ssid);
+  //Serial.println(password);
+
+  if((strcmp("",password) != 0) && (strcmp("", ssid) != 0)){
+    Serial.println("Trying to connect to stored credentials");
+    WiFi.begin(ssid, password);
+
+   for (int i = 0; i < 10; i++)
+    {
+     if (WiFi.status() != WL_CONNECTED)
+     {
+       delay(1000);
+       Serial.print(".");
+     }
+     else
+     {
+       continue;
+     }
+   }
+
+   if (WiFi.status() == WL_CONNECTED)
+   {
+     Serial.println("");
+     Serial.println("WiFi connected");
+     Serial.println("IP address: ");
+     Serial.println(WiFi.localIP());
+   }
+  }
+    //------------------------------Autoconnect-----------------------------
+
+  else{
+    
+      Serial.println("Trying to connect via auto connect");
+     
+      if (Portal.begin())
+      {
+        Serial.println("Wifi connected to esp gedingsel: " + WiFi.localIP().toString());
+      }
+      //WIFI Autoconfig-Page
+      Portal.handleClient();
+  }
 
   file.close();
 
-  // bme280 Sensor auslesen
+ // -------------------------------- Http request/response handling ------------------------------
+
   Serial.print("Temperature = ");
   Serial.print(bme.readTemperature());
   Serial.println(" *C");
@@ -174,6 +219,7 @@ void loop()
   // mq135 Sensor auslesen
   gasVal = analogRead(ANALOG_PIN);
   isgas = digitalRead(DIGITAL_PIN);
+  ppm = gasSensor.getPPM();
   if (isgas)
   {
     gas = "No";
@@ -188,6 +234,9 @@ void loop()
   Serial.print("Gas percentage: ");
   Serial.print(gasVal);
   Serial.print("%\n");
+  Serial.print("Gas ppm: ");
+  Serial.print(ppm);
+  Serial.print("\n");
   delay(2000);
 
   WiFiClient client;
@@ -238,7 +287,19 @@ void loop()
           return;
         }
 
-        file.print(payload);
+        // Parse JSON object
+        DeserializationError error = deserializeJson(doc, payload);
+        if (error)
+        {
+          Serial.print(F("deserializeJson() failed: "));
+          Serial.println(error.f_str());
+          return;
+        }
+
+        doc["ssid"] = viewSSID();
+        doc["password"] = viewPW();
+
+        file.print(doc.as<String>());
         Serial.println("File written!");
         Serial.println("==============================");
         file.close();
@@ -250,7 +311,7 @@ void loop()
     }
 
     http.end();
-    delay(50000);
+    delay(5000);
     // delay(60000 * transmissionFrequency - 10000)
   }
 }

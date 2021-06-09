@@ -2,7 +2,6 @@
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
-    margin-bottom: var(--padding);
     width: calc((100vw - var(--border-padding-left) - var(--border-padding-right)));
 }
 

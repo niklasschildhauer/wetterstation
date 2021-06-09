@@ -31,7 +31,7 @@ export class CheckboxSwitcherElementComponent implements OnInit {
     this.toggled.emit(!this.value);
   }
   private loadUserContext() {
-    this.userContextService.getUserContext().subscribe(data => this.userContext = data);
+    this.userContextService.getUserContextSubject().subscribe(data => this.userContext = data);
   }
 
   private systemThemeBreakpointObserver() {

@@ -23,7 +23,7 @@ export class PollenflugDetailViewComponent implements OnInit {
   }
 
   private loadPollenTiles(): void {
-    this.weatherDataService.getPollenTiles().subscribe(data => this.pollenTiles = data);
+    this.weatherDataService.getPollenTilesSubject().subscribe(data => this.pollenTiles = data);
   }
 
 }

@@ -20,7 +20,7 @@ export class ForecastDetailViewComponent implements OnInit {
   }
 
   loadForecastData() {
-    this.weatherDataService.getForecastData()
+    this.weatherDataService.getForecastDataSubject()
                         .subscribe(data => this.forecast = data);
   }
 }

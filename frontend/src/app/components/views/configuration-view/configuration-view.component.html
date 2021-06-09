@@ -1,0 +1,15 @@
+<div class="layout">
+    <app-nav-bar-element class="navbar" [titleLabel]="'Konfiguration'" [backLabel]="'Zurück'"></app-nav-bar-element>
+    <div class="container">   
+         <div *ngIf="espConfigurations">
+            <div *ngFor="let item of espConfigurations">
+                <app-configuration-tile-view [espConfiguration]="item"></app-configuration-tile-view>
+            </div>
+            <div *ngIf="espConfigurations.length === 0">
+                <h3>Es scheint wohl nichts zu konfigurieren zu geben... :( </h3>
+            </div>
+        </div>
+    </div>
+</div>
+
+
