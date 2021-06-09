@@ -145,6 +145,13 @@ createConnection().then(connection => {
     //Request all pollen objects
     app.get('/pollen/all', async (req, res) => {
         const pollen = await pollenData.find();
+        const pollenLoadsPerRegion = await genericRequestToURI("GET", 'https://opendata.dwd.de/climate_environment/health/alerts/s31fg.json');
+        const pollenLoadForRegionOfInterest = pollenLoadsPerRegion["content"].find(e => e.partregion_name=="Hohenlohe/mittlerer Neckar/Oberschwaben").Pollen;
+ 
+        pollen.forEach(pollenObj => {
+            pollenObj["loadRating"] = pollenLoadForRegionOfInterest[pollenObj.pollenName].today;
+        });
+
         returnNotNull(pollen, res);
     });
 
@@ -357,6 +364,27 @@ createConnection().then(connection => {
             );
         })
     };
+
+    const genericRequestToURI = (method, uri) => {
+        return new Promise((resolve, reject) => {
+            request(
+                {
+                    headers: {
+                        "Content-Type": "application/json",
+                        Accept: "application/json"
+                    },
+                    uri: uri,
+                    method: method
+                },
+                function (error, response, body) {
+                    if (error) {
+                        reject(error);
+                    }
+                    resolve(JSON.parse(body))
+                }
+            );
+        });
+    }
 
     console.log("listening on port", port)
     app.listen(port);
