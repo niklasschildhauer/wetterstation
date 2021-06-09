@@ -377,12 +377,6 @@ app.post("/v1/weather-data/forecast/insert", (req, res) => {
   genericRequestWithPayload("", "POST", "http://localhost:4205/forecast/insert", JSON.stringify(req.body), res);
 });
 
-// ------------------------------------------ Routes - UserContext ------------------------------------------
-
-//TODO: Needs to be combined into personalization service using personalization-service
-// Needs openAPE...
-
-
 // ---------------------------------------- Routes - ESPConfig ----------------------------------------
 
 /**
@@ -456,7 +450,6 @@ const genericCallback = (error, response, body, res) => {
       let out = "The request is unauthorized";
       res.status("401").json(out);
     } else {
-      console.log("body.message", body)
       let out = body.message || "Bad request";
       res.status("400").json(out);
     }

@@ -133,7 +133,6 @@ createConnection().then(connection => {
 
         if (deviceID !== -1) {
             const return_val = await espConfigData.findOne({ id: deviceID });
-            console.log("returns", return_val);
             return res.send(return_val);
         }
         else {
@@ -148,19 +147,19 @@ createConnection().then(connection => {
     app.get('/pollen/all', async (req, res) => {
         const pollen = await pollenData.find();
         const pollenLoadsPerRegion = await genericRequestToURI("GET", 'https://opendata.dwd.de/climate_environment/health/alerts/s31fg.json');
-        const pollenLoadForRegionOfInterest = pollenLoadsPerRegion["content"].find(e => e.partregion_name=="Hohenlohe/mittlerer Neckar/Oberschwaben").Pollen;
- 
-        //TODO: This expects the pollen data to be in the same order like the API response?  (which might change over time)
-        //--> re-code to directly adress the name mapping
+        const pollenLoadForRegionOfInterest: Object = pollenLoadsPerRegion["content"].find(e => e.partregion_name==="Hohenlohe/mittlerer Neckar/Oberschwaben").Pollen;
+        //console.log(pollenLoadForRegionOfInterest)
         pollen.forEach(pollenObj => {
-            pollenObj["loadRating"] = pollenLoadForRegionOfInterest[pollenObj.pollenName].today;
+            if(pollenLoadForRegionOfInterest.hasOwnProperty(pollenObj.pollenName)){
+                pollenObj["loadRating"] = pollenLoadForRegionOfInterest[pollenObj.pollenName].today;
+            }
         });
 
         returnNotNull(pollen, res);
     });
 
     //Request one pollen object by id
-    app.get('/pollen/:id', async (req, res) => {
+    app.get('/pollen/:id', async (req, res) => {    
         // console.log("hello", req.params.id);
         const pollen = await pollenData.findOne({ id: req.params.id })
         // console.log("pollen", pollen)
@@ -256,38 +255,6 @@ createConnection().then(connection => {
         return res.send(allEsps);
     })
 
-    app.get('/test', async (req, res) => {
-        let date = new Date();
-        var tzoffset = (new Date()).getTimezoneOffset() * 60000; //offset in milliseconds
-        var localISOTime = (new Date(Date.now() - tzoffset)).toISOString()
-        let oneliner = localISOTime.split(".")[0].replace("T", " ");
-
-        console.log(oneliner)
-
-        return res.send("ok")
-    })
-
-
-    // app.get('/test', async (req, res) => {
-    //     const test1 = new ESPConfig()
-    //     test1.postalCode = "787878"
-    //     test1.roomName = "raum123"
-    //     test1.transmissionFrequency = 14
-    //     const result = await connection.manager.save(test1)
-
-    //     const test2 = new ESPConfig();
-    //     test2.postalCode = "787878123231321321"
-    //     test2.roomName = "schmurx"
-    //     test2.transmissionFrequency = 141414
-    //     const resT2 = await connection.manager.save(test2)
-
-    //     const user = await userCtxData.findOne({id: 1});
-    //     user.sensors = [test1, test2]
-    //     await connection.manager.save(user);
-
-    //     return res.send("ok")
-    // })
-
     // -------------------------------------- Forecast -----------------------------
 
     //Get the latest data from the forecast table  
@@ -305,7 +272,7 @@ createConnection().then(connection => {
         //console.log("body", req.body);
         const forecast = await forecastData.create(req.body);
         const results = await forecastData.save(forecast);
-        console.log("results", results);
+        // console.log("results", results);
         returnNotNull(results, res);
     });
 
@@ -317,7 +284,7 @@ createConnection().then(connection => {
             },
             take: 9
         });
-        console.log("history", history);
+        // console.log("history", history);
         returnNotNull(history, res);
     });
     

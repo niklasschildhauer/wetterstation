@@ -23,7 +23,11 @@ app.post('/sensorout', (req, res) => {
 		"location" : req.body.location,
 		"deviceID" : parseInt(req.body.deviceID)
 	}
-	genericRequestHandlers.genericRequestWithPayload("POST", 'http://localhost:4205/outdoor/insert', JSON.stringify(_body), res);
+	genericRequestHandlers.genericRequestWithPayload("POST", 'http://localhost:4205/outdoor/insert', JSON.stringify(_body)).then((response) => {
+		res.status(200).send(response);
+	}).catch((error) => {
+		res.status(400).send({"error": error})
+	});
 });
 
 app.post('/sensorin', (req, res) => {
@@ -35,8 +39,13 @@ app.post('/sensorin', (req, res) => {
 		"deviceID" : parseInt(req.body.deviceID)
 	}
 
-	console.log("body", _body);
-	genericRequestHandlers.genericRequestWithPayload("POST", 'http://localhost:4205/indoor/insert', JSON.stringify(_body), res);
+	// console.log("body", _body);
+	genericRequestHandlers.genericRequestWithPayload("POST", 'http://localhost:4205/indoor/insert', JSON.stringify(_body)).then((response) => {
+		res.status(200).send(response);
+	}).catch((error) => {
+		res.status(400).send({"error": error})
+	});
+
 });
 
 console.log("listening on port", port)
