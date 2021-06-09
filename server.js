@@ -299,7 +299,6 @@ app.get("/v1/pollen", (req, res) => {
   genericRequest("", "GET", "http://localhost:4205/pollen/" + req.query.id, res);
 });
 
-
 /**
  * Create a new Pollen object
  * @route POST /pollen/insert

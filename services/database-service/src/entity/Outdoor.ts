@@ -19,10 +19,6 @@ export class Outdoor {
   @Column()
   location: string;
 
-  @CreateDateColumn()
+  @Column()
   timestamp: string;
-
-  // @Column()
-  // apparentTemperature: number;
-
 }

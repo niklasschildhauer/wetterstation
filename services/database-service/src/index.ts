@@ -98,6 +98,7 @@ createConnection().then(connection => {
         outdoor.temperature = req.body.temperature;
         outdoor.location = req.body.location;
         outdoor.pressure = req.body.pressure;
+        outdoor.timestamp = getDateFormatted();
         const deviceID = req.body.deviceID;
 
         await outdoorData.create(outdoor);
@@ -120,6 +121,7 @@ createConnection().then(connection => {
         indoor.gasVal = req.body.gasVal;
         indoor.temperature = req.body.temperature;
         indoor.location = req.body.location;
+        indoor.timestamp = getDateFormatted();
 
         const deviceID = req.body.deviceID;
 
@@ -128,7 +130,7 @@ createConnection().then(connection => {
 
         if (deviceID !== -1) {
             const return_val = await espConfigData.findOne({ id: deviceID });
-
+            console.log("returns", return_val);
             return res.send(return_val);
         }
         else {
@@ -166,18 +168,18 @@ createConnection().then(connection => {
             const userID = req.body.userID;
             const pollenID = req.body.pollenID;
             const pollen1 = await pollenData.findOne({ id: pollenID })
-    
+
             const user = await userCtxData.findOne({ id: userID })
             pollen1.users = [user]
-    
+
             await connection.manager.save(user);
             await connection.manager.save(pollen1);
-    
+
             const allergies = await pollenData.find({ relations: ["users"] })
             // console.log(allergies);
             res.send({ "result": "OK" });
         }).catch((error) => {
-            return res.send({"error": error});
+            return res.send({ "error": error });
         })
     });
 
@@ -206,7 +208,7 @@ createConnection().then(connection => {
                 returnNotNull(userPollenNames, res);
             }
         }).catch((error) => {
-            return res.send({"error": error});
+            return res.send({ "error": error });
         })
     })
 
@@ -240,6 +242,17 @@ createConnection().then(connection => {
     app.get('/espconfig/all', async (req, res) => {
         const allEsps = await espConfigData.find();
         return res.send(allEsps);
+    })
+
+    app.get('/test', async (req, res) => {
+        let date = new Date();
+        var tzoffset = (new Date()).getTimezoneOffset() * 60000; //offset in milliseconds
+        var localISOTime = (new Date(Date.now() - tzoffset)).toISOString()
+        let oneliner = localISOTime.split(".")[0].replace("T", " ");
+
+        console.log(oneliner)
+
+        return res.send("ok")
     })
 
 
@@ -282,6 +295,13 @@ createConnection().then(connection => {
         return dateFormatRegex.test(date);
     }
 
+    const getDateFormatted = (): string => {
+        var tzoffset = (new Date()).getTimezoneOffset() * 60000; //offset in milliseconds
+        var localISOTime = (new Date(Date.now() - tzoffset)).toISOString();
+        let formatted = localISOTime.split(".")[0].replace("T", " ");
+        return formatted;
+    }
+
     const registerNewDeviceESPConfig = async (): Promise<ESPConfig> => {
         // const rndInt =  Math.floor(Math.random() * (max - min + 1) + min)
         const rndInt = Math.floor(Math.random() * (500 - 1 + 1) + 1)
@@ -321,6 +341,8 @@ createConnection().then(connection => {
             );
         })
     };
+
+
 
     console.log("listening on port", port)
     app.listen(port);

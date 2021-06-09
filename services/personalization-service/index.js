@@ -5,6 +5,8 @@ const port = 4203;
 const express = require('express');
 const app = express();
 const grh = require("./lib/shared");
+const openApeClient = require("./lib/openape");
+const OpenApeClient = openApeClient.openApeClient;
 app.use(express.json({type: "application/json" }));
 
 app.get('/', function (req, res) {
@@ -15,7 +17,7 @@ app.get('/', function (req, res) {
 app.post('/userContextUtility', (req, res) => {
     const token = req.headers["x-access-token"] || req.headers["authorization"];
     let db_user = req.body;
-    let externals = getExternalData();
+    let externals = getOpenApeData();
     grh.genericRequest(token, "GET", 'http://localhost:4205/pollen/byUsername/' + db_user.username).then((pollen) => {
         let out = {
             id : db_user.id,
@@ -36,7 +38,7 @@ app.post('/register', (req, res) => {
     saveExternalData();
 
     grh.genericRequestWithPayload("", "POST", 'http://localhost:4205/userContext/save', JSON.stringify(req.body), res).then((response) => {
-        let externals = getExternalData()
+        let externals = getOpenApeData()
         let db_user = JSON.parse(response)
 
         //No pollen allergies recorded here
@@ -55,7 +57,32 @@ app.post('/register', (req, res) => {
     });
 })
 
-const getExternalData = () => {
+app.get('/test', (req,res) => {
+    getOpenApeData();
+
+    res.status(200).json("ok");
+})
+
+const getOpenApeData = () => {
+    const client = new OpenApeClient("am206", "schmurx123", "https://openape.gpii.eu");
+    const arrayOfPreferences = [];
+    client.getUserContextList((ctxList) => {
+        // console.log("IT WORKS:", ctxList)
+        if(ctxList["user-context-uris"]){
+            ctxList["user-context-uris"].forEach(element => {
+                client.getUserContext(element, (data) => {
+                    // console.log("SUCCESS CB", data);
+                    arrayOfPreferences.push(data.default.preferences)
+                })
+            });
+        }
+        else {
+            console.log("weird **** happened");
+        }
+    })
+
+    console.log("theArray", arrayOfPreferences)
+
     //TODO: implement
     return {
         theme: "dark", //TODO: Request from APE
@@ -73,17 +100,14 @@ const saveExternalData = () => {
 console.log("listening on port", port)
 app.listen(port);
 
-
-
-
-
-const url_login = 'https://gpii.openape.eu/token' // Login w/ credentials {username: "...", password: "...", grant_type:"password"}
-const postdata_login = {
-    username: "...",
-    password: "...",
-    grant_type: "password"
+/**
+ * 
+{
+  "default": {
+    "name": "Default context",
+    "preferences": {
+      "http://terms.gpii.eu/screenLockTimeout": 600
+    }
+  }
 }
-
-const url_contexts = 'https://gpii.openape.eu/api/user-contexts'
-
-const url_context_id = 'https://gpii.openape.eu/api/user-contexts/:id'
+ */

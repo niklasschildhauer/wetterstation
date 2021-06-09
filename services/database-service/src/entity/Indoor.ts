@@ -18,7 +18,6 @@ export class Indoor {
     @Column()
     location: string;
 
-    @CreateDateColumn()
+    @Column()
     timestamp: string;
-
 }
