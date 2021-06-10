@@ -82,13 +82,14 @@ class AuthService {
     );
   }
   validateToken(req, res) {
-    res.status(200).json({success:true, message:"Token is valid"})
+    res.status(200).json({ success: true, message: "Token is valid" })
   }
 
   currentUser(req, res) {
     let token = req.headers["x-access-token"] || req.headers["authorization"]; // Express headers are auto converted to lowercase
     let user = getDecodedUser(token);
 
+    // console.log("token", token, "user", user)
     request(
       {
         headers: {
@@ -114,9 +115,7 @@ class AuthService {
               res.status(400).json(error);
             }
             else {
-              res.status(200).json({
-                userContext: JSON.parse(body)
-              });
+              res.status(200).json(JSON.parse(body));
             }
           })
       })

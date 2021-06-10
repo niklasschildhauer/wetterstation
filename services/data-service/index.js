@@ -4,12 +4,10 @@ const port = 4204;
 
 //Use with genericRequestHandlers.genericRequest(...)
 const genericRequestHandlers = require("./lib/shared");
-const apparentTemp = require("./lib/apparentTemperature")
 const forecast = require("./lib/forecast")
 
 const express = require('express');
 const morgan = require('morgan');
-const cron = require('node-cron');
 const app = express();
 
 app.use(morgan("dev"));
@@ -45,7 +43,6 @@ app.post('/sensorin', (req, res) => {
 	}).catch((error) => {
 		res.status(400).send({"error": error})
 	});
-
 });
 
 console.log("listening on port", port)

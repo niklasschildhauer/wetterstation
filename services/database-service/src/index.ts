@@ -9,6 +9,8 @@ import { ESPConfig } from "./entity/ESPconfig";
 
 "use strict"
 
+const debugEnabled = true;
+
 // create typeorm connection
 createConnection().then(connection => {
     const outdoorData = connection.getRepository(Outdoor);
@@ -37,7 +39,7 @@ createConnection().then(connection => {
                 id: "DESC"
             }
         });
-        console.log("Res", latest);
+        debugLog("Res", latest);
         returnNotNull(latest, res)
     });
 
@@ -56,8 +58,8 @@ createConnection().then(connection => {
         const endTimestamp = req.body.end;
 
         if (parseDateHelper(beginTimestamp) && parseDateHelper(endTimestamp)) {
-            // console.log("begin", beginTimestamp)
-            // console.log("end", endTimestamp)
+            // debugLog("begin", beginTimestamp)
+            // debugLog("end", endTimestamp)
 
             const history = await outdoorData.find({
                 where: [
@@ -77,8 +79,8 @@ createConnection().then(connection => {
         const endTimestamp = req.body.end;
 
         if (parseDateHelper(beginTimestamp) && parseDateHelper(endTimestamp)) {
-            // console.log("begin", beginTimestamp)
-            // console.log("end", endTimestamp)
+            // debugLog("begin", beginTimestamp)
+            // debugLog("end", endTimestamp)
 
             const history = await indoorData.find({
                 where: [
@@ -137,7 +139,7 @@ createConnection().then(connection => {
         }
         else {
             const result = await registerNewDeviceESPConfig();
-            console.log("result:", result);
+            debugLog("result:", result);
             return res.send(result);
         }
     });
@@ -148,10 +150,10 @@ createConnection().then(connection => {
     app.get('/pollen/all', async (req, res) => {
         const pollen = await pollenData.find();
         const pollenLoadsPerRegion = await genericRequestToURI("GET", 'https://opendata.dwd.de/climate_environment/health/alerts/s31fg.json');
-        const pollenLoadForRegionOfInterest: Object = pollenLoadsPerRegion["content"].find(e => e.partregion_name==="Hohenlohe/mittlerer Neckar/Oberschwaben").Pollen;
-        //console.log(pollenLoadForRegionOfInterest)
+        const pollenLoadForRegionOfInterest: Object = pollenLoadsPerRegion["content"].find(e => e.partregion_name === "Hohenlohe/mittlerer Neckar/Oberschwaben").Pollen;
+        //debugLog(pollenLoadForRegionOfInterest)
         pollen.forEach(pollenObj => {
-            if(pollenLoadForRegionOfInterest.hasOwnProperty(pollenObj.pollenName)){
+            if (pollenLoadForRegionOfInterest.hasOwnProperty(pollenObj.pollenName)) {
                 pollenObj["loadRating"] = pollenLoadForRegionOfInterest[pollenObj.pollenName].today;
             }
         });
@@ -160,10 +162,10 @@ createConnection().then(connection => {
     });
 
     //Request one pollen object by id
-    app.get('/pollen/:id', async (req, res) => {    
-        // console.log("hello", req.params.id);
+    app.get('/pollen/:id', async (req, res) => {
+        // debugLog("hello", req.params.id);
         const pollen = await pollenData.findOne({ id: req.params.id })
-        // console.log("pollen", pollen)
+        // debugLog("pollen", pollen)
         returnNotNull(pollen, res);
     })
 
@@ -176,47 +178,76 @@ createConnection().then(connection => {
 
     app.post('/pollen/save', async (req, res) => {
         const token = req.headers["x-access-token"] || req.headers["authorization"];
-        genericRequest(token).then(async (success) => {
-            const userID = req.body.userID;
-            const pollenID = req.body.pollenID;
-            const pollen1 = await pollenData.findOne({ id: pollenID })
+        debugLog("token", token)
+        validateToken(token).then(async (success) => {
+            if (success) {
+                const userID = req.body.userID;
+                const pollenID = req.body.pollenID;
+                const pollen = await (await pollenData.find({ relations: ['users'] })).filter(pl => pl.id === pollenID)
 
-            const user = await userCtxData.findOne({ id: userID })
-            pollen1.users = [user]
+                const user = await userCtxData.findOne({ id: userID })
+                debugLog("pollen", pollen)
+                debugLog("pollen.users", pollen[0].users)
+                if (pollen[0].users === undefined) {
+                    pollen[0].users = [user]
+                }
+                else {
+                    pollen[0].users.push(user);
+                }
 
-            await connection.manager.save(user);
-            await connection.manager.save(pollen1);
+                await connection.manager.save(user);
+                await connection.manager.save(pollen);
 
-            const allergies = await pollenData.find({ relations: ["users"] })
-            // console.log(allergies);
-            res.send({ "result": "OK" });
+                res.send({ "result": "OK" });
+            }
         }).catch((error) => {
+            debugLog("is it you?", error)
             return res.send({ "error": error });
         })
     });
 
+    app.delete('/pollen/delete', async (req, res) => {
+        const userID = req.body.userID
+        const pollenID = req.body.pollenID
+
+        const token = req.headers["x-access-token"] || req.headers["authorization"];
+        validateToken(token).then(async (success) => {
+            if (success) {
+                const pollen = await (await pollenData.find({ relations: ["users"] })).filter(pl => pl.id === pollenID);
+                console.log("pollen", pollen)
+
+                if (pollen.length === 1) {
+                    console.log("pollen.users", pollen[0].users)
+                    pollen[0].users = pollen[0].users.filter(usr => usr.id !== userID)
+                    await pollenData.save(pollen[0])
+                }
+                return res.send(pollen);
+            }
+        }).catch((error) => {
+            return res.send({ "error": error });
+        })
+    })
+
     app.get('/pollen/byUsername/:username', async (req, res) => {
         const token = req.headers["x-access-token"] || req.headers["authorization"];
-        genericRequest(token).then(async (success) => {
+        validateToken(token).then(async (success) => {
             if (success) {
                 const username = req.params.username;
                 let userPollenNames: Array<string> = [];
                 const allergies = await pollenData.find({ relations: ["users"] });
 
                 allergies.forEach(allergy => {
-                    // console.log("allergy:", allergy)
-                    // console.log(allergy.users)
+                    debugLog("allergy:", allergy)
                     if (allergy.users.length > 0) {
                         if (allergy.users[0].username === username) {
-                            // console.log("pollen in this allergy object", allergy.pollen);
+                            // debugLog("pollen in this allergy object", allergy.pollen);
                             userPollenNames.push(allergy.pollenName);
                         }
                     }
                     else {
-                        // console.log("no allergies?")
                     }
                 });
-                // console.log("pollen for user", username, ":", userPollenNames);
+                debugLog("pollen for user", username + ": " + userPollenNames);
                 returnNotNull(userPollenNames, res);
             }
         }).catch((error) => {
@@ -233,10 +264,52 @@ createConnection().then(connection => {
     })
 
     //Save a new UserContext object to the db
-    app.post('/userContext/save', async (req, res) => {
+    app.post('/userContext/new', async (req, res) => {
+        debugLog("the req.body", req.body)
         const entry = await userCtxData.create(req.body)
         const results = await userCtxData.save(entry);
         returnNotNull(results, res);
+    });
+
+    //Save a new UserContext object to the db
+    app.put('/userContext/save/:id', async (req, res) => {
+        const token = req.headers["x-access-token"] || req.headers["authorization"];
+        debugLog("token", token);
+        validateToken(token).then(async (success) => {
+            if (success) {
+                const entry = await userCtxData.findOne(req.params.id)
+                // console.log("entry before", entry)
+                //Setting id as the value of the database not the one provided by the request body 
+                //-> consitency and no duplicate ids
+                req.body.id = entry.id;
+                // console.log("req.body", req.body)
+                const results = await userCtxData.save(req.body);
+                // console.log("entry after", results);
+                returnNotNull(results, res);
+            }
+        }).catch((error) => {
+            return res.send({ "error": error });
+        })
+    });
+
+    //Save a new UserContext object to the db
+    app.put('/userContext/saveOpenAPESettings/:id', async (req, res) => {
+        const token = req.headers["x-access-token"] || req.headers["authorization"];
+        debugLog("token", token);
+        validateToken(token).then(async (success) => {
+            if (success) {
+                const entry = await userCtxData.findOne(req.params.id)
+                debugLog("entry before", entry)
+                //Setting id as the value of the database not the one provided by the request body 
+                //-> consitency and no duplicate ids
+                req.body.id = entry.id;
+                const results = await userCtxData.save(req.body);
+                debugLog("entry after", results);
+                returnNotNull(results, res);
+            }
+        }).catch((error) => {
+            return res.send({ "error": error });
+        })
     });
 
     // -------------------------------------- ESPConfig -----------------------------
@@ -270,10 +343,10 @@ createConnection().then(connection => {
 
     //Insert new forecast entry into forecast table
     app.post('/forecast/insert', async (req, res) => {
-        //console.log("body", req.body);
+        debugLog("body", req.body);
         const forecast = await forecastData.create(req.body);
         const results = await forecastData.save(forecast);
-        // console.log("results", results);
+        debugLog("results", results);
         returnNotNull(results, res);
     });
 
@@ -285,15 +358,15 @@ createConnection().then(connection => {
             },
             take: 9
         });
-        // console.log("history", history);
+        debugLog("history", history);
         returnNotNull(history, res);
     });
-    
+
     // ------------------------------------------------ Helper ------------------------------------------------
 
     const returnNotNull = (databaseOutput: any, res: any): void => {
         if (databaseOutput === undefined) {
-            console.log("database input was undefined");
+            debugLog("database input was undefined");
             res.status(400).json({ message: "Requested entry did not exist" });
         }
         else {
@@ -327,7 +400,14 @@ createConnection().then(connection => {
         return result;
     }
 
-    const genericRequest = (token) => {
+    const debugLog = (message1: string, message2?: any): void => {
+        if (debugEnabled) {
+            console.log(message1 + " " + message2);
+            console.log("==========================================");
+        }
+    }
+
+    const validateToken = (token) => {
         return new Promise((resolve, reject) => {
             request(
                 {

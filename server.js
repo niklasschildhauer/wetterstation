@@ -56,7 +56,7 @@ expressSwagger(swaggerOptions);
 
 app.use(cors(corsOptions));
 app.use(morgan("dev"));
-app.use(express.json({type: "application/json" }));
+app.use(express.json({ type: "application/json" }));
 
 
 
@@ -131,6 +131,17 @@ app.use(express.json({type: "application/json" }));
 */
 
 /**
+* @typedef UserContextRequestObject
+* @property {string} username
+* @property {string} password
+* @property {string} theme
+* @property {integer} fontSize
+* @property {boolean} selfVoicingEnabled
+* @property {boolean} doVentilationReminder
+* @property {boolean} reduceMotion
+*/
+
+/**
 * @typedef Pollen
 * @property {string} pollenName
 */
@@ -147,9 +158,18 @@ app.use(express.json({type: "application/json" }));
 * @property {string} weatherIcon
 * @property {string} weatherDescription
 * @property {integer} seaPressure
+*/
+
+/**
 * @typedef Allergy_request_object
 * @property {integer} userID
 * @property {integer} pollenID
+*/
+
+/**
+* @typedef OpenAPERequestObject
+* @property {string} openApeUser
+* @property {string} openApePassword
 */
 
 /**
@@ -194,7 +214,7 @@ app.get("/v1/auth/checkToken", (req, res) => {
  * @security JWT
  * @returns {UserContext.model} Authentication response message
  */
- app.get("/v1/user/currentUser", (req, res) => {
+app.get("/v1/user/currentUser", (req, res) => {
   const token = req.headers["x-access-token"] || req.headers["authorization"];
   genericRequest(token, "GET", "http://localhost:4202/currentUser", res);
 });
@@ -206,9 +226,39 @@ app.get("/v1/auth/checkToken", (req, res) => {
  * @param {LoginCredentials.model} loginCredentials.body.required - the new user's credentials
  * @returns {UserContext.model} Authentication response message
  */
- app.post("/v1/user/register", (req, res) => {
+app.post("/v1/user/register", (req, res) => {
   genericRequestWithPayload("", "POST", "http://localhost:4203/register", JSON.stringify(req.body), res);
 });
+
+
+/**
+ * Save an existing user
+ * @route PUT /user/save
+ * @group user - User / UserContext
+ * @security JWT
+ * @param {integer} id.query.required - id of the UserContext object
+ * @param {UserContextRequestObject.model} userContext.body.required - the updated user credentials
+ * @returns {UserContext.model} UserContext object
+ */
+app.put("/v1/user/save", (req, res) => {
+  const token = req.headers["x-access-token"] || req.headers["authorization"];
+  genericRequestWithPayload(token, "PUT", "http://localhost:4203/save/" + req.query.id, JSON.stringify(req.body), res);
+});
+
+
+/**
+ * Load settings from OpenAPE and overwrite the personalization settings in the DB
+ * @route POST /user/loadOpenAPESettingsAndSave
+ * @group user - User / UserContext
+ * @security JWT
+ * @param {OpenAPERequestObject.model} userContext.body.required - Open APE credentials
+ * @returns {UserContext.model} UserContext object
+ */
+app.post("/v1/user/loadOpenAPESettingsAndSave", (req, res) => {
+  const token = req.headers["x-access-token"] || req.headers["authorization"];
+  genericRequestWithPayload(token, "POST", "http://localhost:4203/loadOpenAPESettingsAndSave", JSON.stringify(req.body), res);
+});
+
 
 // ----------------------------------------- Routes - Sensors -----------------------------------------
 
@@ -231,7 +281,6 @@ app.post("/v1/sensors/outdoor", (req, res) => {
  * @param {SensordataIndoors.model} sensordata.body.required sensordata
  */
 app.post("/v1/sensors/indoor", (req, res) => {
-  console.log('hi');
   genericRequestWithPayload("", "POST", "http://localhost:4204/sensorin", JSON.stringify(req.body), res);
 });
 
@@ -326,9 +375,23 @@ app.post("/v1/pollen/insert", (req, res) => {
  * @security JWT
  * @param {Allergy_request_object.model} pollen.body.required - userID and pollenID - determines the allergy
  */
- app.post("/v1/allergies/save", (req, res) => {
+app.post("/v1/allergies/save", (req, res) => {
   const token = req.headers["x-access-token"] || req.headers["authorization"];
   genericRequestWithPayload(token, "POST", "http://localhost:4205/pollen/save", JSON.stringify(req.body), res);
+});
+
+//TODO: returns
+
+/**
+ * Delete an existing Allergy
+ * @route DELETE /pollen/delete
+ * @group Allergies - Create and retrieve allergies
+ * @security JWT
+ * @param {Allergy_request_object.model} pollen.body.required - userID and pollenID - determines the allergy
+ */
+app.delete("/v1/pollen/delete", (req, res) => {
+  const token = req.headers["x-access-token"] || req.headers["authorization"];
+  genericRequestWithPayload(token, "DELETE", "http://localhost:4205/pollen/delete", JSON.stringify(req.body), res);
 });
 
 /**
@@ -339,7 +402,7 @@ app.post("/v1/pollen/insert", (req, res) => {
  * @param {string} username.query.required - username of the user to request
  * @returns {Array<string>} All Pollen types that the user is allergic to
  */
- app.get("/v1/allergies/byUsername", (req, res) => {
+app.get("/v1/allergies/byUsername", (req, res) => {
   const token = req.headers["x-access-token"] || req.headers["authorization"];
   genericRequest(token, "GET", "http://localhost:4205/pollen/byUsername/" + req.query.username, res);
 });

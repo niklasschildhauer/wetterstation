@@ -68,14 +68,14 @@ class Client {
         this.serverUrl = serverUrl;
         this.defaultContentType = defaultContentType;
 
-        console.log("Connection will be established with server: " + serverUrl);
-        console.log("this", this)
+        // console.log("Connection will be established with server: " + serverUrl);
+        // console.log("this", this)
         if (isPasswordCorrect(password) && isUsernameCorrect(username)) {
             var data = "grant_type=password&username=" + encodeURIComponent(username) + "&password=" + encodeURIComponent(password);
             var httpRequest = this.createHttpRequest("POST", openAPE_API.tokenPath,
                 function (responseText) {
                     this.token = JSON.parse(responseText)["access_token"];
-                    console.log("got token");
+                    // console.log("got token");
                 }, null, "application/x-www-form-urlencoded");
             httpRequest.send(data);
         }
@@ -169,7 +169,7 @@ class Client {
      * @returns {object} - A JavaScript object with the user context's information.
      */
     getUserContext(userContextId, successCallback) {
-        console.log("userCtxID", userContextId);
+        // console.log("userCtxID", userContextId);
         return this.getContext(openAPE_API.userContextPath, userContextId, successCallback);
     }
 
@@ -472,12 +472,12 @@ class Client {
      * should not be used. Can be "JSON" or "XML".
      */
     getContext(path, contextId, successCallback) {
-        console.log("PATH?", path);
-        console.log("isTokenCorrect?", this.isTokenCorrect())
+        // console.log("PATH?", path);
+        // console.log("isTokenCorrect?", this.isTokenCorrect())
         if (this.isTokenCorrect() && this.isContextIdCorrect(contextId)) {
             let httpRequest = this.createHttpRequest("GET", path + "/" + contextId, function (responseText) {
-                console.log("responseText", responseText);
-                console.log("this.parse?", this.parse);
+                // console.log("responseText", responseText);
+                // console.log("this.parse?", this.parse);
                 successCallback(JSON.parse(responseText));
             });
             httpRequest.send(null);
@@ -541,7 +541,7 @@ class Client {
      */
     getContextList(path, successCallback) {
         let httpRequest = this.createHttpRequest("GET", path, (responseText) => {
-            console.log("text: " + responseText);
+            // console.log("text: " + responseText);
             successCallback(this.parse(responseText, "application/json"));
         });
         httpRequest.send(null);
@@ -580,7 +580,7 @@ class Client {
     createHttpRequest(verb, path, successCallback, errorCallback, contentType = "application/json") {
         let request = new XMLHttpRequest();
         let client = this;
-        console.log("Url: " + this.serverUrl + path);
+        // console.log("Url: " + this.serverUrl + path);
         request.open(verb, this.serverUrl + path, false);
 
         if (this.token !== undefined) {
@@ -602,18 +602,18 @@ class Client {
 
         request.onreadystatechange = function () {
             if (request.readyState == 4) {
-                console.log("http: " + request.status);
+                // console.log("http: " + request.status);
                 if (request.status == 200 || request.status == 201) {
                     successCallback.call(client, request.responseText);
 //		        	successCallback(request.responseText);
                 }
                 else if (request.status == 404) {
-                    console.log("Error: " + request.status);
+                    // console.log("Error: " + request.status);
                 } else if (request.status == 400) {
-                    console.log("readyState: " + request.readyState);
-                    console.log("HTTP: " + request.status);
-                    console.log("Error:" + request.statusText);
-                    console.log("Server message:" + request.responseText)
+                    // console.log("readyState: " + request.readyState);
+                    // console.log("HTTP: " + request.status);
+                    // console.log("Error:" + request.statusText);
+                    // console.log("Server message:" + request.responseText)
                 }
             }
         };
@@ -631,7 +631,7 @@ class Client {
     isTokenCorrect() {
         let isTokenCorrect = true;
         if (this.token === undefined) {
-            console.log("Please initialize the library");
+            // console.log("Please initialize the library");
             isTokenCorrect = false;
         }
         return isTokenCorrect;
@@ -648,10 +648,10 @@ class Client {
     isContextIdCorrect(contextId) {
         let isContextIdCorrect = true;
         if (contextId == "") {
-            console.log("The contextId can not be empty");
+            // console.log("The contextId can not be empty");
             isContextIdCorrect = false;
         } else if (contextId === undefined) {
-            console.log("Please enter a contextId");
+            // console.log("Please enter a contextId");
             isContextIdCorrect = false;
         }
 
@@ -692,10 +692,10 @@ class Client {
 function isPasswordCorrect(password) {
     var isPasswordCorrect = true;
     if (password == "") {
-        console.log("Password can not be empty");
+        // console.log("Password can not be empty");
         isPasswordCorrect = false;
     } else if (password === undefined) {
-        console.log("Please enter a password");
+        // console.log("Please enter a password");
         isPasswordCorrect = false;
     }
     return isPasswordCorrect;
@@ -716,7 +716,7 @@ function isUsernameCorrect(username) {
         arrStatusText.push("Username can not be empty");
         isUsernameCorrect = false;
     } else if (username === undefined) {
-        console.log("Please enter a username");
+        // console.log("Please enter a username");
         isUsernameCorrect = false;
     }
     return isUsernameCorrect
@@ -738,30 +738,19 @@ function isEmailCorrect(email) {
         arrStatusText.push("Email address can not be empty");
         isEmailCorrect = false;
     } else if (email === undefined) {
-        console.log("Please enter an email address");
+        // console.log("Please enter an email address");
         isEmailCorrect = false;
     } else {
         var regex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
         if (!regex.test(String(email).toLowerCase())) {
-            console.log("Please check the format of the email address");
+            // console.log("Please check the format of the email address");
             isEmailCorrect = false;
         }
     }
-
-
     return isEmailCorrect
 }
 
-
-class UserContext {
-    constructor() {
-        this.contexts = null;
-    }
-}
-
-
 module.exports = {
-    //openApeUserCtx: UserContext,
     openApeClient: Client
 }

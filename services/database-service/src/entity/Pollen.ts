@@ -13,7 +13,7 @@ export class Pollen {
     // @ManyToMany(() => Allergy, allergy => allergy.pollen)
     // allergies: Allergy[];
 
-    @ManyToMany(() => UserContext)
+    @ManyToMany(() => UserContext, userContext => userContext.id)
     @JoinTable()
     users: UserContext[];
 }

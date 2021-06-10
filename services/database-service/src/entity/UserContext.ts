@@ -14,9 +14,21 @@ export class UserContext {
     @Column()
     password: string;
 
-    // @ManyToMany(() => Allergy, allergy => allergy.users)
-    // allergies: Allergy[];
+    @Column()
+    theme: string;
 
-    // @ManyToMany(() => Pollen, pollen => pollen.users)
-    // pollen: Allergy[];
+    @Column()
+    fontSize: number;
+
+    @Column()
+    selfVoicingEnabled: boolean;
+
+    @Column()
+    doVentilationReminder: boolean;
+
+    @Column()
+    reduceMotion: boolean;
+
+    @ManyToMany(() => Pollen, pollen => pollen.id)
+    pollen: Pollen[];
 }
