@@ -16,6 +16,11 @@ const morgan = require("morgan");
 const expressSwagger = require("express-swagger-generator")(app);
 const request = require("request");
 
+const https = require('https');
+const fs = require('fs');
+
+
+
 //Allow CORS, because Angular is running on a different port (4200)
 const corsOptions = {
   origin: "http://localhost:4200",
@@ -39,7 +44,7 @@ let swaggerOptions = {
     host: "localhost:4201",
     basePath: "/v1",
     produces: ["application/json", "application/xml"],
-    schemes: ["http"],
+    schemes: ["https"],
     securityDefinitions: {
       JWT: {
         type: "apiKey",
@@ -520,8 +525,22 @@ const genericCallback = (error, response, body, res) => {
   }
 };
 
-console.log("listening on port 4201")
-app.listen(4201);
+https.createServer(
+    {
+      key: fs.readFileSync("./cert/key.pem"),
+      cert: fs.readFileSync("./cert/cert.pem")
+    },
+    app
+  )
+  .listen(4201, function() {
+    console.log('server works');
+    //console.log(Api Gateway is listening on port: 4201);
+  });
+
+// https.createServer(options, function (req, res) {
+//   res.writeHead(200);
+//   res.end("hello world\n");
+// }).listen(4201);
 
 
 /*
