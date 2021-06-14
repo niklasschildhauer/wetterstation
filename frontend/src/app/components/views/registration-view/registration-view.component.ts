@@ -35,7 +35,7 @@ export class RegistrationViewComponent implements OnInit {
     }
     
     this.error = undefined;
-    this.userContextService.register(password, username).then((data) => {
+    this.userContextService.register(username, password).then((data) => {
       if(data.success) {
         this.router.navigateByUrl('/onboarding/personalization');
       } else {
