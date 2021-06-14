@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { INITIAL_USER_CONTEXT, UserContext } from '../model/user-context';
+import { INITIAL_USER_CONTEXT, INITIAL_USER_IDENTIFIKATION, UserContext, UserIdentifikation } from '../model/user-context';
 
 /**
  * Local storage service injectable
@@ -34,21 +34,26 @@ export class LocalStorageService {
   }
 
   /**
-  * Save token to local storage
+  * Save userID to local storage
   * 
-  * @param {string} value  Token string to save
+  * @param {UserIdentifikation} value  Token string to save
   */
-  set token(value: string) {
-    this.setItem(TOKEN_IDENTIFIER, value);
-    console.log('SAVED TOKEN');
+  set userID(value: UserIdentifikation) {
+    const objectString = JSON.stringify(value)
+    this.setItem(USER_IDENTIFIKATION, objectString);
+    console.log('SAVED USER IDENTIFIKATION');
   }
 
   /**
-  * Load token from local storage
+  * Load userID from local storage
   */
-   get token(): string {
-    const token = this.getItem(TOKEN_IDENTIFIER);
-    return token ? token : '';
+   get userID(): UserIdentifikation {
+    const objectString = this.getItem(USER_IDENTIFIKATION);
+    if (objectString) {
+      const userID = JSON.parse(objectString) as UserIdentifikation;
+      return userID
+    } 
+    return INITIAL_USER_IDENTIFIKATION
   }  
 
   /**
@@ -105,6 +110,6 @@ export class LocalStorageService {
 /**
  * Identifier key constants
  */
-const TOKEN_IDENTIFIER = 'wetterstation-token';
+const USER_IDENTIFIKATION = 'wetterstation-user-identifikation';
 const USER_CONTEXT_IDENTIFIER = 'wetterstation-user-context'
 const DISABLE_LOGIN_IDENTIFIER = 'wetterstation-disable-login'

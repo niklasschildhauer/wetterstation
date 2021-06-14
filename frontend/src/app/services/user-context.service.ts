@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { UserContext, Themes, INITIAL_USER_CONTEXT, PollenType } from '../model/user-context';
+import { UserContext, Themes, INITIAL_USER_CONTEXT, PollenType, UserIdentifikation, INITIAL_USER_IDENTIFIKATION } from '../model/user-context';
 import { BehaviorSubject, Observable, of } from 'rxjs';
 import { LocalStorageService } from './local-storage.service';
 import { Router } from '@angular/router';
@@ -9,15 +9,16 @@ import { UserContextAPIService } from './api/user-context-api.service';
   providedIn: 'root'
 })
 export class UserContextService {
-  set token(value: string) {
-    this.localStorageService.token = value
+  set userID(value: UserIdentifikation) {
+    this.localStorageService.userID = value
   }
-  get token(): string {
-    return this.localStorageService.token
+  get userID(): UserIdentifikation {
+    return this.localStorageService.userID
   }
 
   get userLoggedIn(): boolean {
-    return this.localStorageService.token !== "" && this.localStorageService.token !== undefined
+    console.log("Wichtig", this.userID);
+    return this.userID.token !== "" && this.userID.token !== undefined
   }
 
   set disableLogin(value: boolean) {
@@ -96,7 +97,7 @@ export class UserContextService {
       this.resetUserContext()
       let response = this.userContextAPI.postLogin(password, username)
       response.subscribe((data) => {
-        this.token = data.token;
+        this.userID = data.userID;
         this.userContext = data.userContext;
         this.disableLogin = false;
 
@@ -135,16 +136,16 @@ export class UserContextService {
   public refreshUserContextIfNeeded(): Observable<boolean> {
     console.log("Refresh if needed")      
     let returnObservable = new Observable<boolean>((observer) => {
-      console.log("token", this.token)
+      console.log("token", this.userID.token)
 
-      if(this.disableLogin || this.token === '') {
+      if(this.disableLogin || this.userID.token === '') {
         observer.next(true);
         observer.complete(); 
       }
       console.log("Wir checken den token")
-      this.userContextAPI.postIsTokenValid(this.token).subscribe((data) => {
+      this.userContextAPI.postIsTokenValid(this.userID.token).subscribe((data) => {
         if(data) {
-          this.userContextAPI.loadUserContext(this.token).subscribe(data => {
+          this.userContextAPI.loadUserContext(this.userID.token).subscribe(data => {
             this.userContext = data
             observer.next(true);
             observer.complete(); 
@@ -165,13 +166,22 @@ export class UserContextService {
   private resetUserContext() {
     this.localStorageService.clear();
     this.userContext = INITIAL_USER_CONTEXT;
-    this.token = "";
+    this.userID = INITIAL_USER_IDENTIFIKATION;
     this.disableLogin = false;
   }
 
   private saveUserContext() {
     this.saveUserContextToLocalStorage()
-    // FIXME: server post request
+    this.userContextAPI.postSaveUserContext(this.userID, this.userContext).subscribe((data) => {
+      if(data.success) {
+        console.log('SAVED USER CONTEXT');
+      } else {
+        console.log('ERROR DURING SAVING USER CONTEXT');
+      }
+    },
+    () => {
+      console.log('ERROR DURING SAVING USER CONTEXT');
+    });
   }
 
   private saveUserContextToLocalStorage() {

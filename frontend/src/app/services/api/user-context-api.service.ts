@@ -1,7 +1,8 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams, HttpResponse } from '@angular/common/http';
+import { I18nContext } from '@angular/compiler/src/render3/view/i18n/context';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { INITIAL_USER_CONTEXT, PollenType, Themes, UserContext } from '../../model/user-context';
+import { INITIAL_USER_CONTEXT, PollenType, Themes, UserContext, UserIdentifikation } from '../../model/user-context';
 
 @Injectable({
   providedIn: 'root'
@@ -16,8 +17,8 @@ export class UserContextAPIService {
 
   constructor(private httpClient: HttpClient) { }
 
-  public postLogin(password: string, username: string): Observable<{token: string, userContext: UserContext}> {
-    let returnObservable = new Observable<{token: string, userContext: UserContext}>((observer) => {
+  public postLogin(password: string, username: string): Observable<{userID: UserIdentifikation, userContext: UserContext}> {
+    let returnObservable = new Observable<{userID: UserIdentifikation, userContext: UserContext}>((observer) => {
       let response = this.httpClient.post<LoginResponse>(this.loginURL, 
                                                         {username: username, password: password}, {observe: 'response'});
       response.subscribe((response) => {
@@ -29,8 +30,11 @@ export class UserContextAPIService {
           if(body.success) {
             console.log(this.createUserContextFromServerResponse(body.userContext));
             observer.next({
-              token: body.token,
-              userContext: this.createUserContextFromServerResponse(body.userContext) // FIXME
+              userID: {
+                token: body.token,
+                id: body.userContext.id
+              },
+              userContext: this.createUserContextFromServerResponse(body.userContext)
             });
           } else {
             observer.error(body.message);
@@ -80,31 +84,42 @@ export class UserContextAPIService {
   return returnObservable;
   }
 
-  public postSaveUserContext(userContext: UserContext): Observable<{success: boolean, error: string}>{
+  public postSaveUserContext(userID: UserIdentifikation, userContext: UserContext): Observable<{success: boolean, error: string}>{
+    let body = {
+      password: "string",
+      username: "string",
+      theme: Themes[userContext.theme],
+      fontSize: userContext.fontSize,
+      selfVoicingEnabled: userContext.selfVoicingEnabled,
+      doVentilationReminder: userContext.doVentilationReminder,
+      reduceMotion: userContext.reduceMotion
+    }
+    console.log(Themes[userContext.theme]);
+    console.log(userID.token);
+    let httpOptions = {
+      headers: new HttpHeaders({ 'Authorization': 'Bearer ' + userID.token }),
+      params: new HttpParams().set('id', userID.id + ''),
+    };
     let returnObservable = new Observable<{success: boolean, error: string}>((observer) => {
-      let response = this.httpClient.post<UserContextResponse>(this.saveUserContextURL, 
-                                                              userContext, {observe: 'response'});
+      let response = this.httpClient.put<UserContextResponse>(this.saveUserContextURL, body, httpOptions, );
       response.subscribe((response) => {
-        let body = response.body
-        let status = response.statusText
-        console.log(status);
-
-        if(body){
-          if(body.id) {
-            observer.next({success: true, error: ""});
-          } else {
-            observer.error("Ein Fehler ist aufgetreten.");
-          }
+        let body = response
+        if(body && body.id) {
+          observer.next({success: true, error: ""});
+        } else {
+          observer.error("POST - SAVE USER CONTEXT - Ein Fehler ist aufgetreten.");
         }
       },
       (error)=> {
-        observer.error("Ein Fehler ist aufgetreten.");
+        observer.error("POST - SAVE USER CONTEXT - Ein Fehler ist aufgetreten.");
         console.log(error);
         observer.complete();
       }, 
       () => {
         observer.complete();
       });
+      console.log(response);
+
     });
     return returnObservable;
   }
@@ -134,10 +149,10 @@ export class UserContextAPIService {
       let httpOptions = {
         headers: new HttpHeaders({ 'Authorization': 'Bearer ' + token })
       };
-      let response = this.httpClient.get<{userContext: UserContextResponse}>(this.currentUserContextURL, httpOptions);
-      response.subscribe(data => {
-        console.log(this.createUserContextFromServerResponse(data.userContext));
-        observer.next(this.createUserContextFromServerResponse(data.userContext));
+      let response = this.httpClient.get<UserContextResponse>(this.currentUserContextURL, httpOptions);
+      response.subscribe(context => {
+        console.log(this.createUserContextFromServerResponse(context));
+        observer.next(this.createUserContextFromServerResponse(context));
         observer.complete();
       }, 
       () => {
@@ -162,7 +177,7 @@ export class UserContextAPIService {
   private createUserContextFromServerResponse(userContext: UserContextResponse): UserContext {
     return {
       theme: this.getThemeTypeFromServerResponse(userContext.theme),
-      fontSize: userContext.fontSize * 3.90,
+      fontSize: userContext.fontSize,
       pollen: userContext.pollen, 
       doVentilationReminder: userContext.doVentilationReminder,
       reduceMotion: userContext.reduceMotion,
@@ -172,9 +187,9 @@ export class UserContextAPIService {
 
   private getThemeTypeFromServerResponse(theme: string): Themes {
     switch(theme) {
-      case "dark": return Themes.Dark;
-      case "light": return Themes.Light;
-      case "highContrast": return Themes.HighContrast;
+      case "Dark": return Themes.Dark;
+      case "Light": return Themes.Light;
+      case "HighContrast": return Themes.HighContrast;
       default: return Themes.Automatic;
     }
   }

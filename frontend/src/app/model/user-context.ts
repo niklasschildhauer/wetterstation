@@ -9,6 +9,11 @@ export interface UserContext {
     reduceMotion: boolean, // New element: For people with vestibular disorders is animation triggerd by scrolling not good.
 };
 
+export interface UserIdentifikation {
+    token: string,
+    id: number,
+}
+
 export enum Themes {
     Light,
     Dark,
@@ -26,7 +31,6 @@ export enum Language {
     'en-EN'
 };
 
-// FIXME: Klasse macht wrs mehr sinn
 export const INITIAL_USER_CONTEXT: UserContext = {
     theme: Themes.Automatic,
     fontSize: 62.5,
@@ -35,3 +39,9 @@ export const INITIAL_USER_CONTEXT: UserContext = {
     doVentilationReminder: false,
     reduceMotion: false,
 };
+
+export const INITIAL_USER_IDENTIFIKATION: UserIdentifikation = {
+    token: '',
+    id: -99,
+};
+
