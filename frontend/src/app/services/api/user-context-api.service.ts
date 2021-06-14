@@ -1,8 +1,7 @@
-import { HttpClient, HttpHeaders, HttpParams, HttpResponse } from '@angular/common/http';
-import { I18nContext } from '@angular/compiler/src/render3/view/i18n/context';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { INITIAL_USER_CONTEXT, PollenType, Themes, UserContext, UserIdentifikation } from '../../model/user-context';
+import { PollenType, Themes, UserContext, UserIdentifikation } from '../../model/user-context';
 
 @Injectable({
   providedIn: 'root'
@@ -163,7 +162,6 @@ export class UserContextAPIService {
     let returnObservable = new Observable<{success: boolean, error: string}>((observer) => {
       let response = this.httpClient.post(this.savePollenURL, body, httpOptions);
       response.subscribe(() => {
-        console.log('Es wird etwas gepostet');
         observer.next({success: true, error: ''})
       },
       (error)=> {
