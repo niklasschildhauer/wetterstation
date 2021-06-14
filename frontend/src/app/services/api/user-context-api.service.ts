@@ -55,8 +55,8 @@ export class UserContextAPIService {
   }
 
 
-  public postRegister(password: string, username: string): Observable<{success: boolean, error: string}> {
-    let returnObservable = new Observable<{success: boolean, error: string}>((observer) => {
+  public postRegister(password: string, username: string): Observable<boolean> {
+    let returnObservable = new Observable<boolean>((observer) => {
       let response = this.httpClient.post<UserContextResponse>(this.registerURL, 
                                                               {username: username, password: password}, {observe: 'response'});
       response.subscribe((response) => {
@@ -66,7 +66,7 @@ export class UserContextAPIService {
 
         if(body){
           if(body.id) {
-            observer.next({success: true, error: ""});
+            observer.next(true);
           } else {
             observer.error("Ein Fehler ist aufgetreten. Bitte versuche es später erneut");
           }
@@ -85,7 +85,7 @@ export class UserContextAPIService {
   return returnObservable;
   }
 
-  public putSaveUserContext(userID: UserIdentifikation, userContext: UserContext): Observable<{success: boolean, error: string}>{
+  public putSaveUserContext(userID: UserIdentifikation, userContext: UserContext): Observable<boolean>{
     let body = {
       password: "string",
       username: "string",
@@ -101,12 +101,12 @@ export class UserContextAPIService {
       headers: new HttpHeaders({ 'Authorization': 'Bearer ' + userID.token }),
       params: new HttpParams().set('id', userID.id + ''),
     };
-    let returnObservable = new Observable<{success: boolean, error: string}>((observer) => {
+    let returnObservable = new Observable<boolean>((observer) => {
       let response = this.httpClient.put<UserContextResponse>(this.saveUserContextURL, body, httpOptions);
       response.subscribe((response) => {
         let body = response
         if(body && body.id) {
-          observer.next({success: true, error: ""});
+          observer.next(true);
         } else {
           observer.error("POST - SAVE USER CONTEXT - Ein Fehler ist aufgetreten.");
         }
@@ -125,7 +125,7 @@ export class UserContextAPIService {
     return returnObservable;
   }
 
-  public deletePolleFromUserContext(userID: UserIdentifikation, pollenID: number): Observable<{success: boolean, error: string}>  {
+  public deletePolleFromUserContext(userID: UserIdentifikation, pollenID: number): Observable<boolean>  {
     let body = {
       userID: userID.id,
       pollenID: pollenID
@@ -133,10 +133,10 @@ export class UserContextAPIService {
     let httpOptions = {
       headers: new HttpHeaders({ 'Authorization': 'Bearer ' + userID.token }), body: body
     };
-    let returnObservable = new Observable<{success: boolean, error: string}>((observer) => {
+    let returnObservable = new Observable<boolean>((observer) => {
       let response = this.httpClient.delete(this.deletePollenURL, httpOptions);
       response.subscribe(() => {
-        observer.next({success: true, error: ''});
+        observer.next(true);
       },
       (error) => {
         observer.error("DELETE - Polle");
@@ -151,7 +151,7 @@ export class UserContextAPIService {
     return returnObservable;
   }
 
-  public postPolleToUserContext(userID: UserIdentifikation, pollenID: number): Observable<{success: boolean, error: string}>  {
+  public postPolleToUserContext(userID: UserIdentifikation, pollenID: number): Observable<boolean> {
     let body = {
       userID: userID.id,
       pollenID: pollenID
@@ -159,10 +159,10 @@ export class UserContextAPIService {
     let httpOptions = {
       headers: new HttpHeaders({ 'Authorization': 'Bearer ' + userID.token }),
     };
-    let returnObservable = new Observable<{success: boolean, error: string}>((observer) => {
+    let returnObservable = new Observable<boolean>((observer) => {
       let response = this.httpClient.post(this.savePollenURL, body, httpOptions);
       response.subscribe(() => {
-        observer.next({success: true, error: ''})
+        observer.next(true);
       },
       (error)=> {
         observer.error("DELETE - Polle");

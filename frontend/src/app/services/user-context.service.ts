@@ -17,7 +17,6 @@ export class UserContextService {
   }
 
   get userLoggedIn(): boolean {
-    console.log("Wichtig", this.userID);
     return this.userID.token !== "" && this.userID.token !== undefined
   }
 
@@ -112,13 +111,13 @@ export class UserContextService {
   public register(username: string, password: string): Promise<{success: boolean, error: string}> {
     let promise = new Promise<{success: boolean, error: string}>((resolve) => {
       this.resetUserContext();
-      this.userContextAPI.postRegister(password, username).subscribe((registerData) => {
-        if(registerData.success) {
+      this.userContextAPI.postRegister(password, username).subscribe((success) => {
+        if(success) {
           this.login(username, password).then(loginData => {
             resolve(loginData);
           })
         } else {
-          resolve(registerData)
+          resolve({success: success, error: 'Die Registrierung ist fehlgeschlagen'})
         }
       },
       (error) => {
@@ -136,8 +135,6 @@ export class UserContextService {
     if(this.pollen){
       if(newValue && !this.pollen.includes(polle.pollenName)) {
         this.userContextAPI.postPolleToUserContext(this.userID, polle.id).subscribe(() => {
-          console.log('Es wird refreshed');
-
           this.refreshUserContextIfNeeded().subscribe();
         });
       }
@@ -200,14 +197,14 @@ export class UserContextService {
 
   private saveUserContext() {
     this.saveUserContextToLocalStorage()
-    this.userContextAPI.putSaveUserContext(this.userID, this.userContext).subscribe((data) => {
-      if(data.success) {
+    this.userContextAPI.putSaveUserContext(this.userID, this.userContext).subscribe((success) => {
+      if(success) {
         console.log('SAVED USER CONTEXT');
       } else {
         console.log('ERROR DURING SAVING USER CONTEXT');
       }
     },
-    () => {
+    (error) => {
       console.log('ERROR DURING SAVING USER CONTEXT');
     });
   }
