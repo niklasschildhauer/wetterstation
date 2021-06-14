@@ -100,8 +100,7 @@ export class UserContextService {
         this.userID = data.userID;
         this.userContext = data.userContext;
         this.disableLogin = false;
-
-        resolve({success: true, error:""})
+        resolve({success: true, error: ""})
       },
       (error) => {
         resolve({success: false, error: error})
@@ -129,10 +128,41 @@ export class UserContextService {
     return promise
   }
 
+  public tooglePollenValueAt(index: number) {
+    let polle: PollenType = this.pollenTypes[index]
+    let oldValue = this.getPollenValueAt(index);  
+    let newValue = !oldValue;
+
+    if(this.pollen){
+      if(newValue && !this.pollen.includes(polle.pollenName)) {
+        this.userContextAPI.postPolleToUserContext(this.userID, polle.id).subscribe(() => {
+          console.log('Es wird refreshed');
+
+          this.refreshUserContextIfNeeded().subscribe();
+        });
+      }
+      if(oldValue && this.pollen.includes(polle.pollenName)) {
+        this.userContextAPI.deletePolleFromUserContext(this.userID, polle.id).subscribe(()=> {
+          this.refreshUserContextIfNeeded().subscribe();
+        });
+      }
+    }
+  }
+
+  public getPollenValueAt(index: number): boolean {
+    let polle: PollenType = this.pollenTypes[index]
+
+    if(this.pollen && this.pollen.includes(polle.pollenName)) {
+      return true
+    }
+    return false;
+  }
+
   public logout() {
     this.resetUserContext();
     this.showLoginScreen();
   }
+
   public refreshUserContextIfNeeded(): Observable<boolean> {
     console.log("Refresh if needed")      
     let returnObservable = new Observable<boolean>((observer) => {
@@ -165,14 +195,12 @@ export class UserContextService {
 
   private resetUserContext() {
     this.localStorageService.clear();
-    this.userContext = INITIAL_USER_CONTEXT;
-    this.userID = INITIAL_USER_IDENTIFIKATION;
-    this.disableLogin = false;
+    this._userContext.next(this.localStorageService.userContext);
   }
 
   private saveUserContext() {
     this.saveUserContextToLocalStorage()
-    this.userContextAPI.postSaveUserContext(this.userID, this.userContext).subscribe((data) => {
+    this.userContextAPI.putSaveUserContext(this.userID, this.userContext).subscribe((data) => {
       if(data.success) {
         console.log('SAVED USER CONTEXT');
       } else {

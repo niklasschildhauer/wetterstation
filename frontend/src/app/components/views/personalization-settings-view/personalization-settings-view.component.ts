@@ -1,4 +1,4 @@
-import { Component, DoCheck, OnDestroy, OnInit, Renderer2 } from '@angular/core';
+import { Component, OnInit, Renderer2 } from '@angular/core';
 import { UserContextService } from 'src/app/services/user-context.service';
 import { Themes, UserContext, PollenType } from 'src/app/model/user-context';
 import { Router } from '@angular/router';
@@ -35,10 +35,6 @@ export class PersonalizationSettingsViewComponent implements OnInit {
       .subscribe(data => this.userContextData = data)
   }
 
-  changedValue(event: any) {
-    console.log(event.target.value)
-  }
-
   setFontSize(value: number) {
     this.userContextService.fontSize = value;
     if(this.userContextData) {
@@ -66,21 +62,13 @@ export class PersonalizationSettingsViewComponent implements OnInit {
     return Themes[this.getThemeTypeAt(index)]
   }
 
-
   numberOfPollen(): any[] {
     let count = this.userContextService.pollenTypes.length
     return new Array(count);
   }
 
-
   getPollenValueAt(index: number): boolean {
-    let polle: PollenType = this.userContextService.pollenTypes[index] // FIXME: Heißt ich wirklich polle?
-    let pollen = this.userContextService.pollen
-
-    if(pollen && pollen.includes(polle.pollenName)) {
-      return true
-    }
-    return false;
+    return this.userContextService.getPollenValueAt(index);
   }
 
   getPollenStringAt(index: number): string {
@@ -88,20 +76,7 @@ export class PersonalizationSettingsViewComponent implements OnInit {
   }
 
   togglePollenValueAt(index: number) {
-    let polle: PollenType = this.userContextService.pollenTypes[index]
-    var pollen = this.userContextService.pollen  
-    let oldValue = this.getPollenValueAt(index);  
-    let newValue = !oldValue;
-
-    if(pollen){
-      if(newValue && !pollen.includes(polle.pollenName)) {
-        pollen.push(polle.pollenName);
-      }
-      if(oldValue && pollen.includes(polle.pollenName)) {
-        pollen = pollen.filter(item => item != polle.pollenName)
-      }
-      this.userContextService.pollen = pollen
-    }
+    this.userContextService.tooglePollenValueAt(index);
   }
 
   // FIXME: 

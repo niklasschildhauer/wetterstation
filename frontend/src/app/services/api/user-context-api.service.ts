@@ -14,6 +14,8 @@ export class UserContextAPIService {
   private currentUserContextURL = '/user/currentUser';
   private saveUserContextURL = '/user/save';
   private allPollenTypesURL = '/pollen/all';
+  private deletePollenURL = '/pollen/delete';
+  private savePollenURL = '/allergies/save';
 
   constructor(private httpClient: HttpClient) { }
 
@@ -84,7 +86,7 @@ export class UserContextAPIService {
   return returnObservable;
   }
 
-  public postSaveUserContext(userID: UserIdentifikation, userContext: UserContext): Observable<{success: boolean, error: string}>{
+  public putSaveUserContext(userID: UserIdentifikation, userContext: UserContext): Observable<{success: boolean, error: string}>{
     let body = {
       password: "string",
       username: "string",
@@ -101,7 +103,7 @@ export class UserContextAPIService {
       params: new HttpParams().set('id', userID.id + ''),
     };
     let returnObservable = new Observable<{success: boolean, error: string}>((observer) => {
-      let response = this.httpClient.put<UserContextResponse>(this.saveUserContextURL, body, httpOptions, );
+      let response = this.httpClient.put<UserContextResponse>(this.saveUserContextURL, body, httpOptions);
       response.subscribe((response) => {
         let body = response
         if(body && body.id) {
@@ -112,6 +114,60 @@ export class UserContextAPIService {
       },
       (error)=> {
         observer.error("POST - SAVE USER CONTEXT - Ein Fehler ist aufgetreten.");
+        console.log(error);
+        observer.complete();
+      }, 
+      () => {
+        observer.complete();
+      });
+      console.log(response);
+
+    });
+    return returnObservable;
+  }
+
+  public deletePolleFromUserContext(userID: UserIdentifikation, pollenID: number): Observable<{success: boolean, error: string}>  {
+    let body = {
+      userID: userID.id,
+      pollenID: pollenID
+    }
+    let httpOptions = {
+      headers: new HttpHeaders({ 'Authorization': 'Bearer ' + userID.token }), body: body
+    };
+    let returnObservable = new Observable<{success: boolean, error: string}>((observer) => {
+      let response = this.httpClient.delete(this.deletePollenURL, httpOptions);
+      response.subscribe(() => {
+        observer.next({success: true, error: ''});
+      },
+      (error) => {
+        observer.error("DELETE - Polle");
+        console.log(error);
+        observer.complete();
+      }, 
+      () => {
+        observer.complete();
+      });
+
+    });
+    return returnObservable;
+  }
+
+  public postPolleToUserContext(userID: UserIdentifikation, pollenID: number): Observable<{success: boolean, error: string}>  {
+    let body = {
+      userID: userID.id,
+      pollenID: pollenID
+    }
+    let httpOptions = {
+      headers: new HttpHeaders({ 'Authorization': 'Bearer ' + userID.token }),
+    };
+    let returnObservable = new Observable<{success: boolean, error: string}>((observer) => {
+      let response = this.httpClient.post(this.savePollenURL, body, httpOptions);
+      response.subscribe(() => {
+        console.log('Es wird etwas gepostet');
+        observer.next({success: true, error: ''})
+      },
+      (error)=> {
+        observer.error("DELETE - Polle");
         console.log(error);
         observer.complete();
       }, 
