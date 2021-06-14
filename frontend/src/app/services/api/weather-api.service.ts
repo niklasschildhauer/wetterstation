@@ -12,10 +12,11 @@ export class WeatherAPIService {
   private outdoorURL = '/weather-data/outdoor/latest'
   private indoorURL = '/weather-data/indoor/latest'
   private historyURL = '/weather-data/outdoor/history'
+  private allPollenTypesURL = '/pollen/all';
 
   constructor(private httpClient: HttpClient) { }
 
-  loadOutdoorWeather(): Observable<OutdoorWeatherData> {
+  public loadOutdoorWeather(): Observable<OutdoorWeatherData> {
     if (environment.testData) {
       return of(OUTDOORWEATHER);
     }
@@ -29,14 +30,30 @@ export class WeatherAPIService {
     );
     return returnObservable;
   }
-  
 
-  loadPollen(): Observable<PollenData[]> {
-    let pollen = of(POLLEN);
-    return pollen;
+  public loadPollen(): Observable<PollenData[]>{
+    if (environment.testData) {
+      let pollen = of(POLLEN);
+      return pollen;
+    }
+    let returnObservable = new Observable<PollenData[]>((observer) => {
+      let response = this.httpClient.get<PollenResponse[]>(this.allPollenTypesURL);
+      response.subscribe(data => {
+        console.log(data);
+        let pollenData = this.createPollenDataFromServerResponse(data);
+        observer.next(pollenData);
+        observer.complete();
+      },
+      (error) => {
+        console.log(error);
+        observer.next([]);
+        observer.complete();
+      })
+    });
+    return returnObservable;
   }
-
-  loadIndoorRoomData(): Observable<IndoorRoomData[]> {
+  
+  public loadIndoorRoomData(): Observable<IndoorRoomData[]> {
     if (environment.testData) {
       let indoorData = of(INDOORAIRQUALITY);
       return indoorData;
@@ -51,26 +68,22 @@ export class WeatherAPIService {
           console.log(error);
           observer.next([]);
           observer.complete();
-
         })
       }
     );
     return returnObservable;
   }
 
-  loadForecastDataSubject(): Observable<WeatherForecastData> {
+  public loadForecastDataSubject(): Observable<WeatherForecastData> {
     let forecastData = of(FORECAST);
     return forecastData;
   }
 
-  loadHistoryDataSubject(endDate: Date, beginDate: Date): Observable<WeatherHistoryData> {
+  public loadHistoryDataSubject(endDate: Date, beginDate: Date): Observable<WeatherHistoryData> {
     if (environment.testData) {
       let forecastData = of(WEATHERHISTORY);
       return forecastData;
     }
-
-    console.log(this.createServerFriendlyDate(beginDate));
-    console.log(this.createServerFriendlyDate(endDate))
     let returnObservable = new Observable<WeatherHistoryData>((observer) => { 
         this.httpClient.post<OutdoorWeatherResponse[]>(this.historyURL,
           {
@@ -119,6 +132,25 @@ export class WeatherAPIService {
             timestamp: new Date(response.timestamp), 
           }
   }
+
+  private createPollenDataFromServerResponse(response: PollenResponse[]): PollenData[] {
+    let pollen: PollenData[] = [];
+    response.forEach(item => {
+      pollen.push({
+        id: item.id,
+        pollenName: item.pollenName,
+        today: item.loadRating,
+        tomorrow: -99
+      })
+    })
+    return pollen
+  }
+}
+
+interface PollenResponse {
+  id: number,
+  pollenName: string,
+  loadRating: number,
 }
 
 interface OutdoorWeatherResponse {

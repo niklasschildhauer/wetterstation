@@ -64,7 +64,10 @@ export class DashboardScreenComponent implements OnInit {
                       .subscribe(data => {
                         this.dashboardTiles = data
                         console.log("hide it")
-                        this.spinner.hide();
+                        if (data.length > 0) {
+                          console.log("hide it")
+                          this.spinner.hide();
+                        }
                       });
     this.weatherDataService.getOutdoorWeatherDataSubject()
                         .subscribe(data => {

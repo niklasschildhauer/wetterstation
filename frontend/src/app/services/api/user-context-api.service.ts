@@ -7,11 +7,12 @@ import { INITIAL_USER_CONTEXT, PollenType, Themes, UserContext } from '../../mod
   providedIn: 'root'
 })
 export class UserContextAPIService {
-  private loginURL = '/auth/login'
-  private registerURL = '/user/register'
-  private checkTokenURL = '/auth/checkToken'
-  private allPollenTypesURL = '/pollen/all'
-  private currentUserContextURL = '/user/currentUser'
+  private loginURL = '/auth/login';
+  private registerURL = '/user/register';
+  private checkTokenURL = '/auth/checkToken';
+  private currentUserContextURL = '/user/currentUser';
+  private saveUserContextURL = '/user/save';
+  private allPollenTypesURL = '/pollen/all';
 
   constructor(private httpClient: HttpClient) { }
 
@@ -52,7 +53,7 @@ export class UserContextAPIService {
   public postRegister(password: string, username: string): Observable<{success: boolean, error: string}> {
     let returnObservable = new Observable<{success: boolean, error: string}>((observer) => {
       let response = this.httpClient.post<UserContextResponse>(this.registerURL, 
-                                                        {username: username, password: password}, {observe: 'response'});
+                                                              {username: username, password: password}, {observe: 'response'});
       response.subscribe((response) => {
         let body = response.body
         let status = response.statusText
@@ -62,7 +63,7 @@ export class UserContextAPIService {
           if(body.id) {
             observer.next({success: true, error: ""});
           } else {
-            observer.error("getreten");
+            observer.error("Ein Fehler ist aufgetreten. Bitte versuche es später erneut");
           }
         }
       },
@@ -70,7 +71,8 @@ export class UserContextAPIService {
         observer.error("Ein Fehler ist aufgetreten. Bitte versuche es später erneut");
         console.log(error);
         observer.complete();
-      },() => {
+      },
+      () => {
         observer.complete();
       });
     }
@@ -78,13 +80,31 @@ export class UserContextAPIService {
   return returnObservable;
   }
 
-  public loadPollenTypes(): Observable<PollenType[]>{
-    let returnObservable = new Observable<PollenType[]>((observer) => {
-      let response = this.httpClient.get<PollenType[]>(this.allPollenTypesURL);
-      response.subscribe(data => {
-        observer.next(data);
+  public postSaveUserContext(userContext: UserContext): Observable<{success: boolean, error: string}>{
+    let returnObservable = new Observable<{success: boolean, error: string}>((observer) => {
+      let response = this.httpClient.post<UserContextResponse>(this.saveUserContextURL, 
+                                                              userContext, {observe: 'response'});
+      response.subscribe((response) => {
+        let body = response.body
+        let status = response.statusText
+        console.log(status);
+
+        if(body){
+          if(body.id) {
+            observer.next({success: true, error: ""});
+          } else {
+            observer.error("Ein Fehler ist aufgetreten.");
+          }
+        }
+      },
+      (error)=> {
+        observer.error("Ein Fehler ist aufgetreten.");
+        console.log(error);
         observer.complete();
-      })
+      }, 
+      () => {
+        observer.complete();
+      });
     });
     return returnObservable;
   }
@@ -126,6 +146,16 @@ export class UserContextAPIService {
       })
     });
     return returnObservable;
+  }
+
+  public loadPollenTypes(): Observable<PollenType[]>{
+    let returnObservable = new Observable<PollenType[]>((observer) => {
+      let response = this.httpClient.get<PollenType[]>(this.allPollenTypesURL);
+      response.subscribe(data => {
+        observer.next(data);
+      });
+    });
+    return returnObservable
   }
 
 
