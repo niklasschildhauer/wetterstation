@@ -19,7 +19,7 @@ const genericRequestHandlers = require("./shared");
 //});
 //job.start(); 
 
-let minutes = 5, the_interval = minutes * 60 * 1000;
+let minutes = 10, the_interval = minutes * 60 * 1000;
 setInterval(function () {
     forecast();
 }, the_interval);
@@ -33,14 +33,11 @@ const forecast = () => {
         latest_measurement = data;
         genericRequestHandlers.genericRequestToPromise("GET", "http://localhost:4205/forecast/history").then((data1) => {
             let pressureArray = data1.map(a => a.seaPressure).reverse();
+            pressureArray = Object.assign(new Array(9).fill(0), pressureArray);
 
             let temp_in_degrees = latest_measurement["temperature"];
             let altitude = 296;
             let pressure = latest_measurement["pressure"];
-
-            //for debug purposes
-            temp_in_degrees = 9;
-            pressure = 1017 ;
 
             let seapressure = calc_seapressure(pressure, temp_in_degrees, altitude);
             pressureArray.push(seapressure);
@@ -317,7 +314,31 @@ const forecast = () => {
 
 }
 
-//forecast();
+const debug_enabled = false;
+//debugging code
+if(debug_enabled){
+    let minutes_1 = 9, the_interval_1 = minutes_1 * 60 * 1000;
+    setInterval(function () {  
+        const weather_postalCode = 71334;
+        const openweathermap_api_key = 'c23b6eb0df192e3eed784aa71777b7da'
+        const request_uri = `https://api.openweathermap.org/data/2.5/weather?zip=${weather_postalCode},DE&units=metric&appid=${openweathermap_api_key}`;
+    
+        genericRequestHandlers.genericRequestToPromise("GET", request_uri).then((data) => {
+            const weather_data = {
+                "humidity": data['main']['humidity'],
+                "temperature": data['main']['temp'],
+                "location": 71404,
+                "pressure": data['main']['pressure'],
+                "deviceID": 1
+            };
+            console.log("wd", weather_data);
+            genericRequestHandlers.genericRequestWithPayloadToPromise("POST", "http://localhost:4205/outdoor/insert", JSON.stringify(weather_data)).then((data_1) => {
+                console.log("res", data_1);
+            });
+        });
+    }, the_interval_1);
+}
+
 
 module.exports = {
     forecast: forecast
