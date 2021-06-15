@@ -193,13 +193,13 @@ export class TileService  {
       case TileType.pollenSmall: {
         let pollen = data as PollenData
         console.log(pollen);
-        if (pollen.today > 2) {
+        if (pollen.today === '0' || pollen.today === '-1') {
+          return TilePriority.low
+        }
+        if (pollen.today === '2-3' || pollen.today === '3' || pollen.today === '3-4') {
           return TilePriority.high
         }
-        if (pollen.today >= 1) {
-          return TilePriority.middle
-        }
-        return TilePriority.low
+        return TilePriority.middle
         // FIXME: Implement algorithm
       }
       case TileType.forecast: {

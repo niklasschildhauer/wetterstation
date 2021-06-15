@@ -223,36 +223,36 @@ export var FORECASTTILE: Tile<WeatherForecastData> = {
 export var ESCHE: PollenData =  {
     pollenName: "Esche",
     id : 1,
-    today: 0,
-    tomorrow: 0,
+    today: '0',
+    tomorrow: '0',
 }
 
 export var ROGGEN: PollenData =  {
     pollenName: "Roggen",
     id: 2,
-    today: 1,
-    tomorrow: 0,
+    today: '1',
+    tomorrow: '0',
 }
 
 export var HASEL: PollenData =  {
     pollenName: "Hasel",
     id: 3,
-    today: 1,
-    tomorrow: 0,
+    today: '1',
+    tomorrow: '0',
 }
 
 export var BIRKE: PollenData =  {
     pollenName: "Birke",
     id: 4,
-    today: 2,
-    tomorrow: 0,
+    today: '2',
+    tomorrow: '0',
 }
 
 export var AMBROSIA: PollenData =  {
     pollenName: "Ambrosia",
     id: 5,
-    today: 3,
-    tomorrow: 0,
+    today: '3',
+    tomorrow: '0',
 }
 
 export var POLLEN: PollenData[] = [
@@ -264,30 +264,30 @@ export var POLLEN: PollenData[] = [
     {
         pollenName: "Beifuß",
         id: 6,
-        today: 0,
-        tomorrow: 0,
+        today: '0',
+        tomorrow: '0',
     },
 
     {
         pollenName: "Gräser",
         id: 7,
-        today: 3,
-        tomorrow: 0,
+        today: '3',
+        tomorrow: '0',
     },
 
     {
         pollenName: "Erle",
         id: 8,
-        today: 0,
-        tomorrow: 0,
+        today: '0',
+        tomorrow: '0',
     },
 ];
 
 export var reducePollen = () => {
-    POLLEN[0].today = 3
-    POLLEN[1].today = 3
-    POLLEN[2].today = 3
-    POLLEN[3].today = 3
+    POLLEN[0].today = '3'
+    POLLEN[1].today = '3'
+    POLLEN[2].today = '3'
+    POLLEN[3].today = '3'
 
     OUTDOORWEATHER.temperature = OUTDOORWEATHER.temperature + 1;
     FORECAST.forecast = "lol"

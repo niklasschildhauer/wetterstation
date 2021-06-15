@@ -4,6 +4,7 @@ import { OutdoorWeatherData, PollenData, IndoorRoomData, WeatherForecastData, We
 import { Observable, of } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
+import { dashCaseToCamelCase } from '@angular/compiler/src/util';
 
 @Injectable({
   providedIn: 'root'
@@ -39,7 +40,6 @@ export class WeatherAPIService {
     let returnObservable = new Observable<PollenData[]>((observer) => {
       let response = this.httpClient.get<PollenResponse[]>(this.allPollenTypesURL);
       response.subscribe(data => {
-        console.log(data);
         let pollenData = this.createPollenDataFromServerResponse(data);
         observer.next(pollenData);
         observer.complete();
@@ -134,15 +134,18 @@ export class WeatherAPIService {
   }
 
   private createPollenDataFromServerResponse(response: PollenResponse[]): PollenData[] {
+    console.log("Pollen daten sind hier", response)
     let pollen: PollenData[] = [];
     response.forEach(item => {
       pollen.push({
         id: item.id,
         pollenName: item.pollenName,
         today: item.loadRating,
-        tomorrow: -99
+        tomorrow: ''
       })
     })
+    console.log("Pollen daten sind hier", pollen)
+
     return pollen
   }
 }
@@ -150,7 +153,7 @@ export class WeatherAPIService {
 interface PollenResponse {
   id: number,
   pollenName: string,
-  loadRating: number,
+  loadRating: string,
 }
 
 interface OutdoorWeatherResponse {

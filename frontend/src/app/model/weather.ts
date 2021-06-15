@@ -53,8 +53,8 @@ export interface WeatherForecastData extends WeatherData {
 export interface PollenData extends WeatherData {
     pollenName: string, // TODO: Maybe we should use the same Pollen enum as in user-context.ts
     id: number,
-    today: number, // -1 <--> 3
-    tomorrow: number, // -1 <--> 3
+    today: string, // -1 <--> 3
+    tomorrow: string, // -1 <--> 3
 }
 
 export interface IndoorRoomData extends WeatherData {

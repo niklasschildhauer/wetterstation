@@ -84,6 +84,9 @@ export class OutdoorWeatherViewComponent implements OnInit {
 
  
   getWeatherDescription(): string {
-    return "Heute ist es sonnig";
+    if(this.outdoorWeather) {
+      return "Heute ist es sonnig";
+    } 
+    return "";
   }
 }
