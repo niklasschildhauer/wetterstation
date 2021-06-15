@@ -13,7 +13,7 @@ export class UserContextAPIService {
   private currentUserContextURL = '/user/currentUser';
   private saveUserContextURL = '/user/save';
   private allPollenTypesURL = '/pollen/all';
-  private deletePollenURL = '/pollen/delete';
+  private deletePollenURL = '/allergies/delete';
   private savePollenURL = '/allergies/save';
 
   constructor(private httpClient: HttpClient) { }
@@ -123,8 +123,6 @@ export class UserContextAPIService {
 
   public putSaveUserContext(userID: UserIdentifikation, userContext: UserContext): Observable<boolean>{
     let body = {
-      password: "string",
-      username: "string",
       theme: Themes[userContext.theme],
       fontSize: userContext.fontSize,
       selfVoicingEnabled: userContext.selfVoicingEnabled,
