@@ -39,6 +39,24 @@ createConnection().then(connection => {
                 id: "DESC"
             }
         });
+
+        console.log('req', req.body);
+
+        const weather_postalCode = latest.location;
+        const openweathermap_api_key = 'c23b6eb0df192e3eed784aa71777b7da'
+        const request_uri = `https://api.openweathermap.org/data/2.5/weather?zip=${weather_postalCode},DE&appid=${openweathermap_api_key}`;
+        const object_with_coordinates = await genericRequestToURI("GET", request_uri);
+        
+        console.log('obj', object_with_coordinates);
+
+        const lat = object_with_coordinates['coord']['lat'];
+        const lon = object_with_coordinates['coord']['lon'];
+
+        const weather_request_uri = `https://api.brightsky.dev/current_weather?lat=${lat}&lon=${lon}`;
+        const weather = await genericRequestToURI("GET", weather_request_uri);
+
+        latest['weather'] = weather['weather']['icon'];
+
         debugLog("Res", latest);
         returnNotNull(latest, res)
     });
@@ -105,6 +123,7 @@ createConnection().then(connection => {
         outdoor.pressure = req.body.pressure;
         outdoor.timestamp = getDateFormatted();
         const deviceID = req.body.deviceID;
+        console.log("req", req.body);
 
         await outdoorData.create(outdoor);
         await outdoorData.save(outdoor);
