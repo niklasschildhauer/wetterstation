@@ -140,21 +140,6 @@ export class WeatherDataService {
     this.loadWeatherData();
   }
 
-  public getDaytime(): Daytime {
-    const date = new Date();
-    const dayHour = date.getHours();
-    if(dayHour < 6){
-      return Daytime.night;
-    } 
-    if (dayHour < 18) {
-      return Daytime.noon;
-    }
-    if(dayHour < 21) {
-      return Daytime.dawn;
-    }
-    return Daytime.night;
-  }
-
   public loadMoreHistoryData(): Observable<WeatherHistoryData> {
     let observable = this.loadMonthFromHistory(new Date(this.oldestHistoryData));
     observable.subscribe(data => {

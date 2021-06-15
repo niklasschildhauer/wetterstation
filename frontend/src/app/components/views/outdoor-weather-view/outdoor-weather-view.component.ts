@@ -3,6 +3,7 @@ import { Daytime, OutdoorWeatherData } from 'src/app/model/weather';
 import { UserContextService } from 'src/app/services/user-context.service';
 import { WeatherDataService } from 'src/app/services/weather-data.service';
 import { Themes, UserContext } from 'src/app/model/user-context';
+import { ImageService } from 'src/app/services/image.service';
 
 @Component({
   selector: 'app-outdoor-weather-view',
@@ -19,7 +20,8 @@ export class OutdoorWeatherViewComponent implements OnInit {
   themeType = Themes
 
   constructor(private userContextService: UserContextService,
-              private weatherDataService: WeatherDataService) { }
+              private weatherDataService: WeatherDataService,
+              private imageService: ImageService) { }
 
   ngOnInit(): void {
     // this.loadOutdoorWeather();
@@ -44,15 +46,16 @@ export class OutdoorWeatherViewComponent implements OnInit {
   }
 
   loadDaytime(): void {
-    this.daytime = this.weatherDataService.getDaytime()
+    this.daytime = Daytime.dawn
+    // this.daytime = this.imageService.getDaytime()
   }
 
-  getWeatherImage(): string {
-    // if(this.outdoorWeather){
-    //   let weatherString = this.outdoorWeather.weather.toString()
-    //   return this.imageService.getWeatherIconString(weatherString);
-    // }
-    return "/assets/weather/day/rainy.png"
+  getGradient(): { background: string, filter: string } {
+    return this.imageService.getGradientStyleFor(this.outdoorWeather?.weather)
+  }
+
+  getWeatherImage(): string | undefined {
+    return this.imageService.getWeatherIconString(this.outdoorWeather?.weather);
   }
 
   // changes the css --scroll variable everytime the user scrolls. Main part of the animation

@@ -1,21 +1,15 @@
-<div class="container shadow">
-    <div *ngIf="outdoorWeather && userContext"
-    [ngClass]="{'motion-allowed' : !reduceMotion, 
-                'noon-gradient' : daytime === daytimeType.noon, 
-                'dawn-gradient' : daytime === daytimeType.dawn, 
-                'night-gradient' : daytime === daytimeType.night,
-                'high-contrast' : userContext.theme === themeType.HighContrast }" class="container">
-        <img class="weather-image" [src]="getWeatherImage()" alt="" [ngClass]="{'motion-allowed' : !reduceMotion }">
-        <div class="temperature-container flex-item">
-            <h1 class="temperature">{{outdoorWeather.temperature}}°</h1>
-            <div class="min-max-temperature-container">
-                <!-- <p>{{outdoorWeather.maxTemperature}}°</p>
-                <p>{{outdoorWeather.minTemperature}}°</p> -->
-            </div>
-        </div>
+<div class="container shadow"
+    [ngStyle]="getGradient()">
+    <div *ngIf="outdoorWeather && userContext">
+    <img class="weather-image" [src]="getWeatherImage()" alt="" [ngClass]="{'motion-allowed' : !reduceMotion }">
+    <div class="temperature-container flex-item">
+        <h1 class="temperature">{{outdoorWeather.temperature}}°</h1>
+        <!-- <div class="min-max-temperature-container">
+            <p>{{outdoorWeather.maxTemperature}}°</p>
+            <p>{{outdoorWeather.minTemperature}}°</p>
+        </div> -->
+    </div>
         <p class="weather-description flex-item" *ngIf="showWeatherDescription">{{getWeatherDescription()}}</p>
-        <!-- <p>Luftfeuchtigkeit: {{outdoorWeather.humidity}}%</p>
-
-        <p>GefühlteTemperatur: {{outdoorWeather.apparentTemperature}}</p> -->
     </div>
 </div>
+

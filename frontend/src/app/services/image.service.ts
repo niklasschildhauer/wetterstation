@@ -2,7 +2,7 @@ import { BreakpointObserver, BreakpointState } from '@angular/cdk/layout';
 import { Injectable } from '@angular/core';
 import { ImageModel } from '../model/image';
 import { Themes, UserContext } from '../model/user-context';
-import { Daytime } from '../model/weather';
+import { Daytime, WeatherType } from '../model/weather';
 import { UserContextService } from './user-context.service';
 import { WeatherDataService } from './weather-data.service';
 
@@ -53,23 +53,47 @@ export class ImageService {
   }
 
   /**
-   * Use this function to get the image src of the current weather icon
+   * Use this function to get the current background gradient
+   * suiteable for the current weahther and daytime.
    * 
    * @param {weather} string  the current weather string
    * @returns The full assets path of the image
    */
-   public getWeatherIconString(weather: string): string {
-    let src = this.baseURLWeather;
-    switch (this.weatherDataService.getDaytime()) {
-      case Daytime.night: {
-        src = src + 'night/' + weather + '.png';
-        break;
+  public getGradientStyleFor(weather: WeatherType | undefined): { background: string, filter: string }  {
+    switch (weather) {
+      case WeatherType.cloudy:
+      case WeatherType.rainy:
+      case WeatherType.windy: {
+        switch (this.getDaytime()) {
+          case Daytime.noon: return Gradients.noonDark
+          case Daytime.dawn: return Gradients.dawnDark
+          case Daytime.night: return Gradients.nightDark
+        }
       }
       default: {
-        src = src + 'day/' + weather + '.png';
+        switch (this.getDaytime()) {
+          case Daytime.noon: return Gradients.noon
+          case Daytime.dawn: return Gradients.dawn
+          case Daytime.night: return Gradients.night
+        }
       }
     }
-    return src
+  }
+
+  /**
+   * Use this function to get the image src of the current weather icon
+   * 
+   * @param {weather} WeatherType  the current weather
+   * @returns The full assets path of the image
+   */
+   public getWeatherIconString(weather: WeatherType | undefined): string | undefined {
+    let src = this.baseURLWeather;
+    if(weather !== undefined) {
+      let weatherString = WeatherType[weather];
+      return src + weatherString + '.png'
+    } else {
+      return undefined
+    }
   }
 
   /**
@@ -88,6 +112,24 @@ export class ImageService {
   }
 
   /**
+  * Returns the current daytime
+  */
+  private getDaytime(): Daytime {
+    const date = new Date();
+    const dayHour = date.getHours();
+    if(dayHour < 6){
+      return Daytime.night;
+    } 
+    if (dayHour < 18) {
+      return Daytime.noon;
+    }
+    if(dayHour < 21) {
+      return Daytime.dawn;
+    }
+    return Daytime.night;
+  }
+
+  /**
   * Load the user context from the user context service 
   */
   private loadUserContext() {
@@ -97,3 +139,29 @@ export class ImageService {
   }
 }
 
+const Gradients = {
+  noon: {
+    background: 'linear-gradient(0deg, rgba(97,194,216,1) 0%, rgba(67,125,219,1) 100%)',
+    filter: 'progid:DXImageTransform.Microsoft.gradient(startColorstr="#61c2d8",endColorstr="#437ddb",GradientType=1)'
+  },
+  dawn: {
+    background: 'linear-gradient(0deg, rgba(238,69,59,1) 0%, rgba(164,9,110,1) 100%)',
+    filter: 'progid:DXImageTransform.Microsoft.gradient(startColorstr="#ee453b",endColorstr="#a4096e",GradientType=1)'
+  },
+  night: {
+    background: 'linear-gradient(0deg, rgba(216,97,204,1) 0%, rgba(70,67,219,1) 100%)',
+    filter: 'progid:DXImageTransform.Microsoft.gradient(startColorstr="#d861cc",endColorstr="#4643db",GradientType=1)'
+  },
+  noonDark: {
+    background: 'linear-gradient(170deg, rgba(20,27,87,1) 0%, rgba(151,208,255,1) 100%)',
+    filter: 'progid:DXImageTransform.Microsoft.gradient(startColorstr="#61c2d8",endColorstr="#437ddb",GradientType=1)'
+  },
+  dawnDark: {
+    background: 'linear-gradient(170deg, rgba(212,108,102,1) 0%, rgba(108,10,72,1) 100%)',
+    filter: 'progid:DXImageTransform.Microsoft.gradient(startColorstr="#ee453b",endColorstr="#a4096e",GradientType=1)'
+  },
+  nightDark: {
+    background: 'linear-gradient(170deg, rgba(119,48,112,1) 0%, rgba(152,152,191,1) 100%)',
+    filter: 'progid:DXImageTransform.Microsoft.gradient(startColorstr="#d861cc",endColorstr="#4643db",GradientType=1)'
+  }
+}

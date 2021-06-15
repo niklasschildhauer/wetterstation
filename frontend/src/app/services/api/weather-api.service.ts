@@ -116,7 +116,7 @@ export class WeatherAPIService {
             minTemperature: -99, // Nicht so wichtig
             humidity: response.humidity,
             timestamp: new Date(response.timestamp),
-            weather: WeatherType.sunny, // DER WERT WÄRE GANZ NICE
+            weather: WeatherType.rainy, // DER WERT WÄRE GANZ NICE
             apparentTemperature: response.apparentTemperature,
             location: response.location,
           }
