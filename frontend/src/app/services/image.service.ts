@@ -60,6 +60,9 @@ export class ImageService {
    * @returns The full assets path of the image
    */
   public getGradientStyleFor(weather: WeatherType | undefined): { background: string, filter: string }  {
+    if(this.userContext?.theme === Themes.HighContrast) {
+      return Gradients.highContrast;
+    }
     switch (weather) {
       case WeatherType.cloudy:
       case WeatherType.rainy:
@@ -162,6 +165,10 @@ const Gradients = {
   },
   nightDark: {
     background: 'linear-gradient(170deg, rgba(119,48,112,1) 0%, rgba(152,152,191,1) 100%)',
+    filter: 'progid:DXImageTransform.Microsoft.gradient(startColorstr="#d861cc",endColorstr="#4643db",GradientType=1)'
+  },
+  highContrast: {
+    background: 'linear-gradient(170deg, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 100%)',
     filter: 'progid:DXImageTransform.Microsoft.gradient(startColorstr="#d861cc",endColorstr="#4643db",GradientType=1)'
   }
 }

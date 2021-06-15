@@ -11,13 +11,14 @@ import { ImageService } from 'src/app/services/image.service';
   styleUrls: ['./outdoor-weather-view.component.scss']
 })
 export class OutdoorWeatherViewComponent implements OnInit {
-  @Input() reduceMotion: boolean = false; // FIXME: wieso Input?
+  @Input() reduceMotion: boolean = false; 
   outdoorWeather?: OutdoorWeatherData;
   daytime: Daytime = Daytime.noon
   daytimeType = Daytime;
   showWeatherDescription: boolean = true;
-  userContext?: UserContext
-  themeType = Themes
+  userContext?: UserContext;
+  themeType = Themes;
+  theme: Themes = Themes.Automatic;
 
   constructor(private userContextService: UserContextService,
               private weatherDataService: WeatherDataService,
@@ -35,6 +36,7 @@ export class OutdoorWeatherViewComponent implements OnInit {
     this.userContextService.getUserContextSubject()
     .subscribe(data => {
       this.userContext = data;
+      this.theme = data.theme;
     });
   }
 
