@@ -139,8 +139,6 @@ app.use(express.json({ type: "application/json" }));
 
 /**
 * @typedef UserContextRequestObject
-* @property {string} username
-* @property {string} password
 * @property {string} theme
 * @property {integer} fontSize
 * @property {boolean} selfVoicingEnabled
@@ -391,12 +389,12 @@ app.post("/v1/allergies/save", (req, res) => {
 
 /**
  * Delete an existing Allergy
- * @route DELETE /pollen/delete
+ * @route DELETE /allergies/delete
  * @group Allergies - Create and retrieve allergies
  * @security JWT
  * @param {Allergy_request_object.model} pollen.body.required - userID and pollenID - determines the allergy
  */
-app.delete("/v1/pollen/delete", (req, res) => {
+app.delete("/v1/allergies/delete", (req, res) => {
   const token = req.headers["x-access-token"] || req.headers["authorization"];
   genericRequestWithPayload(token, "DELETE", "http://localhost:4205/pollen/delete", JSON.stringify(req.body), res);
 });
