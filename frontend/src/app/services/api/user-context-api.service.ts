@@ -54,6 +54,42 @@ export class UserContextAPIService {
   return returnObservable;
   }
 
+  public postLoginOpenAPE(username: string, password: string): Observable<{userID: UserIdentifikation, userContext: UserContext}> {
+    let returnObservable = new Observable<{userID: UserIdentifikation, userContext: UserContext}>((observer) => {
+      let response = this.httpClient.post<LoginResponse>(this.loginURL, 
+                                                        {username: username, password: password}, {observe: 'response'});
+      response.subscribe((response) => {
+        let body = response.body
+        let status = response.statusText
+        console.log(status);
+
+        if(body){
+          if(body.success) {
+            console.log(this.createUserContextFromServerResponse(body.userContext));
+            observer.next({
+              userID: {
+                token: body.token,
+                id: body.userContext.id
+              },
+              userContext: this.createUserContextFromServerResponse(body.userContext)
+            });
+          } else {
+            observer.error(body.message);
+          }
+        }
+      },
+      (error)=> {
+        observer.error("Ein Fehler ist aufgetreten. Bitte versuche es später erneut. ");
+        console.log(error);
+        observer.complete();
+      },() => {
+        observer.complete();
+      });
+    }
+  );
+  return returnObservable;
+  }
+
 
   public postRegister(password: string, username: string): Observable<boolean> {
     let returnObservable = new Observable<boolean>((observer) => {
@@ -226,7 +262,6 @@ export class UserContextAPIService {
     });
     return returnObservable
   }
-
 
   private createUserContextFromServerResponse(userContext: UserContextResponse): UserContext {
     return {

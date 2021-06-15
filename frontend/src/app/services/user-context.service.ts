@@ -133,15 +133,28 @@ export class UserContextService {
     let newValue = !oldValue;
 
     if(this.pollen){
-      if(newValue && !this.pollen.includes(polle.pollenName)) {
-        this.userContextAPI.postPolleToUserContext(this.userID, polle.id).subscribe(() => {
-          this.refreshUserContextIfNeeded().subscribe();
-        });
-      }
-      if(oldValue && this.pollen.includes(polle.pollenName)) {
-        this.userContextAPI.deletePolleFromUserContext(this.userID, polle.id).subscribe(()=> {
-          this.refreshUserContextIfNeeded().subscribe();
-        });
+      if(this.disableLogin){
+        console.log("Login disabled");
+        if(newValue && !this.pollen.includes(polle.pollenName)) {
+          console.log("push polle");
+          let pollen = this.pollen;
+          pollen.push(polle.pollenName);
+          this.pollen = pollen;
+        }
+        if(oldValue && this.pollen.includes(polle.pollenName)) {
+          this.pollen = this.pollen.filter(item => item != polle.pollenName)
+        }
+      } else {
+        if(newValue && !this.pollen.includes(polle.pollenName)) {
+          this.userContextAPI.postPolleToUserContext(this.userID, polle.id).subscribe(() => {
+            this.refreshUserContextIfNeeded().subscribe();
+          });
+        }
+        if(oldValue && this.pollen.includes(polle.pollenName)) {
+          this.userContextAPI.deletePolleFromUserContext(this.userID, polle.id).subscribe(()=> {
+            this.refreshUserContextIfNeeded().subscribe();
+          });
+        }
       }
     }
   }
@@ -197,16 +210,18 @@ export class UserContextService {
 
   private saveUserContext() {
     this.saveUserContextToLocalStorage()
-    this.userContextAPI.putSaveUserContext(this.userID, this.userContext).subscribe((success) => {
-      if(success) {
-        console.log('SAVED USER CONTEXT');
-      } else {
+    if(!this.disableLogin) {
+      this.userContextAPI.putSaveUserContext(this.userID, this.userContext).subscribe((success) => {
+        if(success) {
+          console.log('SAVED USER CONTEXT');
+        } else {
+          console.log('ERROR DURING SAVING USER CONTEXT');
+        }
+      },
+      (error) => {
         console.log('ERROR DURING SAVING USER CONTEXT');
-      }
-    },
-    (error) => {
-      console.log('ERROR DURING SAVING USER CONTEXT');
-    });
+      });
+    }
   }
 
   private saveUserContextToLocalStorage() {
