@@ -2,7 +2,8 @@
 
 //---------------------------------- PORTS -----------------------------------------/*/
 /* :4200 -> Angular Frontend
-/* :4201 -> API Gateway
+/* :3201 -> API Gateway http (use only on ESP32 boards)
+/* :4201 -> API Gateway https (frontend and API docu)
 /* :4202 -> AuthService
 /* :4203 -> PersonalizationService
 /* :4204 -> DataService
@@ -17,6 +18,7 @@ const expressSwagger = require("express-swagger-generator")(app);
 const request = require("request");
 
 const https = require('https');
+const http = require('http');
 const fs = require('fs');
 
 
@@ -137,8 +139,6 @@ app.use(express.json({ type: "application/json" }));
 
 /**
 * @typedef UserContextRequestObject
-* @property {string} username
-* @property {string} password
 * @property {string} theme
 * @property {integer} fontSize
 * @property {boolean} selfVoicingEnabled
@@ -389,12 +389,12 @@ app.post("/v1/allergies/save", (req, res) => {
 
 /**
  * Delete an existing Allergy
- * @route DELETE /pollen/delete
+ * @route DELETE /allergies/delete
  * @group Allergies - Create and retrieve allergies
  * @security JWT
  * @param {Allergy_request_object.model} pollen.body.required - userID and pollenID - determines the allergy
  */
-app.delete("/v1/pollen/delete", (req, res) => {
+app.delete("/v1/allergies/delete", (req, res) => {
   const token = req.headers["x-access-token"] || req.headers["authorization"];
   genericRequestWithPayload(token, "DELETE", "http://localhost:4205/pollen/delete", JSON.stringify(req.body), res);
 });
@@ -533,9 +533,13 @@ https.createServer(
     app
   )
   .listen(4201, function() {
-    console.log('server works');
+    console.log("https endpoint listening on 4201")
     //console.log(Api Gateway is listening on port: 4201);
   });
+
+http.createServer(app).listen(3201, () => {
+  console.log("http endpoint listening on 3201")
+})
 
 // https.createServer(options, function (req, res) {
 //   res.writeHead(200);

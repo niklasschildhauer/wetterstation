@@ -180,11 +180,11 @@ createConnection().then(connection => {
         const token = req.headers["x-access-token"] || req.headers["authorization"];
         debugLog("token", token)
         validateToken(token).then(async (success) => {
+            console.log("success?", success)
             if (success) {
                 const userID = req.body.userID;
                 const pollenID = req.body.pollenID;
                 const pollen = await (await pollenData.find({ relations: ['users'] })).filter(pl => pl.id === pollenID)
-
                 const user = await userCtxData.findOne({ id: userID })
                 debugLog("pollen", pollen)
                 debugLog("pollen.users", pollen[0].users)
@@ -201,7 +201,7 @@ createConnection().then(connection => {
                 res.send({ "result": "OK" });
             }
         }).catch((error) => {
-            debugLog("is it you?", error)
+            debugLog("error in pollen/save", error)
             return res.send({ "error": error });
         })
     });
@@ -276,18 +276,20 @@ createConnection().then(connection => {
         const token = req.headers["x-access-token"] || req.headers["authorization"];
         debugLog("token", token);
         validateToken(token).then(async (success) => {
+            console.log("success var", success)
             if (success) {
                 const entry = await userCtxData.findOne(req.params.id)
-                // console.log("entry before", entry)
+                console.log("entry before", entry)
                 //Setting id as the value of the database not the one provided by the request body 
                 //-> consitency and no duplicate ids
                 req.body.id = entry.id;
-                // console.log("req.body", req.body)
+                console.log("req.body", req.body)
                 const results = await userCtxData.save(req.body);
-                // console.log("entry after", results);
+                console.log("entry after", results);
                 returnNotNull(results, res);
             }
         }).catch((error) => {
+            console.log("catch err", error)
             return res.send({ "error": error });
         })
     });
@@ -394,7 +396,7 @@ createConnection().then(connection => {
         const newDevice = new ESPConfig();
         newDevice.roomName = "device" + rndInt;
         newDevice.postalCode = "70565";
-        newDevice.transmissionFrequency = 10
+        newDevice.transmissionFrequency = 1
 
         const result = await connection.manager.save(newDevice);
         return result;
@@ -421,9 +423,12 @@ createConnection().then(connection => {
                 },
                 function (error, response, body) {
                     if (error) {
+                        console.log("???", error)
                         reject("Error in auth-service statusCode: " + response.statusCode);
                     } else {
+                        console.log("!!!", body)
                         let data = JSON.parse(body);
+                        console.log("data", data, data.success)
                         if (data.success) {
                             resolve(true)
                         } else {

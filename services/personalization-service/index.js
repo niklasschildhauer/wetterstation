@@ -61,8 +61,6 @@ app.put('/save/:id', (req, res) => {
 
     //Data sanitization -> not sending id as param
     const _body = {
-        username: req.body.username,
-        password: req.body.password,
         theme: req.body.theme,
         fontSize: req.body.fontSize,
         selfVoicingEnabled: req.body.selfVoicingEnabled,
@@ -158,11 +156,11 @@ const getOpenApeData = (openApeUser, openApePassword) => {
 }
 
 let defaults = {
-    theme: "dark", //TODO: Request from APE
-    fontSize: 16, //TODO: Request from APE
-    selfVoicingEnabled: true, //TODO: Request from APE
-    doVentilationReminder: true, //TODO: Request from APE, speaker must be configurable on Raspberry
-    reduceMotion: true, //TODO: Request from APE
+    theme: "automatic",
+    fontSize: 62.5,
+    selfVoicingEnabled: false,
+    doVentilationReminder: false,
+    reduceMotion: false,
 }
 
 console.log("listening on port", port)
