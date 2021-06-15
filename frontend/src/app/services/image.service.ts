@@ -2,9 +2,8 @@ import { BreakpointObserver, BreakpointState } from '@angular/cdk/layout';
 import { Injectable } from '@angular/core';
 import { ImageModel } from '../model/image';
 import { Themes, UserContext } from '../model/user-context';
-import { Daytime, WeatherType } from '../model/weather';
+import { Daytime } from '../model/weather';
 import { UserContextService } from './user-context.service';
-import { WeatherDataService } from './weather-data.service';
 
 /**
  * Image service injectable
@@ -21,8 +20,7 @@ export class ImageService {
   private systemTheme = Themes.Light;
 
   constructor(private userContextService: UserContextService,
-              private breakpointObserver: BreakpointObserver,
-              private weatherDataService: WeatherDataService) { 
+              private breakpointObserver: BreakpointObserver) { 
     this.loadUserContext();
     this.systemThemeBreakpointObserver();
   }
@@ -59,20 +57,22 @@ export class ImageService {
    * @param {weather} string  the current weather string
    * @returns The full assets path of the image
    */
-  public getGradientStyleFor(weather: WeatherType | undefined): { background: string, filter: string }  {
+  public getGradientStyleFor(weather: string | undefined): { background: string, filter: string }  {
     if(this.userContext?.theme === Themes.HighContrast) {
       return Gradients.highContrast;
     }
     switch (weather) {
-      case WeatherType.cloudy:
-      case WeatherType.rainy:
-      case WeatherType.windy: {
+      case 'cloudy':
+      case 'rain':
+      case 'wind':
+      case 'sleet':
+      case 'fog':
+      case 'thunderstorm':
         switch (this.getDaytime()) {
           case Daytime.noon: return Gradients.noonDark
           case Daytime.dawn: return Gradients.dawnDark
           case Daytime.night: return Gradients.nightDark
         }
-      }
       default: {
         switch (this.getDaytime()) {
           case Daytime.noon: return Gradients.noon
@@ -89,11 +89,10 @@ export class ImageService {
    * @param {weather} WeatherType  the current weather
    * @returns The full assets path of the image
    */
-   public getWeatherIconString(weather: WeatherType | undefined): string | undefined {
+   public getWeatherIconString(weather: string | undefined): string | undefined {
     let src = this.baseURLWeather;
     if(weather !== undefined) {
-      let weatherString = WeatherType[weather];
-      return src + weatherString + '.png'
+      return src + weather + '.png'
     } else {
       return undefined
     }

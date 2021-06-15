@@ -30,7 +30,8 @@ export class MenuBarElementComponent implements OnInit {
   getLocation(): void {
     this.weatherDataService.getOutdoorWeatherDataSubject()
                         .subscribe(data => {
-                          this.locationLabel = data?.location
+                          if(data)
+                          this.locationLabel = data.location + ', ' + data.postCode;
                         });
   }
 

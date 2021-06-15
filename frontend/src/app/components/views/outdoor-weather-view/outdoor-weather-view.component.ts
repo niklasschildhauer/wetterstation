@@ -4,6 +4,7 @@ import { UserContextService } from 'src/app/services/user-context.service';
 import { WeatherDataService } from 'src/app/services/weather-data.service';
 import { Themes, UserContext } from 'src/app/model/user-context';
 import { ImageService } from 'src/app/services/image.service';
+import { TextService } from 'src/app/services/text.service';
 
 @Component({
   selector: 'app-outdoor-weather-view',
@@ -22,14 +23,13 @@ export class OutdoorWeatherViewComponent implements OnInit {
 
   constructor(private userContextService: UserContextService,
               private weatherDataService: WeatherDataService,
-              private imageService: ImageService) { }
+              private imageService: ImageService,
+              private textService: TextService) { }
 
   ngOnInit(): void {
-    // this.loadOutdoorWeather();
+    this.loadOutdoorWeather();
     this.listenToScrollEvent();
-    this.loadDaytime();
     this.loadUserContext();
-    this.weatherDataService.getOutdoorWeatherDataSubject().subscribe(data => this.outdoorWeather = data);
   }
 
   loadUserContext() {
@@ -45,11 +45,6 @@ export class OutdoorWeatherViewComponent implements OnInit {
       .subscribe(outdoorWeather => { 
         this.outdoorWeather = outdoorWeather 
       });
-  }
-
-  loadDaytime(): void {
-    this.daytime = Daytime.dawn
-    // this.daytime = this.imageService.getDaytime()
   }
 
   getGradient(): { background: string, filter: string } {
@@ -81,11 +76,10 @@ export class OutdoorWeatherViewComponent implements OnInit {
       }
     }, false);
   }
-
  
   getWeatherDescription(): string {
     if(this.outdoorWeather) {
-      return "Heute ist es sonnig";
+      return this.textService.createWeatherText(this.outdoorWeather.weather);
     } 
     return "";
   }

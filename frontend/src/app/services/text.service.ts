@@ -1,4 +1,5 @@
 import { MapType } from '@angular/compiler';
+import { dashCaseToCamelCase } from '@angular/compiler/src/util';
 import { Injectable } from '@angular/core';
 
 import { IndoorRoomData, OutdoorWeatherData, PollenData, Tile, TileType, WeatherForecastData } from '../model/weather';
@@ -122,12 +123,68 @@ export class TextService {
       let maxTemperature = data.maxTemperature
       let minTemperature = data.minTemperature
       let humidity = data.humidity
+      let weather = data.weather
 
-      readAloud = "In " + location + "hat es aktuell " + temperature + " Grad Celsius. Diese fühlen sich an wie  "
-      + apparentTemperature + ". Die heutigen Extremwerte liegen bei " + maxTemperature + " und " + minTemperature + "Grad Celsius. Die Luftfeuchtigkeit beträgt aktuell  "
-      + humidity + ". ";
+      readAloud = "In " + location + " hat es aktuell " + temperature + " Grad Celsius. " 
+      // + "Diese fühlen sich an wie  " + apparentTemperature 
+      // + ". Die heutigen Extremwerte liegen bei " + maxTemperature + " und " + minTemperature + "Grad Celsius. "
+      + this.createWeatherText(weather) + " "
+      + "Die Luftfeuchtigkeit beträgt aktuell " + humidity + ". ";
       ;
     }
     return readAloud
   }
+
+  /**
+  * Create a readable text from weather string
+  * 
+  * @param {string | undefined} data 
+  * @returns A readable text version from the input data. 
+  */
+    public createWeatherText(data: string | undefined): string {
+      let readAloud = ''
+      if(data) {
+        let weather = data;
+        switch(weather) {
+          case 'cloudy': 
+            readAloud = 'Aktuell ist es bewölkt.'
+            break;
+          case 'rain':
+            readAloud = 'Im Moment regnet es.'
+            break;
+          case 'wind':
+            readAloud = 'Zur Zeit ist es windig.'
+            break;
+          case 'sleet':
+            readAloud = 'Es graupelt gerade.'
+            break;
+          case 'fog':
+            readAloud = 'Achtung, es ist neblig.'
+            break;
+          case 'clear-day':
+            readAloud = 'Die Sonne scheint, es hat eine klare Sicht.'
+            break;
+          case 'clear-night':
+            readAloud = 'Der Mond scheint, es hat eine klare Sicht.'
+            break;
+          case 'partly-cloudy-day':
+            readAloud = 'Es ist leicht bewölkt, vereinzelt sonnig.'
+            break;
+          case 'partly-cloudy-night':
+            readAloud = 'Es ist leicht bewölkt.'
+            break;
+          case 'snow':
+            readAloud = 'Aktuell schneit es.'
+            break;
+          case 'hail':
+            readAloud = 'Achtung, es hagelt.'
+            break;
+          case 'thunderstorm':
+            readAloud = 'Achtung, ein Gewitter tobt gerade.'
+
+            break;
+        }
+      }
+      return readAloud
+    }
 }

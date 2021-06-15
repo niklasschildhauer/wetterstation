@@ -1,10 +1,9 @@
 import { Injectable } from '@angular/core';
 import { FORECAST, INDOORAIRQUALITY, OUTDOORWEATHER, POLLEN, WEATHERHISTORY } from '../../model/mock-data/weather.mock';
-import { OutdoorWeatherData, PollenData, IndoorRoomData, WeatherForecastData, WeatherHistoryData, WeatherType } from '../../model/weather';
+import { OutdoorWeatherData, PollenData, IndoorRoomData, WeatherForecastData, WeatherHistoryData } from '../../model/weather';
 import { Observable, of } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
-import { dashCaseToCamelCase } from '@angular/compiler/src/util';
 
 @Injectable({
   providedIn: 'root'
@@ -116,9 +115,10 @@ export class WeatherAPIService {
             minTemperature: -99, // Nicht so wichtig
             humidity: response.humidity,
             timestamp: new Date(response.timestamp),
-            weather: WeatherType.rainy, // DER WERT WÄRE GANZ NICE
+            weather: response.weather,
             apparentTemperature: response.apparentTemperature,
-            location: response.location,
+            location: response.location_name,
+            postCode: response.location
           }
   }
 
@@ -162,7 +162,9 @@ interface OutdoorWeatherResponse {
   temperature: number,
   pressure: number,
   location: string,
+  location_name: string,
   timestamp: string,
+  weather: string,
   apparentTemperature: number
 }
 

@@ -1,4 +1,4 @@
-import { IndoorRoomData, OutdoorWeatherData, WeatherHistoryByDayData, PollenData, WeatherForecastData, WeatherHistoryData, WeatherType, Tile, TileType, WeatherData, TilePriority } from '../weather';
+import { IndoorRoomData, OutdoorWeatherData, WeatherHistoryByDayData, PollenData, WeatherForecastData, WeatherHistoryData, Tile, TileType, WeatherData, TilePriority } from '../weather';
 
 export var OUTDOORWEATHER: OutdoorWeatherData = {
     temperature: 14,
@@ -6,9 +6,10 @@ export var OUTDOORWEATHER: OutdoorWeatherData = {
     minTemperature: 14,
     humidity: 66,
     timestamp: new Date('May 17, 2021 07:24:00'),
-    weather: WeatherType.cloudy,
+    weather: "cloudy",
     apparentTemperature: 12,
-    location: "Stuttgart"
+    location: "Stuttgart",
+    postCode: '71549'
 };
 
 export var OUTDOORWEATHER2: OutdoorWeatherData = {
@@ -17,9 +18,10 @@ export var OUTDOORWEATHER2: OutdoorWeatherData = {
     minTemperature: 4,
     humidity: 50,
     timestamp: new Date('May 17, 2021 08:24:00'),
-    weather: WeatherType.cloudy,
+    weather: "cloudy",
     apparentTemperature: 12,
-    location: "Stuttgart"
+    location: "Stuttgart",
+    postCode: '71549'
 };
 
 export var OUTDOORWEATHER3: OutdoorWeatherData = {
@@ -28,9 +30,10 @@ export var OUTDOORWEATHER3: OutdoorWeatherData = {
     minTemperature: 4,
     humidity: 40,
     timestamp: new Date('May 17, 2021 09:24:00'),
-    weather: WeatherType.cloudy,
+    weather: "cloudy",
     apparentTemperature: 12,
-    location: "Stuttgart"
+    location: "Stuttgart",
+    postCode: '71549'
 };
 
 export var OUTDOORWEATHER4: OutdoorWeatherData = {
@@ -39,9 +42,10 @@ export var OUTDOORWEATHER4: OutdoorWeatherData = {
     minTemperature: 4,
     humidity: 70,
     timestamp: new Date('May 17, 2021 10:24:00'),
-    weather: WeatherType.cloudy,
+    weather: "cloudy",
     apparentTemperature: 12,
-    location: "Stuttgart"
+    location: "Stuttgart",
+    postCode: '71549'
 };
 
 export var OUTDOORWEATHER10: OutdoorWeatherData = {
@@ -50,9 +54,10 @@ export var OUTDOORWEATHER10: OutdoorWeatherData = {
     minTemperature: 4,
     humidity: 66,
     timestamp: new Date('May 16, 2021 07:24:00'),
-    weather: WeatherType.cloudy,
+    weather: "cloudy",
     apparentTemperature: 12,
-    location: "Stuttgart"
+    location: "Stuttgart",
+    postCode: '71549'
 };
 
 export var OUTDOORWEATHER12: OutdoorWeatherData = {
@@ -61,9 +66,10 @@ export var OUTDOORWEATHER12: OutdoorWeatherData = {
     minTemperature: 4,
     humidity: 50,
     timestamp: new Date('May 16, 2021 08:24:00'),
-    weather: WeatherType.cloudy,
+    weather: "cloudy",
     apparentTemperature: 12,
-    location: "Stuttgart"
+    location: "Stuttgart",
+    postCode: '71549'
 };
 
 export var OUTDOORWEATHER13: OutdoorWeatherData = {
@@ -72,9 +78,10 @@ export var OUTDOORWEATHER13: OutdoorWeatherData = {
     minTemperature: 4,
     humidity: 40,
     timestamp: new Date('May 14, 2021 09:24:00'),
-    weather: WeatherType.cloudy,
+    weather: "cloudy",
     apparentTemperature: 12,
-    location: "Stuttgart"
+    location: "Stuttgart",
+    postCode: '71549'
 };
 
 export var OUTDOORWEATHER14: OutdoorWeatherData = {
@@ -83,9 +90,10 @@ export var OUTDOORWEATHER14: OutdoorWeatherData = {
     minTemperature: 4,
     humidity: 70,
     timestamp: new Date('May 14, 2021 10:24:00'),
-    weather: WeatherType.cloudy,
+    weather: "cloudy",
     apparentTemperature: 12,
-    location: "Stuttgart"
+    location: "Stuttgart",
+    postCode: '71549'
 };
 
 export var OUTDOORWEATHER11: OutdoorWeatherData = {
@@ -94,9 +102,10 @@ export var OUTDOORWEATHER11: OutdoorWeatherData = {
     minTemperature: 4,
     humidity: 50,
     timestamp: new Date('May 13, 2021 08:24:00'),
-    weather: WeatherType.cloudy,
+    weather: "cloudy",
     apparentTemperature: 12,
-    location: "Stuttgart"
+    location: "Stuttgart",
+    postCode: '71549',
 };
 
 export var OUTDOORWEATHER321: OutdoorWeatherData = {
@@ -105,9 +114,10 @@ export var OUTDOORWEATHER321: OutdoorWeatherData = {
     minTemperature: 4,
     humidity: 40,
     timestamp: new Date('May 13, 2021 09:24:00'),
-    weather: WeatherType.cloudy,
+    weather: "cloudy",
     apparentTemperature: 12,
-    location: "Stuttgart"
+    location: "Stuttgart",
+    postCode: '71549'
 };
 
 export var OUTDOORWEATHER41: OutdoorWeatherData = {
@@ -116,9 +126,10 @@ export var OUTDOORWEATHER41: OutdoorWeatherData = {
     minTemperature: 4,
     humidity: 70,
     timestamp: new Date('May 18, 2021 10:24:00'),
-    weather: WeatherType.cloudy,
+    weather: "cloudy",
     apparentTemperature: 12,
-    location: "Stuttgart"
+    location: "Stuttgart",
+    postCode: '71549'
 };
 
 export var OUTDOORWEATHER110: OutdoorWeatherData = {
@@ -127,9 +138,10 @@ export var OUTDOORWEATHER110: OutdoorWeatherData = {
     minTemperature: 4,
     humidity: 66,
     timestamp: new Date('May 19, 2021 07:24:00'),
-    weather: WeatherType.cloudy,
+    weather: "cloudy",
     apparentTemperature: 12,
-    location: "Stuttgart"
+    location: "Stuttgart",
+    postCode: '71549'
 };
 
 export var OUTDOORWEATHER112: OutdoorWeatherData = {
@@ -138,9 +150,10 @@ export var OUTDOORWEATHER112: OutdoorWeatherData = {
     minTemperature: 4,
     humidity: 50,
     timestamp: new Date('May 12, 2021 08:24:00'),
-    weather: WeatherType.cloudy,
+    weather: "cloudy",
     apparentTemperature: 12,
-    location: "Stuttgart"
+    location: "Stuttgart",
+    postCode: '71549'
 };
 
 export var OUTDOORWEATHER113: OutdoorWeatherData = {
@@ -149,9 +162,10 @@ export var OUTDOORWEATHER113: OutdoorWeatherData = {
     minTemperature: 4,
     humidity: 40,
     timestamp: new Date('May 11, 2021 09:24:00'),
-    weather: WeatherType.cloudy,
+    weather: "cloudy",
     apparentTemperature: 12,
-    location: "Stuttgart"
+    location: "Stuttgart",
+    postCode: '71549'
 };
 
 export var OUTDOORWEATHER114: OutdoorWeatherData = {
@@ -160,9 +174,10 @@ export var OUTDOORWEATHER114: OutdoorWeatherData = {
     minTemperature: 4,
     humidity: 70,
     timestamp: new Date('May 10, 2021 10:24:00'),
-    weather: WeatherType.cloudy,
+    weather: "cloudy",
     apparentTemperature: 12,
-    location: "Stuttgart"
+    location: "Stuttgart",
+    postCode: '71549'
 };
 
 export var OUTDOORWEATHE3R114: OutdoorWeatherData = {
@@ -171,9 +186,10 @@ export var OUTDOORWEATHE3R114: OutdoorWeatherData = {
     minTemperature: 4,
     humidity: 70,
     timestamp: new Date('May 19, 2021 10:34:00'),
-    weather: WeatherType.cloudy,
+    weather: "cloudy",
     apparentTemperature: 12,
-    location: "Stuttgart"
+    location: "Stuttgart",
+    postCode: '71549'
 };
 export var OUTDOORWEA3THE3R114: OutdoorWeatherData = {
     temperature: 8,
@@ -181,9 +197,10 @@ export var OUTDOORWEA3THE3R114: OutdoorWeatherData = {
     minTemperature: 4,
     humidity: 70,
     timestamp: new Date('May 19, 2021 10:24:00'),
-    weather: WeatherType.cloudy,
+    weather: "cloudy",
     apparentTemperature: 12,
-    location: "Stuttgart"
+    location: "Stuttgart",
+    postCode: '71549'
 };
 
 

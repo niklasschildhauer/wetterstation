@@ -37,9 +37,10 @@ export interface OutdoorWeatherData extends WeatherData {
     minTemperature: number, //TODO: external database required "forecast"  --> // TODO: Move to "daily" data structure
     humidity: number, // in %
     timestamp: Date, 
-    weather: WeatherType, // TODO: external API required
+    weather: string, // TODO: external API required
     apparentTemperature: number, // in °C ---> die "gefühlte" Temperatur
     location: string, // e.g. "Stuttgart" TODO: Make configurable in ESP Wlan-Board
+    postCode: string,
 }
 
 //Using our own sensors 
@@ -83,13 +84,6 @@ export interface GraphDataSet extends WeatherData {
 export interface WeatherHistoryByDayData extends WeatherData  {
     averageTemperature: number, // in °C
     averageHumidity: number, // in %
-}
-
-export enum WeatherType {
-    sunny,
-    rainy,
-    cloudy,
-    windy
 }
 
 export enum Daytime {

@@ -49,15 +49,16 @@ createConnection().then(connection => {
         
         console.log('obj', object_with_coordinates);
 
-        const lat = object_with_coordinates['coord']['lat'];
-        const lon = object_with_coordinates['coord']['lon'];
+        if(object_with_coordinates['coord']) {
+            const lat = object_with_coordinates['coord']['lat'];
+            const lon = object_with_coordinates['coord']['lon'];
 
-        const weather_request_uri = `https://api.brightsky.dev/current_weather?lat=${lat}&lon=${lon}`;
-        const weather = await genericRequestToURI("GET", weather_request_uri);
+            const weather_request_uri = `https://api.brightsky.dev/current_weather?lat=${lat}&lon=${lon}`;
+            const weather = await genericRequestToURI("GET", weather_request_uri);
 
-        latest['weather'] = weather['weather']['icon'];
-        latest['location_name'] = object_with_coordinates['name'];
-
+            latest['weather'] = weather['weather']['icon'];
+            latest['location_name'] = object_with_coordinates['name'];
+        }
         debugLog("Res", latest);
         returnNotNull(latest, res)
     });
