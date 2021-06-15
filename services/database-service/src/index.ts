@@ -56,6 +56,7 @@ createConnection().then(connection => {
         const weather = await genericRequestToURI("GET", weather_request_uri);
 
         latest['weather'] = weather['weather']['icon'];
+        latest['location_name'] = object_with_coordinates['name'];
 
         debugLog("Res", latest);
         returnNotNull(latest, res)
