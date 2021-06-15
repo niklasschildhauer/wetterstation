@@ -7,12 +7,14 @@
 
 .container {
     padding: 0;
-
+    border-radius: var(--corner-radius);
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
     align-items: center;
     justify-content: space-evenly;
+
+    background-color: var(--accent);
 }
 
 .temperature {
@@ -48,9 +50,7 @@
     color: var(--inverted);
 }
 
-.container{
-    //Set the border radius
-    border-radius: var(--corner-radius);
+.shadow{
     z-index: 1000;
     @include drop-shadow;
 }
@@ -171,6 +171,5 @@
 
 .high-contrast * {
     color: var(--text);
-
 }
 

@@ -1,5 +1,3 @@
-import { Pollen } from './user-context';
-
 export interface WeatherData { }
 
 export enum TileType {
@@ -11,6 +9,13 @@ export enum TileType {
     humidity,
     apparentTemperature,
 }
+
+export interface TileArrays {
+    dashboard: Tile<WeatherData>[],
+    pollen : Tile<WeatherData>[],
+    indoorRooms: Tile<WeatherData>[]
+  }
+  
 
 export enum TilePriority {
     important, //Highest 
@@ -46,10 +51,10 @@ export interface WeatherForecastData extends WeatherData {
 
 //From external API
 export interface PollenData extends WeatherData {
-    name: string, // TODO: Maybe we should use the same Pollen enum as in user-context.ts
-    type: Pollen
-    today: number, // -1 <--> 3
-    tomorrow: number, // -1 <--> 3
+    pollenName: string, // TODO: Maybe we should use the same Pollen enum as in user-context.ts
+    id: number,
+    today: string, // -1 <--> 3
+    tomorrow: string, // -1 <--> 3
 }
 
 export interface IndoorRoomData extends WeatherData {

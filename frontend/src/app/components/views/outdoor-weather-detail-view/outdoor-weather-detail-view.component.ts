@@ -37,7 +37,7 @@ export class OutdoorWeatherDetailViewComponent implements OnInit {
   }
 
   private loadOutdoorWeatherData() {
-    this.weahterDataService.getOutdoorWeatherData().subscribe(data => this.outdoorWeather = data);
+    this.weahterDataService.getOutdoorWeatherDataSubject().subscribe(data => this.outdoorWeather = data);
   }
 
 }

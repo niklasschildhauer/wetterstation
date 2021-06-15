@@ -7,7 +7,8 @@
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "doc": "npx compodoc -p tsconfig.doc.json --disablePrivate"
   },
   "private": true,
   "dependencies": {
@@ -23,6 +24,7 @@
     "@angular/router": "~11.2.10",
     "@angular/service-worker": "~11.2.10",
     "@rinminase/ng-charts": "^3.3.0",
+    "ngx-spinner": "^11.0.1",
     "rxjs": "~6.6.0",
     "tslib": "^2.0.0",
     "zone.js": "~0.11.3"
@@ -31,6 +33,7 @@
     "@angular-devkit/build-angular": "~0.1102.9",
     "@angular/cli": "~11.2.9",
     "@angular/compiler-cli": "~11.2.10",
+    "@compodoc/compodoc": "^1.1.11",
     "@types/jasmine": "~3.6.0",
     "@types/node": "^12.11.1",
     "codelyzer": "^6.0.0",

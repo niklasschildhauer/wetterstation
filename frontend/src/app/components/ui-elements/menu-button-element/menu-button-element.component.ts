@@ -18,7 +18,7 @@ export class MenuButtonElementComponent implements OnInit {
   }
 
   loadReduceMotionValue() {
-    this.userContextService.getUserContext()
+    this.userContextService.getUserContextSubject()
     .subscribe(data => {
       let reduceMotionValue = data.reduceMotion;
       this.reduceMotion = reduceMotionValue

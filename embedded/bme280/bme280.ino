@@ -3,113 +3,280 @@
 #include <Adafruit_BME280.h>
 #include <WiFi.h>
 #include <HTTPClient.h>
+#include "SPIFFS.h"
+#include <ArduinoJson.h>
+#include <WebServer.h>
+#include <AutoConnect.h>
+#include <AutoConnectCredential.h>
 
+WebServer Server;
+AutoConnect Portal(Server);
+AutoConnectConfig Config;
+AutoConnectAux auxUpload;
 
 Adafruit_BME280 bme; // I2C
 
-const char* ssid     = "Mantz";                   //"Vodafone-1F7F"; //name of your wifi
-const char* password = "m-nt.b18";                 //"ABbpgU3aGaNmedUm"; //pw of your wifi
-const char* serverip = "192.168.0.136:4204"; //add server ip and port
-#define SERVER_IP "192.168.0.115:4201"                                //"192.168.0.136:4201"
+void rootPage()
+{
+  char content[] = "it works";
+  Server.send(200, "text/plain", content);
+}
 
-void setup() {
-  
+#define SERVER_IP "192.168.178.30:4201" //"192.168.0.136:4201"
+
+String viewSSID() {
+  AutoConnectCredential  ac(0);
+  station_config_t  entry;
+  String ssid = "";
+  uint8_t  count = ac.entries();          // Get number of entries.
+  //Serial.println("ct");
+  //Serial.println(count);
+
+  for (int8_t i = 0; i < count; i++) {    // Loads all entries.
+    ac.load(i, &entry);
+    // Build a SSID line of an HTML.
+    ssid = String((char *)entry.ssid); 
+  }
+  //Serial.println("ssid");
+  //Serial.println(ssid);
+  return ssid;
+}
+
+String viewPW() {
+  AutoConnectCredential  ac(0);
+  station_config_t  entry;
+  String password = "";
+  uint8_t  count = ac.entries();          // Get number of entries.
+  //Serial.println("ct");
+  //Serial.println(count);
+
+  for (int8_t i = 0; i < count; i++) {    // Loads all entries.
+    ac.load(i, &entry);
+    // Build a SSID line of an HTML.
+    password = String((char *)entry.password);
+  }
+  //Serial.println("pwd");
+  //Serial.println(password);
+  return password;
+}
+
+
+/*-------------------------------setup----------------------------*/
+
+
+void setup()
+{
   Serial.begin(9600);
 
- 
- // 0x76 and 0x77 are possible
- // bool communication = bme.begin();
- 
+  Config.apid = "test";
+  Config.psk = "12345678";
+
+  // For debugging so the 1st Serial print cycle can be read
+  //delay(10000);
+
   bool communication = bme.begin(0x76);
- 
-  if (!communication) {
-  
-   Serial.println("Could not find a valid BME280 sensor");
-   Serial.println("check wiring, address, sensor ID!");
-   Serial.print("SensorID was: 0x");
-   Serial.println(bme.sensorID(), 16);
-   Serial.println("ID of 0xFF probably means a bad address\n");
-   
-  while (true) { };
+
+  if (!communication)
+  {
+
+    Serial.println("Could not find a valid BME280 sensor");
+    Serial.println("check wiring, address, sensor ID!");
+    Serial.print("SensorID was: 0x");
+    Serial.println(bme.sensorID(), 16);
+    Serial.println("ID of 0xFF probably means a bad address\n");
+
+    while (true)
+    {
+    };
     delay(10);
   }
-  else {
+  else
+  {
     Serial.println("Communication established!\n");
   }
 
-   // We start by connecting to a WiFi network
+  Server.on("/", rootPage);
+}
 
-    Serial.println();
-    Serial.println();
-    Serial.print("Connecting to ");
-    Serial.println(ssid);
+/*------------------------------------loop---------------------------------*/
 
+void loop()
+{
+  // -------------------------------- Handle opening / reading of Config File ESPConfig.txt ------------------------------
+
+  //Test filesystem access
+  if (!SPIFFS.begin(true))
+  {
+    Serial.println("An Error has occurred while mounting SPIFFS");
+    return;
+  }
+
+  File file = SPIFFS.open("/ESPconfig.txt", FILE_READ);
+  if (!file)
+  {
+    Serial.println("Failed to open file for reading");
+    return;
+  }
+
+  DynamicJsonDocument doc(600);
+
+  String str;
+  Serial.println("File content");
+  while (file.available())
+  {
+    str = file.readString();
+    Serial.println(str);
+  }
+
+  // Parse JSON object
+        DeserializationError error = deserializeJson(doc, str);
+        if (error)
+        {
+          Serial.print(F("deserializeJson() failed: "));
+          Serial.println(error.f_str());
+          return;
+        }
+
+  const char *roomName = doc["roomName"].as<char *>();
+  int transmissionFrequency = doc["transmissionFrequency"];
+  const char *postalCode = doc["postalCode"].as<char *>();
+  int id = doc["id"];
+  const char *ssid = doc["ssid"].as<char *>();
+  const char *password = doc["password"].as<char *>();
+
+  //Serial.println(ssid);
+  //Serial.println(password);
+
+  if((strcmp("",password) != 0) && (strcmp("", ssid) != 0)){
+    Serial.println("Trying to connect to stored credentials");
     WiFi.begin(ssid, password);
 
-    while (WiFi.status() != WL_CONNECTED) {
-        delay(500);
-        Serial.print(".");
-    }
-    Serial.println("");
-    Serial.println("WiFi connected");
-    Serial.println("IP address: ");
-    Serial.println(WiFi.localIP());
+   for (int i = 0; i < 10; i++)
+    {
+     if (WiFi.status() != WL_CONNECTED)
+     {
+       delay(1000);
+       Serial.print(".");
+     }
+     else
+     {
+       continue;
+     }
+   }
 
-    WiFiClient client;
-    HTTPClient http;
- }
+   if (WiFi.status() == WL_CONNECTED)
+   {
+     Serial.println("");
+     Serial.println("WiFi connected");
+     Serial.println("IP address: ");
+     Serial.println(WiFi.localIP());
+   }
+  }
+    //------------------------------Autoconnect-----------------------------
 
-void loop() {
-  
- Serial.print("Temperature = ");
- Serial.print(bme.readTemperature());
- Serial.println(" *C");
- Serial.print("Pressure = ");
- Serial.print(bme.readPressure() / 100.0F);
- Serial.println(" hPa");
- Serial.print("Humidity = ");
- Serial.print(bme.readHumidity());
- Serial.println(" %\n");
- delay(1000);
+  else{
+    
+      Serial.println("Trying to connect via auto connect");
+     
+      if (Portal.begin())
+      {
+        Serial.println("Wifi connected to esp gedingsel: " + WiFi.localIP().toString());
+      }
+      //WIFI Autoconfig-Page
+      Portal.handleClient();
+  }
 
- WiFiClient client;
+  file.close();
+
+  // -------------------------------- Http request/response handling ------------------------------
+
+  Serial.print("Temperature = ");
+  Serial.print(bme.readTemperature());
+  Serial.println(" *C");
+  Serial.print("Pressure = ");
+  Serial.print(bme.readPressure() / 100.0F);
+  Serial.println(" hPa");
+  Serial.print("Humidity = ");
+  Serial.print(bme.readHumidity());
+  Serial.println(" %\n");
+  delay(1000);
+
+  WiFiClient client;
   HTTPClient http;
   // wait for WiFi connection
-  if ((WiFi.status() == WL_CONNECTED)) {
-   
+  if ((WiFi.status() == WL_CONNECTED))
+  {
 
     Serial.print("[HTTP] begin...\n");
     // configure target server and url //error in this line > might be fixed by a running server
-    http.begin(client, "http://" SERVER_IP"/v1/sensors/outdoor"); //HTTP
+    http.begin(client, "http://" SERVER_IP "/v1/sensors/outdoor"); //HTTP
     http.addHeader("Content-Type", "application/json");
-
 
     Serial.print("[HTTP] POST...\n");
     // start connection and send HTTP header and body
-    char buffer[200];
-    
-    char location[] = "hier";
-    sprintf(buffer, "{\"humidity\":\"%.2f\",\"temperature\":\"%.2f\",\"pressure\":\"%.2f\",\"location\":\"%s\"}", bme.readHumidity(), bme.readTemperature(), bme.readPressure()/ 100.0F, location);
-    Serial.println(buffer);
-    
+    char buffer[220];
+
+    sprintf(buffer, "{\"humidity\":\"%.2f\",\"temperature\":\"%.2f\",\"pressure\":\"%.2f\",\"deviceID\":\"%d\",\"location\":\"%s\"}", bme.readHumidity(), bme.readTemperature(), bme.readPressure() / 100.0F, id, postalCode);
+    //Serial.println(buffer);
+
     int httpCode = http.POST(buffer);
-   
+
     // httpCode will be negative on error
-    if (httpCode > 0) {
+    if (httpCode > 0)
+    {
       // HTTP header has been send and Server response header has been handled
       Serial.printf("[HTTP] POST... code: %d\n", httpCode);
 
       // file found at server
-      if (httpCode == HTTP_CODE_OK) {
-        const String& payload = http.getString();
+      if (httpCode == HTTP_CODE_OK)
+      {
+        const String &payload = http.getString();
         Serial.println("received payload:\n<<");
         Serial.println(payload);
-        Serial.println(">>");    
+        Serial.println(">>");
+
+        //Test filesystem access
+        if (!SPIFFS.begin(true))
+        {
+          Serial.println("An Error has occurred while mounting SPIFFS");
+          return;
+        }
+
+        File file = SPIFFS.open("/ESPconfig.txt", FILE_WRITE);
+        if (!file)
+        {
+          Serial.println("Failed to open file for writing");
+          return;
+        }
+
+        // Parse JSON object
+        DeserializationError error = deserializeJson(doc, payload);
+        if (error)
+        {
+          Serial.print(F("deserializeJson() failed: "));
+          Serial.println(error.f_str());
+          return;
+        }
+
+        doc["ssid"] = viewSSID();
+        doc["password"] = viewPW();
+
+        file.print(doc.as<String>());
+        Serial.println("File written!");
+        Serial.println("==============================");
+        file.close();
       }
-    } else {
+    }
+    else
+    {
       Serial.printf("[HTTP] POST... failed, error: %s\n", http.errorToString(httpCode).c_str());
     }
 
     http.end();
+
+    esp_sleep_enable_timer_wakeup(1000 * (60000 * transmissionFrequency - 8000));
+    Serial.println("Going to sleep now");
+    Serial.flush(); 
+    esp_deep_sleep_start();
   }
 }

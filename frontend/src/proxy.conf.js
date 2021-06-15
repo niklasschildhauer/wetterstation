@@ -1,13 +1,17 @@
 const PROXY_CONFIG = [
     {
         context: [
-            "/api",
-            "/auth",
-            "/weather-data",
+            '/api',
+            '/auth',
+            '/user',
+            '/weather-data',
+            '/pollen',
+            '/espconfig',
+            '/allergies',
         ],
-        target: "http://localhost:4201/v1",
+        target: 'https://localhost:4201/v1',
         secure: false,
-        logLevel: "debug"
+        logLevel: 'debug'
     }
 ]
 

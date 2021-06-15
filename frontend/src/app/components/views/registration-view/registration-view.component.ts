@@ -10,7 +10,6 @@ import { UserContextService } from 'src/app/services/user-context.service';
 })
 export class RegistrationViewComponent implements OnInit {
   registrationForm = this.formBuilder.group({
-    email: new FormControl('', Validators.minLength(2)), // FIXME Validators funktionieren nicht 
     password: new FormControl('', Validators.minLength(2)),
     repeatedPassword: new FormControl('', Validators.minLength(2)),
     username: new FormControl('', Validators.minLength(2)),
@@ -26,10 +25,22 @@ export class RegistrationViewComponent implements OnInit {
 
 
   onSubmit(): void {
-    console.warn('Submitted:', this.registrationForm.value);
-    this.userContextService.register().then(() => {
-      this.router.navigateByUrl('/onboarding/personalization');
+    const username = this.registrationForm.get("username")?.value;
+    const password = this.registrationForm.get("password")?.value;
+    const repeatedpassword = this.registrationForm.get("repeatedPassword")?.value;
+
+    if(password !== repeatedpassword) {
+      this.error = "Das Passwort stimmt nicht überein"
+      return
+    }
+    
+    this.error = undefined;
+    this.userContextService.register(username, password).then((data) => {
+      if(data.success) {
+        this.router.navigateByUrl('/onboarding/personalization');
+      } else {
+        this.error = data.error
+      }
     });
-  
   }
 }

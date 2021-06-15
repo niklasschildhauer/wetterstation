@@ -13,15 +13,11 @@ export class Indoor {
     temperature: number;
 
     @Column()
-    pressure: number;
-
-    @Column()
     gasVal: number;
 
     @Column()
     location: string;
 
-    @CreateDateColumn()
+    @Column()
     timestamp: string;
-
 }

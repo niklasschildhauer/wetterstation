@@ -20,7 +20,7 @@ export class IndoorDetailViewComponent implements OnInit {
   }
 
   loadIndoorRoomData() {
-    this.weatherDataService.getIndoorTiles()
+    this.weatherDataService.getIndoorTilesSubject()
                         .subscribe(data => this.indoorRoomTiles = data);
   }
 

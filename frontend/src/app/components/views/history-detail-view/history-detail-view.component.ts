@@ -39,7 +39,7 @@ export class HistoryDetailViewComponent implements OnInit {
   }
 
   loadWeatherHistoryData(): void {
-    this.weatherDataService.getHistoryData().subscribe(data => {
+    this.weatherDataService.getHistoryDataSubject().subscribe(data => {
       this._weatherHistory = data
       this.reload();
     });
@@ -52,7 +52,6 @@ export class HistoryDetailViewComponent implements OnInit {
 
   reload() {
     if(this._weatherHistory) {
-
       if(this.selectedTimeInterval == TimeInterval.day) {
         this.dataSet = this.historyTileService.getHistoryDataSetHoursPerDayFrom(this._weatherHistory);
         return

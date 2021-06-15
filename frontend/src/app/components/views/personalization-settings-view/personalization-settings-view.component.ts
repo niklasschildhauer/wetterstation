@@ -1,7 +1,7 @@
 import { Component, OnInit, Renderer2 } from '@angular/core';
 import { UserContextService } from 'src/app/services/user-context.service';
-import { Pollen, Themes, UserContext } from 'src/app/model/user-context';
-import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import { Themes, UserContext, PollenType } from 'src/app/model/user-context';
+import { Router } from '@angular/router';
 
 
 
@@ -14,26 +14,25 @@ export class PersonalizationSettingsViewComponent implements OnInit {
   desktop: boolean = false;
   userContextData?: UserContext;
 
-  pollenType = Pollen;
-  themesType = Themes
-  
+  themesType = Themes  
 
   constructor(
     public userContextService: UserContextService,
-    private renderer: Renderer2) { }
-
+    private renderer: Renderer2,
+    private router: Router) { }
+    
   ngOnInit(): void {
     this.getUserContext();
-    this.userContextData?.pollen
+    this.userContextService.refreshUserContextIfNeeded().subscribe((data => {
+      if(!data) {
+        this.router.navigateByUrl('/onboarding/login');
+      }
+    }));;
   }
 
   getUserContext() {
-    this.userContextService.getUserContext()
-    .subscribe(data => this.userContextData = data)
-  }
-
-  changedValue(event: any) {
-    console.log(event.target.value)
+    this.userContextService.getUserContextSubject()
+      .subscribe(data => this.userContextData = data)
   }
 
   setFontSize(value: number) {
@@ -63,57 +62,21 @@ export class PersonalizationSettingsViewComponent implements OnInit {
     return Themes[this.getThemeTypeAt(index)]
   }
 
-
   numberOfPollen(): any[] {
-    let count = Object.keys(Pollen).length / 2;
+    let count = this.userContextService.pollenTypes.length
     return new Array(count);
   }
 
-
   getPollenValueAt(index: number): boolean {
-    let polle: Pollen = this.getPollenTypeAt(index) // FIXME: Heißt ich wirklich polle?
-    let pollen = this.userContextService.pollen
-
-    if(pollen && pollen.includes(polle)) {
-      return true
-    }
-    return false;
+    return this.userContextService.getPollenValueAt(index);
   }
 
   getPollenStringAt(index: number): string {
-    return Pollen[this.getPollenTypeAt(index)]
+    return this.userContextService.pollenTypes[index].pollenName
   }
 
   togglePollenValueAt(index: number) {
-    let polle: Pollen = this.getPollenTypeAt(index)
-    var pollen = this.userContextService.pollen  
-    let oldValue = this.getPollenValueAt(index);  
-    let newValue = !oldValue;
-
-    if(pollen){
-      if(newValue && !pollen.includes(polle)) {
-        pollen.push(polle);
-      }
-      if(oldValue && pollen.includes(polle)) {
-        pollen = pollen.filter(item => item != polle)
-      }
-      this.userContextService.pollen = pollen
-    }
-  }
-
-  getPollenTypeAt(index: number): Pollen {
-    let pollenString = Pollen[index]
-    switch (pollenString) {
-      case "Esche": return Pollen.Esche
-      case "Ambrosia": return Pollen.Ambrosia
-      case "Birke": return Pollen.Birke
-      case "Beifuss": return Pollen.Beifuss
-      case "Erle": return Pollen.Erle
-      case "Roggen": return Pollen.Roggen
-      case "Graeser": return Pollen.Graeser
-      case "Hasel": return Pollen.Hasel
-      default: return Pollen.Ambrosia
-    }
+    this.userContextService.tooglePollenValueAt(index);
   }
 
   // FIXME: 

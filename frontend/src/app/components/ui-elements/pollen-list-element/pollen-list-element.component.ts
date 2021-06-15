@@ -7,7 +7,7 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class PollenListElementComponent implements OnInit {
   @Input() title?: string;
-  @Input() value?: number;
+  @Input() value?: string;
 
   constructor() { }
 

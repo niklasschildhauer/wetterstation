@@ -1,5 +1,5 @@
 {
-   "name": "Persistentdata-smarthome",
+   "name": "database-service",
    "version": "0.0.1",
    "description": "Awesome project developed with TypeORM.",
    "devDependencies": {
@@ -9,9 +9,12 @@
    },
    "dependencies": {
       "express": "^4.17.1",
+      "morgan": "^1.10.0",
       "reflect-metadata": "^0.1.10",
+      "request": "^2.88.2",
       "sqlite3": "^5.0.2",
-      "typeorm": "0.2.32"
+      "typeorm": "0.2.32",
+      "typeorm-encrypted": "^0.5.6"
    },
    "scripts": {
       "start": "ts-node src/index.ts"
