@@ -1,7 +1,4 @@
-import { MapType } from '@angular/compiler';
-import { dashCaseToCamelCase } from '@angular/compiler/src/util';
 import { Injectable } from '@angular/core';
-
 import { IndoorRoomData, OutdoorWeatherData, PollenData, Tile, TileType, WeatherForecastData } from '../model/weather';
 import { WeatherData } from '../model/weather';
 
@@ -98,12 +95,25 @@ export class TextService {
   public createPollenText(data: PollenData | undefined): string {
     let readAloud = ''
     if(data) {
-      // CHANGE VALUE OF 1 to LEICH, MITTEL, STARK und KEINE
       let name = data.pollenName
       let value = data.today
-      readAloud = 'Pollen der Art ' + name + ' hat heute eine Belastung von ' + value +  '. ';
+      switch (value) {
+        case '1':
+        case '1-2':
+          readAloud = name + 'Pollen haben heute eine niedrige Belastung. ';
+          break;
+        case '2':
+        case '2-3':
+          readAloud = name + 'Pollen haben heute eine mittlere Belastung. ';
+          break;
+        case '3': 
+        case '3-4': 
+        case '4': 
+        case '5': 
+        readAloud = name + 'Pollen haben heute eine hohe Belastung. ';
+          break;
+      }
     }
-
     return readAloud
   }
 
