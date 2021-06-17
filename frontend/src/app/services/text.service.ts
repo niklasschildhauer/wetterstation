@@ -64,7 +64,7 @@ export class TextService {
   public createForecastText(data: WeatherForecastData | undefined): string {
     let readAloud = ''
     if(data) {
-      let forecast = data.forecast
+      let forecast = data.weatherDescription
       readAloud = "Im Verlaufe des Tages wird es " + forecast + "werden. ";
     }
     return readAloud

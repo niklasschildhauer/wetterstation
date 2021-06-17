@@ -46,9 +46,10 @@ export interface OutdoorWeatherData extends WeatherData {
 //Using our own sensors 
 //TODO: How precise is the measurement? How many days can we forecast with our own sensors?
 export interface WeatherForecastData extends WeatherData {
-    forecast: string,
-    //time?
-}
+    trend: string,
+    weatherDescription: string,
+    weatherIcon: string,
+  }
 
 //From external API
 export interface PollenData extends WeatherData {

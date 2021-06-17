@@ -96,7 +96,7 @@ export class WeatherDataService {
     
     let outDoorWeather = this.weatherAPIService.loadOutdoorWeather()
     let pollen = this.weatherAPIService.loadPollen()
-    let forecast = this.weatherAPIService.loadForecastDataSubject()
+    let forecast = this.weatherAPIService.loadForecast()
     let history = this.loadMonthFromHistory(new Date(this.oldestHistoryData));
     let indoorRoom = this.weatherAPIService.loadIndoorRoomData()
 

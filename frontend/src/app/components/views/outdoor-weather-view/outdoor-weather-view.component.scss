@@ -6,7 +6,7 @@
 }
 
 .container {
-    padding: 0;
+    padding: 0 var(--padding) 0 var(--padding);
     border-radius: var(--corner-radius);
     display: flex;
     flex-direction: column;
@@ -26,6 +26,7 @@
 .weather-description {
     letter-spacing: 0.03em;
     padding: 0 0 var(--padding) 0;
+    text-align: center;
 }
 
 .temperature-container {
@@ -65,7 +66,7 @@
         left: var(--padding);;
         bottom: var(--padding);;
         height: calc(100vh - var(--padding) - var(--padding));
-        width: calc(var(--border-padding-left) - var(--border-padding-right) - var(--padding));
+        width: calc(var(--border-padding-left) - var(--border-padding-right) - 3 * var(--padding));
         justify-content: center;
     }
     .flex-item {

@@ -9,9 +9,10 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root'
 })
 export class WeatherAPIService {
-  private outdoorURL = '/weather-data/outdoor/latest'
-  private indoorURL = '/weather-data/indoor/latest'
-  private historyURL = '/weather-data/outdoor/history'
+  private outdoorURL = '/weather-data/outdoor/latest';
+  private indoorURL = '/weather-data/indoor/latest';
+  private historyURL = '/weather-data/outdoor/history';
+  private forecastURL = '/weather-data/forecast/latest';
   private allPollenTypesURL = '/pollen/all';
 
   constructor(private httpClient: HttpClient) { }
@@ -30,6 +31,22 @@ export class WeatherAPIService {
     );
     return returnObservable;
   }
+
+  public loadForecast(): Observable<WeatherForecastData> {
+    if (environment.testData) {
+      return of(FORECAST);
+    }
+    let returnObservable = new Observable<WeatherForecastData>((observer) => {
+        this.httpClient.get<ForecastResponse>(this.forecastURL).subscribe(data => {
+          let forecastData = this.createOutdoorForecastDataFromServerResponse(data);
+          observer.next(forecastData);
+          observer.complete();
+        })
+      }
+    );
+    return returnObservable;
+  }
+
 
   public loadPollen(): Observable<PollenData[]>{
     if (environment.testData) {
@@ -71,11 +88,6 @@ export class WeatherAPIService {
       }
     );
     return returnObservable;
-  }
-
-  public loadForecastDataSubject(): Observable<WeatherForecastData> {
-    let forecastData = of(FORECAST);
-    return forecastData;
   }
 
   public loadHistoryDataSubject(endDate: Date, beginDate: Date): Observable<WeatherHistoryData> {
@@ -148,6 +160,14 @@ export class WeatherAPIService {
 
     return pollen
   }
+
+  private createOutdoorForecastDataFromServerResponse(response: ForecastResponse): WeatherForecastData {
+    return {
+      trend: response.trend,
+      weatherDescription: response.weatherDescription, 
+      weatherIcon: response.weatherIcon
+    }
+  }
 }
 
 interface PollenResponse {
@@ -168,7 +188,7 @@ interface OutdoorWeatherResponse {
   apparentTemperature: number
 }
 
-interface IndoorRoomResponse{
+interface IndoorRoomResponse {
   id: number,
   humidity: number,
   temperature: number,
@@ -176,4 +196,13 @@ interface IndoorRoomResponse{
   gasVal: number,
   location: string,
   timestamp: string,
+}
+
+interface ForecastResponse {
+  id: number,
+  trend: string,
+  weatherIcon: string,
+  weatherDescription: string,
+  seaPressure: number,
+  timestampd: string
 }

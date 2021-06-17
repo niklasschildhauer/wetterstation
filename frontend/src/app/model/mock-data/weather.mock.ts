@@ -227,8 +227,10 @@ export var WEATHERHISTORY: WeatherHistoryData = {
 }
 
 export var FORECAST: WeatherForecastData = {
-    forecast: "Sonnig"
-}
+    trend: "steady",
+    weatherDescription: "rainy",
+    weatherIcon: "Rainy"
+  }
 
 export var FORECASTTILE: Tile<WeatherForecastData> = {
     type: TileType.forecast,
@@ -299,20 +301,6 @@ export var POLLEN: PollenData[] = [
         tomorrow: '0',
     },
 ];
-
-export var reducePollen = () => {
-    POLLEN[0].today = '3'
-    POLLEN[1].today = '3'
-    POLLEN[2].today = '3'
-    POLLEN[3].today = '3'
-
-    OUTDOORWEATHER.temperature = OUTDOORWEATHER.temperature + 1;
-    FORECAST.forecast = "lol"
-    WOHNZIMMER.airQuality =   WOHNZIMMER.airQuality - 10;
-    console.log(WOHNZIMMER)
-
-}
-
 
 export var POLLENSMALL: Tile<PollenData> = {
     type: TileType.pollenSmall,

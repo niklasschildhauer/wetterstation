@@ -2,8 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { OutdoorWeatherData, Tile, TileType, WeatherData } from 'src/app/model/weather';
 import { UserContextService } from 'src/app/services/user-context.service';
 import { BreakpointObserver, BreakpointState } from '@angular/cdk/layout';
-import { reducePollen } from 'src/app/model/mock-data/weather.mock';
-import { Router } from '@angular/router';
 import { WeatherDataService } from 'src/app/services/weather-data.service';
 import { TextService } from 'src/app/services/text.service';
 import { NgxSpinnerService } from 'ngx-spinner';
