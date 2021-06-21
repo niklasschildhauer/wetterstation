@@ -3,40 +3,43 @@
 //Use with genericRequestHandlers.genericRequest(...)
 
 
-const cron = require("node-cron");
-let CronJob = require("cron").CronJob;
 const genericRequestHandlers = require("./shared");
 
-//let pressureArray = [1022.8, 1023.3, 1023.8, 1024, 1024.1, 1024, 1023.7, 2000.2, 2300.4, 2400];
-//let counter = 0;
 
-//cron.schedule("*/1 * * * *", () => {
-//    forecast();
-//});
-
-//const job = new CronJob("*/1 * * * *", function() {
-//	forecast();
-//});
-//job.start(); 
-
-let minutes = 10, the_interval = minutes * 60 * 1000;
+let minutes = 1, the_interval = minutes * 60 * 1000;
 setInterval(function () {
-    forecast();
+    /*const openweathermap_api_key = 'c23b6eb0df192e3eed784aa71777b7da'
+    genericRequestHandlers.genericRequestToPromise("GET", "http://localhost:4205/espconfig/all").then((esp_configs) => {
+        const postalCode = esp_configs[esp_configs.length - 1]["postalCode"];
+        console.log("id", esp_configs[esp_configs.length - 1]["id"]);
+        console.log("code", postalCode);
+        const request_uri = `https://api.openweathermap.org/data/2.5/weather?zip=${postalCode},DE&appid=${openweathermap_api_key}`;
+        genericRequestHandlers.genericRequestToPromise("GET", request_uri).then((object_with_coordinates) => {
+            const lat = object_with_coordinates['coord']['lat'];
+            const lon = object_with_coordinates['coord']['lon'];
+            const opentopodata_request_uri = `https://api.opentopodata.org/v1/eudem25m?locations=${lat},${lon}`;
+            genericRequestHandlers.genericRequestToPromise("GET", opentopodata_request_uri).then((elevation_data) => {
+                console.log('obj', object_with_coordinates);
+                forecast(elevation_data['results'][0]['elevation']);
+            });
+        });
+    });*/
+    forecast(438);
 }, the_interval);
 
-const forecast = () => {
+const forecast = (alt) => {
     let latest_measurement;
 
     //--------------------------------------- Get DB data necessary for forecast -----------------------------
     genericRequestHandlers.genericRequestToPromise("GET", "http://localhost:4205/outdoor/latest").then((data) => {
-        console.log("latest");
+        console.log('alt', alt);
         latest_measurement = data;
         genericRequestHandlers.genericRequestToPromise("GET", "http://localhost:4205/forecast/history").then((data1) => {
             let pressureArray = data1.map(a => a.seaPressure).reverse();
             pressureArray = Object.assign(new Array(9).fill(0), pressureArray);
 
             let temp_in_degrees = latest_measurement["temperature"];
-            let altitude = 296;
+            let altitude = alt;
             let pressure = latest_measurement["pressure"];
 
             let seapressure = calc_seapressure(pressure, temp_in_degrees, altitude);
@@ -314,7 +317,7 @@ const forecast = () => {
 
 }
 
-const debug_enabled = false;
+const debug_enabled = true;
 //debugging code
 if(debug_enabled){
     let minutes_1 = 9, the_interval_1 = minutes_1 * 60 * 1000;
