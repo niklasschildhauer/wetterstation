@@ -46,7 +46,7 @@ let swaggerOptions = {
     host: "localhost:4201",
     basePath: "/v1",
     produces: ["application/json", "application/xml"],
-    schemes: ["https"],
+    schemes: ["http"],
     securityDefinitions: {
       JWT: {
         type: "apiKey",
