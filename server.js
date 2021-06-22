@@ -17,9 +17,9 @@ const morgan = require("morgan");
 const expressSwagger = require("express-swagger-generator")(app);
 const request = require("request");
 
-const https = require('https');
+// const https = require('https');
 const http = require('http');
-const fs = require('fs');
+// const fs = require('fs');
 
 
 
@@ -525,26 +525,21 @@ const genericCallback = (error, response, body, res) => {
   }
 };
 
-https.createServer(
-    {
-      key: fs.readFileSync("./cert/key.pem"),
-      cert: fs.readFileSync("./cert/cert.pem")
-    },
-    app
-  )
-  .listen(4201, function() {
-    console.log("https endpoint listening on 4201")
-    //console.log(Api Gateway is listening on port: 4201);
-  });
+// https.createServer(
+//     {
+//       key: fs.readFileSync("./cert/key.pem"),
+//       cert: fs.readFileSync("./cert/cert.pem")
+//     },
+//     app
+//   )
+//   .listen(4201, function() {
+//     console.log("https endpoint listening on 4201")
+//     //console.log(Api Gateway is listening on port: 4201);
+//   });
 
-http.createServer(app).listen(3201, () => {
-  console.log("http endpoint listening on 3201")
+http.createServer(app).listen(4201, () => {
+  console.log("http endpoint listening on 4201")
 })
-
-// https.createServer(options, function (req, res) {
-//   res.writeHead(200);
-//   res.end("hello world\n");
-// }).listen(4201);
 
 
 /*
