@@ -5,6 +5,7 @@
 export const environment = {
   production: false,
   testData: false,
+  baseURL: '', // for not production case we are using the Angular proxy. Which is automatically started by calling ng serve.
 };
 
 /*

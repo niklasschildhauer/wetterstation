@@ -5,15 +5,16 @@ import { Observable, of } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 
+
 @Injectable({
   providedIn: 'root'
 })
 export class WeatherAPIService {
-  private outdoorURL = '/weather-data/outdoor/latest';
-  private indoorURL = '/weather-data/indoor/latest';
-  private historyURL = '/weather-data/outdoor/history';
-  private forecastURL = '/weather-data/forecast/latest';
-  private allPollenTypesURL = '/pollen/all';
+  private outdoorURL = environment.baseURL + 'weather-data/outdoor/latest';
+  private indoorURL = environment.baseURL + 'weather-data/indoor/latest';
+  private historyURL = environment.baseURL + 'weather-data/outdoor/history';
+  private forecastURL = environment.baseURL + 'weather-data/forecast/latest';
+  private allPollenTypesURL = environment.baseURL + 'pollen/all';
 
   constructor(private httpClient: HttpClient) { }
 
