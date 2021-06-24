@@ -24,5 +24,6 @@ button {
 }
 
 .back-image * {
-    fill: white;
+    fill: var(--secondary);
+    stroke: var(--secondary);
 }

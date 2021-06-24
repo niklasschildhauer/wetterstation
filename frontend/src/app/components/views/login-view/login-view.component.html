@@ -1,7 +1,11 @@
 <div class="layout container">
-  <h1>WeatherIO</h1>
-  <h5>Eine HdM Smarthome Innovation</h5>
-  <img class="logo" src="assets/weather/cloudy-sunny.png" alt="Logo">
+  <div class="flex-container">
+    <img class="logo" src="assets/icons/logo.png" alt="Logo">
+    <div class="logo-text">
+      <h1>WeatherIO</h1>
+      <h5>Eine HdM Smarthome Innovation</h5>
+    </div>
+  </div>
   <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
     <div>
         <label for="email">

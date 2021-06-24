@@ -115,8 +115,8 @@ article {
     --surface:  #F5F4F7;
     --background: #FFFFFF;
     --pressed: #BABABA;
-    --disabled: #1D1D1D;
-    --status-red: red;
+    --disabled: #9B9B9B;
+    --status-red: rgb(182, 171, 171);
     --status-green: green; 
     --status-yellow: yellow;  
     --status-orange: orange; //FIXME: I need a better color
@@ -131,7 +131,7 @@ article {
     --surface:  #424242;
     --background: #1C2026;
     --pressed: #BABABA;
-    --disabled: #1D1D1D;
+    --disabled: #2C2C2C;
     --border: clear;
 }
 
@@ -144,7 +144,7 @@ article {
         --surface:  #424242;
         --background: #1C2026;
         --pressed: #BABABA;
-        --disabled: #1D1D1D;
+        --disabled: #2C2C2C;
         --border: clear;
     }
 
@@ -156,7 +156,7 @@ article {
         --surface:  #F5F4F7;
         --background: #FFFFFF;
         --pressed: #BABABA;
-        --disabled: #1D1D1D;
+        --disabled: #9B9B9B;
         --border: clear;
       }
 }
@@ -244,6 +244,7 @@ button, input[type=submit] {
     align-content: center;
     align-items: center;
     background-color: var(--surface);
+    border: 1px solid var(--border);
 }
 
 button:active, input[type=submit]:active {
