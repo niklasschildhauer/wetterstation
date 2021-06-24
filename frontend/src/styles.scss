@@ -209,6 +209,13 @@ html {
       }
 }
 
+@media(max-width: 400px) {
+    :root {
+        --border-padding-left: 15px;
+        --border-padding-right: 15px;
+      }
+}
+
 .layout {
     padding: var(--border-padding-top) var(--border-padding-right) var(--border-padding-bottom) var(--border-padding-left);
     background-color: var(--background);
