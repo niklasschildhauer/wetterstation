@@ -9,7 +9,7 @@ const PROXY_CONFIG = [
             '/espconfig',
             '/allergies',
         ],
-        target: 'https://localhost:4201/v1',
+        target: 'http://localhost:4201/v1',
         secure: false,
         logLevel: 'debug'
     }
