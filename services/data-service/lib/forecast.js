@@ -6,9 +6,9 @@
 const genericRequestHandlers = require("./shared");
 
 
-let minutes = 1, the_interval = minutes * 60 * 1000;
+let minutes = 10, the_interval = minutes * 60 * 1000;
 setInterval(function () {
-    /*const openweathermap_api_key = 'c23b6eb0df192e3eed784aa71777b7da'
+    const openweathermap_api_key = 'c23b6eb0df192e3eed784aa71777b7da'
     genericRequestHandlers.genericRequestToPromise("GET", "http://localhost:4205/espconfig/all").then((esp_configs) => {
         const postalCode = esp_configs[esp_configs.length - 1]["postalCode"];
         console.log("id", esp_configs[esp_configs.length - 1]["id"]);
@@ -23,8 +23,7 @@ setInterval(function () {
                 forecast(elevation_data['results'][0]['elevation']);
             });
         });
-    });*/
-    forecast(438);
+    });
 }, the_interval);
 
 const forecast = (alt) => {
@@ -317,7 +316,7 @@ const forecast = (alt) => {
 
 }
 
-const debug_enabled = true;
+const debug_enabled = false;
 //debugging code
 if(debug_enabled){
     let minutes_1 = 9, the_interval_1 = minutes_1 * 60 * 1000;
