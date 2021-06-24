@@ -1,20 +1,21 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
 import { PollenType, Themes, UserContext, UserIdentifikation } from '../../model/user-context';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserContextAPIService {
-  private loginURL = '/auth/login';
-  private registerURL = '/user/register';
-  private checkTokenURL = '/auth/checkToken';
-  private currentUserContextURL = '/user/currentUser';
-  private saveUserContextURL = '/user/save';
-  private allPollenTypesURL = '/pollen/all';
-  private deletePollenURL = '/allergies/delete';
-  private savePollenURL = '/allergies/save';
+  private loginURL = environment.baseURL + 'auth/login';
+  private registerURL = environment.baseURL + 'user/register';
+  private checkTokenURL = environment.baseURL + 'auth/checkToken';
+  private currentUserContextURL = environment.baseURL + 'user/currentUser';
+  private saveUserContextURL = environment.baseURL + 'user/save';
+  private allPollenTypesURL = environment.baseURL + 'pollen/all';
+  private deletePollenURL = environment.baseURL + 'allergies/delete';
+  private savePollenURL = environment.baseURL + 'allergies/save';
 
   constructor(private httpClient: HttpClient) { }
 

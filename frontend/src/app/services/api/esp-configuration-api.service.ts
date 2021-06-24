@@ -1,13 +1,14 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ESPConfigurationAPIService {
-  private allConfigs = '/espconfig/all'
-  private changeConfig = '/espconfig/change'
+  private allConfigs = environment.baseURL + '/espconfig/all';
+  private changeConfig = environment.baseURL + '/espconfig/change';
 
   constructor(private httpClient: HttpClient) { }
 
