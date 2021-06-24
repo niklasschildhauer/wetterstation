@@ -36,15 +36,15 @@ import { ImageModel } from 'src/app/model/image';
 
 export class MenuElementComponent implements OnInit {
   @Output() closeEvent = new EventEmitter();
-  public settingsIcon: ImageModel = {
-    light: "setting-button-light.png",
-    dark: "setting-button-dark.png",
-    highContrast: "setting-button-high.png"
-  }
   public configurationIcon: ImageModel = {
     light: "setting-button-light.png",
     dark: "setting-button-dark.png",
     highContrast: "setting-button-high.png"
+  }
+  public settingsIcon: ImageModel = {
+    light: "pers-button-light.png",
+    dark: "pers-button-dark.png",
+    highContrast: "pers-button-high.png"
   }
   public logoutIcon: ImageModel = {
     light: "logout-button-light.png",

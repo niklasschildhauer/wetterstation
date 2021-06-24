@@ -26,6 +26,8 @@ export class HistoryTileService {
       let dataSet: GraphDataSet[] = []
       let dataPoints = weatherHistoryData.datapoints
 
+      console.log( "Hier ist es wichtig", dataPoints);
+
       dataPoints.sort((a, b) => {
         return b.timestamp.getTime() - a.timestamp.getTime()
       });

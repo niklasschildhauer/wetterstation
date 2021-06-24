@@ -122,12 +122,21 @@ export class WeatherAPIService {
   }
 
   private createOutdoorWeatherDataFromServerResponse(response: OutdoorWeatherResponse): OutdoorWeatherData {
+
+    const date = response.timestamp;
+    const year = date.substr(0, 4);
+    const month = date.substr(5, 2);
+    const day = date.substr(8, 2);
+    const time = date.substr(11);
+
+    const validDate = new Date(month + '/' + day + '/' + year + ' ' + time);
+
     return {
             temperature: response.temperature,
             maxTemperature: -99, // Nicht so wichtig
             minTemperature: -99, // Nicht so wichtig
             humidity: response.humidity,
-            timestamp: new Date(response.timestamp),
+            timestamp: validDate,
             weather: response.weather,
             apparentTemperature: response.apparentTemperature,
             location: response.location_name,
