@@ -1,0 +1,11 @@
+.btn {
+    color: var(--text);
+    text-align: start;
+}
+
+.flex-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-content: flex-start;
+}
