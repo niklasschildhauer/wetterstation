@@ -92,7 +92,13 @@ export class ImageService {
    public getWeatherIconString(weather: string | undefined): string | undefined {
     let src = this.baseURLWeather;
     if(weather !== undefined) {
-      return src + weather + '.png'
+      switch (weather) {
+        case "sunny":  return src + 'clear-day' + '.png'
+        case "sunny_cloudy":  return src + 'partly-cloudy-day' + '.png'
+        case "rainy": return src + 'rain' + '.png'
+        case "worsening":  return src + 'worsening' + '.png'
+        default: return src + weather + '.png'
+      }
     } else {
       return undefined
     }

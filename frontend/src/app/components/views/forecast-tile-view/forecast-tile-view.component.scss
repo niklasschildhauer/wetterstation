@@ -4,4 +4,13 @@
 
 .flex-container {
     display: flex;
+    justify-content: space-between;
+    // padding-right: calc(var(--padding) + 60px);
+}
+
+.forecast-image {
+    position: relative;
+    top: -20px;
+    height: 60px;
+    padding-left: var(--padding);
 }

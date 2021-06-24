@@ -62,10 +62,71 @@ export class TextService {
     let readAloud = ''
     if(data) {
       let forecast = data.weatherDescription
-      readAloud = "Im Verlaufe des Tages wird es " + forecast + "werden. ";
+      switch (forecast) {
+        case 'Clear': 
+          readAloud = "Im Verlaufe des Tages wird es wolkenlos. "
+          break;
+        case 'Sunny and moderately cloudy': 
+          readAloud = "Im Verlaufe des Tages wird es sonnig mit ein paar Wolken. "
+          break;
+        case 'Rather cloudy': 
+          readAloud = "Im Verlaufe des Tages wird es bedeckt mit vereinzelten Sonnenstrahlen werden. "
+          break;
+        case 'Rainy': 
+          readAloud = "Im Verlaufe des Tages wird es regnen. "
+          break;
+        case 'Worsening': 
+          readAloud = "Im Verlaufe des Tages wird es schlechter werden. "
+          break;
+      }
+
+      let trend = data.trend
+      switch (trend) {
+        case 'rising': 
+          readAloud = readAloud + "Tendenz steigend. "
+          break;
+        case 'falling': 
+          readAloud = readAloud + "Tendenz fallend. "
+          break;
+        case 'steady': 
+          readAloud = readAloud + "Tendenz konsistent. "
+          break;
+      }
     }
     return readAloud
   }
+
+  /**
+  * Create a readable title from WeatherForecastData object
+  * 
+  * @param {WeatherForecastData | undefined} data 
+  * @returns A readable title version from the input data. 
+  */
+    public createForecastTitle(data: WeatherForecastData | undefined): string {
+      let title = ''
+      if(data) {
+        let forecast = data.weatherDescription
+        switch (forecast) {
+          case 'Clear': 
+            title = 'Wolkenlos';
+            break;
+          case 'Sunny and moderately cloudy': 
+            title = 'Sonnig und leicht bedeckt';
+            break;
+          case 'Rather cloudy': 
+            title = 'Bewölkt';
+            break;
+          case 'Rainy': 
+            title = 'Regen';
+            break;
+          case 'Worsening': 
+            title = 'Schlecht';
+            break;
+        }
+      }
+      return title
+    }
+
 
   /**
   * Create a readable text from IndoorRoomData object
@@ -191,7 +252,6 @@ export class TextService {
             break;
           case 'thunderstorm':
             readAloud = 'Achtung, ein Gewitter tobt gerade.'
-
             break;
         }
       }

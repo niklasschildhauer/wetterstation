@@ -1,11 +1,13 @@
 <card-element 
     *ngIf="_forecast" 
     [subtitle]="'Vorhersage'" 
-    [title]="_forecast.weatherDescription" 
+    [title]="getForecastTitle()" 
     [pressable]="pressable"
     [hideSubtitle]="hideSubtitle">
     <div class="flex-container">
-        <p>Im laufe des Tages wird es sonnig werden</p>
-        <img class="forecast-image" src="assets/weather/cloudy-sunny.png" alt="Sonne mit Wolken" height="43px">
+        <p>{{getForecastDescription()}}</p>
+        <img class="forecast-image" [src]="getForecastIcon()" alt="" height="43px">
+
     </div>
+
 </card-element>
