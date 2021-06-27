@@ -127,6 +127,30 @@ export class UserContextService {
     return promise
   }
 
+  public loginToOpenApe(username: string, password: string): Promise<{success: boolean, error: string}> {
+    let promise = new Promise<{success: boolean, error: string}>((resolve) => {
+      this.userContextAPI.postLoginOpenAPE(username, password, this.userID).subscribe((userContextResponse) => {
+        if(userContextResponse) {
+          let userContext = this.userContext
+          userContext.doVentilationReminder = userContextResponse.doVentilationReminder;
+          userContext.fontSize = userContextResponse.fontSize;
+          userContext.reduceMotion = userContextResponse.reduceMotion;
+          userContext.selfVoicingEnabled = userContextResponse.selfVoicingEnabled;
+          userContext.theme = userContextResponse.theme;
+
+          this.userContext = userContext;
+        } else {
+          resolve({success:  false, error: 'Ein Fehler ist aufgetreten, beim Einloggen zu OpenAPE.'})
+        }
+      },
+      (error) => {
+        resolve({success: false, error: error})
+      })
+    });
+    return promise
+  }
+
+
   public tooglePollenValueAt(index: number) {
     let polle: PollenType = this.pollenTypes[index]
     let oldValue = this.getPollenValueAt(index);  
@@ -134,9 +158,7 @@ export class UserContextService {
 
     if(this.pollen){
       if(this.disableLogin){
-        console.log("Login disabled");
         if(newValue && !this.pollen.includes(polle.pollenName)) {
-          console.log("push polle");
           let pollen = this.pollen;
           pollen.push(polle.pollenName);
           this.pollen = pollen;
@@ -146,6 +168,8 @@ export class UserContextService {
         }
       } else {
         if(newValue && !this.pollen.includes(polle.pollenName)) {
+          console.log("index", index)
+          console.log("polle", polle)
           this.userContextAPI.postPolleToUserContext(this.userID, polle.id).subscribe(() => {
             this.refreshUserContextIfNeeded().subscribe();
           });

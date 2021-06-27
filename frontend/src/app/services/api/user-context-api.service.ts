@@ -16,6 +16,7 @@ export class UserContextAPIService {
   private allPollenTypesURL = environment.baseURL + 'pollen/all';
   private deletePollenURL = environment.baseURL + 'allergies/delete';
   private savePollenURL = environment.baseURL + 'allergies/save';
+  private openAPEURL = environment.baseURL + '/user/loadOpenAPESettingsAndSave';
 
   constructor(private httpClient: HttpClient) { }
 
@@ -55,28 +56,20 @@ export class UserContextAPIService {
   return returnObservable;
   }
 
-  public postLoginOpenAPE(username: string, password: string): Observable<{userID: UserIdentifikation, userContext: UserContext}> {
-    let returnObservable = new Observable<{userID: UserIdentifikation, userContext: UserContext}>((observer) => {
-      let response = this.httpClient.post<LoginResponse>(this.loginURL, 
-                                                        {username: username, password: password}, {observe: 'response'});
+  public postLoginOpenAPE(username: string, password: string, userID: UserIdentifikation): Observable<UserContext> {
+    let returnObservable = new Observable<UserContext>((observer) => {
+      let httpOptions = {
+        headers: new HttpHeaders({ 'Authorization': 'Bearer ' + userID.token }),
+      };
+      let response = this.httpClient.post<UserContextResponse>(this.openAPEURL, 
+                                                              {openApeUser: username, openApePassword: password}, httpOptions);
       response.subscribe((response) => {
-        let body = response.body
-        let status = response.statusText
-        console.log(status);
+    
+        console.log(response);
 
-        if(body){
-          if(body.success) {
-            console.log(this.createUserContextFromServerResponse(body.userContext));
-            observer.next({
-              userID: {
-                token: body.token,
-                id: body.userContext.id
-              },
-              userContext: this.createUserContextFromServerResponse(body.userContext)
-            });
-          } else {
-            observer.error(body.message);
-          }
+        if(response){
+            console.log(this.createUserContextFromServerResponse(response));
+            observer.next(this.createUserContextFromServerResponse(response));
         }
       },
       (error)=> {
@@ -130,8 +123,6 @@ export class UserContextAPIService {
       doVentilationReminder: userContext.doVentilationReminder,
       reduceMotion: userContext.reduceMotion
     }
-    console.log(Themes[userContext.theme]);
-    console.log(userID.token);
     let httpOptions = {
       headers: new HttpHeaders({ 'Authorization': 'Bearer ' + userID.token }),
       params: new HttpParams().set('id', userID.id + ''),

@@ -65,5 +65,7 @@
                 <label>{{getThemeStringAt(index)}}</label>
             </div>
         </div>
-    </card-element>   
+    </card-element> 
+    
+    <app-open-apelogin-tile-view *ngIf="!loginDisabled()"></app-open-apelogin-tile-view>
 </div>

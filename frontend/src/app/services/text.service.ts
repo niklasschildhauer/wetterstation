@@ -200,7 +200,7 @@ export class TextService {
       // + "Diese fühlen sich an wie  " + apparentTemperature 
       // + ". Die heutigen Extremwerte liegen bei " + maxTemperature + " und " + minTemperature + "Grad Celsius. "
       + this.createWeatherText(weather) + " "
-      + "Die Luftfeuchtigkeit beträgt aktuell " + humidity + ". ";
+      + "Die Luftfeuchtigkeit beträgt aktuell " + humidity + "%. ";
       ;
     }
     return readAloud

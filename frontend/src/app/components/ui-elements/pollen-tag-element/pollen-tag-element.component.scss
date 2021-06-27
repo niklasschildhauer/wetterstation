@@ -29,22 +29,26 @@
 }
 
 .yellow {
-    background-color: yellow;
+    background-color: var(--status-yellow);
     p {
-        color: black;
+        color: black
     }
 }
 .red {
-    background-color: red;
-
+    background-color: var(--status-red);
+    p {
+        color: white
+    }
 }
 .green {
-    background-color: green;
+    background-color: var(--status-green);
+    p {
+        color: white
+    }
 }
 .orange {
-    background-color: orange;
-    color: black;
+    background-color: var(--status-orange);
     p {
-        color: black;
+        color: black
     }
 }

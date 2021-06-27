@@ -26,6 +26,7 @@ import { ChartsModule } from "@rinminase/ng-charts";
 import { ConfigurationViewComponent } from './configuration-view/configuration-view.component';
 import { ConfigurationTileViewComponent, ConfigurationTilePopUpDialogView } from './configuration-tile-view/configuration-tile-view.component';
 import { NgxSpinnerModule } from "ngx-spinner";
+import { OpenAPELoginTileViewComponent } from './open-apelogin-tile-view/open-apelogin-tile-view.component';
 
 
 
@@ -51,7 +52,8 @@ import { NgxSpinnerModule } from "ngx-spinner";
     ConfigurationTilePopUpDialogView,
     SimpleTileViewComponent,
     ConfigurationViewComponent,
-    ConfigurationTileViewComponent
+    ConfigurationTileViewComponent,
+    OpenAPELoginTileViewComponent
   ],
   imports: [
     CommonModule,

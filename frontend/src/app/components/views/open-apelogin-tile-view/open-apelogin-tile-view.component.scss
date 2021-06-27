@@ -1,0 +1,14 @@
+.error-message {
+    color: var(--status-red);
+    padding-top: calc(var(--padding) / 2 );
+    text-align: center;
+}
+
+input {
+    background-color: var(--background);
+}
+
+#ok {
+    border: 2px solid var(--accent);
+    color: var(--accent);
+}

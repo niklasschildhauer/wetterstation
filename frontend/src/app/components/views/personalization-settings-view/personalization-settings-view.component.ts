@@ -13,7 +13,6 @@ import { Router } from '@angular/router';
 export class PersonalizationSettingsViewComponent implements OnInit {
   desktop: boolean = false;
   userContextData?: UserContext;
-
   themesType = Themes  
 
   constructor(
@@ -77,6 +76,10 @@ export class PersonalizationSettingsViewComponent implements OnInit {
 
   togglePollenValueAt(index: number) {
     this.userContextService.tooglePollenValueAt(index);
+  }
+
+  loginDisabled(): boolean {
+    return this.userContextService.disableLogin;
   }
 
   // FIXME: 

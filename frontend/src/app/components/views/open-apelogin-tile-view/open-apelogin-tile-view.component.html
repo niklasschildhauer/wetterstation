@@ -1,0 +1,34 @@
+<div class="card-container">
+    <card-element 
+        [title]="'Login'" 
+        [subtitle]="'OpenAPE'" 
+        [pressable]="false">
+        <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+            <div>
+                <label for="email">
+                Nutzername
+                </label>
+                <input id="username" 
+                type="text" 
+                formControlName="username"
+                placeholder="Nutzername eingeben"
+                >
+            </div>
+            
+            <div>
+                <label for="password">
+                Passwort
+                </label>
+                <input id="password" 
+                type="password" 
+                formControlName="password"
+                placeholder="Passwort eingeben"
+                >
+            </div>
+            <p *ngIf="error" class="error-message">{{error}}</p>
+
+
+            <input id="ok" type="submit" value="Login">
+        </form>
+    </card-element>
+</div>
