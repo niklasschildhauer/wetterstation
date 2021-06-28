@@ -16,7 +16,7 @@ export class UserContextAPIService {
   private allPollenTypesURL = environment.baseURL + 'pollen/all';
   private deletePollenURL = environment.baseURL + 'allergies/delete';
   private savePollenURL = environment.baseURL + 'allergies/save';
-  private openAPEURL = environment.baseURL + '/user/loadOpenAPESettingsAndSave';
+  private openAPEURL = environment.baseURL + 'user/loadOpenAPESettingsAndSave';
 
   constructor(private httpClient: HttpClient) { }
 
