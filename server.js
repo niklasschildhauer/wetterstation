@@ -84,8 +84,8 @@ app.use(express.json({ type: "application/json" }));
 
 /**
  * @typedef Interval
- * @property {string} begin startdate of the interval in ISO-format "2020-06-13 18:30:00"
- * @property {string} end enddate of the interval in ISO-format "2020-06-13 18:30:00"
+ * @property {string} begin startdate of the interval in adapted format "2020-06-13 18:30:00"
+ * @property {string} end enddate of the interval in adapted format "2020-06-13 18:30:00"
  */
 
 /**
@@ -470,6 +470,19 @@ app.post("/v1/espconfig/change", (req, res) => {
   genericRequestWithPayload("", "POST", "http://localhost:4205/espconfig/change", JSON.stringify(req.body), res);
 });
 
+// ------------------------------------------------ Routes - Calibration ------------------------------------------------
+
+/**
+ * Create a new Calibration object
+ * @route GET /calibration/insert
+ * @group Calibration - Create new Calibration objects
+ * @security JWT
+ */
+ app.get("/v1/calibration/insert", (req, res) => {
+  const token = req.headers["x-access-token"] || req.headers["authorization"];
+  genericRequest(token, "GET", "http://localhost:4204/calibration/insert", res);
+});
+
 // ------------------------------------------------ Helper ------------------------------------------------
 
 
@@ -524,18 +537,6 @@ const genericCallback = (error, response, body, res) => {
     }
   }
 };
-
-// https.createServer(
-//     {
-//       key: fs.readFileSync("./cert/key.pem"),
-//       cert: fs.readFileSync("./cert/cert.pem")
-//     },
-//     app
-//   )
-//   .listen(4201, function() {
-//     console.log("https endpoint listening on 4201")
-//     //console.log(Api Gateway is listening on port: 4201);
-//   });
 
 http.createServer(app).listen(4201, () => {
   console.log("http endpoint listening on 4201")

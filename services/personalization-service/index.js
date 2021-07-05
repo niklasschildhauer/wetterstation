@@ -27,6 +27,7 @@ app.post('/userContextUtility', (req, res) => {
             selfVoicingEnabled: db_user.selfVoicingEnabled,
             doVentilationReminder: db_user.doVentilationReminder,
             reduceMotion: db_user.reduceMotion,
+            userCalibratedGasVal: db_user.userCalibratedGasVal,
             pollen: JSON.parse(pollen)
         };
         res.status(200).json(out);
