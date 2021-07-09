@@ -5,7 +5,12 @@ import { Observable, of } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 
-
+/**
+ * Weather api service injectable
+ * 
+ * Use this service to access the network. It implementes all routes 
+ * for the weather data.
+ */
 @Injectable({
   providedIn: 'root'
 })
@@ -18,6 +23,9 @@ export class WeatherAPIService {
 
   constructor(private httpClient: HttpClient) { }
 
+  /**
+   * @returns an observable with the loadad OutdoorWeatherData from the api or test data
+   */
   public loadOutdoorWeather(): Observable<OutdoorWeatherData> {
     if (environment.testData) {
       return of(OUTDOORWEATHER);
@@ -33,6 +41,9 @@ export class WeatherAPIService {
     return returnObservable;
   }
 
+  /**
+   * @returns an observable with the loadad WeatherForecastData from the api or test data
+   */
   public loadForecast(): Observable<WeatherForecastData> {
     if (environment.testData) {
       return of(FORECAST);
@@ -48,7 +59,9 @@ export class WeatherAPIService {
     return returnObservable;
   }
 
-
+  /**
+   * @returns an observable with the loadad PollenData from the api or test data
+   */
   public loadPollen(): Observable<PollenData[]>{
     if (environment.testData) {
       let pollen = of(POLLEN);
@@ -69,7 +82,10 @@ export class WeatherAPIService {
     });
     return returnObservable;
   }
-  
+
+  /**
+   * @returns an observable with the loadad IndoorRoomData from the api or test data
+   */
   public loadIndoorRoomData(): Observable<IndoorRoomData[]> {
     if (environment.testData) {
       let indoorData = of(INDOORAIRQUALITY);
@@ -91,6 +107,9 @@ export class WeatherAPIService {
     return returnObservable;
   }
 
+  /**
+   * @returns an observable with the loadad WeatherHistoryData or test data
+   */
   public loadHistoryDataSubject(endDate: Date, beginDate: Date): Observable<WeatherHistoryData> {
     if (environment.testData) {
       let forecastData = of(WEATHERHISTORY);
@@ -115,14 +134,24 @@ export class WeatherAPIService {
     return returnObservable;
   }
 
+  /**
+   * Helper function to convert date to string
+   * @param date 
+   * @returns a date as a string which is understandable for the server
+   */
   private createServerFriendlyDate(date: Date): string {
     let dateString = date.toISOString().slice(0, 10);
     let timeString = date.toTimeString().slice(0, 8);
     return dateString + ' ' + timeString;
   }
 
+  /**
+   * Helper function to convert the response from the server to an OutdoorWeatherData object
+   * 
+   * @param response
+   * @returns OutdoorWeatherData object
+   */
   private createOutdoorWeatherDataFromServerResponse(response: OutdoorWeatherResponse): OutdoorWeatherData {
-
     const date = response.timestamp;
     const year = date.substr(0, 4);
     const month = date.substr(5, 2);
@@ -133,8 +162,8 @@ export class WeatherAPIService {
 
     return {
             temperature: response.temperature,
-            maxTemperature: -99, // Nicht so wichtig
-            minTemperature: -99, // Nicht so wichtig
+            maxTemperature: -99, // Not implemented yet
+            minTemperature: -99, // Not implemented yet
             humidity: response.humidity,
             timestamp: validDate,
             weather: response.weather,
@@ -144,6 +173,12 @@ export class WeatherAPIService {
           }
   }
 
+  /**
+   * Helper function to convert the response from the server to an IndoorRoomData object
+   * 
+   * @param response
+   * @returns IndoorRoomData object
+   */
   private createIndoorRoomDataFromServerResponse(response: IndoorRoomResponse): IndoorRoomData {
     return {
             roomID: response.id + '',
@@ -155,6 +190,12 @@ export class WeatherAPIService {
           }
   }
 
+  /**
+   * Helper function to convert the response from the server to an PollenData[] object
+   * 
+   * @param response
+   * @returns PollenData[] object
+   */
   private createPollenDataFromServerResponse(response: PollenResponse[]): PollenData[] {
     console.log("Pollen daten sind hier", response)
     let pollen: PollenData[] = [];
@@ -166,11 +207,15 @@ export class WeatherAPIService {
         tomorrow: ''
       })
     })
-    console.log("Pollen daten sind hier", pollen)
-
     return pollen
   }
 
+  /**
+   * Helper function to convert the response from the server to an WeatherForecastData object
+   * 
+   * @param response
+   * @returns WeatherForecastData object
+   */
   private createOutdoorForecastDataFromServerResponse(response: ForecastResponse): WeatherForecastData {
     return {
       trend: response.trend,
@@ -180,12 +225,18 @@ export class WeatherAPIService {
   }
 }
 
+/**
+ * Model of the pollen api response
+ */
 interface PollenResponse {
   id: number,
   pollenName: string,
   loadRating: string,
 }
 
+/**
+ * Model of the outdoor weather api response
+ */
 interface OutdoorWeatherResponse {
   id: number,
   humidity: number,
@@ -198,6 +249,9 @@ interface OutdoorWeatherResponse {
   apparentTemperature: number
 }
 
+/**
+ * Model of the indoor room api response
+ */
 interface IndoorRoomResponse {
   id: number,
   humidity: number,
@@ -208,6 +262,9 @@ interface IndoorRoomResponse {
   timestamp: string,
 }
 
+/**
+ * Model of the forecast api response
+ */
 interface ForecastResponse {
   id: number,
   trend: string,

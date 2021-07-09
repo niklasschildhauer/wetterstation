@@ -20,4 +20,7 @@ export class Indoor {
 
     @Column()
     timestamp: string;
+
+    @Column()
+    deviceID: number;
 }

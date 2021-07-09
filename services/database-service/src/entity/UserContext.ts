@@ -1,6 +1,5 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToMany, ManyToMany } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, ManyToMany } from "typeorm";
 import { EncryptionTransformer } from "typeorm-encrypted";
-import { Calibration } from "./Calibration";
 import { Pollen } from "./Pollen";
 
 @Entity()
@@ -38,17 +37,6 @@ export class UserContext {
 
   @Column()
   reduceMotion: boolean;
-
-  @OneToMany(() => Calibration, calibration => calibration.user)
-  calibration: Calibration[];
-
-  /*
-  * Our own tests in our environments determined 25% gasValue as a reference value, hence this will be the default
-  */
-  @Column(
-    { default: 25 }
-  )
-  userCalibratedGasVal: number;
 
   @ManyToMany(() => Pollen, pollen => pollen.id)
   pollen: Pollen[];

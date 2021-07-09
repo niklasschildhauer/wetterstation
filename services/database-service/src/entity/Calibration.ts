@@ -1,5 +1,4 @@
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
-import { UserContext } from "./UserContext";
+import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()
 export class Calibration {
@@ -12,6 +11,6 @@ export class Calibration {
   @Column()
   endDate: string;
 
-  @ManyToOne(() => UserContext, user => user.calibration)
-  user: UserContext;
+  @Column()
+  deviceID: number
 }

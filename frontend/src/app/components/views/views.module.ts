@@ -27,6 +27,7 @@ import { ConfigurationViewComponent } from './configuration-view/configuration-v
 import { ConfigurationTileViewComponent, ConfigurationTilePopUpDialogView } from './configuration-tile-view/configuration-tile-view.component';
 import { NgxSpinnerModule } from "ngx-spinner";
 import { OpenAPELoginTileViewComponent } from './open-apelogin-tile-view/open-apelogin-tile-view.component';
+import { DashboardViewComponent } from './dashboard-view/dashboard-view.component';
 
 
 
@@ -53,7 +54,8 @@ import { OpenAPELoginTileViewComponent } from './open-apelogin-tile-view/open-ap
     SimpleTileViewComponent,
     ConfigurationViewComponent,
     ConfigurationTileViewComponent,
-    OpenAPELoginTileViewComponent
+    OpenAPELoginTileViewComponent,
+    DashboardViewComponent
   ],
   imports: [
     CommonModule,
@@ -66,22 +68,17 @@ import { OpenAPELoginTileViewComponent } from './open-apelogin-tile-view/open-ap
     NgxSpinnerModule,
   ],
   exports: [
-    PollenflugTileViewComponent,
     OutdoorWeatherViewComponent,
-    HistoryTileViewComponent,
-    IndoorTileViewComponent,
     IndoorDetailViewComponent,
     PollenflugDetailViewComponent,
     HistoryDetailViewComponent,
     ForecastDetailViewComponent,
-    ForecastTileViewComponent,
     PollenflugSmallTileComponent,
     PersonalizationSettingsViewComponent,
     LoginViewComponent,
     RegistrationViewComponent,
     OutdoorWeatherDetailViewComponent,
-    HumidityTileViewComponent,
-    ApparentTemperatureTileViewComponent,
+    DashboardViewComponent
   ]
 })
 export class ViewsModule { }
