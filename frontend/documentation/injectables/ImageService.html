@@ -1,0 +1,657 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>wetterstation documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	      <link rel="stylesheet" href="../styles/style.css">
+    </head>
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top visible-xs">
+            <a href="../" class="navbar-brand">wetterstation documentation</a>
+            <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="hidden-xs menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content injectable">
+                   <div class="content-data">
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li>Injectables</li>
+  <li>ImageService</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="active">
+            <a href="#info" role="tab" id="info-tab" data-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li >
+            <a href="#source" role="tab" id="source-tab" data-toggle="tab" data-link="source">Source</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="c-info">
+        <p class="comment">
+            <h3>File</h3>
+        </p>
+        <p class="comment">
+            <code>src/app/services/image.service.ts</code>
+        </p>
+
+            <p class="comment">
+                <h3>Description</h3>
+            </p>
+            <p class="comment">
+                <p>Image service injectable</p>
+<p>Use this service to get the full assets path of an image.</p>
+
+            </p>
+
+
+
+            <section>
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#getGradientStyleFor">getGradientStyleFor</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#getImageSrcFrom">getImageSrcFrom</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#getWeatherIconString">getWeatherIconString</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+            <section>
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(userContextService: <a href="../injectables/UserContextService.html">UserContextService</a>, breakpointObserver: BreakpointObserver)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="20" class="link-to-prism">src/app/services/image.service.ts:20</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>userContextService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/UserContextService.html" target="_self" >UserContextService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>breakpointObserver</td>
+                                                  
+                                                        <td>
+                                                                    <code>BreakpointObserver</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+            <section>
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getGradientStyleFor"></a>
+                    <span class="name">
+                        <b>
+                            <span class="modifier">Public</span>
+                            getGradientStyleFor
+                        </b>
+                        <a href="#getGradientStyleFor"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>getGradientStyleFor(weather: string | undefined)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="60"
+                            class="link-to-prism">src/app/services/image.service.ts:60</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Use this function to get the current background gradient
+suiteable for the current weahther and daytime.</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>weather</td>
+                                    <td>
+                                            <code>string | undefined</code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>    <code>literal type</code>
+
+                    </div>
+                    <div class="io-description">
+                        <p>The full assets path of the image</p>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getImageSrcFrom"></a>
+                    <span class="name">
+                        <b>
+                            <span class="modifier">Public</span>
+                            getImageSrcFrom
+                        </b>
+                        <a href="#getImageSrcFrom"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>getImageSrcFrom(imageModel: <a href="../interfaces/ImageModel.html">ImageModel</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="34"
+                            class="link-to-prism">src/app/services/image.service.ts:34</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Use this function to get the image src in the applied color scheme </p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                    <td>Description</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>imageModel</td>
+                                    <td>
+                                                <code><a href="../interfaces/ImageModel.html" target="_self" >ImageModel</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                    <td>
+                                        <p>the image model of the prefered image</p>
+
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        <p>The full assets path of the image in the applied color scheme</p>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getWeatherIconString"></a>
+                    <span class="name">
+                        <b>
+                            <span class="modifier">Public</span>
+                            getWeatherIconString
+                        </b>
+                        <a href="#getWeatherIconString"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>getWeatherIconString(weather: string | undefined)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="92"
+                            class="link-to-prism">src/app/services/image.service.ts:92</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Use this function to get the image src of the current weather icon</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>weather</td>
+                                    <td>
+                                            <code>string | undefined</code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>    <code>string | undefined</code>
+
+                    </div>
+                    <div class="io-description">
+                        <p>The full assets path of the image</p>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+
+    </div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="c-source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { BreakpointObserver, BreakpointState } from &#x27;@angular/cdk/layout&#x27;;
+import { Injectable } from &#x27;@angular/core&#x27;;
+import { ImageModel } from &#x27;../model/image&#x27;;
+import { Themes, UserContext } from &#x27;../model/user-context&#x27;;
+import { Daytime } from &#x27;../model/weather&#x27;;
+import { UserContextService } from &#x27;./user-context.service&#x27;;
+
+/**
+ * Image service injectable
+ *
+ * Use this service to get the full assets path of an image.
+ */
+@Injectable({
+  providedIn: &#x27;root&#x27;
+})
+export class ImageService {
+  private baseURLIcons &#x3D; &#x27;assets/icons/&#x27;;
+  private baseURLWeather &#x3D; &#x27;assets/weather/&#x27;;
+  private userContext?: UserContext;
+  private systemTheme &#x3D; Themes.Light;
+
+  constructor(private userContextService: UserContextService,
+              private breakpointObserver: BreakpointObserver) { 
+    this.loadUserContext();
+    this.systemThemeBreakpointObserver();
+  }
+
+  /**
+   * Use this function to get the image src in the applied color scheme 
+   * 
+   * @param {ImageModel} imageModel  the image model of the prefered image
+   * @returns The full assets path of the image in the applied color scheme
+   */
+  public getImageSrcFrom(imageModel: ImageModel): string {
+    const userContextTheme &#x3D; this.userContext?.theme
+    switch(userContextTheme) {
+      case Themes.Automatic: 
+        if(this.systemTheme &#x3D;&#x3D; Themes.Dark) {
+          return this.baseURLIcons + imageModel.dark;
+        } else {
+          return this.baseURLIcons + imageModel.light;
+        }
+      case Themes.Dark: 
+        return this.baseURLIcons + imageModel.dark;
+      case Themes.Light: 
+        return this.baseURLIcons + imageModel.light;
+      case Themes.HighContrast: 
+        return imageModel.highContrast ? this.baseURLIcons + imageModel.highContrast : this.baseURLIcons + imageModel.dark;
+      default: return &#x27;&#x27;
+    }
+  }
+
+  /**
+   * Use this function to get the current background gradient
+   * suiteable for the current weahther and daytime.
+   * 
+   * @param {weather} string  the current weather string
+   * @returns The full assets path of the image
+   */
+  public getGradientStyleFor(weather: string | undefined): { background: string, filter: string }  {
+    if(this.userContext?.theme &#x3D;&#x3D;&#x3D; Themes.HighContrast) {
+      return Gradients.highContrast;
+    }
+    switch (weather) {
+      case &#x27;cloudy&#x27;:
+      case &#x27;rain&#x27;:
+      case &#x27;wind&#x27;:
+      case &#x27;sleet&#x27;:
+      case &#x27;fog&#x27;:
+      case &#x27;thunderstorm&#x27;:
+        switch (this.getDaytime()) {
+          case Daytime.noon: return Gradients.noonDark
+          case Daytime.dawn: return Gradients.dawnDark
+          case Daytime.night: return Gradients.nightDark
+        }
+      default: {
+        switch (this.getDaytime()) {
+          case Daytime.noon: return Gradients.noon
+          case Daytime.dawn: return Gradients.dawn
+          case Daytime.night: return Gradients.night
+        }
+      }
+    }
+  }
+
+  /**
+   * Use this function to get the image src of the current weather icon
+   * 
+   * @param {weather} WeatherType  the current weather
+   * @returns The full assets path of the image
+   */
+   public getWeatherIconString(weather: string | undefined): string | undefined {
+    let src &#x3D; this.baseURLWeather;
+    if(weather !&#x3D;&#x3D; undefined) {
+      switch (weather) {
+        case &quot;sunny&quot;:  return src + &#x27;clear-day&#x27; + &#x27;.png&#x27;
+        case &quot;sunny_cloudy&quot;:  return src + &#x27;partly-cloudy-day&#x27; + &#x27;.png&#x27;
+        case &quot;rainy&quot;: return src + &#x27;rain&#x27; + &#x27;.png&#x27;
+        case &quot;worsening&quot;:  return src + &#x27;worsening&#x27; + &#x27;.png&#x27;
+        default: return src + weather + &#x27;.png&#x27;
+      }
+    } else {
+      return undefined
+    }
+  }
+
+  /**
+  * Observe the system color scheme for changes
+  */
+  private systemThemeBreakpointObserver() {
+    this.breakpointObserver
+    .observe([&#x27;(prefers-color-scheme: dark)&#x27;])
+    .subscribe((state: BreakpointState) &#x3D;&gt; {
+      if (state.matches) {
+        this.systemTheme &#x3D; Themes.Dark;
+      } else {
+        this.systemTheme &#x3D; Themes.Light;
+      }
+    });
+  }
+
+  /**
+  * Returns the current daytime
+  */
+  private getDaytime(): Daytime {
+    const date &#x3D; new Date();
+    const dayHour &#x3D; date.getHours();
+    if(dayHour &lt; 6){
+      return Daytime.night;
+    } 
+    if (dayHour &lt; 18) {
+      return Daytime.noon;
+    }
+    if(dayHour &lt; 21) {
+      return Daytime.dawn;
+    }
+    return Daytime.night;
+  }
+
+  /**
+  * Load the user context from the user context service 
+  */
+  private loadUserContext() {
+    this.userContextService.getUserContextSubject().subscribe(data &#x3D;&gt; {
+      this.userContext &#x3D; data;
+    })
+  }
+}
+
+const Gradients &#x3D; {
+  noon: {
+    background: &#x27;linear-gradient(0deg, rgba(97,194,216,1) 0%, rgba(67,125,219,1) 100%)&#x27;,
+    filter: &#x27;progid:DXImageTransform.Microsoft.gradient(startColorstr&#x3D;&quot;#61c2d8&quot;,endColorstr&#x3D;&quot;#437ddb&quot;,GradientType&#x3D;1)&#x27;
+  },
+  dawn: {
+    background: &#x27;linear-gradient(0deg, rgba(238,69,59,1) 0%, rgba(164,9,110,1) 100%)&#x27;,
+    filter: &#x27;progid:DXImageTransform.Microsoft.gradient(startColorstr&#x3D;&quot;#ee453b&quot;,endColorstr&#x3D;&quot;#a4096e&quot;,GradientType&#x3D;1)&#x27;
+  },
+  night: {
+    background: &#x27;linear-gradient(0deg, rgba(216,97,204,1) 0%, rgba(70,67,219,1) 100%)&#x27;,
+    filter: &#x27;progid:DXImageTransform.Microsoft.gradient(startColorstr&#x3D;&quot;#d861cc&quot;,endColorstr&#x3D;&quot;#4643db&quot;,GradientType&#x3D;1)&#x27;
+  },
+  noonDark: {
+    background: &#x27;linear-gradient(170deg, rgba(20,27,87,1) 0%, rgba(151,208,255,1) 100%)&#x27;,
+    filter: &#x27;progid:DXImageTransform.Microsoft.gradient(startColorstr&#x3D;&quot;#61c2d8&quot;,endColorstr&#x3D;&quot;#437ddb&quot;,GradientType&#x3D;1)&#x27;
+  },
+  dawnDark: {
+    background: &#x27;linear-gradient(170deg, rgba(212,108,102,1) 0%, rgba(108,10,72,1) 100%)&#x27;,
+    filter: &#x27;progid:DXImageTransform.Microsoft.gradient(startColorstr&#x3D;&quot;#ee453b&quot;,endColorstr&#x3D;&quot;#a4096e&quot;,GradientType&#x3D;1)&#x27;
+  },
+  nightDark: {
+    background: &#x27;linear-gradient(170deg, rgba(119,48,112,1) 0%, rgba(152,152,191,1) 100%)&#x27;,
+    filter: &#x27;progid:DXImageTransform.Microsoft.gradient(startColorstr&#x3D;&quot;#d861cc&quot;,endColorstr&#x3D;&quot;#4643db&quot;,GradientType&#x3D;1)&#x27;
+  },
+  highContrast: {
+    background: &#x27;linear-gradient(170deg, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 100%)&#x27;,
+    filter: &#x27;progid:DXImageTransform.Microsoft.gradient(startColorstr&#x3D;&quot;#d861cc&quot;,endColorstr&#x3D;&quot;#4643db&quot;,GradientType&#x3D;1)&#x27;
+  }
+}
+</code></pre>
+    </div>
+
+</div>
+
+
+
+
+
+
+
+                   
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> result-matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'injectable';
+            var COMPODOC_CURRENT_PAGE_URL = 'ImageService.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+       <!-- Required to polyfill modern browsers as code is ES5 for IE... -->
+       <script src="../js/libs/custom-elements-es5-adapter.js" charset="utf-8" defer></script>
+       <script src="../js/menu-wc.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+       <script src="../js/libs/zepto.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

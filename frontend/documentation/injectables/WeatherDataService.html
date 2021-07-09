@@ -1,0 +1,954 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>wetterstation documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	      <link rel="stylesheet" href="../styles/style.css">
+    </head>
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top visible-xs">
+            <a href="../" class="navbar-brand">wetterstation documentation</a>
+            <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="hidden-xs menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content injectable">
+                   <div class="content-data">
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li>Injectables</li>
+  <li>WeatherDataService</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="active">
+            <a href="#info" role="tab" id="info-tab" data-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li >
+            <a href="#source" role="tab" id="source-tab" data-toggle="tab" data-link="source">Source</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="c-info">
+        <p class="comment">
+            <h3>File</h3>
+        </p>
+        <p class="comment">
+            <code>src/app/services/weather-data.service.ts</code>
+        </p>
+
+            <p class="comment">
+                <h3>Description</h3>
+            </p>
+            <p class="comment">
+                <p>Weather data service injectable</p>
+<p>Use this service to access all weather data from the backend</p>
+
+            </p>
+
+
+
+            <section>
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#getDashboardTilesSubject">getDashboardTilesSubject</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#getForecastDataSubject">getForecastDataSubject</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#getHistoryDataSubject">getHistoryDataSubject</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#getIndoorTilesSubject">getIndoorTilesSubject</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#getOutdoorWeatherDataSubject">getOutdoorWeatherDataSubject</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#getPollenTilesSubject">getPollenTilesSubject</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#loadMoreHistoryData">loadMoreHistoryData</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#reloadData">reloadData</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#reloadTiles">reloadTiles</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+            <section>
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(tileService: <a href="../injectables/TileService.html">TileService</a>, weatherAPIService: <a href="../injectables/WeatherAPIService.html">WeatherAPIService</a>, userContextService: <a href="../injectables/UserContextService.html">UserContextService</a>)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="106" class="link-to-prism">src/app/services/weather-data.service.ts:106</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>tileService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/TileService.html" target="_self" >TileService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>weatherAPIService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/WeatherAPIService.html" target="_self" >WeatherAPIService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>userContextService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/UserContextService.html" target="_self" >UserContextService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+            <section>
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getDashboardTilesSubject"></a>
+                    <span class="name">
+                        <b>
+                            <span class="modifier">Public</span>
+                            getDashboardTilesSubject
+                        </b>
+                        <a href="#getDashboardTilesSubject"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>getDashboardTilesSubject()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="219"
+                            class="link-to-prism">src/app/services/weather-data.service.ts:219</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="../interfaces/Tile.html" target="_self" >BehaviorSubject&lt;Tile[]&gt;</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        <p>the behavior subject of the dashboard tiles </p>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getForecastDataSubject"></a>
+                    <span class="name">
+                        <b>
+                            <span class="modifier">Public</span>
+                            getForecastDataSubject
+                        </b>
+                        <a href="#getForecastDataSubject"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>getForecastDataSubject()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="240"
+                            class="link-to-prism">src/app/services/weather-data.service.ts:240</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="../interfaces/WeatherForecastData.html" target="_self" >BehaviorSubject&lt;WeatherForecastData | undefined&gt;</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        <p>the behavior subject of the forecast data</p>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getHistoryDataSubject"></a>
+                    <span class="name">
+                        <b>
+                            <span class="modifier">Public</span>
+                            getHistoryDataSubject
+                        </b>
+                        <a href="#getHistoryDataSubject"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>getHistoryDataSubject()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="233"
+                            class="link-to-prism">src/app/services/weather-data.service.ts:233</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="../interfaces/WeatherHistoryData.html" target="_self" >BehaviorSubject&lt;WeatherHistoryData | undefined&gt;</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        <p>the behavior subject of the hsitory data</p>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getIndoorTilesSubject"></a>
+                    <span class="name">
+                        <b>
+                            <span class="modifier">Public</span>
+                            getIndoorTilesSubject
+                        </b>
+                        <a href="#getIndoorTilesSubject"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>getIndoorTilesSubject()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="247"
+                            class="link-to-prism">src/app/services/weather-data.service.ts:247</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="../interfaces/Tile.html" target="_self" >BehaviorSubject&lt;Tile[]&gt;</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        <p>the behavior subject of the indoor tiles</p>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getOutdoorWeatherDataSubject"></a>
+                    <span class="name">
+                        <b>
+                            <span class="modifier">Public</span>
+                            getOutdoorWeatherDataSubject
+                        </b>
+                        <a href="#getOutdoorWeatherDataSubject"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>getOutdoorWeatherDataSubject()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="226"
+                            class="link-to-prism">src/app/services/weather-data.service.ts:226</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>    <code>BehaviorSubject&lt;OutdoorWeatherData | undefined&gt;</code>
+
+                    </div>
+                    <div class="io-description">
+                        <p>the behavior subject of the outdoor weahter</p>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getPollenTilesSubject"></a>
+                    <span class="name">
+                        <b>
+                            <span class="modifier">Public</span>
+                            getPollenTilesSubject
+                        </b>
+                        <a href="#getPollenTilesSubject"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>getPollenTilesSubject()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="254"
+                            class="link-to-prism">src/app/services/weather-data.service.ts:254</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="../interfaces/Tile.html" target="_self" >BehaviorSubject&lt;Tile[]&gt;</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        <p>the behavior subject of the pollen tiles array</p>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="loadMoreHistoryData"></a>
+                    <span class="name">
+                        <b>
+                            <span class="modifier">Public</span>
+                            loadMoreHistoryData
+                        </b>
+                        <a href="#loadMoreHistoryData"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>loadMoreHistoryData()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="185"
+                            class="link-to-prism">src/app/services/weather-data.service.ts:185</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Public function to lazy load more history data. It uses the stored oldestHistoryDate 
+to load one more month before this date.</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="../interfaces/WeatherHistoryData.html" target="_self" >Observable&lt;WeatherHistoryData&gt;</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="reloadData"></a>
+                    <span class="name">
+                        <b>
+                            <span class="modifier">Public</span>
+                            reloadData
+                        </b>
+                        <a href="#reloadData"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>reloadData()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="177"
+                            class="link-to-prism">src/app/services/weather-data.service.ts:177</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Public function to load new data from the network</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="reloadTiles"></a>
+                    <span class="name">
+                        <b>
+                            <span class="modifier">Public</span>
+                            reloadTiles
+                        </b>
+                        <a href="#reloadTiles"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>reloadTiles()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="155"
+                            class="link-to-prism">src/app/services/weather-data.service.ts:155</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>This function creates the important tile arrays which are shown on the dashboard.
+Every time this function is called, the createTiles() function of the tiles service is
+called and afterward it will trigger the behaviour subjects to reload.</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+
+    </div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="c-source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Injectable } from &#x27;@angular/core&#x27;;
+import { BehaviorSubject, forkJoin, Observable, of, Subject} from &#x27;rxjs&#x27;;
+import { Daytime, IndoorRoomData, OutdoorWeatherData, PollenData, Tile, WeatherData, WeatherForecastData, WeatherHistoryData } from &#x27;../model/weather&#x27;;
+import { TileService } from &#x27;./tile.service&#x27;;
+import { UserContextService } from &#x27;./user-context.service&#x27;;
+import { WeatherAPIService } from &#x27;./api/weather-api.service&#x27;;
+
+/**
+ * Weather data service injectable
+ * 
+ * Use this service to access all weather data from the backend
+ */
+@Injectable({
+  providedIn: &#x27;root&#x27;
+})
+export class WeatherDataService {
+
+  /**
+  * Source of truth of all dashboard tiles data. Including setter for this service.
+  * The BehaviorSubject is accessible through the getDashboardTilesSubject() function.
+  */
+  private _dashboardTiles: BehaviorSubject&lt;Tile&lt;WeatherData&gt;[]&gt; &#x3D; new BehaviorSubject&lt;Tile&lt;WeatherData&gt;[]&gt;([]);
+  private set dashboardTiles(tiles: Tile&lt;WeatherData&gt;[]) {
+    this._dashboardTiles.next(tiles);
+  }
+ 
+  /**
+  * Source of truth of pollen tiles data. Including setter for this service.
+  * The BehaviorSubject is accessible through the getPollenTilesSubject() function.
+  */
+  private _pollenTiles: BehaviorSubject&lt;Tile&lt;WeatherData&gt;[]&gt; &#x3D;  new BehaviorSubject&lt;Tile&lt;WeatherData&gt;[]&gt;([]);
+  private set pollenTiles(tiles: Tile&lt;WeatherData&gt;[]) {
+    this._pollenTiles.next(tiles);
+  }
+
+  /**
+  * Source of truth of indoor room tiles data. Including setter for this service.
+  * The BehaviorSubject is accessible through the getIndoorRoomTilesSubject() function.
+  */
+  private _indoorRoomTiles: BehaviorSubject&lt;Tile&lt;WeatherData&gt;[]&gt; &#x3D;  new BehaviorSubject&lt;Tile&lt;WeatherData&gt;[]&gt;([]);
+  private set indoorRoomTiles(tiles: Tile&lt;WeatherData&gt;[]) {
+    this._indoorRoomTiles.next(tiles);
+  }
+  
+ 
+  /**
+  * Source of truth of pollen data. Including setter and getter for this service.
+  */
+  private _pollenData: BehaviorSubject&lt;PollenData[] | undefined&gt; &#x3D; new BehaviorSubject&lt;PollenData[] | undefined&gt;(undefined);
+  private get pollenData(): PollenData[] | undefined {
+    return this._pollenData.getValue();
+  }
+  private set pollenData(value: PollenData[] | undefined) {
+    this._pollenData.next(value);
+  }
+
+  /**
+  * Source of truth of indoor room data. Including setter and getter for this service.
+  */
+  private _indoorRoomsData: BehaviorSubject&lt;IndoorRoomData[] | undefined&gt; &#x3D; new BehaviorSubject&lt;IndoorRoomData[]  | undefined&gt;(undefined);
+  private get indoorRoomsData(): IndoorRoomData[] | undefined {
+    return this._indoorRoomsData.getValue();
+  }
+  private set indoorRoomsData(value: IndoorRoomData[] | undefined) {
+    this._indoorRoomsData.next(value);
+  }
+ 
+
+  /**
+  * Source of truth of forecast data. Including setter and getter for this service.
+  */
+  private _forecastData: BehaviorSubject&lt;WeatherForecastData | undefined&gt; &#x3D; new BehaviorSubject&lt;WeatherForecastData | undefined&gt;(undefined);
+  private get forecastData(): WeatherForecastData | undefined {
+    return this._forecastData.getValue();
+  }
+  private set forecastData(value: WeatherForecastData | undefined) {
+    this._forecastData.next(value);
+  }
+
+  /**
+  * Source of truth of history data. Including setter and getter for this service.
+  */
+  private _historyData: BehaviorSubject&lt;WeatherHistoryData | undefined&gt; &#x3D; new BehaviorSubject&lt;WeatherHistoryData | undefined&gt;(undefined);
+  private get historyData(): WeatherHistoryData | undefined {
+    return this._historyData.getValue();
+  }
+  private set historyData(value: WeatherHistoryData | undefined) {
+    this._historyData.next(value);
+  }
+
+  /**
+  * Source of truth of outdoor weather data. Including setter and getter for this service.
+  */  
+  private _outdoorWeatherData: BehaviorSubject&lt;OutdoorWeatherData | undefined&gt; &#x3D; new BehaviorSubject&lt;OutdoorWeatherData | undefined&gt;(undefined);
+  private get outdoorWeatherData(): OutdoorWeatherData | undefined {
+    return this._outdoorWeatherData.getValue();
+  }
+  private set outdoorWeatherData(value: OutdoorWeatherData | undefined) {
+    this._outdoorWeatherData.next(value);
+  }
+
+  /**
+  * This date is important to enable lazy loading history data. Initially one month
+  * is loaded. If more history data is needed, one month more will be downloaded.
+  */  
+  private oldestHistoryDate &#x3D; Date.now();
+
+  constructor(private tileService: TileService,
+              private weatherAPIService: WeatherAPIService,
+              private userContextService: UserContextService) { 
+      this.loadWeatherData();
+      this.registerForUserContextChange()
+    }
+
+  /**
+  * This function is called to load all weather data from the server. The function 
+  * waits until every data is loaded and calls afterwards the reloadTiles() function
+  * of this service. 
+  */  
+  private loadWeatherData(): void {
+    this.oldestHistoryDate &#x3D; Date.now();
+    
+    let outDoorWeather &#x3D; this.weatherAPIService.loadOutdoorWeather()
+    let pollen &#x3D; this.weatherAPIService.loadPollen()
+    let forecast &#x3D; this.weatherAPIService.loadForecast()
+    let history &#x3D; this.loadMonthFromHistory(new Date(this.oldestHistoryDate));
+    let indoorRoom &#x3D; this.weatherAPIService.loadIndoorRoomData()
+
+    forkJoin([outDoorWeather, pollen, forecast, history, indoorRoom]).subscribe(results &#x3D;&gt; {
+      this.outdoorWeatherData &#x3D; results[0];
+      this.pollenData &#x3D; results[1];
+      this.forecastData &#x3D; results[2];
+      this.historyData &#x3D; results[3];
+      this.indoorRoomsData &#x3D; results[4];
+
+      this.reloadTiles();
+    });
+  }
+
+  /**
+  * For the adaptive order of the dashboard tiles, it is needed to listen for
+  * user context changes. E.g. if the user selects another pollen, then 
+  */  
+  private registerForUserContextChange(): void {
+    this.userContextService.getUserContextSubject().subscribe(() &#x3D;&gt; {
+      this.reloadTiles()
+    })
+  }
+
+  /**
+  * This function creates the important tile arrays which are shown on the dashboard.
+  * Every time this function is called, the createTiles() function of the tiles service is
+  * called and afterward it will trigger the behaviour subjects to reload.
+  */  
+  public reloadTiles(): void {
+    let outdoorWeatherData &#x3D; this.outdoorWeatherData;
+    let pollenData &#x3D; this.pollenData;
+    let forecastData &#x3D; this.forecastData;
+    let historyData &#x3D; this.historyData
+    let indoorRoomData &#x3D; this.indoorRoomsData;
+
+    if(pollenData &amp;&amp; forecastData &amp;&amp; historyData &amp;&amp; indoorRoomData &amp;&amp; outdoorWeatherData) {
+      let result &#x3D; this.tileService.createTiles(outdoorWeatherData, 
+                                                pollenData, 
+                                                forecastData, 
+                                                historyData, 
+                                                indoorRoomData)
+      this.dashboardTiles &#x3D; result.dashboard;
+      this.pollenTiles &#x3D; result.pollen;
+      this.indoorRoomTiles &#x3D; result.indoorRooms;
+    }
+  }
+
+  /**
+  * Public function to load new data from the network
+  */  
+  public reloadData(): void {
+    this.loadWeatherData();
+  }
+
+  /**
+  * Public function to lazy load more history data. It uses the stored oldestHistoryDate 
+  * to load one more month before this date.
+  */  
+  public loadMoreHistoryData(): Observable&lt;WeatherHistoryData&gt; {
+    let observable &#x3D; this.loadMonthFromHistory(new Date(this.oldestHistoryDate));
+    observable.subscribe(data &#x3D;&gt; {
+      let historyData &#x3D; this.historyData
+      if(historyData) {
+        this.historyData &#x3D; {
+          datapoints: historyData.datapoints.concat(data.datapoints)
+        };
+      }
+    });
+    return observable
+  }
+
+  /**
+  * Helper function to load one more month of history data 
+  * 
+  * @returns history data from the server
+  */  
+  private loadMonthFromHistory(oldestHistoryDate: Date): Observable&lt;WeatherHistoryData&gt; {
+    let fromDate &#x3D; new Date(oldestHistoryDate);
+    let toDate: Date;
+    if(oldestHistoryDate.getMonth() &lt; 1) {
+      this.oldestHistoryDate &#x3D; oldestHistoryDate.setFullYear(oldestHistoryDate.getFullYear() - 1);
+      this.oldestHistoryDate &#x3D; oldestHistoryDate.setMonth(11);
+    } else {
+      this.oldestHistoryDate &#x3D; oldestHistoryDate.setMonth(oldestHistoryDate.getMonth() - 1);
+    }
+    toDate &#x3D; new Date(this.oldestHistoryDate);
+    return this.weatherAPIService.loadHistoryDataSubject(fromDate, toDate)
+  }
+
+  /**
+  * @returns the behavior subject of the dashboard tiles 
+  */  
+  public getDashboardTilesSubject(): BehaviorSubject&lt;Tile&lt;WeatherData&gt;[]&gt;{
+    return this._dashboardTiles;
+  }  
+
+  /**
+  * @returns the behavior subject of the outdoor weahter
+  */  
+  public getOutdoorWeatherDataSubject(): BehaviorSubject&lt;OutdoorWeatherData | undefined&gt; {
+    return this._outdoorWeatherData
+  }
+
+  /**
+  * @returns the behavior subject of the hsitory data
+  */  
+  public getHistoryDataSubject(): BehaviorSubject&lt;WeatherHistoryData | undefined&gt; {
+    return this._historyData;
+  }
+
+  /**
+  * @returns the behavior subject of the forecast data
+  */  
+  public getForecastDataSubject(): BehaviorSubject&lt;WeatherForecastData | undefined&gt; {
+    return this._forecastData;
+  }
+
+  /**
+  * @returns the behavior subject of the indoor tiles
+  */  
+  public getIndoorTilesSubject() : BehaviorSubject&lt;Tile&lt;WeatherData&gt;[]&gt;{
+    return this._indoorRoomTiles
+  }
+
+  /**
+  * @returns the behavior subject of the pollen tiles array
+  */  
+  public getPollenTilesSubject(): BehaviorSubject&lt;Tile&lt;WeatherData&gt;[]&gt;{
+    return this._pollenTiles
+  } 
+}
+</code></pre>
+    </div>
+
+</div>
+
+
+
+
+
+
+
+                   
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> result-matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'injectable';
+            var COMPODOC_CURRENT_PAGE_URL = 'WeatherDataService.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+       <!-- Required to polyfill modern browsers as code is ES5 for IE... -->
+       <script src="../js/libs/custom-elements-es5-adapter.js" charset="utf-8" defer></script>
+       <script src="../js/menu-wc.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+       <script src="../js/libs/zepto.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

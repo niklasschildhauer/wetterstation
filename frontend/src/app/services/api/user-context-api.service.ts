@@ -4,6 +4,12 @@ import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { PollenType, Themes, UserContext, UserIdentifikation } from '../../model/user-context';
 
+/**
+ * User context api service injectable
+ * 
+ * Use this service to access the network. It implements all routes for 
+ * user context data
+ */
 @Injectable({
   providedIn: 'root'
 })
@@ -20,6 +26,9 @@ export class UserContextAPIService {
 
   constructor(private httpClient: HttpClient) { }
 
+  /**
+   * @returns an observable with the user identifikation and the user context
+   */
   public postLogin(password: string, username: string): Observable<{userID: UserIdentifikation, userContext: UserContext}> {
     let returnObservable = new Observable<{userID: UserIdentifikation, userContext: UserContext}>((observer) => {
       let response = this.httpClient.post<LoginResponse>(this.loginURL, 
@@ -56,6 +65,9 @@ export class UserContextAPIService {
   return returnObservable;
   }
 
+  /**
+   * @returns an observable with an user context object
+   */
   public postLoginOpenAPE(username: string, password: string, userID: UserIdentifikation): Observable<UserContext> {
     let returnObservable = new Observable<UserContext>((observer) => {
       let httpOptions = {
@@ -84,7 +96,9 @@ export class UserContextAPIService {
   return returnObservable;
   }
 
-
+  /**
+   * @returns an observable with a boolean if the register was successful or not
+   */
   public postRegister(password: string, username: string): Observable<boolean> {
     let returnObservable = new Observable<boolean>((observer) => {
       let response = this.httpClient.post<UserContextResponse>(this.registerURL, 
@@ -115,6 +129,9 @@ export class UserContextAPIService {
   return returnObservable;
   }
 
+  /**
+   * @returns an observable with a boolean if the saving user context was successful or not
+   */
   public putSaveUserContext(userID: UserIdentifikation, userContext: UserContext): Observable<boolean>{
     let body = {
       theme: Themes[userContext.theme],
@@ -151,6 +168,9 @@ export class UserContextAPIService {
     return returnObservable;
   }
 
+  /**
+   * @returns an observable with a boolean if the deletion user context was successful or not
+   */
   public deletePolleFromUserContext(userID: UserIdentifikation, pollenID: number): Observable<boolean>  {
     let body = {
       userID: userID.id,
@@ -177,6 +197,9 @@ export class UserContextAPIService {
     return returnObservable;
   }
 
+  /**
+   * @returns an observable with a boolean if the insertion was successful or not
+   */
   public postPolleToUserContext(userID: UserIdentifikation, pollenID: number): Observable<boolean> {
     let body = {
       userID: userID.id,
@@ -203,7 +226,9 @@ export class UserContextAPIService {
     });
     return returnObservable;
   }
-
+  /**
+   * @returns an observable with a boolean if the token is valid or not
+   */
   public postIsTokenValid(token: string): Observable<boolean> {
     let returnObservable = new Observable<boolean>((observer) => {
       let httpOptions = {
@@ -224,6 +249,9 @@ export class UserContextAPIService {
     return returnObservable;
   }
 
+  /**
+   * @returns an observable with an user context object
+   */
   public loadUserContext(token: string): Observable<UserContext>{
     let returnObservable = new Observable<UserContext>((observer) => {
       let httpOptions = {
@@ -243,6 +271,9 @@ export class UserContextAPIService {
     return returnObservable;
   }
 
+  /**
+   * @returns an observable with pollen types array
+   */
   public loadPollenTypes(): Observable<PollenType[]>{
     let returnObservable = new Observable<PollenType[]>((observer) => {
       let response = this.httpClient.get<PollenType[]>(this.allPollenTypesURL);
@@ -253,6 +284,11 @@ export class UserContextAPIService {
     return returnObservable
   }
 
+  /**
+   * Helper function to create user context object from server response.
+   * @param userContext 
+   * @returns an user context object
+   */
   private createUserContextFromServerResponse(userContext: UserContextResponse): UserContext {
     return {
       theme: this.getThemeTypeFromServerResponse(userContext.theme),
@@ -264,6 +300,10 @@ export class UserContextAPIService {
     }
   }
 
+  /**
+   * Helper function to convert theme String to Theme type
+   * @return the converted Theme
+   */
   private getThemeTypeFromServerResponse(theme: string): Themes {
     switch(theme) {
       case "Dark": return Themes.Dark;
@@ -272,18 +312,11 @@ export class UserContextAPIService {
       default: return Themes.Automatic;
     }
   }
-
-  private createThemeTypeForServerRequest(theme: Themes) {
-    switch(theme) {
-      case Themes.Dark: return "dark";
-      case Themes.Light: return "light";
-      case Themes.HighContrast: return "highContrast";
-      default: return "automatic";
-    }
-  }
 }
 
-
+/**
+ * Model of the login response
+ */
 interface LoginResponse {
   success: boolean,
   message: string,
@@ -291,6 +324,9 @@ interface LoginResponse {
   token: string,
 }
 
+/**
+ * Model of the user context response
+ */
 interface UserContextResponse {
   id: number,
   username: string,
@@ -302,6 +338,9 @@ interface UserContextResponse {
   pollen: string[]
 }
 
+/**
+ * Model of the check token response
+ */
 interface CheckTokenResponse {
   success: boolean,
   message: string,

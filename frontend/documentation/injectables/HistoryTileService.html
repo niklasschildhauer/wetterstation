@@ -1,0 +1,602 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>wetterstation documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	      <link rel="stylesheet" href="../styles/style.css">
+    </head>
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top visible-xs">
+            <a href="../" class="navbar-brand">wetterstation documentation</a>
+            <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="hidden-xs menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content injectable">
+                   <div class="content-data">
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li>Injectables</li>
+  <li>HistoryTileService</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="active">
+            <a href="#info" role="tab" id="info-tab" data-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li >
+            <a href="#source" role="tab" id="source-tab" data-toggle="tab" data-link="source">Source</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="c-info">
+        <p class="comment">
+            <h3>File</h3>
+        </p>
+        <p class="comment">
+            <code>src/app/services/history-tile.service.ts</code>
+        </p>
+
+            <p class="comment">
+                <h3>Description</h3>
+            </p>
+            <p class="comment">
+                <p>History tile service injectable</p>
+<p>Use this service to convert WeatherHistoryData objects to GraphDataSet[ ] objects.</p>
+
+            </p>
+
+
+
+            <section>
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#getHistoryDataSetDaysPerWeekFrom">getHistoryDataSetDaysPerWeekFrom</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#getHistoryDataSetHoursPerDayFrom">getHistoryDataSetHoursPerDayFrom</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+            <section>
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor()</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="12" class="link-to-prism">src/app/services/history-tile.service.ts:12</a></div>
+                            </td>
+                        </tr>
+
+            </tbody>
+        </table>
+</section>
+
+            <section>
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getHistoryDataSetDaysPerWeekFrom"></a>
+                    <span class="name">
+                        <b>
+                            <span class="modifier">Public</span>
+                            getHistoryDataSetDaysPerWeekFrom
+                        </b>
+                        <a href="#getHistoryDataSetDaysPerWeekFrom"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>getHistoryDataSetDaysPerWeekFrom(weatherHistoryData: <a href="../interfaces/WeatherHistoryData.html">WeatherHistoryData</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="24"
+                            class="link-to-prism">src/app/services/history-tile.service.ts:24</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Converts the datapoints of a WeahterHistoryData object to a GraphDataSet[ ] object
+In this way all components which are using the external charts library can easily
+show the prefered data without any further conversion. </p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                    <td>Description</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>weatherHistoryData</td>
+                                    <td>
+                                                <code><a href="../interfaces/WeatherHistoryData.html" target="_self" >WeatherHistoryData</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                    <td>
+                                        <p>The history data object to convert </p>
+
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="../interfaces/GraphDataSet.html" target="_self" >GraphDataSet[]</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        <p>The history data sorted by days per week per GraphDataSet object</p>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getHistoryDataSetHoursPerDayFrom"></a>
+                    <span class="name">
+                        <b>
+                            <span class="modifier">Public</span>
+                            getHistoryDataSetHoursPerDayFrom
+                        </b>
+                        <a href="#getHistoryDataSetHoursPerDayFrom"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>getHistoryDataSetHoursPerDayFrom(weatherHistoryData: <a href="../interfaces/WeatherHistoryData.html">WeatherHistoryData</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="92"
+                            class="link-to-prism">src/app/services/history-tile.service.ts:92</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Converts the datapoints of a WeahterHistoryData object to a GraphDataSet[ ] object
+In this way all components which are using the external charts library can easily
+show the prefered data without any further conversion. </p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                    <td>Description</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>weatherHistoryData</td>
+                                    <td>
+                                                <code><a href="../interfaces/WeatherHistoryData.html" target="_self" >WeatherHistoryData</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                    <td>
+                                        <p>The history data object to convert </p>
+
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="../interfaces/GraphDataSet.html" target="_self" >GraphDataSet[]</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        <p>The history data sorted by hours per day per GraphDataSet object</p>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+
+    </div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="c-source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Injectable } from &#x27;@angular/core&#x27;;
+import { GraphDataSet, OutdoorWeatherData, WeatherHistoryData } from &#x27;../model/weather&#x27;;
+
+/**
+ * History tile service injectable
+ * 
+ * Use this service to convert WeatherHistoryData objects to GraphDataSet[ ] objects.
+ */
+@Injectable({
+  providedIn: &#x27;root&#x27;
+})
+export class HistoryTileService {
+  constructor() { 
+  }
+
+  /**
+   * Converts the datapoints of a WeahterHistoryData object to a GraphDataSet[ ] object
+   * In this way all components which are using the external charts library can easily
+   * show the prefered data without any further conversion. 
+   * 
+   * @param {WeatherHistoryData} weatherHistoryData  The history data object to convert 
+   * @returns The history data sorted by days per week per GraphDataSet object
+   */
+  public getHistoryDataSetDaysPerWeekFrom(weatherHistoryData: WeatherHistoryData): GraphDataSet[] {
+    if (weatherHistoryData.datapoints.length &gt; 0) {
+      let dataSet: GraphDataSet[] &#x3D; []
+      let dataPoints &#x3D; weatherHistoryData.datapoints
+
+      console.log( &quot;Hier ist es wichtig&quot;, dataPoints);
+
+      dataPoints.sort((a, b) &#x3D;&gt; {
+        return b.timestamp.getTime() - a.timestamp.getTime()
+      });
+
+      console.log(dataPoints);
+
+      let lastDate: Date &#x3D; dataPoints[0].timestamp;
+      let lastWeek: number &#x3D; this.getWeekNumber(lastDate);
+      let label: string &#x3D; this.getWeekStringFromWeekNumber(lastWeek)
+      let temperatureDataPoints: number[]  &#x3D; []; 
+      let humidityDataPoints : number[] &#x3D; [];
+      let xAxisLabels: string[] &#x3D; [];
+      let temperatureSumOfWeek &#x3D; 0
+      let humiditySumOfWeek &#x3D; 0
+      let index &#x3D; 0
+
+      for (const item of dataPoints) {
+        if(lastDate.getDate() &gt; item.timestamp.getDate() || lastDate.getMonth() &gt; item.timestamp.getMonth()) {
+          const averageTemperature &#x3D; temperatureSumOfWeek / index;
+          const averageHumidity &#x3D; humiditySumOfWeek / index;
+          temperatureDataPoints.push(Math.round(averageTemperature));
+          humidityDataPoints.push(Math.round(averageHumidity));
+          xAxisLabels.push(this.getWeekDayStringFromDate(lastDate))
+          index &#x3D; 0;
+          temperatureSumOfWeek &#x3D; 0;
+          humiditySumOfWeek &#x3D; 0;
+          lastDate &#x3D; item.timestamp
+          if(lastWeek &gt; this.getWeekNumber(item.timestamp)) {
+            dataSet.push(this.createWeatherGraphDataSet(temperatureDataPoints, humidityDataPoints, xAxisLabels, label));
+            temperatureDataPoints &#x3D; [];
+            humidityDataPoints &#x3D; [];
+            xAxisLabels &#x3D; [];
+            lastWeek &#x3D; this.getWeekNumber(lastDate);
+            label &#x3D; this.getWeekStringFromWeekNumber(lastWeek);
+          }
+        }
+        index &#x3D; index + 1;
+        temperatureSumOfWeek &#x3D; temperatureSumOfWeek + item.temperature;
+        humiditySumOfWeek &#x3D; humiditySumOfWeek + item.humidity;
+      }
+      const averageTemperature &#x3D; temperatureSumOfWeek / index;
+      const averageHumidity &#x3D; humiditySumOfWeek / index;
+      temperatureDataPoints.push(Math.round(averageTemperature));
+      humidityDataPoints.push(Math.round(averageHumidity));
+      xAxisLabels.push(this.getWeekDayStringFromDate(lastDate))
+      dataSet.push(this.createWeatherGraphDataSet(temperatureDataPoints, humidityDataPoints, xAxisLabels, label));
+
+      console.log(&#x27;Created History By Week&#x27;)
+      return dataSet;
+    }
+    return [];
+  }
+
+  /**
+   * Converts the datapoints of a WeahterHistoryData object to a GraphDataSet[ ] object
+   * In this way all components which are using the external charts library can easily
+   * show the prefered data without any further conversion. 
+   * 
+   * @param {WeatherHistoryData} weatherHistoryData  The history data object to convert 
+   * @returns The history data sorted by hours per day per GraphDataSet object
+   */
+   public getHistoryDataSetHoursPerDayFrom(weatherHistoryData: WeatherHistoryData): GraphDataSet[] {
+    if (weatherHistoryData.datapoints.length &gt; 0) {
+      let dataSet: GraphDataSet[] &#x3D; []
+      let dataPoints &#x3D; weatherHistoryData.datapoints
+
+      dataPoints.sort((a, b) &#x3D;&gt; {
+        return b.timestamp.getTime() - a.timestamp.getTime()
+      });
+
+      let lastDate: Date &#x3D; dataPoints[0].timestamp;
+      let lastHour: number &#x3D; lastDate.getHours();
+      let label: string &#x3D; this.getDateStringFromDate(lastDate);
+      let temperatureDataPoints: number[]  &#x3D; []; 
+      let humidityDataPoints : number[] &#x3D; [];
+      let xAxisLabels: string[] &#x3D; [];
+      let temperatureSumOfWeek &#x3D; 0
+      let humiditySumOfWeek &#x3D; 0
+      let index &#x3D; 0
+
+      for (const item of dataPoints) {
+        if(lastDate.getHours() &gt; item.timestamp.getHours() || lastDate.getDate() &gt; item.timestamp.getDate() || lastDate.getMonth() &gt; item.timestamp.getMonth()) {
+          const averageTemperature &#x3D; temperatureSumOfWeek / index;
+          const averageHumidity &#x3D; humiditySumOfWeek / index;
+          temperatureDataPoints.push(Math.round(averageTemperature));
+          humidityDataPoints.push(Math.round(averageHumidity));
+          xAxisLabels.push(this.getHourString(lastHour))
+          index &#x3D; 0;
+          temperatureSumOfWeek &#x3D; 0;
+          humiditySumOfWeek &#x3D; 0;
+          if(lastDate.getDate() &gt; item.timestamp.getDate() || lastDate.getMonth() &gt; item.timestamp.getMonth()) {
+            dataSet.push(this.createWeatherGraphDataSet(temperatureDataPoints, humidityDataPoints, xAxisLabels, label));
+            temperatureDataPoints &#x3D; [];
+            humidityDataPoints &#x3D; [];
+            xAxisLabels &#x3D; [];
+          }
+            lastDate &#x3D; item.timestamp;
+            lastHour &#x3D; lastDate.getHours();
+            label &#x3D; this.getDateStringFromDate(lastDate);
+          
+        }
+        index &#x3D; index + 1;
+        temperatureSumOfWeek &#x3D; temperatureSumOfWeek + item.temperature;
+        humiditySumOfWeek &#x3D; humiditySumOfWeek + item.humidity;
+      }
+      const averageTemperature &#x3D; temperatureSumOfWeek / index;
+      const averageHumidity &#x3D; humiditySumOfWeek / index;
+      temperatureDataPoints.push(Math.round(averageTemperature));
+      humidityDataPoints.push(Math.round(averageHumidity));
+      xAxisLabels.push(this.getHourString(lastHour))
+      dataSet.push(this.createWeatherGraphDataSet(temperatureDataPoints, humidityDataPoints, xAxisLabels, label));
+
+      console.log(&#x27;Created History By Day&#x27;)
+      console.log(dataSet);
+      return dataSet;
+    }
+    return [];
+  }
+
+  /**
+   * @param {number} hour 
+   * @returns A readable string of the hour
+   */
+  private getHourString(hour: number): string {
+    return hour + &#x27; Uhr&#x27;;
+  }
+
+  /**
+   * @param {number} week 
+   * @returns A readable string of the week
+   */
+  private getWeekStringFromWeekNumber(week: number): string {
+    return &#x27;Kalenderwoche &#x27; + week;
+  }
+  
+  /**
+   * @param {date} date 
+   * @returns A readable string of the WEEKDAY
+   */
+  private getWeekDayStringFromDate(date: Date): string {
+    return DAYS[date.getDay()] + &#x27;, &#x27; + date.getDate() + &#x27;. &#x27; + date.getMonth() + &#x27;.&#x27; ;
+  }
+
+  /**
+   * @param {number} hour 
+   * @returns A readable string of the date
+   */
+  private getDateStringFromDate(date: Date): string {
+    const day &#x3D; date.getDate();
+    const month &#x3D; MONTHS[date.getMonth()];
+    const year &#x3D; date.getFullYear();
+
+    return DAYS[date.getDay()] + &#x27;, &#x27; + day + &#x27; &#x27; + month + &#x27; &#x27; + year
+  }
+
+  /**
+   * @param {Date} date 
+   * @returns A readable string of the week number of the year
+   */
+  private getWeekNumber(inputDate: Date) {
+    let date &#x3D; new Date(Date.UTC(inputDate.getFullYear(), inputDate.getMonth(), inputDate.getDate()));
+    let dayNum &#x3D; date.getUTCDay() || 7;
+    date.setUTCDate(date.getUTCDate() + 4 - dayNum);
+    let yearStart &#x3D; new Date(Date.UTC(date.getUTCFullYear(),0,1));
+
+    console.log(Math.ceil((((date.valueOf() - yearStart.valueOf()) / 86400000) + 1)/7) + &#x27; for: &#x27; + inputDate);
+
+    return Math.ceil((((date.valueOf() - yearStart.valueOf()) / 86400000) + 1)/7)
+  };
+
+  /**
+   * Calculates the average temperature and humidity for the 
+   * GraphDataSet object
+   * 
+   * @param {number[]} temperatureData 
+   * @param {number[]} humidityData 
+   * @param {string[]} xAxisLabels
+   * @param {string} label
+   * @returns A GraphDataSet object
+   */
+  private createWeatherGraphDataSet(temperatureData: number[], humidityData: number[], xAxisLabels: string[], label: string): GraphDataSet{
+    const tempSum &#x3D; temperatureData.reduce(function (accumulator, currentValue) {
+      return accumulator + currentValue;
+    }, 0)
+    const humiditySum &#x3D; humidityData.reduce(function (accumulator, currentValue) {
+      return accumulator + currentValue;
+    }, 0)
+
+    const tempAverage &#x3D; tempSum / temperatureData.length
+    const humidityAverage &#x3D; humiditySum / humidityData.length
+
+    return {
+      temperatureDataPoints: temperatureData.reverse(),
+      humidityDataPoints: humidityData.reverse(),
+      xAxisLabel: xAxisLabels.reverse(),
+      label: label,
+      temperatureAverage: Math.round(tempAverage),
+      humidityAverage: Math.round(humidityAverage),
+    }
+  }
+}
+
+/**
+ * Readable string constants of days and months
+ */
+const DAYS &#x3D; [&#x27;So&#x27;,&#x27;Mo&#x27;,&#x27;Di&#x27;,&#x27;Mi&#x27;,&#x27;Do&#x27;,&#x27;Fr&#x27;,&#x27;Sa&#x27;];
+const MONTHS &#x3D; [&#x27;Januar&#x27;,&#x27;Februar&#x27;,&#x27;März&#x27;,&#x27;April&#x27;,&#x27;Mai&#x27;,&#x27;Juni&#x27;,&#x27;Juli&#x27;,&#x27;August&#x27;,&#x27;September&#x27;,&#x27;Oktober&#x27;,&#x27;November&#x27;,&#x27;Dezember&#x27;];
+</code></pre>
+    </div>
+
+</div>
+
+
+
+
+
+
+
+                   
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> result-matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'injectable';
+            var COMPODOC_CURRENT_PAGE_URL = 'HistoryTileService.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+       <!-- Required to polyfill modern browsers as code is ES5 for IE... -->
+       <script src="../js/libs/custom-elements-es5-adapter.js" charset="utf-8" defer></script>
+       <script src="../js/menu-wc.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+       <script src="../js/libs/zepto.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

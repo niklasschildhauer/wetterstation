@@ -1,0 +1,1012 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>wetterstation documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	      <link rel="stylesheet" href="../styles/style.css">
+    </head>
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top visible-xs">
+            <a href="../" class="navbar-brand">wetterstation documentation</a>
+            <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="hidden-xs menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content injectable">
+                   <div class="content-data">
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li>Injectables</li>
+  <li>TextService</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="active">
+            <a href="#info" role="tab" id="info-tab" data-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li >
+            <a href="#source" role="tab" id="source-tab" data-toggle="tab" data-link="source">Source</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="c-info">
+        <p class="comment">
+            <h3>File</h3>
+        </p>
+        <p class="comment">
+            <code>src/app/services/text.service.ts</code>
+        </p>
+
+            <p class="comment">
+                <h3>Description</h3>
+            </p>
+            <p class="comment">
+                <p>Text service injectable</p>
+<p>Use this service to create text from WeatherData objects, e.g. create text to read it aloud
+with the speech service. </p>
+
+            </p>
+
+
+
+            <section>
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#createForecastText">createForecastText</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#createForecastTitle">createForecastTitle</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#createIndoorRoomText">createIndoorRoomText</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#createOutdoorText">createOutdoorText</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#createPollenText">createPollenText</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#createTextFromTilesArray">createTextFromTilesArray</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#createWeatherText">createWeatherText</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+            <section>
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor()</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="14" class="link-to-prism">src/app/services/text.service.ts:14</a></div>
+                            </td>
+                        </tr>
+
+            </tbody>
+        </table>
+</section>
+
+            <section>
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="createForecastText"></a>
+                    <span class="name">
+                        <b>
+                            <span class="modifier">Public</span>
+                            createForecastText
+                        </b>
+                        <a href="#createForecastText"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>createForecastText(data: <a href="../interfaces/WeatherForecastData.html">WeatherForecastData | undefined</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="61"
+                            class="link-to-prism">src/app/services/text.service.ts:61</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Create a readable text from WeatherForecastData object</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>data</td>
+                                    <td>
+                                                <code><a href="../interfaces/WeatherForecastData.html" target="_self" >WeatherForecastData | undefined</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        <p>A readable text version from the input data. </p>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="createForecastTitle"></a>
+                    <span class="name">
+                        <b>
+                            <span class="modifier">Public</span>
+                            createForecastTitle
+                        </b>
+                        <a href="#createForecastTitle"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>createForecastTitle(data: <a href="../interfaces/WeatherForecastData.html">WeatherForecastData | undefined</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="105"
+                            class="link-to-prism">src/app/services/text.service.ts:105</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Create a readable title from WeatherForecastData object</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>data</td>
+                                    <td>
+                                                <code><a href="../interfaces/WeatherForecastData.html" target="_self" >WeatherForecastData | undefined</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        <p>A readable title version from the input data. </p>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="createIndoorRoomText"></a>
+                    <span class="name">
+                        <b>
+                            <span class="modifier">Public</span>
+                            createIndoorRoomText
+                        </b>
+                        <a href="#createIndoorRoomText"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>createIndoorRoomText(data: <a href="../interfaces/IndoorRoomData.html">IndoorRoomData | undefined</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="137"
+                            class="link-to-prism">src/app/services/text.service.ts:137</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Create a readable text from IndoorRoomData object</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>data</td>
+                                    <td>
+                                                <code><a href="../interfaces/IndoorRoomData.html" target="_self" >IndoorRoomData | undefined</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        <p>A readable text version from the input data. </p>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="createOutdoorText"></a>
+                    <span class="name">
+                        <b>
+                            <span class="modifier">Public</span>
+                            createOutdoorText
+                        </b>
+                        <a href="#createOutdoorText"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>createOutdoorText(data: OutdoorWeatherData | undefined)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="187"
+                            class="link-to-prism">src/app/services/text.service.ts:187</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Create a readable text from OutdoorWeatherData object</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>data</td>
+                                    <td>
+                                            <code>OutdoorWeatherData | undefined</code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        <p>A readable text version from the input data. </p>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="createPollenText"></a>
+                    <span class="name">
+                        <b>
+                            <span class="modifier">Public</span>
+                            createPollenText
+                        </b>
+                        <a href="#createPollenText"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>createPollenText(data: <a href="../interfaces/PollenData.html">PollenData | undefined</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="156"
+                            class="link-to-prism">src/app/services/text.service.ts:156</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Create a readable text from PollenData object</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>data</td>
+                                    <td>
+                                                <code><a href="../interfaces/PollenData.html" target="_self" >PollenData | undefined</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        <p>A readable text version from the input data. </p>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="createTextFromTilesArray"></a>
+                    <span class="name">
+                        <b>
+                            <span class="modifier">Public</span>
+                            createTextFromTilesArray
+                        </b>
+                        <a href="#createTextFromTilesArray"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>createTextFromTilesArray(array: Tile<WeatherData>[] | undefined)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="24"
+                            class="link-to-prism">src/app/services/text.service.ts:24</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Create a readable text from tiles array object of WeatherData</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                    <td>Description</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>array</td>
+                                    <td>
+                                            <code>Tile&lt;WeatherData&gt;[] | undefined</code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                    <td>
+                                        <p>The data array</p>
+
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        <p>A readable text version from the input array. </p>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="createWeatherText"></a>
+                    <span class="name">
+                        <b>
+                            <span class="modifier">Public</span>
+                            createWeatherText
+                        </b>
+                        <a href="#createWeatherText"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>createWeatherText(data: string | undefined)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="215"
+                            class="link-to-prism">src/app/services/text.service.ts:215</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Create a readable text from weather string</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>data</td>
+                                    <td>
+                                            <code>string | undefined</code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        <p>A readable text version from the input data. </p>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+
+    </div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="c-source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Injectable } from &#x27;@angular/core&#x27;;
+import { IndoorRoomData, OutdoorWeatherData, PollenData, Tile, TileType, WeatherForecastData } from &#x27;../model/weather&#x27;;
+import { WeatherData } from &#x27;../model/weather&#x27;;
+
+/**
+ * Text service injectable
+ * 
+ * Use this service to create text from WeatherData objects, e.g. create text to read it aloud
+ * with the speech service. 
+ */
+@Injectable({
+  providedIn: &#x27;root&#x27;
+})
+export class TextService {
+
+  constructor() { }
+  
+  /**
+  * Create a readable text from tiles array object of WeatherData
+  * 
+  * @param {Tile&lt;WeatherData&gt;[]} array  The data array
+  * @returns A readable text version from the input array. 
+  */
+  public createTextFromTilesArray(array: Tile&lt;WeatherData&gt;[] | undefined): string {
+    let readAloud &#x3D; &#x27;&#x27;
+    if(array) {
+      array.forEach(element &#x3D;&gt; {
+        switch(element.type){
+          case TileType.pollenList: 
+            let pollenDataArray &#x3D; element.data as PollenData[];
+            pollenDataArray.forEach(element &#x3D;&gt; {
+              readAloud &#x3D; readAloud + this.createPollenText(element);
+            });
+            break;
+          case TileType.indoorRoom: 
+            let indoorArray &#x3D; element.data as IndoorRoomData;
+            readAloud &#x3D; readAloud + this.createIndoorRoomText(indoorArray);
+            break;
+          case TileType.forecast: 
+            let forecastData &#x3D; element.data as WeatherForecastData;
+            readAloud &#x3D; readAloud + this.createForecastText(forecastData);
+            break;
+          case TileType.pollenSmall: 
+            let pollenData &#x3D; element.data as PollenData;
+            readAloud &#x3D; readAloud + this.createPollenText(pollenData);
+            break
+          default: &#x27;Not implemented&#x27;
+        }
+      });
+    }
+    console.log(readAloud);
+    return readAloud;
+  }
+
+  /**
+  * Create a readable text from WeatherForecastData object
+  * 
+  * @param {WeatherForecastData | undefined} data 
+  * @returns A readable text version from the input data. 
+  */
+  public createForecastText(data: WeatherForecastData | undefined): string {
+    let readAloud &#x3D; &#x27;&#x27;
+    if(data) {
+      let forecast &#x3D; data.weatherDescription
+      switch (forecast) {
+        case &#x27;Clear&#x27;: 
+          readAloud &#x3D; &quot;Im Verlaufe des Tages wird es wolkenlos. &quot;
+          break;
+        case &#x27;Sunny and moderately cloudy&#x27;: 
+          readAloud &#x3D; &quot;Im Verlaufe des Tages wird es sonnig mit ein paar Wolken. &quot;
+          break;
+        case &#x27;Rather cloudy&#x27;: 
+          readAloud &#x3D; &quot;Im Verlaufe des Tages wird es bedeckt mit vereinzelten Sonnenstrahlen werden. &quot;
+          break;
+        case &#x27;Rainy&#x27;: 
+          readAloud &#x3D; &quot;Im Verlaufe des Tages wird es regnen. &quot;
+          break;
+        case &#x27;Worsening&#x27;: 
+          readAloud &#x3D; &quot;Im Verlaufe des Tages wird es schlechter werden. &quot;
+          break;
+      }
+
+      let trend &#x3D; data.trend
+      switch (trend) {
+        case &#x27;rising&#x27;: 
+          readAloud &#x3D; readAloud + &quot;Tendenz steigend. &quot;
+          break;
+        case &#x27;falling&#x27;: 
+          readAloud &#x3D; readAloud + &quot;Tendenz fallend. &quot;
+          break;
+        case &#x27;steady&#x27;: 
+          readAloud &#x3D; readAloud + &quot;Tendenz konsistent. &quot;
+          break;
+      }
+    }
+    return readAloud
+  }
+
+  /**
+  * Create a readable title from WeatherForecastData object
+  * 
+  * @param {WeatherForecastData | undefined} data 
+  * @returns A readable title version from the input data. 
+  */
+    public createForecastTitle(data: WeatherForecastData | undefined): string {
+      let title &#x3D; &#x27;&#x27;
+      if(data) {
+        let forecast &#x3D; data.weatherDescription
+        switch (forecast) {
+          case &#x27;Clear&#x27;: 
+            title &#x3D; &#x27;Wolkenlos&#x27;;
+            break;
+          case &#x27;Sunny and moderately cloudy&#x27;: 
+            title &#x3D; &#x27;Sonnig und leicht bedeckt&#x27;;
+            break;
+          case &#x27;Rather cloudy&#x27;: 
+            title &#x3D; &#x27;Bewölkt&#x27;;
+            break;
+          case &#x27;Rainy&#x27;: 
+            title &#x3D; &#x27;Regen&#x27;;
+            break;
+          case &#x27;Worsening&#x27;: 
+            title &#x3D; &#x27;Schlecht&#x27;;
+            break;
+        }
+      }
+      return title
+    }
+
+
+  /**
+  * Create a readable text from IndoorRoomData object
+  * 
+  * @param {IndoorRoomData | undefined} data 
+  * @returns A readable text version from the input data. 
+  */
+  public createIndoorRoomText(data: IndoorRoomData | undefined): string {
+    let readAloud &#x3D; &#x27;&#x27;
+    if(data) {
+      let room &#x3D; data.roomName
+      let quality &#x3D; data.airQuality
+      let temperature &#x3D; data.temperature
+
+      readAloud &#x3D; &#x27;Im &#x27; + room + &#x27; hat es &#x27; + temperature + &#x27; Grad Celsius und die Luftqualität liegt bei &#x27; + quality + &#x27;. &#x27;;
+    }
+    return readAloud
+
+  }
+
+  /**
+  * Create a readable text from PollenData object
+  * 
+  * @param {PollenData | undefined} data 
+  * @returns A readable text version from the input data. 
+  */
+  public createPollenText(data: PollenData | undefined): string {
+    let readAloud &#x3D; &#x27;&#x27;
+    if(data) {
+      let name &#x3D; data.pollenName
+      let value &#x3D; data.today
+      switch (value) {
+        case &#x27;1&#x27;:
+        case &#x27;1-2&#x27;:
+          readAloud &#x3D; name + &#x27;Pollen haben heute eine niedrige Belastung. &#x27;;
+          break;
+        case &#x27;2&#x27;:
+        case &#x27;2-3&#x27;:
+          readAloud &#x3D; name + &#x27;Pollen haben heute eine mittlere Belastung. &#x27;;
+          break;
+        case &#x27;3&#x27;: 
+        case &#x27;3-4&#x27;: 
+        case &#x27;4&#x27;: 
+        case &#x27;5&#x27;: 
+        readAloud &#x3D; name + &#x27;Pollen haben heute eine hohe Belastung. &#x27;;
+          break;
+      }
+    }
+    return readAloud
+  }
+
+ /**
+  * Create a readable text from OutdoorWeatherData object
+  * 
+  * @param {OutdoorWeatherData | undefined} data 
+  * @returns A readable text version from the input data. 
+  */
+  public createOutdoorText(data: OutdoorWeatherData | undefined): string {
+    let readAloud &#x3D; &#x27;&#x27;
+    if(data) {
+      // adjust number pronounciation
+      let location &#x3D; data.location
+      let temperature &#x3D; data.temperature
+      let apparentTemperature &#x3D; data.apparentTemperature
+      let maxTemperature &#x3D; data.maxTemperature
+      let minTemperature &#x3D; data.minTemperature
+      let humidity &#x3D; data.humidity
+      let weather &#x3D; data.weather
+
+      readAloud &#x3D; &quot;In &quot; + location + &quot; hat es aktuell &quot; + temperature + &quot; Grad Celsius. &quot; 
+      // + &quot;Diese fühlen sich an wie  &quot; + apparentTemperature 
+      // + &quot;. Die heutigen Extremwerte liegen bei &quot; + maxTemperature + &quot; und &quot; + minTemperature + &quot;Grad Celsius. &quot;
+      + this.createWeatherText(weather) + &quot; &quot;
+      + &quot;Die Luftfeuchtigkeit beträgt aktuell &quot; + humidity + &quot;%. &quot;;
+      ;
+    }
+    return readAloud
+  }
+
+  /**
+  * Create a readable text from weather string
+  * 
+  * @param {string | undefined} data 
+  * @returns A readable text version from the input data. 
+  */
+    public createWeatherText(data: string | undefined): string {
+      let readAloud &#x3D; &#x27;&#x27;
+      if(data) {
+        let weather &#x3D; data;
+        switch(weather) {
+          case &#x27;cloudy&#x27;: 
+            readAloud &#x3D; &#x27;Aktuell ist es bewölkt.&#x27;
+            break;
+          case &#x27;rain&#x27;:
+            readAloud &#x3D; &#x27;Im Moment regnet es.&#x27;
+            break;
+          case &#x27;wind&#x27;:
+            readAloud &#x3D; &#x27;Zur Zeit ist es windig.&#x27;
+            break;
+          case &#x27;sleet&#x27;:
+            readAloud &#x3D; &#x27;Es graupelt gerade.&#x27;
+            break;
+          case &#x27;fog&#x27;:
+            readAloud &#x3D; &#x27;Achtung, es ist neblig.&#x27;
+            break;
+          case &#x27;clear-day&#x27;:
+            readAloud &#x3D; &#x27;Die Sonne scheint, es hat eine klare Sicht.&#x27;
+            break;
+          case &#x27;clear-night&#x27;:
+            readAloud &#x3D; &#x27;Der Mond scheint, es hat eine klare Sicht.&#x27;
+            break;
+          case &#x27;partly-cloudy-day&#x27;:
+            readAloud &#x3D; &#x27;Es ist leicht bewölkt, vereinzelt sonnig.&#x27;
+            break;
+          case &#x27;partly-cloudy-night&#x27;:
+            readAloud &#x3D; &#x27;Es ist leicht bewölkt.&#x27;
+            break;
+          case &#x27;snow&#x27;:
+            readAloud &#x3D; &#x27;Aktuell schneit es.&#x27;
+            break;
+          case &#x27;hail&#x27;:
+            readAloud &#x3D; &#x27;Achtung, es hagelt.&#x27;
+            break;
+          case &#x27;thunderstorm&#x27;:
+            readAloud &#x3D; &#x27;Achtung, ein Gewitter tobt gerade.&#x27;
+            break;
+        }
+      }
+      return readAloud
+    }
+}
+</code></pre>
+    </div>
+
+</div>
+
+
+
+
+
+
+
+                   
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> result-matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'injectable';
+            var COMPODOC_CURRENT_PAGE_URL = 'TextService.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+       <!-- Required to polyfill modern browsers as code is ES5 for IE... -->
+       <script src="../js/libs/custom-elements-es5-adapter.js" charset="utf-8" defer></script>
+       <script src="../js/menu-wc.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+       <script src="../js/libs/zepto.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

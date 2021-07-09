@@ -43,15 +43,12 @@ export interface OutdoorWeatherData extends WeatherData {
     postCode: string,
 }
 
-//Using our own sensors 
-//TODO: How precise is the measurement? How many days can we forecast with our own sensors?
 export interface WeatherForecastData extends WeatherData {
     trend: string,
     weatherDescription: string,
     weatherIcon: string,
   }
 
-//From external API
 export interface PollenData extends WeatherData {
     pollenName: string, // TODO: Maybe we should use the same Pollen enum as in user-context.ts
     id: number,
@@ -63,7 +60,6 @@ export interface IndoorRoomData extends WeatherData {
     roomID: string,
     roomName: string,
     airQuality: number, // in %
-    //status: string, //TODO: Clarify
     temperature: number // in °C 
     humidity: number, // in %
     timestamp: Date, 

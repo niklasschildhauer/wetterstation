@@ -1,14 +1,22 @@
 import { Injectable } from '@angular/core';
-import { UserContext, Themes, INITIAL_USER_CONTEXT, PollenType, UserIdentifikation, INITIAL_USER_IDENTIFIKATION } from '../model/user-context';
+import { UserContext, Themes, INITIAL_USER_CONTEXT, PollenType, UserIdentifikation } from '../model/user-context';
 import { BehaviorSubject, Observable, of } from 'rxjs';
 import { LocalStorageService } from './local-storage.service';
 import { Router } from '@angular/router';
 import { UserContextAPIService } from './api/user-context-api.service';
 
+/**
+ * User context service injectable
+ * 
+ * Use this service to access the user context object of the logged in user
+ */
 @Injectable({
   providedIn: 'root'
 })
 export class UserContextService {
+  /**
+  * The user Identifikation from the logged in user
+  */
   set userID(value: UserIdentifikation) {
     this.localStorageService.userID = value
   }
@@ -16,10 +24,16 @@ export class UserContextService {
     return this.localStorageService.userID
   }
 
+  /**
+  * Value if a user is logged in or not
+  */
   get userLoggedIn(): boolean {
     return this.userID.token !== "" && this.userID.token !== undefined
   }
 
+  /**
+  * Value if the user has disabled the log in or not
+  */
   set disableLogin(value: boolean) {
     this.localStorageService.disableLogin = value
   }
@@ -27,6 +41,12 @@ export class UserContextService {
     return this.localStorageService.disableLogin
   }
 
+  /**
+  * Source of truth of the user context object.
+  * The BehaviorSubject is accessible through the getUserContextSubject() function.
+  * There are several setter functions to make the setting of a new value easier. 
+  */
+  private _userContext: BehaviorSubject<UserContext> = new BehaviorSubject<UserContext>(INITIAL_USER_CONTEXT); 
   set userContext(object: UserContext) {
     this._userContext.next(object);
     this.saveUserContext();
@@ -34,11 +54,6 @@ export class UserContextService {
   get userContext(): UserContext {
     return this._userContext.getValue();
   }
-  private _userContext: BehaviorSubject<UserContext> = new BehaviorSubject<UserContext>(INITIAL_USER_CONTEXT); 
-  public getUserContextSubject(): BehaviorSubject<UserContext> {
-    return this._userContext;
-  }
-
   get theme() {
     return this.userContext.theme;
   }
@@ -75,13 +90,17 @@ export class UserContextService {
   get pollen() {
     return this.userContext.pollen;
   }
+
+  /**
+  * This array contains all PollenTypes which are knwon from the backend. 
+  */
+  private _pollenTypes: BehaviorSubject<PollenType[]> = new BehaviorSubject<PollenType[]>([]); 
   set pollenTypes(value: PollenType[]) {
     this._pollenTypes.next(value);
   }
   get pollenTypes(): PollenType[] {
     return this._pollenTypes.value
   }
-  private _pollenTypes: BehaviorSubject<PollenType[]> = new BehaviorSubject<PollenType[]>([]); 
 
   constructor(private localStorageService: LocalStorageService,
               private router: Router,
@@ -91,6 +110,13 @@ export class UserContextService {
 
   }
   
+  /**
+  * Calls the network to log a user in with username and password and returns success or an error message
+  * 
+  * @param {string} username    
+  * @param {string} password  
+  * @returns a promise with the success state and if failed an error message  
+  */
   public login(username: string, password: string): Promise<{success: boolean, error: string}>  {  
     let promise = new Promise<{success: boolean, error: string}>((resolve) => {
       this.resetUserContext()
@@ -108,6 +134,13 @@ export class UserContextService {
     return promise
   }
 
+  /**
+  * Calls the network to register a user in with username and password and returns success or an error message
+  * 
+  * @param {string} username    
+  * @param {string} password  
+  * @returns a promise with the success state and if failed an error message  
+  */
   public register(username: string, password: string): Promise<{success: boolean, error: string}> {
     let promise = new Promise<{success: boolean, error: string}>((resolve) => {
       this.resetUserContext();
@@ -127,6 +160,13 @@ export class UserContextService {
     return promise
   }
 
+  /**
+  * Calls the network to load the user context from open ape. 
+  * 
+  * @param {string} username   username for openape 
+  * @param {string} password   password for openape
+  * @returns a promise with the success state and if failed an error message  
+  */
   public loginToOpenApe(username: string, password: string): Promise<{success: boolean, error: string}> {
     let promise = new Promise<{success: boolean, error: string}>((resolve) => {
       this.userContextAPI.postLoginOpenAPE(username, password, this.userID).subscribe((userContextResponse) => {
@@ -150,8 +190,13 @@ export class UserContextService {
     return promise
   }
 
-
-  public tooglePollenValueAt(index: number) {
+  /**
+  * Function to toggle the pollen value at index. This function also checks
+  * if the pollen values are safed in the backend or in the frontend. 
+  * 
+  * @param {number} index  index of the pollen type
+  */
+  public tooglePollenValueAt(index: number): void {
     let polle: PollenType = this.pollenTypes[index]
     let oldValue = this.getPollenValueAt(index);  
     let newValue = !oldValue;
@@ -168,8 +213,6 @@ export class UserContextService {
         }
       } else {
         if(newValue && !this.pollen.includes(polle.pollenName)) {
-          console.log("index", index)
-          console.log("polle", polle)
           this.userContextAPI.postPolleToUserContext(this.userID, polle.id).subscribe(() => {
             this.refreshUserContextIfNeeded().subscribe();
           });
@@ -183,6 +226,11 @@ export class UserContextService {
     }
   }
 
+  /**
+  * Returns a boolean if the user is allergic against the requested polle or not
+  * 
+  * @param {number} index  index of the pollen type
+  */
   public getPollenValueAt(index: number): boolean {
     let polle: PollenType = this.pollenTypes[index]
 
@@ -192,21 +240,28 @@ export class UserContextService {
     return false;
   }
 
+  /**
+  * Logs the user out and resets the user context. 
+  */
   public logout() {
     this.resetUserContext();
     this.showLoginScreen();
   }
 
+  /**
+  * Checks if the user is logged in or not. If an user is logged in it checks if the token
+  * is valid or not. If the token is not valid it returns false. If the token is valid
+  * it refreshs the user context 
+  * 
+  * @returns an obervable with a boolean if the request was successful or not. If it returns false
+  * then is the token not valid and the user needs to log in again
+  */
   public refreshUserContextIfNeeded(): Observable<boolean> {
-    console.log("Refresh if needed")      
     let returnObservable = new Observable<boolean>((observer) => {
-      console.log("token", this.userID.token)
-
       if(this.disableLogin || this.userID.token === '') {
         observer.next(true);
         observer.complete(); 
       }
-      console.log("Wir checken den token")
       this.userContextAPI.postIsTokenValid(this.userID.token).subscribe((data) => {
         if(data) {
           this.userContextAPI.loadUserContext(this.userID.token).subscribe(data => {
@@ -223,15 +278,32 @@ export class UserContextService {
     return returnObservable
   }
 
+  /**
+  * @returns the behavior subject of the user context object
+  */  
+  public getUserContextSubject(): BehaviorSubject<UserContext> {
+    return this._userContext;
+  }
+
+  /**
+   * Helpfer function to forward the user to the login page
+   */
   private showLoginScreen() {
     this.router.navigateByUrl('/onboarding/login');
   }
 
+  /**
+   * Helper function to reset the user context and clears the local storage
+   */
   private resetUserContext() {
     this.localStorageService.clear();
     this._userContext.next(this.localStorageService.userContext);
   }
 
+  /**
+   * Helper function to save the user context. It saves the user context to the local storage
+   * and if needed in the backend.
+   */
   private saveUserContext() {
     this.saveUserContextToLocalStorage()
     if(!this.disableLogin) {
@@ -248,10 +320,16 @@ export class UserContextService {
     }
   }
 
+  /**
+   * Helper function to save the user context to the local storage
+   */
   private saveUserContextToLocalStorage() {
     this.localStorageService.userContext = this._userContext.getValue();
   }
 
+  /**
+   * Helper function to load the pollen types from the backend.
+   */
   private loadPollenTypes() {
     this.userContextAPI.loadPollenTypes().subscribe((data) => {
       this.pollenTypes = data;

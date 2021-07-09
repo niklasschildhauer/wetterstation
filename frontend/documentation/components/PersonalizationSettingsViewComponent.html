@@ -1,0 +1,1332 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>wetterstation documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	      <link rel="stylesheet" href="../styles/style.css">
+    </head>
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top visible-xs">
+            <a href="../" class="navbar-brand">wetterstation documentation</a>
+            <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="hidden-xs menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+<ol class="breadcrumb">
+  <li>Components</li>
+  <li>PersonalizationSettingsViewComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="active">
+            <a href="#info" role="tab" id="info-tab" data-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li >
+            <a href="#source" role="tab" id="source-tab" data-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li >
+            <a href="#templateData" role="tab" id="templateData-tab" data-toggle="tab" data-link="template">Template</a>
+        </li>
+        <li >
+            <a href="#styleData" role="tab" id="styleData-tab" data-toggle="tab" data-link="style">Styles</a>
+        </li>
+        <li >
+            <a href="#tree" role="tab" id="tree-tab" data-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="c-info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>src/app/components/views/personalization-settings-view/personalization-settings-view.component.ts</code>
+</p>
+
+
+
+    <p class="comment">
+        <h3>Implements</h3>
+    </p>
+    <p class="comment">
+                    <code><a href="https://angular.io/api/core/OnInit" target="_blank" >OnInit</a></code>
+    </p>
+
+
+<section>
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover">
+        <tbody>
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>app-personalization-settings-view</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">styleUrls</td>
+                <td class="col-md-9"><code>./personalization-settings-view.component.scss</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">templateUrl</td>
+                <td class="col-md-9"><code>./personalization-settings-view.component.html</code></td>
+            </tr>
+
+
+
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section>
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#desktop">desktop</a>
+                            </li>
+                            <li>
+                                <a href="#themesType">themesType</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Optional</span>
+                                <a href="#userContextData">userContextData</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#userContextService">userContextService</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#getPollenStringAt">getPollenStringAt</a>
+                            </li>
+                            <li>
+                                <a href="#getPollenValueAt">getPollenValueAt</a>
+                            </li>
+                            <li>
+                                <a href="#getThemeStringAt">getThemeStringAt</a>
+                            </li>
+                            <li>
+                                <a href="#getThemeTypeAt">getThemeTypeAt</a>
+                            </li>
+                            <li>
+                                <a href="#getUserContext">getUserContext</a>
+                            </li>
+                            <li>
+                                <a href="#loginDisabled">loginDisabled</a>
+                            </li>
+                            <li>
+                                <a href="#ngOnInit">ngOnInit</a>
+                            </li>
+                            <li>
+                                <a href="#numberOfPollen">numberOfPollen</a>
+                            </li>
+                            <li>
+                                <a href="#numberOfThemes">numberOfThemes</a>
+                            </li>
+                            <li>
+                                <a href="#setFontSize">setFontSize</a>
+                            </li>
+                            <li>
+                                <a href="#togglePollenValueAt">togglePollenValueAt</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section>
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(userContextService: <a href="../injectables/UserContextService.html">UserContextService</a>, renderer: <a href="https://angular.io/api/core/Renderer2" target="_blank">Renderer2</a>, router: <a href="https://angular.io/api/router/Router" target="_blank">Router</a>)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="16" class="link-to-prism">src/app/components/views/personalization-settings-view/personalization-settings-view.component.ts:16</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>userContextService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/UserContextService.html" target="_self" >UserContextService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>renderer</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="https://angular.io/api/core/Renderer2" target="_blank" >Renderer2</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>router</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="https://angular.io/api/router/Router" target="_blank" >Router</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+
+
+
+
+    <section>
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getPollenStringAt"></a>
+                    <span class="name">
+                        <b>
+                            getPollenStringAt
+                        </b>
+                        <a href="#getPollenStringAt"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getPollenStringAt(index: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="73"
+                            class="link-to-prism">src/app/components/views/personalization-settings-view/personalization-settings-view.component.ts:73</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>index</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getPollenValueAt"></a>
+                    <span class="name">
+                        <b>
+                            getPollenValueAt
+                        </b>
+                        <a href="#getPollenValueAt"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getPollenValueAt(index: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="69"
+                            class="link-to-prism">src/app/components/views/personalization-settings-view/personalization-settings-view.component.ts:69</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>index</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getThemeStringAt"></a>
+                    <span class="name">
+                        <b>
+                            getThemeStringAt
+                        </b>
+                        <a href="#getThemeStringAt"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getThemeStringAt(index: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="60"
+                            class="link-to-prism">src/app/components/views/personalization-settings-view/personalization-settings-view.component.ts:60</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>index</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getThemeTypeAt"></a>
+                    <span class="name">
+                        <b>
+                            getThemeTypeAt
+                        </b>
+                        <a href="#getThemeTypeAt"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getThemeTypeAt(index: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="49"
+                            class="link-to-prism">src/app/components/views/personalization-settings-view/personalization-settings-view.component.ts:49</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>index</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="../miscellaneous/enumerations.html#Themes" target="_self" >Themes</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getUserContext"></a>
+                    <span class="name">
+                        <b>
+                            getUserContext
+                        </b>
+                        <a href="#getUserContext"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getUserContext()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="32"
+                            class="link-to-prism">src/app/components/views/personalization-settings-view/personalization-settings-view.component.ts:32</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="loginDisabled"></a>
+                    <span class="name">
+                        <b>
+                            loginDisabled
+                        </b>
+                        <a href="#loginDisabled"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>loginDisabled()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="81"
+                            class="link-to-prism">src/app/components/views/personalization-settings-view/personalization-settings-view.component.ts:81</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnInit"></a>
+                    <span class="name">
+                        <b>
+                            ngOnInit
+                        </b>
+                        <a href="#ngOnInit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngOnInit()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="23"
+                            class="link-to-prism">src/app/components/views/personalization-settings-view/personalization-settings-view.component.ts:23</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="numberOfPollen"></a>
+                    <span class="name">
+                        <b>
+                            numberOfPollen
+                        </b>
+                        <a href="#numberOfPollen"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>numberOfPollen()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="64"
+                            class="link-to-prism">src/app/components/views/personalization-settings-view/personalization-settings-view.component.ts:64</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>    <code>any[]</code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="numberOfThemes"></a>
+                    <span class="name">
+                        <b>
+                            numberOfThemes
+                        </b>
+                        <a href="#numberOfThemes"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>numberOfThemes()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="44"
+                            class="link-to-prism">src/app/components/views/personalization-settings-view/personalization-settings-view.component.ts:44</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>    <code>any[]</code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="setFontSize"></a>
+                    <span class="name">
+                        <b>
+                            setFontSize
+                        </b>
+                        <a href="#setFontSize"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>setFontSize(value: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="37"
+                            class="link-to-prism">src/app/components/views/personalization-settings-view/personalization-settings-view.component.ts:37</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>value</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="togglePollenValueAt"></a>
+                    <span class="name">
+                        <b>
+                            togglePollenValueAt
+                        </b>
+                        <a href="#togglePollenValueAt"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>togglePollenValueAt(index: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="77"
+                            class="link-to-prism">src/app/components/views/personalization-settings-view/personalization-settings-view.component.ts:77</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>index</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+    <section>
+    
+        <h3 id="inputs">
+            Properties
+        </h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="desktop"></a>
+                        <span class="name">
+                            <b>
+                            desktop</b>
+                            <a href="#desktop"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>false</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="14" class="link-to-prism">src/app/components/views/personalization-settings-view/personalization-settings-view.component.ts:14</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="themesType"></a>
+                        <span class="name">
+                            <b>
+                            themesType</b>
+                            <a href="#themesType"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>Themes</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="16" class="link-to-prism">src/app/components/views/personalization-settings-view/personalization-settings-view.component.ts:16</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="userContextData"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Optional</span>
+                            userContextData</b>
+                            <a href="#userContextData"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="../interfaces/UserContext.html" target="_self" >UserContext</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="15" class="link-to-prism">src/app/components/views/personalization-settings-view/personalization-settings-view.component.ts:15</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="userContextService"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Public</span>
+                            userContextService</b>
+                            <a href="#userContextService"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="../injectables/UserContextService.html" target="_self" >UserContextService</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="19" class="link-to-prism">src/app/components/views/personalization-settings-view/personalization-settings-view.component.ts:19</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+</section>
+
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="c-source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, OnInit, Renderer2 } from &#x27;@angular/core&#x27;;
+import { UserContextService } from &#x27;src/app/services/user-context.service&#x27;;
+import { Themes, UserContext, PollenType } from &#x27;src/app/model/user-context&#x27;;
+import { Router } from &#x27;@angular/router&#x27;;
+
+
+
+@Component({
+  selector: &#x27;app-personalization-settings-view&#x27;,
+  templateUrl: &#x27;./personalization-settings-view.component.html&#x27;,
+  styleUrls: [&#x27;./personalization-settings-view.component.scss&#x27;]
+})
+export class PersonalizationSettingsViewComponent implements OnInit {
+  desktop: boolean &#x3D; false;
+  userContextData?: UserContext;
+  themesType &#x3D; Themes  
+
+  constructor(
+    public userContextService: UserContextService,
+    private renderer: Renderer2,
+    private router: Router) { }
+    
+  ngOnInit(): void {
+    this.getUserContext();
+    this.userContextService.refreshUserContextIfNeeded().subscribe((data &#x3D;&gt; {
+      if(!data) {
+        this.router.navigateByUrl(&#x27;/onboarding/login&#x27;);
+      }
+    }));;
+  }
+
+  getUserContext() {
+    this.userContextService.getUserContextSubject()
+      .subscribe(data &#x3D;&gt; this.userContextData &#x3D; data)
+  }
+
+  setFontSize(value: number) {
+    this.userContextService.fontSize &#x3D; value;
+    if(this.userContextData) {
+      this.setDefaultFontSize(this.userContextData.fontSize);
+    }
+  }
+
+  numberOfThemes(): any[] {
+    let count &#x3D; Object.keys(Themes).length / 2;
+    return new Array(count);
+  }
+
+  getThemeTypeAt(index: number): Themes {
+    let themesString &#x3D; Themes[index];
+    switch (themesString) {
+      case &quot;Dark&quot;: return Themes.Dark
+      case &quot;Light&quot;: return Themes.Light
+      case &quot;Automatic&quot;: return Themes.Automatic
+      case &quot;HighContrast&quot;: return Themes.HighContrast
+      default: return Themes.Automatic
+    }
+  }
+
+  getThemeStringAt(index: number): string {
+    return Themes[this.getThemeTypeAt(index)]
+  }
+
+  numberOfPollen(): any[] {
+    let count &#x3D; this.userContextService.pollenTypes.length
+    return new Array(count);
+  }
+
+  getPollenValueAt(index: number): boolean {
+    return this.userContextService.getPollenValueAt(index);
+  }
+
+  getPollenStringAt(index: number): string {
+    return this.userContextService.pollenTypes[index].pollenName
+  }
+
+  togglePollenValueAt(index: number) {
+    this.userContextService.tooglePollenValueAt(index);
+  }
+
+  loginDisabled(): boolean {
+    return this.userContextService.disableLogin;
+  }
+
+  // FIXME: 
+  // change the default font size
+  // Maybe we can solve this problem in another way.
+  private setDefaultFontSize(fontSize: number) {
+    this.renderer.setStyle(document.body, &quot;font-size&quot;, fontSize + &quot;%&quot;);  
+  }
+
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="c-templateData">
+        <pre class="line-numbers"><code class="language-html">&lt;div class&#x3D;&quot;container&quot; 
+    *ngIf&#x3D;&quot;userContextData&quot;&gt;
+    &lt;app-slider-element 
+        [label]&#x3D;&quot;&#x27;Schriftgröße&#x27;&quot; 
+        [value]&#x3D;&quot;userContextData.fontSize&quot; 
+        (valueChanged)&#x3D;&quot;setFontSize($event)&quot;
+        class&#x3D;&quot;slider&quot;&gt;
+    &lt;/app-slider-element&gt;
+    &lt;div class&#x3D;&quot;switch-container&quot;&gt;
+        &lt;app-checkbox-switcher-element 
+            [label]&#x3D;&quot;&#x27;Reduce motion&#x27;&quot; 
+            [value]&#x3D;&quot;userContextData.reduceMotion&quot; 
+            [checkedImage]&#x3D;&quot;&#x27;snail&#x27;&quot;
+            [unCheckedImageLight]&#x3D;&quot;&#x27;no-snail-light&#x27;&quot;
+            [unCheckedImageDark]&#x3D;&quot;&#x27;no-snail-dark&#x27;&quot;
+            (toggled)&#x3D;&quot;this.userContextService.reduceMotion&#x3D;$event&quot;&gt;
+        &lt;/app-checkbox-switcher-element&gt;
+        &lt;app-checkbox-switcher-element 
+            [label]&#x3D;&quot;&#x27;Lüftungs-erinnerung&#x27;&quot; 
+            [value]&#x3D;&quot;userContextData.doVentilationReminder&quot; 
+            [checkedImage]&#x3D;&quot;&#x27;fan&#x27;&quot;
+            [unCheckedImageLight]&#x3D;&quot;&#x27;no-fan-light&#x27;&quot;
+            [unCheckedImageDark]&#x3D;&quot;&#x27;no-fan-dark&#x27;&quot;
+            (toggled)&#x3D;&quot;this.userContextService.doVentilationReminder&#x3D;$event&quot;&gt;
+        &lt;/app-checkbox-switcher-element&gt;
+        &lt;app-checkbox-switcher-element 
+            [label]&#x3D;&quot;&#x27;Self-Voicing Funktion&#x27;&quot; 
+            [value]&#x3D;&quot;userContextData.selfVoicingEnabled&quot; 
+            [checkedImage]&#x3D;&quot;&#x27;microphone&#x27;&quot;
+            [unCheckedImageLight]&#x3D;&quot;&#x27;no-microphone-light&#x27;&quot;
+            [unCheckedImageDark]&#x3D;&quot;&#x27;no-microphone-dark&#x27;&quot;
+            (toggled)&#x3D;&quot;this.userContextService.selfVoicingEnabled&#x3D;$event&quot;&gt;
+        &lt;/app-checkbox-switcher-element&gt;
+    &lt;/div&gt;
+
+    &lt;card-element 
+        [subtitle]&#x3D;&quot;&#x27;Pollenflug&#x27;&quot;  
+        [pressable]&#x3D;&quot;false&quot;&gt;
+        &lt;div class&#x3D;&quot;flex-container&quot;&gt;
+            &lt;div *ngFor&#x3D;&quot;let a of numberOfPollen(); let index &#x3D; index&quot; 
+                class&#x3D;&quot;pollen-item&quot;&gt;
+                &lt;input 
+                    type&#x3D;&quot;checkbox&quot; 
+                    [checked]&#x3D;&quot;getPollenValueAt(index)&quot; 
+                    (change)&#x3D;&quot;togglePollenValueAt(index)&quot;/&gt;
+                &lt;label&gt;
+                    {{getPollenStringAt(index)}}
+                &lt;/label&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/card-element&gt;
+
+    &lt;card-element 
+        [subtitle]&#x3D;&quot;&#x27;Theme&#x27;&quot;  
+        [pressable]&#x3D;&quot;false&quot;&gt;
+        &lt;div class&#x3D;&quot;flex-container&quot;&gt;
+            &lt;div *ngFor&#x3D;&quot;let a of numberOfThemes(); let index &#x3D; index&quot; 
+                class&#x3D;&quot;theme-item&quot;&gt;
+                &lt;input 
+                    id&#x3D;&quot;getThemeTypeAt(index)&quot; 
+                    type&#x3D;&quot;radio&quot; 
+                    [value]&#x3D;&quot;getThemeTypeAt(index)&quot; 
+                    name&#x3D;&quot;theme&quot; 
+                    [(ngModel)]&#x3D;&quot;this.userContextService.theme&quot;/&gt;
+                &lt;label&gt;{{getThemeStringAt(index)}}&lt;/label&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/card-element&gt; 
+    
+    &lt;app-open-apelogin-tile-view *ngIf&#x3D;&quot;!loginDisabled()&quot;&gt;&lt;/app-open-apelogin-tile-view&gt;
+&lt;/div&gt;</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="c-styleData">
+                <p class="comment">
+                    <code>./personalization-settings-view.component.scss</code>
+                </p>
+                <pre class="line-numbers"><code class="language-scss">.switch-container {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    width: calc((100vw - var(--border-padding-left) - var(--border-padding-right)));
+}
+
+.slider {
+    width: calc((100vw - var(--border-padding-left) - var(--border-padding-right)));
+}
+
+.flex-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.pollen-item {
+    width: 11em;
+    margin: 0.5em;
+}
+
+.theme-item {
+    margin: 0.5em;
+}
+
+label {
+    font-size: 1.6em;
+}
+
+.container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="c-tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><div class="container"     *ngIf="userContextData">    <app-slider-element         [label]="\'Schriftgröße\'"         [value]="userContextData.fontSize"         (valueChanged)="setFontSize($event)"        class="slider">    </app-slider-element>    <div class="switch-container">        <app-checkbox-switcher-element             [label]="\'Reduce motion\'"             [value]="userContextData.reduceMotion"             [checkedImage]="\'snail\'"            [unCheckedImageLight]="\'no-snail-light\'"            [unCheckedImageDark]="\'no-snail-dark\'"            (toggled)="this.userContextService.reduceMotion=$event">        </app-checkbox-switcher-element>        <app-checkbox-switcher-element             [label]="\'Lüftungs-erinnerung\'"             [value]="userContextData.doVentilationReminder"             [checkedImage]="\'fan\'"            [unCheckedImageLight]="\'no-fan-light\'"            [unCheckedImageDark]="\'no-fan-dark\'"            (toggled)="this.userContextService.doVentilationReminder=$event">        </app-checkbox-switcher-element>        <app-checkbox-switcher-element             [label]="\'Self-Voicing Funktion\'"             [value]="userContextData.selfVoicingEnabled"             [checkedImage]="\'microphone\'"            [unCheckedImageLight]="\'no-microphone-light\'"            [unCheckedImageDark]="\'no-microphone-dark\'"            (toggled)="this.userContextService.selfVoicingEnabled=$event">        </app-checkbox-switcher-element>    </div>    <card-element         [subtitle]="\'Pollenflug\'"          [pressable]="false">        <div class="flex-container">            <div *ngFor="let a of numberOfPollen(); let index = index"                 class="pollen-item">                <input                     type="checkbox"                     [checked]="getPollenValueAt(index)"                     (change)="togglePollenValueAt(index)"/>                <label>                    {{getPollenStringAt(index)}}                </label>            </div>        </div>    </card-element>    <card-element         [subtitle]="\'Theme\'"          [pressable]="false">        <div class="flex-container">            <div *ngFor="let a of numberOfThemes(); let index = index"                 class="theme-item">                <input                     id="getThemeTypeAt(index)"                     type="radio"                     [value]="getThemeTypeAt(index)"                     name="theme"                     [(ngModel)]="this.userContextService.theme"/>                <label>{{getThemeStringAt(index)}}</label>            </div>        </div>    </card-element>         <app-open-apelogin-tile-view *ngIf="!loginDisabled()"></app-open-apelogin-tile-view></div></div>'
+    var COMPONENTS = [{'name': 'ApparentTemperatureTileViewComponent', 'selector': 'app-apparent-temperature-tile-view'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'BackButtonElementComponent', 'selector': 'app-back-button-element'},{'name': 'CardElementComponent', 'selector': 'card-element'},{'name': 'CheckboxSwitcherElementComponent', 'selector': 'app-checkbox-switcher-element'},{'name': 'ConfigurationTilePopUpDialogView', 'selector': 'configuration-tile-popup-view'},{'name': 'ConfigurationTileViewComponent', 'selector': 'app-configuration-tile-view'},{'name': 'ConfigurationViewComponent', 'selector': 'app-configuration-view'},{'name': 'DashboardScreenComponent', 'selector': 'app-dashboard-screen'},{'name': 'DetailScreenComponent', 'selector': 'app-detail-screen'},{'name': 'ForecastDetailViewComponent', 'selector': 'app-forecast-detail-view'},{'name': 'ForecastTileViewComponent', 'selector': 'app-forecast-tile-view'},{'name': 'HistoryDetailViewComponent', 'selector': 'app-history-detail-view'},{'name': 'HistoryTileViewComponent', 'selector': 'app-history-tile-view'},{'name': 'HumidityTileViewComponent', 'selector': 'app-humidity-tile-view'},{'name': 'IndoorDetailViewComponent', 'selector': 'app-indoor-detail-view'},{'name': 'IndoorTileViewComponent', 'selector': 'app-indoor-tile-view'},{'name': 'LoginViewComponent', 'selector': 'app-login-view'},{'name': 'MenuBarElementComponent', 'selector': 'app-menu-bar-element'},{'name': 'MenuButtonElementComponent', 'selector': 'app-menu-button-element'},{'name': 'MenuElementComponent', 'selector': 'app-menu-element'},{'name': 'NavBarElementComponent', 'selector': 'app-nav-bar-element'},{'name': 'OnboardingScreenComponent', 'selector': 'app-onboarding-screen'},{'name': 'OpenAPELoginTileViewComponent', 'selector': 'app-open-apelogin-tile-view'},{'name': 'OutdoorWeatherDetailViewComponent', 'selector': 'app-outdoor-weather-detail-view'},{'name': 'OutdoorWeatherViewComponent', 'selector': 'app-outdoor-weather-view'},{'name': 'PersonalizationSettingsViewComponent', 'selector': 'app-personalization-settings-view'},{'name': 'PersonalizationViewComponent', 'selector': 'app-personalization-view'},{'name': 'PollenflugDetailViewComponent', 'selector': 'app-pollenflug-detail-view'},{'name': 'PollenflugSmallTileComponent', 'selector': 'app-pollenflug-small-tile'},{'name': 'PollenflugTileViewComponent', 'selector': 'app-pollenflug-tile-view'},{'name': 'PollenListElementComponent', 'selector': 'app-pollen-list-element'},{'name': 'PollenTagElementComponent', 'selector': 'app-pollen-tag-element'},{'name': 'ProgressChartElementComponent', 'selector': 'app-progress-chart-element'},{'name': 'RegistrationViewComponent', 'selector': 'app-registration-view'},{'name': 'SettingsScreenComponent', 'selector': 'app-settings-screen'},{'name': 'SimpleTileViewComponent', 'selector': 'app-simple-tile-view'},{'name': 'SliderElementComponent', 'selector': 'app-slider-element'},{'name': 'TtsPlayerElementComponent', 'selector': 'app-tts-player-element'}];
+    var DIRECTIVES = [];
+    var ACTUAL_COMPONENT = {'name': 'PersonalizationSettingsViewComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+                   
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> result-matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'PersonalizationSettingsViewComponent.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+       <!-- Required to polyfill modern browsers as code is ES5 for IE... -->
+       <script src="../js/libs/custom-elements-es5-adapter.js" charset="utf-8" defer></script>
+       <script src="../js/menu-wc.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+       <script src="../js/libs/zepto.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>
