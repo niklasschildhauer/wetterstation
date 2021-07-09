@@ -53,67 +53,87 @@ app.post('/sensorin', (req, res) => {
 	});
 });
 
-app.get('/calibration/insert', (req, res) => {
-	const token = req.headers["x-access-token"] || req.headers["authorization"];
-	genericRequestHandlers.genericRequestToPromiseAuth(token, "GET", "http://localhost:4202/currentUser").then(db_user => {
-		let startDate = getLocalISODate().split(".")[0].replace("T", " ");
-		// console.log("startDate", startDate)
-		//Calculate the endDate for the calibration
-		let _endDate = new Date(getLocalISODate())
-		// console.log("_endDate", _endDate)
-		_endDate = new Date(_endDate.setHours(_endDate.getHours() + CALIBRATION_DURATION));
-		// console.log("_endDate step 2", _endDate);
-		let endDate = _endDate.toISOString().split(".")[0].replace("T", " ");
-		// console.log("endDate", endDate)
-		
-		let _body = {
-			"startDate": startDate,
-			"endDate": endDate,
-			"user": db_user
-		}
+app.get('/calibration/insert/:deviceID', (req, res) => {
 	
-		genericRequestHandlers.genericRequestWithPayloadToPromise("POST", "http://localhost:4205/calibration/insert", JSON.stringify(_body)).then((response) => {
-			res.status(200).send(response);
-		}).catch((error) => {
-			res.status(400).send({"error": error})
-		});
-	})
+	let startDate = getLocalISODate().split(".")[0].replace("T", " ");
+	console.log("startDate", startDate)
+	//Calculate the endDate for the calibration
+	let _endDate = new Date(getLocalISODate())
+	console.log("_endDate", _endDate)
+	_endDate = new Date(_endDate.setHours(_endDate.getHours() + CALIBRATION_DURATION));
+	console.log("_endDate step 2", _endDate);
+	let endDate = _endDate.toISOString().split(".")[0].replace("T", " ");
+	console.log("endDate", endDate)
+	
+	let _body = {
+		"startDate": startDate,
+		"endDate": endDate,
+		"deviceID": req.params.deviceID
+	}
+
+	genericRequestHandlers.genericRequestWithPayloadToPromise("POST", "http://localhost:4205/calibration/insert", JSON.stringify(_body)).then((response) => {
+		res.status(200).send(response);
+	}).catch((error) => {
+		res.status(400).send({"error": error})
+	});
 
 })
 
 setInterval(() => {
 	genericRequestHandlers.genericRequestToPromise("GET", "http://localhost:4205/calibration/latest").then((response) => {
-		console.log("startDate", response.startDate)
-		console.log("endDate", response.endDate)
-		console.log("BODY", response)
-		let _body = {
-			begin: response.startDate,
-			end: response.endDate
-		}
-
-		let now = new Date(getLocalISODate())
-		let isOver = new Date(response.endDate);
-
-		if(response != undefined){
-			if(now >= isOver){
-				genericRequestHandlers.genericRequestWithPayloadToPromise("POST", "http://localhost:4205/indoor/history", JSON.stringify(_body)).then((history) => {
-					// console.log("history", history, typeof history);
-					const avg = history.map(a => a.gasVal).reduce((a, b) => a + b) / history.length
-					// console.log("avg", avg);
-					response.user.userCalibratedGasVal = avg;
-					const getTokenBody = {
-						username: response.user.username,
-						password: response.user.password
-					}
-					// console.log("resp after set gasVal", response)
-					genericRequestHandlers.genericRequestWithPayloadToPromise("POST", "http://localhost:4202/login", JSON.stringify(getTokenBody)).then((authResponse) => {
-						genericRequestHandlers.genericRequestWithPayloadToPromiseAuth(authResponse.token, "PUT", "http://localhost:4205/userContext/save/" + response.user.id, JSON.stringify(response.user)).then((user) => {
-							console.log("user, final", user)
-							genericRequestHandlers.genericRequestToPromise("DELETE", "http://localhost:4205/calibration/" + response.id);
-						})
-					})
-				})
+		if( !(response.message === 'Requested entry did not exist')){
+			console.log("startDate", response.startDate)
+			console.log("endDate", response.endDate)
+			console.log("calibration", response.deviceID)
+			let reqBodyHistory = {
+				begin: response.startDate,
+				end: response.endDate
 			}
+	
+			let now = new Date(getLocalISODate())
+			let isOver = new Date(response.endDate);
+	
+			if(response != undefined){
+				if(now >= isOver){
+					genericRequestHandlers.genericRequestWithPayloadToPromise("POST", "http://localhost:4205/indoor/history", JSON.stringify(reqBodyHistory)).then((history) => {
+						// console.log("history", history);
+						// console.log("history filtered", history.filter(a => a.deviceID === response.deviceID))
+						const len = history.filter(a => a.deviceID === response.deviceID).length
+						const avg = history.filter(a => a.deviceID === response.deviceID).map(a => a.gasVal).reduce((a, b) => a + b) / len
+						console.log("avg", avg);
+	
+						//Get ESPconf by number	
+						genericRequestHandlers.genericRequestToPromise("GET", "http://localhost:4205/espconfig/all").then((allesps) => {
+							let theConf;
+							console.log("allesps", allesps)
+							console.log("response.deviceID", response.deviceID)
+							// console.log("???", response.deviceID === espConf.id)
+							allesps.forEach((espConf) => {
+								console.log("espConf", espConf)
+								if(espConf["id"] === response.deviceID){
+									theConf = espConf;
+								}
+							})
+							theConf.gasValCalibrationValue = avg
+							console.log("after setting gasValCalibation (this is the new espconf", theConf);
+							genericRequestHandlers.genericRequestWithPayloadToPromise("POST", "http://localhost:4205/espconfig/change", JSON.stringify(theConf)).then((newConf) => {
+								console.log("after persist to db (this is the db espconf", newConf);
+								genericRequestHandlers.genericRequestToPromise("DELETE", "http://localhost:4205/calibration/" + response.id);
+							}).catch((err) => {
+								console.log("(Calibration worker): Something went wrong with changing esp config device")
+								console.log("Error", err)
+							});
+						}).catch((err) => {
+							console.log("(Calibration worker): Something went wrong with fetching esp config device list")
+							console.log("Error", err)
+						});
+					}).catch((err) => {
+						console.log("(Calibration worker): Something went wrong retrieving history data")
+						console.log("Error", err)
+					})
+				}
+			}
+
 		}
 	})
 }, CALIBRATION_CHECK_INTERVAL)

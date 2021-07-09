@@ -14,4 +14,9 @@ export class ESPConfig {
 
     @Column()
     postalCode: string; // postalCode for determination of altitude (needed for weather forecast / analysis)
+
+    @Column({
+        default:25
+    })
+    gasValCalibrationValue: number;
 }

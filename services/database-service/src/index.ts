@@ -153,6 +153,7 @@ createConnection().then(connection => {
         indoor.temperature = req.body.temperature;
         indoor.location = req.body.location;
         indoor.timestamp = getDateFormatted();
+        indoor.deviceID = req.body.deviceID;
 
         const deviceID = req.body.deviceID;
 
@@ -347,6 +348,7 @@ createConnection().then(connection => {
         espconf.transmissionFrequency = req.body.transmissionFrequency;
         espconf.postalCode = req.body.postalCode;
         espconf.roomName = req.body.roomName;
+        espconf.gasValCalibrationValue = req.body.gasValCalibrationValue;
         const result = await connection.manager.save(espconf);
 
         return res.send(result);
@@ -395,22 +397,17 @@ createConnection().then(connection => {
     app.post('/calibration/insert',  async (req, res) => {
         const _calibration = {
             startDate: req.body.startDate,
-            endDate: req.body.endDate
+            endDate: req.body.endDate,
+            deviceID:req.body.deviceID
         }
         const calibration = await calibrationData.create(_calibration);
         const result = await calibrationData.save(calibration);
-        // console.log("result", result);
-        
-        const user = await userCtxData.findOne({id: req.body.user.id})
-        // console.log("user", user);
-        user.calibration = [result]
-        await connection.manager.save(user);
         returnNotNull(result, res);
     })
 
     app.get('/calibration/latest', async(req, res) => {
-        const latest = await calibrationData.find({ relations: ['user'] })
-        console.log(latest[latest.length-1])
+        const latest = await calibrationData.find()
+        console.log("latest?", latest[latest.length-1])
         returnNotNull(latest[latest.length-1], res);
     })
 

@@ -183,6 +183,7 @@ app.use(express.json({ type: "application/json" }));
 * @property {string} roomName
 * @property {integer} transmissionFrequency
 * @property {string} postalCode
+* @property {number} gasValCalibrationValue
 */
 
 // -------------------------------------------- Routes - Auth -------------------------------------------
@@ -475,12 +476,11 @@ app.post("/v1/espconfig/change", (req, res) => {
 /**
  * Create a new Calibration object
  * @route GET /calibration/insert
+ * @param {number} deviceID.query.required - deviceID of the sensor
  * @group Calibration - Create new Calibration objects
- * @security JWT
  */
  app.get("/v1/calibration/insert", (req, res) => {
-  const token = req.headers["x-access-token"] || req.headers["authorization"];
-  genericRequest(token, "GET", "http://localhost:4204/calibration/insert", res);
+  genericRequest("", "GET", "http://localhost:4204/calibration/insert/" + req.query.deviceID, res);
 });
 
 // ------------------------------------------------ Helper ------------------------------------------------
