@@ -138,10 +138,12 @@ createConnection().then(connection => {
         if (deviceID !== -1) {
             const return_val = await espConfigData.findOne({ id: deviceID });
             delete return_val.gasValCalibrationValue;
+            delete return_val.sensorType;
             return res.send(return_val);
         } else {
-            const result = await registerNewDeviceESPConfig();
+            const result = await registerNewDeviceESPConfig(sensorType.outdoor);
             delete result.gasValCalibrationValue;
+            delete result.sensorType;
             return res.send(result);
         }
     });
@@ -164,12 +166,14 @@ createConnection().then(connection => {
         if (deviceID !== -1) {
             const return_val = await espConfigData.findOne({ id: deviceID });
             delete return_val.gasValCalibrationValue;
+            delete return_val.sensorType;
             return res.send(return_val);
         }
         else {
-            const result = await registerNewDeviceESPConfig();
+            const result = await registerNewDeviceESPConfig(sensorType.indoor);
             debugLog("result:", result);
             delete result.gasValCalibrationValue;
+            delete result.sensorType;
             return res.send(result);
         }
     });
@@ -445,13 +449,14 @@ createConnection().then(connection => {
         return formatted;
     }
 
-    const registerNewDeviceESPConfig = async (): Promise<ESPConfig> => {
+    const registerNewDeviceESPConfig = async (sensorType: sensorType): Promise<ESPConfig> => {
         // const rndInt =  Math.floor(Math.random() * (max - min + 1) + min)
         const rndInt = Math.floor(Math.random() * (500 - 1 + 1) + 1)
         const newDevice = new ESPConfig();
         newDevice.roomName = "device" + rndInt;
         newDevice.postalCode = "70565";
         newDevice.transmissionFrequency = 1
+        newDevice.sensorType = sensorType.toString();
 
         const result = await connection.manager.save(newDevice);
         return result;
@@ -514,6 +519,11 @@ createConnection().then(connection => {
                 }
             );
         });
+    }
+
+    enum sensorType {
+        outdoor,
+        indoor
     }
 
     console.log("listening on port", port)
