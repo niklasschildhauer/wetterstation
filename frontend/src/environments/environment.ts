@@ -4,15 +4,6 @@
 
 export const environment = {
   production: false,
-  testData: true,
+  testData: true, // Change this value to turn the test data on or off. Test data means that no connection to the server will be established
   baseURL: '', // for not production case we are using the Angular proxy. Which is automatically started by calling ng serve.
 };
-
-/*
- * For easier debugging in development mode, you can import the following file
- * to ignore zone related error stack frames such as `zone.run`, `zoneDelegate.invokeTask`.
- *
- * This import should be commented out in production mode because it will have a negative impact
- * on performance if an error is thrown.
- */
-// import 'zone.js/dist/zone-error';  // Included with Angular CLI.
