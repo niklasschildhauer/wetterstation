@@ -137,10 +137,11 @@ createConnection().then(connection => {
 
         if (deviceID !== -1) {
             const return_val = await espConfigData.findOne({ id: deviceID });
+            delete return_val.gasValCalibrationValue;
             return res.send(return_val);
         } else {
             const result = await registerNewDeviceESPConfig();
-
+            delete result.gasValCalibrationValue;
             return res.send(result);
         }
     });
@@ -162,11 +163,13 @@ createConnection().then(connection => {
 
         if (deviceID !== -1) {
             const return_val = await espConfigData.findOne({ id: deviceID });
+            delete return_val.gasValCalibrationValue;
             return res.send(return_val);
         }
         else {
             const result = await registerNewDeviceESPConfig();
             debugLog("result:", result);
+            delete result.gasValCalibrationValue;
             return res.send(result);
         }
     });
