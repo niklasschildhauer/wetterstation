@@ -141,7 +141,7 @@ createConnection().then(connection => {
             delete return_val.sensorType;
             return res.send(return_val);
         } else {
-            const result = await registerNewDeviceESPConfig(sensorType.outdoor);
+            const result = await registerNewDeviceESPConfig(sensorTypes.outdoor);
             delete result.gasValCalibrationValue;
             delete result.sensorType;
             return res.send(result);
@@ -170,7 +170,7 @@ createConnection().then(connection => {
             return res.send(return_val);
         }
         else {
-            const result = await registerNewDeviceESPConfig(sensorType.indoor);
+            const result = await registerNewDeviceESPConfig(sensorTypes.indoor);
             debugLog("result:", result);
             delete result.gasValCalibrationValue;
             delete result.sensorType;
@@ -449,14 +449,14 @@ createConnection().then(connection => {
         return formatted;
     }
 
-    const registerNewDeviceESPConfig = async (sensorType: sensorType): Promise<ESPConfig> => {
+    const registerNewDeviceESPConfig = async (sensorType: sensorTypes): Promise<ESPConfig> => {
         // const rndInt =  Math.floor(Math.random() * (max - min + 1) + min)
         const rndInt = Math.floor(Math.random() * (500 - 1 + 1) + 1)
         const newDevice = new ESPConfig();
         newDevice.roomName = "device" + rndInt;
         newDevice.postalCode = "70565";
         newDevice.transmissionFrequency = 1
-        newDevice.sensorType = sensorType.toString();
+        newDevice.sensorType = sensorTypes[sensorType]
 
         const result = await connection.manager.save(newDevice);
         return result;
@@ -521,7 +521,7 @@ createConnection().then(connection => {
         });
     }
 
-    enum sensorType {
+    enum sensorTypes {
         outdoor,
         indoor
     }
