@@ -42,37 +42,60 @@ createConnection().then(connection => {
             }
         });
 
-        console.log('req', req.body);
-
-        const weather_postalCode = latest.location;
-        const openweathermap_api_key = 'c23b6eb0df192e3eed784aa71777b7da'
-        const request_uri = `https://api.openweathermap.org/data/2.5/weather?zip=${weather_postalCode},DE&appid=${openweathermap_api_key}`;
-        const object_with_coordinates = await genericRequestToURI("GET", request_uri);
-        
-        console.log('obj', object_with_coordinates);
-
-        if(object_with_coordinates['coord']) {
-            const lat = object_with_coordinates['coord']['lat'];
-            const lon = object_with_coordinates['coord']['lon'];
-
-            const weather_request_uri = `https://api.brightsky.dev/current_weather?lat=${lat}&lon=${lon}`;
-            const weather = await genericRequestToURI("GET", weather_request_uri);
-
-            latest['weather'] = weather['weather']['icon'];
-            latest['location_name'] = object_with_coordinates['name'];
+        if(latest !== undefined){
+            const weather_postalCode = latest.location;
+            const openweathermap_api_key = 'c23b6eb0df192e3eed784aa71777b7da'
+            const request_uri = `https://api.openweathermap.org/data/2.5/weather?zip=${weather_postalCode},DE&appid=${openweathermap_api_key}`;
+            const object_with_coordinates = await genericRequestToURI("GET", request_uri);
+            
+            console.log('obj', object_with_coordinates);
+    
+            if(object_with_coordinates['coord']) {
+                const lat = object_with_coordinates['coord']['lat'];
+                const lon = object_with_coordinates['coord']['lon'];
+    
+                const weather_request_uri = `https://api.brightsky.dev/current_weather?lat=${lat}&lon=${lon}`;
+                const weather = await genericRequestToURI("GET", weather_request_uri);
+    
+                latest['weather'] = weather['weather']['icon'];
+                latest['location_name'] = object_with_coordinates['name'];
+            }
+            console.log("Res", latest);
+            returnNotNull(latest, res)
         }
-        debugLog("Res", latest);
-        returnNotNull(latest, res)
+        else {
+            return res.send({message: "The requested entry did not exist"})
+        }
+
+        // console.log('req', req.body);
+
     });
 
     //Get the latest data from the indoor table  
     app.get('/indoor/latest', async (req, res) => {
+        let out;
         const latest = await indoorData.findOne({
             order: {
                 id: "DESC"
             }
         });
-        returnNotNull(latest, res)
+
+        out = {
+            ...latest,
+            gasValCalibrationValue: -1
+        }
+
+        // console.log("latest", latest)
+        // console.log("out", out)
+        if(latest.deviceID !== -1){
+            const theEsp: ESPConfig = await espConfigData.findOne({id:latest.deviceID})
+            // console.log("has prop gasValCal", theEsp.hasOwnProperty("gasValCalibrationValue"))
+            if(theEsp !== undefined && theEsp.hasOwnProperty("gasValCalibrationValue")){
+                out.gasValCalibrationValue = theEsp.gasValCalibrationValue;
+            }
+        }
+
+        returnNotNull(out, res)
     });
 
     app.post('/outdoor/history', async (req, res) => {
