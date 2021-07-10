@@ -8,4 +8,19 @@
     flex-direction: column;
     justify-content: flex-start;
     align-content: flex-start;
+    flex-wrap: nowrap;
+}
+
+.button-full-width {
+    min-width: calc(100% / 2 - var(--padding));
+    max-width: 100%;
+}
+
+.button-container {
+    display: flex;
+    flex-wrap: nowrap;
+}
+
+.spacer {
+    width: var(--padding);
 }

@@ -28,6 +28,7 @@ import { ConfigurationTileViewComponent, ConfigurationTilePopUpDialogView } from
 import { NgxSpinnerModule } from "ngx-spinner";
 import { OpenAPELoginTileViewComponent } from './open-apelogin-tile-view/open-apelogin-tile-view.component';
 import { DashboardViewComponent } from './dashboard-view/dashboard-view.component';
+import { CalibrationInfoDetailViewComponent } from './calibration-info-detail-view/calibration-info-detail-view.component';
 
 
 
@@ -55,7 +56,8 @@ import { DashboardViewComponent } from './dashboard-view/dashboard-view.componen
     ConfigurationViewComponent,
     ConfigurationTileViewComponent,
     OpenAPELoginTileViewComponent,
-    DashboardViewComponent
+    DashboardViewComponent,
+    CalibrationInfoDetailViewComponent
   ],
   imports: [
     CommonModule,
@@ -78,7 +80,8 @@ import { DashboardViewComponent } from './dashboard-view/dashboard-view.componen
     LoginViewComponent,
     RegistrationViewComponent,
     OutdoorWeatherDetailViewComponent,
-    DashboardViewComponent
+    DashboardViewComponent,
+    CalibrationInfoDetailViewComponent
   ]
 })
 export class ViewsModule { }

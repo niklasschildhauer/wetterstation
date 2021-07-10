@@ -1,18 +1,25 @@
 <div *ngIf="espConfiguration">
     <card-element 
-        [subtitle]="'ESP Konfiguration'"
         [title]='espConfiguration.roomName'
-        [pressable]="false">
+        [pressable]="false"
+        [hideSubtitle]="true">
         <div class="flex-container">
-            <button class="btn" (click)="openDialog()">Umbenennen</button>
-
-            <select [(ngModel)]="espConfiguration.transmissionFrequency" (change)="updateConfiguration()">
-                <option [value]="1">Jede Minute</option>
-                <option [value]="2">Alle 2 Minuten</option>
-                <option [value]="5">Alle 5 Minuten</option>
-                <option [value]="7">Alle 7 Minuten</option>
-                <option [value]="10">Alle 10 Minuten</option>
-            </select>
+            <div class="button-container">
+                <span>Sendeintervall:</span>
+                <span class="spacer"></span>
+                <select [(ngModel)]="espConfiguration.transmissionFrequency" (change)="updateConfiguration()">
+                    <option [value]="1">Jede Minute</option>
+                    <option [value]="2">Alle 2 Minuten</option>
+                    <option [value]="5">Alle 5 Minuten</option>
+                    <option [value]="7">Alle 7 Minuten</option>
+                    <option [value]="10">Alle 10 Minuten</option>
+                </select>
+            </div>
+            <div class="button-container">
+                <button class="button-full-width" *ngIf="espConfiguration.sensorType === 'indoor'" (click)="startCalibration()">Kalibrieren</button>
+                <span *ngIf="espConfiguration.sensorType === 'indoor'" class="spacer"></span>
+                <button class="button-full-width" (click)="openDialog()">Umbenennen</button>
+            </div>
         </div>
     </card-element>
 </div>
