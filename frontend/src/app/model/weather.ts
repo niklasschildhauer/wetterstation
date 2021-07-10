@@ -63,6 +63,7 @@ export interface IndoorRoomData extends WeatherData {
     temperature: number // in °C 
     humidity: number, // in %
     timestamp: Date, 
+    calibrationValue: number
 }
 
 export interface WeatherHistoryData extends WeatherData {
