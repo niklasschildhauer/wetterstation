@@ -1,10 +1,11 @@
 {
   "name": "wetterstation",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "scripts": {
     "ng": "ng",
     "start": "npm install && ng serve",
     "build": "ng build --optimization --configuration=production",
+    "host": "cd dist/wetterstation && angular-http-server",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",

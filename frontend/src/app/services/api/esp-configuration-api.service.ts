@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
@@ -14,6 +14,7 @@ import { environment } from 'src/environments/environment';
 export class ESPConfigurationAPIService {
   private allConfigs = environment.baseURL + '/espconfig/all';
   private changeConfig = environment.baseURL + '/espconfig/change';
+  private calibration = environment.baseURL + '/calibration/insert';
 
   constructor(private httpClient: HttpClient) { }
 
@@ -56,10 +57,32 @@ export class ESPConfigurationAPIService {
           observer.complete();
         }
       );
-    }
-  );
-  return returnObservable;
+    });
+    return returnObservable;
   }
+
+  /**
+   * Starts the Calibration worker for the given sensor kit
+   * @param sensorId  the device id of the sensor
+   * @returns an observable with a boolean
+   */
+     public startConfiguration(sensorId: number): Observable<boolean>{
+      let returnObservable = new Observable<boolean>((observer) => {
+        let httpOptions = {
+          params: new HttpParams().set('deviceID', sensorId + ''),
+        };
+        let response = this.httpClient.get(this.calibration, httpOptions);
+        response.subscribe(() => {
+          observer.next(true);
+          observer.complete();
+        },
+        () => {
+          observer.next(false);
+          observer.complete();
+        })
+      });
+      return returnObservable;
+    }
 }
 
 /**
@@ -69,4 +92,5 @@ export interface ESPConfiguration {
   id: number,
   roomName: string,
   transmissionFrequency: number,
+  sensorType: string,
 }

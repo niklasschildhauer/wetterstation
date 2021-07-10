@@ -2,6 +2,7 @@ import { Component, Inject, Input, OnInit } from '@angular/core';
 import { ESPConfiguration, ESPConfigurationAPIService } from 'src/app/services/api/esp-configuration-api.service';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FormControl } from '@angular/forms'; 
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-configuration-tile-view',
@@ -12,7 +13,8 @@ export class ConfigurationTileViewComponent implements OnInit {
   @Input() espConfiguration?: ESPConfiguration
   
   constructor(private espConfigurationService: ESPConfigurationAPIService,
-    public dialog: MatDialog) { }
+              public dialog: MatDialog,
+              private router: Router) { }
 
   ngOnInit(): void {
   }
@@ -30,6 +32,15 @@ export class ConfigurationTileViewComponent implements OnInit {
         this.updateConfiguration();
       }
     });
+  }
+  
+  startCalibration(): void {
+    if(this.espConfiguration)
+    this.espConfigurationService.startConfiguration(this.espConfiguration?.id).subscribe((success) => {
+      if(success) {
+        this.router.navigateByUrl('/settings/calibration-info');
+      }
+    })
   }
 
   updateConfiguration() {

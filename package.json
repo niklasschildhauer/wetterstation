@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "backend": "npm i && nodemon server.js",
-    "frontend": "cd frontend && npm i && ng serve --open",
+    "frontend-dev": "cd frontend && npm i && ng serve --open",
+    "frontend-prod": "cd frontend && npm i && npm run build && npm run host",
     "services": "node_modules/.bin/npm-run-all --parallel auth pers data",
     "servicesWin": "node_modules\\.bin\\npm-run-all --parallel auth pers data",
     "auth": "cd services/auth-service && npm i && nodemon index.js",

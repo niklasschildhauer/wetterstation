@@ -8,6 +8,7 @@ const PROXY_CONFIG = [
             '/pollen',
             '/espconfig',
             '/allergies',
+            '/calibration',
         ],
         target: 'http://localhost:4201/v1',
         secure: false,

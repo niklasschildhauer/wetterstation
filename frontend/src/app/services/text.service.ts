@@ -66,7 +66,7 @@ export class TextService {
         case 'Clear': 
           readAloud = "Im Verlaufe des Tages wird es wolkenlos. "
           break;
-        case 'Sunny and moderately cloudy': 
+        case 'Sunny and moderately cloudy.': 
           readAloud = "Im Verlaufe des Tages wird es sonnig mit ein paar Wolken. "
           break;
         case 'Rather cloudy': 
@@ -110,7 +110,7 @@ export class TextService {
           case 'Clear': 
             title = 'Wolkenlos';
             break;
-          case 'Sunny and moderately cloudy': 
+          case 'Sunny and moderately cloudy.': 
             title = 'Sonnig und leicht bedeckt';
             break;
           case 'Rather cloudy': 

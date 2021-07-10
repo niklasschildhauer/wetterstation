@@ -187,6 +187,7 @@ export class WeatherAPIService {
             temperature: response.temperature, 
             humidity: response.humidity, 
             timestamp: new Date(response.timestamp), 
+            calibrationValue: response.gasValCalibrationValue,
           }
   }
 
@@ -260,6 +261,7 @@ interface IndoorRoomResponse {
   gasVal: number,
   location: string,
   timestamp: string,
+  gasValCalibrationValue: number,
 }
 
 /**
