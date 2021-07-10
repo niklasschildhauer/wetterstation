@@ -118,11 +118,13 @@ app.use(express.json({ type: "application/json" }));
 
 /**
 * @typedef IndoorRoomData
-* @property {integer} roomHumidity
-* @property {integer} roomTemperature
+* @property {id} number
+* @property {integer} humidity
+* @property {integer} temperature
 * @property {integer} gasVal
 * @property {string} location
 * @property {string} timestamp
+* @property {number} gasValCalibrationValue
 */
 
 /**

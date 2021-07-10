@@ -42,21 +42,21 @@ createConnection().then(connection => {
             }
         });
 
-        if(latest !== undefined){
+        if (latest !== undefined) {
             const weather_postalCode = latest.location;
             const openweathermap_api_key = 'c23b6eb0df192e3eed784aa71777b7da'
             const request_uri = `https://api.openweathermap.org/data/2.5/weather?zip=${weather_postalCode},DE&appid=${openweathermap_api_key}`;
             const object_with_coordinates = await genericRequestToURI("GET", request_uri);
-            
+
             console.log('obj', object_with_coordinates);
-    
-            if(object_with_coordinates['coord']) {
+
+            if (object_with_coordinates['coord']) {
                 const lat = object_with_coordinates['coord']['lat'];
                 const lon = object_with_coordinates['coord']['lon'];
-    
+
                 const weather_request_uri = `https://api.brightsky.dev/current_weather?lat=${lat}&lon=${lon}`;
                 const weather = await genericRequestToURI("GET", weather_request_uri);
-    
+
                 latest['weather'] = weather['weather']['icon'];
                 latest['location_name'] = object_with_coordinates['name'];
             }
@@ -64,7 +64,7 @@ createConnection().then(connection => {
             returnNotNull(latest, res)
         }
         else {
-            return res.send({message: "The requested entry did not exist"})
+            return res.send({ message: "The requested entry did not exist" })
         }
 
         // console.log('req', req.body);
@@ -87,10 +87,10 @@ createConnection().then(connection => {
 
         // console.log("latest", latest)
         // console.log("out", out)
-        if(latest.deviceID !== -1){
-            const theEsp: ESPConfig = await espConfigData.findOne({id:latest.deviceID})
+        if (latest.deviceID !== -1) {
+            const theEsp: ESPConfig = await espConfigData.findOne({ id: latest.deviceID })
             // console.log("has prop gasValCal", theEsp.hasOwnProperty("gasValCalibrationValue"))
-            if(theEsp !== undefined && theEsp.hasOwnProperty("gasValCalibrationValue")){
+            if (theEsp !== undefined && theEsp.hasOwnProperty("gasValCalibrationValue")) {
                 out.gasValCalibrationValue = theEsp.gasValCalibrationValue;
             }
         }
@@ -403,11 +403,17 @@ createConnection().then(connection => {
 
     //Insert new forecast entry into forecast table
     app.post('/forecast/insert', async (req, res) => {
-        debugLog("body", req.body);
-        const forecast = await forecastData.create(req.body);
-        const results = await forecastData.save(forecast);
-        debugLog("results", results);
-        returnNotNull(results, res);
+        try {
+            debugLog("body", req.body);
+            const forecast = await forecastData.create(req.body);
+            const results = await forecastData.save(forecast);
+            debugLog("results", results);
+            returnNotNull(results, res);
+        } catch (error) {
+            console.log("(Forecast) Inserting a new dataset failed")
+            console.log("Error:", error)
+        }
+        return res.send({message: "The requested operation failed"})
     });
 
     //Get the last 9 forecast entries for new forecast
@@ -424,26 +430,26 @@ createConnection().then(connection => {
 
     // -------------------------------------- Calibration -----------------------------
 
-    app.post('/calibration/insert',  async (req, res) => {
+    app.post('/calibration/insert', async (req, res) => {
         const _calibration = {
             startDate: req.body.startDate,
             endDate: req.body.endDate,
-            deviceID:req.body.deviceID
+            deviceID: req.body.deviceID
         }
         const calibration = await calibrationData.create(_calibration);
         const result = await calibrationData.save(calibration);
         returnNotNull(result, res);
     })
 
-    app.get('/calibration/latest', async(req, res) => {
+    app.get('/calibration/latest', async (req, res) => {
         const latest = await calibrationData.find()
-        console.log("latest?", latest[latest.length-1])
-        returnNotNull(latest[latest.length-1], res);
+        console.log("latest?", latest[latest.length - 1])
+        returnNotNull(latest[latest.length - 1], res);
     })
 
     app.delete('/calibration/:id', async (req, res) => {
-        await calibrationData.delete({id: req.params.id})
-        return res.send({result: "ok"})
+        await calibrationData.delete({ id: req.params.id })
+        return res.send({ result: "ok" })
     })
 
     // ------------------------------------------------ Helper ------------------------------------------------
