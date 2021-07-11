@@ -17,7 +17,13 @@ const genericRequestToPromise = (method, uri) => {
                 if (error) {
                     reject(error);
                 }
-                resolve(JSON.parse(body))
+                if(body !== undefined){
+                    resolve(JSON.parse(body))
+                }
+                else{
+                    console.log("(Forecast) Body of request was undefined")
+                    reject("error")
+                }
             }
         );
     });
@@ -39,7 +45,13 @@ const genericRequestToPromiseAuth = (token, method, uri) => {
                 if (error) {
                     reject(error);
                 }
-                resolve(JSON.parse(body))
+                if(body !== undefined){
+                    resolve(JSON.parse(body))
+                }
+                else{
+                    console.log("(Forecast) Body of request was undefined")
+                    reject("error")
+                }
             }
         );
     });
