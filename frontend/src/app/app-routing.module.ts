@@ -4,6 +4,7 @@ import { DashboardScreenComponent } from './components/screens/dashboard-screen/
 import { DetailScreenComponent } from './components/screens/detail-screen/detail-screen.component';
 import { OnboardingScreenComponent } from './components/screens/onboarding-screen/onboarding-screen.component';
 import { SettingsScreenComponent } from './components/screens/settings-screen/settings-screen.component';
+import { CalibrationInfoDetailViewComponent } from './components/views/calibration-info-detail-view/calibration-info-detail-view.component';
 import { ConfigurationViewComponent } from './components/views/configuration-view/configuration-view.component';
 import { ForecastDetailViewComponent } from './components/views/forecast-detail-view/forecast-detail-view.component';
 import { HistoryDetailViewComponent } from './components/views/history-detail-view/history-detail-view.component';
@@ -52,10 +53,16 @@ const routes: Routes = [
       {
         path: 'configuration',
         component: ConfigurationViewComponent, 
+        data: { animationState: 'Configuration' }
       },
       {
         path: 'personalization',
         component: PersonalizationViewComponent, 
+      },
+      {
+        path: 'calibration-info',
+        component: CalibrationInfoDetailViewComponent, 
+        data: { animationState: 'Calibration' }
       },
     ], 
     data: { animationState: 'Detail' }

@@ -18,6 +18,54 @@ export class IndoorTileViewComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void { }
+
+  getQualityValue(): number {
+    if(this._indoorRoom){
+      const calibrationValue = this._indoorRoom.calibrationValue
+      const airQualityValue = this._indoorRoom.airQuality
+      if(calibrationValue === -1) {
+        return 0
+      }
+      if(calibrationValue + 5 < airQualityValue) {
+        return 100
+      }
+      if(calibrationValue <= airQualityValue) {
+        return 40
+      }
+      if(calibrationValue > airQualityValue) {
+        return 1
+      }
+    } 
+    return 50
+  }
+
+  getMaxValue(): number {
+    if(this._indoorRoom){
+      const calibrationValue = this._indoorRoom.calibrationValue
+      return calibrationValue + 5;
+    }
+    return 100
+  }
+
+  getQualityString(): string {
+    if(this._indoorRoom){
+      const calibrationValue = this._indoorRoom.calibrationValue
+      const airQualityValue = this._indoorRoom.airQuality
+      if(calibrationValue === -1) {
+        return ""
+      }
+      if(this.getMaxValue() < airQualityValue) {
+        return 'schlecht'
+      }
+      if(calibrationValue <= airQualityValue) {
+        return 'gut'
+      }
+      if(calibrationValue > airQualityValue) {
+        return 'sehr gut'
+      }
+    } 
+    return ''
+  }
 }
 
 

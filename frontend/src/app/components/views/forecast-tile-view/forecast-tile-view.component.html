@@ -5,7 +5,7 @@
     [pressable]="pressable"
     [hideSubtitle]="hideSubtitle">
     <div class="flex-container">
-        <p>{{getForecastDescription()}}</p>
+        <p *ngIf="getForecastDescription()">{{getForecastDescription()}}</p>
         <img class="forecast-image" [src]="getForecastIcon()" alt="" height="43px">
 
     </div>

@@ -326,10 +326,12 @@ export var POLLENLIST: Tile<PollenData[]> = {
 export var WOHNZIMMER: IndoorRoomData = {
     roomID: "328959845524",
     roomName: "Wohnzimmer",
-    airQuality: 102,
+    airQuality: 24,
     temperature: 22,
     humidity: 50,
     timestamp: new Date(),
+    calibrationValue: 25,
+
 }
 
 export var SCHLAFZIMMER: IndoorRoomData =  {
@@ -339,6 +341,7 @@ export var SCHLAFZIMMER: IndoorRoomData =  {
     temperature: 22,
     humidity: 50,
     timestamp: new Date(),
+    calibrationValue: -1,
 }
 
 export var WOHNZIMMER2: IndoorRoomData = {
@@ -348,6 +351,7 @@ export var WOHNZIMMER2: IndoorRoomData = {
     temperature: 2,
     humidity: 50,
     timestamp: new Date(),
+    calibrationValue: 25,
 }
 
 export var SCHLAFZIMMER2: IndoorRoomData =  {
@@ -357,6 +361,7 @@ export var SCHLAFZIMMER2: IndoorRoomData =  {
     temperature: 22,
     humidity: 5,
     timestamp: new Date(),
+    calibrationValue: 25,
 }
 
 export var INDOORAIRQUALITY2: IndoorRoomData[] = [

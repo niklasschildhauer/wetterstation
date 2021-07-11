@@ -5,7 +5,10 @@
     [pressable]="pressable"
     [hideSubtitle]="hideSubtitle">
     <div class="data-container">
-        <h1>{{_indoorRoom.airQuality}}</h1>
+        <div class="flex-container">
+            <h1>{{_indoorRoom.airQuality}}</h1>
+            <p id="airQuality">{{getQualityString()}}</p>
+        </div>
         <div>
             <div class="temp-humidity-data">
                 <p>Temperatur: {{_indoorRoom.temperature}}°C</p>
@@ -15,6 +18,7 @@
             </div>
         </div>
     </div>
-    <app-progress-chart-element [value]="_indoorRoom.airQuality"></app-progress-chart-element>
+    <app-progress-chart-element *ngIf="getQualityValue()" [value]="getQualityValue()" [maxValue]="getMaxValue()"></app-progress-chart-element>
+    <p *ngIf="_indoorRoom.calibrationValue === -1">Bitte kalibriere deinen Sensor. </p>
         
 </card-element>
