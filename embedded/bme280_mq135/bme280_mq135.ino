@@ -38,33 +38,39 @@ boolean isgas = false;
 String gas;
 float ppm;
 
-String viewSSID() {
-  AutoConnectCredential  ac(0);
-  station_config_t  entry;
+//Function to get access the memory of the autonnect credentials of the ESP and get the SSID
+String viewSSID()
+{
+  AutoConnectCredential ac(0);
+  station_config_t entry;
   String ssid = "";
-  uint8_t  count = ac.entries();          // Get number of entries.
+  uint8_t count = ac.entries(); // Get number of entries.
   //Serial.println("ct");
   //Serial.println(count);
 
-  for (int8_t i = 0; i < count; i++) {    // Loads all entries.
+  for (int8_t i = 0; i < count; i++)
+  { // Loads all entries.
     ac.load(i, &entry);
     // Build a SSID line of an HTML.
-    ssid = String((char *)entry.ssid); 
+    ssid = String((char *)entry.ssid);
   }
   //Serial.println("ssid");
   //Serial.println(ssid);
   return ssid;
 }
 
-String viewPW() {
-  AutoConnectCredential  ac(0);
-  station_config_t  entry;
+//Function to get access the memory of the autonnect credentials of the ESP and get the password
+String viewPW()
+{
+  AutoConnectCredential ac(0);
+  station_config_t entry;
   String password = "";
-  uint8_t  count = ac.entries();          // Get number of entries.
+  uint8_t count = ac.entries(); // Get number of entries.
   //Serial.println("ct");
   //Serial.println(count);
 
-  for (int8_t i = 0; i < count; i++) {    // Loads all entries.
+  for (int8_t i = 0; i < count; i++)
+  { // Loads all entries.
     ac.load(i, &entry);
     // Build a SSID line of an HTML.
     password = String((char *)entry.password);
@@ -109,8 +115,8 @@ void setup()
     Serial.println("Communication established!\n");
   }
 
+  // Autoconnect config / default page
   Server.on("/", rootPage);
-
 }
 
 /*------------------------------------loop---------------------------------*/
@@ -126,6 +132,7 @@ void loop()
     return;
   }
 
+  //Open the config file ESPConfig.txt and read its contents
   File file = SPIFFS.open("/ESPconfig.txt", FILE_READ);
   if (!file)
   {
@@ -133,8 +140,10 @@ void loop()
     return;
   }
 
+  //Read the filecontent to JSON
   DynamicJsonDocument doc(600);
 
+  // Parse the filecontent into the ArduinoJSON document
   String str;
   Serial.println("File content");
   while (file.available())
@@ -152,6 +161,7 @@ void loop()
     return;
   }
 
+  //Save the fileContent values to variables
   const char *roomName = doc["roomName"].as<char *>();
   int transmissionFrequency = doc["transmissionFrequency"];
   const char *postalCode = doc["postalCode"].as<char *>();
@@ -162,48 +172,52 @@ void loop()
   //Serial.println(ssid);
   //Serial.println(password);
 
-  if((strcmp("",password) != 0) && (strcmp("", ssid) != 0)){
+  //If credentials are stored in ESPConfig.txt connect to these credentials
+  if ((strcmp("", password) != 0) && (strcmp("", ssid) != 0))
+  {
     Serial.println("Trying to connect to stored credentials");
     WiFi.begin(ssid, password);
 
-   for (int i = 0; i < 10; i++)
+    for (int i = 0; i < 10; i++)
     {
-     if (WiFi.status() != WL_CONNECTED)
-     {
-       delay(1000);
-       Serial.print(".");
-     }
-     else
-     {
-       continue;
-     }
-   }
-
-   if (WiFi.status() == WL_CONNECTED)
-   {
-     Serial.println("");
-     Serial.println("WiFi connected");
-     Serial.println("IP address: ");
-     Serial.println(WiFi.localIP());
-   }
-  }
-    //------------------------------Autoconnect-----------------------------
-
-  else{
-    
-      Serial.println("Trying to connect via auto connect");
-     
-      if (Portal.begin())
+      if (WiFi.status() != WL_CONNECTED)
       {
-        Serial.println("Wifi connected to esp gedingsel: " + WiFi.localIP().toString());
+        delay(1000);
+        Serial.print(".");
       }
-      //WIFI Autoconfig-Page
-      Portal.handleClient();
+      else
+      {
+        continue;
+      }
+    }
+
+    if (WiFi.status() == WL_CONNECTED)
+    {
+      Serial.println("");
+      Serial.println("WiFi connected");
+      Serial.println("IP address: ");
+      Serial.println(WiFi.localIP());
+    }
+  }
+  //------------------------------Autoconnect-----------------------------
+
+  // If no credentials are stored use autoconnect library for the inital setup
+  else
+  {
+
+    Serial.println("Trying to connect via auto connect");
+
+    if (Portal.begin())
+    {
+      Serial.println("Wifi connected to esp gedingsel: " + WiFi.localIP().toString());
+    }
+    //WIFI Autoconfig-Page
+    Portal.handleClient();
   }
 
   file.close();
 
- // -------------------------------- Http request/response handling ------------------------------
+  // -------------------------------- Http request/response handling ------------------------------
 
   Serial.print("Temperature = ");
   Serial.print(bme.readTemperature());
@@ -228,6 +242,7 @@ void loop()
   {
     gas = "Yes";
   }
+  // Prints the collected values to Serial
   gasVal = map(gasVal, 0, 1023, 0, 100);
   Serial.print("Gas detected: ");
   Serial.println(gas);
@@ -268,6 +283,7 @@ void loop()
       // resource found at server
       if (httpCode == HTTP_CODE_OK)
       {
+        // The server "answer" is the current config in the database -> save this to ESPConfig.txt
         const String &payload = http.getString();
         Serial.println("received payload:\n<<");
         Serial.println(payload);
@@ -280,6 +296,7 @@ void loop()
           return;
         }
 
+        //Open ESPconfig.txt with WRITE permissions
         File file = SPIFFS.open("/ESPconfig.txt", FILE_WRITE);
         if (!file)
         {
@@ -287,7 +304,7 @@ void loop()
           return;
         }
 
-        // Parse JSON object
+        // Parse JSON object out of the received payload
         DeserializationError error = deserializeJson(doc, payload);
         if (error)
         {
@@ -296,9 +313,11 @@ void loop()
           return;
         }
 
+        //Set the SSID and PW out of the credential memory into the text file
         doc["ssid"] = viewSSID();
         doc["password"] = viewPW();
 
+        //Write payload + wifi credentials to the ESPconfig file
         file.print(doc.as<String>());
         Serial.println("File written!");
         Serial.println("==============================");
@@ -311,7 +330,7 @@ void loop()
     }
 
     http.end();
-    delay(5000);
-    // delay(60000 * transmissionFrequency - 10000)
+    //Set the delay timer for the Wifi board (default: 1min when transmissionFrequency = 1)
+    delay(60000 * transmissionFrequency - 10000)
   }
 }
