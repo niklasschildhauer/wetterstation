@@ -4,7 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "npm install && ng serve",
-    "build": "ng build --optimization --configuration=production",
+    "build": "npm install && ng build --optimization --configuration=production",
     "host": "cd dist/wetterstation && angular-http-server",
     "test": "ng test",
     "lint": "ng lint",
