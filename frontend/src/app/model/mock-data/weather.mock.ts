@@ -1,5 +1,8 @@
 import { IndoorRoomData, OutdoorWeatherData, WeatherHistoryByDayData, PollenData, WeatherForecastData, WeatherHistoryData, Tile, TileType, WeatherData, TilePriority } from '../weather';
 
+/**
+ * MOCK DATA
+ */
 export var OUTDOORWEATHER: OutdoorWeatherData = {
     temperature: 14,
     maxTemperature: 20,
