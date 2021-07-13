@@ -15,9 +15,12 @@ app.get('/', function (req, res) {
 });
 
 // Utility route when the user is already known
+// Used in auth-service. "Links together" UserContext and Pollen
 app.post('/userContextUtility', (req, res) => {
     const token = req.headers["x-access-token"] || req.headers["authorization"];
+    //The user is already given as param
     let db_user = req.body;
+    //Request Pollen by username from the db
     grh.genericRequest(token, "GET", 'http://localhost:4205/pollen/byUsername/' + db_user.username).then((pollen) => {
         let out = {
             id: db_user.id,
@@ -27,13 +30,13 @@ app.post('/userContextUtility', (req, res) => {
             selfVoicingEnabled: db_user.selfVoicingEnabled,
             doVentilationReminder: db_user.doVentilationReminder,
             reduceMotion: db_user.reduceMotion,
-            userCalibratedGasVal: db_user.userCalibratedGasVal,
             pollen: JSON.parse(pollen)
         };
         res.status(200).json(out);
     })
 })
 
+//Register a new user
 app.post('/register', (req, res) => {
 
     //No pollen allergies recorded here
@@ -48,7 +51,7 @@ app.post('/register', (req, res) => {
         reduceMotion: defaults.reduceMotion,
         pollen: []
     };
-
+    //Persist the changes to the db
     grh.genericRequestWithPayload("", "POST", 'http://localhost:4205/userContext/new', JSON.stringify(reqObj), res).then((response) => {
         //Remove password from output object
         delete response.password
@@ -56,6 +59,7 @@ app.post('/register', (req, res) => {
     });
 })
 
+//Save a user to the db (modify)
 app.put('/save/:id', (req, res) => {
     const token = req.headers["x-access-token"] || req.headers["authorization"];
     const id = req.params.id;
@@ -69,6 +73,7 @@ app.put('/save/:id', (req, res) => {
         reduceMotion: req.body.reduceMotion
     }
 
+    //Send changes to the db
     grh.genericRequestWithPayload(token, "PUT", 'http://localhost:4205/userContext/save/' + id, JSON.stringify(_body), res).then((response) => {
         //Remove password from output object
         delete response.password
@@ -76,21 +81,23 @@ app.put('/save/:id', (req, res) => {
     });
 })
 
+// Load OpenAPE settings using openAPE credentials and the openAPE provider in ./lib/openape.js
 app.post('/loadOpenAPESettingsAndSave', (req, res) => {
     const token = req.headers["x-access-token"] || req.headers["authorization"];
 
     let openApeUser = req.body.openApeUser;
     let openApePassword = req.body.openApePassword;
 
+    //Get the user object
     genericRequest(token, "GET", "http://localhost:4202/currentUser").then(db_user => {
         let out = JSON.parse(db_user);
+        //Pollen are not required here because they are only saved in our db, not openAPE
         delete out.pollen;
 
-        // console.log("out?", out, typeof out)
+        //Request openAPE
         getOpenApeData(openApeUser, openApePassword).then((response) => {
-            // console.log("response", response)
             
-            //On behalf of all backend programmers: sorry for this
+            //As the keys of the key-value pairs are delivered as URLS this is neccessary to "decode" the properties to reflect the actual values
             response.forEach(entry => {
                 if (typeof entry === 'object') {
                     if (entry.hasOwnProperty('http://terms.gpii.eu/selfVoicingEnabled')) {
@@ -116,6 +123,8 @@ app.post('/loadOpenAPESettingsAndSave', (req, res) => {
                     }
                 }
             });
+
+            //Save the changes to the db
             genericRequestWithPayload(token, "PUT", 'http://localhost:4205/userContext/save/' + out.id, JSON.stringify(out), res).then((response) => {
                 // console.log("response-save", response)
                 res.status(200).json(JSON.parse(response))
@@ -126,29 +135,23 @@ app.post('/loadOpenAPESettingsAndSave', (req, res) => {
     });
 })
 
-app.get('/test', (req, res) => {
-    getOpenApeData("am206", "schmurx123");
-
-    res.status(200).json("ok");
-})
-
+//Request openAPE data using the client in ./lib/openape.js
 const getOpenApeData = (openApeUser, openApePassword) => {
     return new Promise((resolve, reject) => {
         const client = new OpenApeClient(openApeUser, openApePassword, "https://openape.gpii.eu");
         const arrayOfPreferences = [];
         client.getUserContextList((ctxList) => {
-            // console.log("IT WORKS:", ctxList)
+            // console.log("ctxList:", ctxList)
             if (ctxList["user-context-uris"]) {
                 ctxList["user-context-uris"].forEach(element => {
                     client.getUserContext(element, (data) => {
-                        // console.log("SUCCESS CB", data);
+                        // console.log("success", data);
                         arrayOfPreferences.push(data.default.preferences)
                     })
                 });
             }
             else {
-                //TODO: Error handling
-                reject("Meaningful error message");
+                reject("Error");
             }
         })
         console.log("array of user preferences in OpenAPE", arrayOfPreferences);
@@ -156,6 +159,7 @@ const getOpenApeData = (openApeUser, openApePassword) => {
     })
 }
 
+//Defaults for new Users
 let defaults = {
     theme: "automatic",
     fontSize: 62.5,

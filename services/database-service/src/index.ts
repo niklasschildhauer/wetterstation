@@ -14,6 +14,7 @@ const debugEnabled = false;
 
 // create typeorm connection
 createConnection().then(connection => {
+    //Repositories for all entities in the db. Can be used to create/save objects and use the type safety they provide as well as filtering etc.
     const outdoorData = connection.getRepository(Outdoor);
     const indoorData = connection.getRepository(Indoor);
     const userCtxData = connection.getRepository(UserContext);
@@ -36,19 +37,21 @@ createConnection().then(connection => {
 
     //Get the latest data from the outdoor table  
     app.get('/outdoor/latest', async (req, res) => {
+        //Get the latest entry by ordering DESC and picking the last entry
         const latest = await outdoorData.findOne({
             order: {
                 id: "DESC"
             }
         });
 
+        //Add the weather-icon to the outgoing data
         if (latest !== undefined) {
             const weather_postalCode = latest.location;
             const openweathermap_api_key = 'c23b6eb0df192e3eed784aa71777b7da'
             const request_uri = `https://api.openweathermap.org/data/2.5/weather?zip=${weather_postalCode},DE&appid=${openweathermap_api_key}`;
             const object_with_coordinates = await genericRequestToURI("GET", request_uri);
 
-            console.log('obj', object_with_coordinates);
+            // console.log('obj', object_with_coordinates);
 
             if (object_with_coordinates['coord']) {
                 const lat = object_with_coordinates['coord']['lat'];
@@ -60,20 +63,18 @@ createConnection().then(connection => {
                 latest['weather'] = weather['weather']['icon'];
                 latest['location_name'] = object_with_coordinates['name'];
             }
-            console.log("Res", latest);
+            // console.log("Res", latest);
             returnNotNull(latest, res)
         }
         else {
             return res.send({ message: "The requested entry did not exist" })
         }
-
-        // console.log('req', req.body);
-
     });
 
     //Get the latest data from the indoor table  
     app.get('/indoor/latest', async (req, res) => {
         let out;
+        //Get the latest entry by ordering DESC and picking the last entry
         const latest = await indoorData.findOne({
             order: {
                 id: "DESC"
@@ -85,11 +86,9 @@ createConnection().then(connection => {
             gasValCalibrationValue: -1
         }
 
-        // console.log("latest", latest)
-        // console.log("out", out)
+        // Add the calibration value to the outgoing data
         if (latest.deviceID !== -1) {
             const theEsp: ESPConfig = await espConfigData.findOne({ id: latest.deviceID })
-            // console.log("has prop gasValCal", theEsp.hasOwnProperty("gasValCalibrationValue"))
             if (theEsp !== undefined && theEsp.hasOwnProperty("gasValCalibrationValue")) {
                 out.gasValCalibrationValue = theEsp.gasValCalibrationValue;
             }
@@ -98,6 +97,7 @@ createConnection().then(connection => {
         returnNotNull(out, res)
     });
 
+    //History data for the outdoor sensor
     app.post('/outdoor/history', async (req, res) => {
         const beginTimestamp = req.body.begin;
         const endTimestamp = req.body.end;
@@ -118,13 +118,13 @@ createConnection().then(connection => {
         }
     });
 
-
+    //History data for the outdoor sensor
     app.post('/indoor/history', async (req, res) => {
         console.log("req.body", req.body)
         const beginTimestamp = req.body.begin;
         const endTimestamp = req.body.end;
 
-        console.log(beginTimestamp, endTimestamp)
+        // console.log(beginTimestamp, endTimestamp)
 
         if (parseDateHelper(beginTimestamp) && parseDateHelper(endTimestamp)) {
             // debugLog("begin", beginTimestamp)
@@ -153,18 +153,29 @@ createConnection().then(connection => {
         outdoor.pressure = req.body.pressure;
         outdoor.timestamp = getDateFormatted();
         const deviceID = req.body.deviceID;
-        // console.log("req", req.body);
 
         await outdoorData.create(outdoor);
         await outdoorData.save(outdoor);
 
+        //The device already has an ID and an associated device in the DB. 
         if (deviceID !== -1) {
+
+            /*
+            * Return the current sensor config back to the sensor
+            * For the reason of saving battery lifespan the outdoor sensor does not have an event or http listener that is permanently active
+            * Instead, the config objects are sent back every time the sensor delivers data. The sensors of both types will then overwrite their local memory with the
+            * received config data
+            */
             const return_val = await espConfigData.findOne({ id: deviceID });
+            // Remove these properties because they are irrelevant on the ESP
             delete return_val.gasValCalibrationValue;
             delete return_val.sensorType;
             return res.send(return_val);
-        } else {
+        }
+        //The device does not yet exist "Case: first data the sensor ever sends". A new device object will be created and the ID (and some other default configs) will be passed to the device
+        else {
             const result = await registerNewDeviceESPConfig(sensorTypes.outdoor);
+            // Remove these properties because they are irrelevant on the ESP
             delete result.gasValCalibrationValue;
             delete result.sensorType;
             return res.send(result);
@@ -186,15 +197,23 @@ createConnection().then(connection => {
         await indoorData.create(indoor);
         await indoorData.save(indoor);
 
+        /*
+        * Return the current sensor config back to the sensor
+        * For the reason of saving battery lifespan the outdoor sensor does not have an event or http listener that is permanently active
+        * Instead, the config objects are sent back every time the sensor delivers data. The sensors of both types will then overwrite their local memory with the
+        * received config data
+        */
         if (deviceID !== -1) {
             const return_val = await espConfigData.findOne({ id: deviceID });
+            // Remove these properties because they are irrelevant on the ESP
             delete return_val.gasValCalibrationValue;
             delete return_val.sensorType;
             return res.send(return_val);
         }
+        //The device does not yet exist "Case: first data the sensor ever sends". A new device object will be created and the ID (and some other default configs) will be passed to the device
         else {
             const result = await registerNewDeviceESPConfig(sensorTypes.indoor);
-            debugLog("result:", result);
+            // Remove these properties because they are irrelevant on the ESP
             delete result.gasValCalibrationValue;
             delete result.sensorType;
             return res.send(result);
@@ -206,9 +225,10 @@ createConnection().then(connection => {
     //Request all pollen objects
     app.get('/pollen/all', async (req, res) => {
         const pollen = await pollenData.find();
+        //Append the "severity" of the pollen by using an external API (opendata.dwd.de)
         const pollenLoadsPerRegion = await genericRequestToURI("GET", 'https://opendata.dwd.de/climate_environment/health/alerts/s31fg.json');
         const pollenLoadForRegionOfInterest: Object = pollenLoadsPerRegion["content"].find(e => e.partregion_name === "Hohenlohe/mittlerer Neckar/Oberschwaben").Pollen;
-        //debugLog(pollenLoadForRegionOfInterest)
+        //Append the data for the pollen to the output object
         pollen.forEach(pollenObj => {
             if (pollenLoadForRegionOfInterest.hasOwnProperty(pollenObj.pollenName)) {
                 pollenObj["loadRating"] = pollenLoadForRegionOfInterest[pollenObj.pollenName].today;
@@ -220,9 +240,7 @@ createConnection().then(connection => {
 
     //Request one pollen object by id
     app.get('/pollen/:id', async (req, res) => {
-        // debugLog("hello", req.params.id);
         const pollen = await pollenData.findOne({ id: req.params.id })
-        // debugLog("pollen", pollen)
         returnNotNull(pollen, res);
     })
 
@@ -233,18 +251,18 @@ createConnection().then(connection => {
         return res.send(results);
     });
 
+    //Add a Pollen object to a user
     app.post('/pollen/save', async (req, res) => {
+        //Get the auth token and validate it (personalization options are only available if the user is logged in)
         const token = req.headers["x-access-token"] || req.headers["authorization"];
-        debugLog("token", token)
         validateToken(token).then(async (success) => {
-            console.log("success?", success)
             if (success) {
+                //Lookup Pollen and user Objects
                 const userID = req.body.userID;
                 const pollenID = req.body.pollenID;
                 const pollen = await (await pollenData.find({ relations: ['users'] })).filter(pl => pl.id === pollenID)
                 const user = await userCtxData.findOne({ id: userID })
-                debugLog("pollen", pollen)
-                debugLog("pollen.users", pollen[0].users)
+                //If the user has no Pollen assigned, assign the new one, else append
                 if (pollen[0].users === undefined) {
                     pollen[0].users = [user]
                 }
@@ -252,6 +270,7 @@ createConnection().then(connection => {
                     pollen[0].users.push(user);
                 }
 
+                //Persist the changes to the db
                 await connection.manager.save(user);
                 await connection.manager.save(pollen);
 
@@ -263,16 +282,18 @@ createConnection().then(connection => {
         })
     });
 
+    //Remove a pollen object from a user
     app.delete('/pollen/delete', async (req, res) => {
         const userID = req.body.userID
         const pollenID = req.body.pollenID
 
+        //Get the auth token and validate it (personalization options are only available if the user is logged in)
         const token = req.headers["x-access-token"] || req.headers["authorization"];
         validateToken(token).then(async (success) => {
             if (success) {
-                const pollen = await (await pollenData.find({ relations: ["users"] })).filter(pl => pl.id === pollenID);
-                console.log("pollen", pollen)
 
+                //Remove the pollen object from the user. Do some type checks.
+                const pollen = await (await pollenData.find({ relations: ["users"] })).filter(pl => pl.id === pollenID);
                 if (pollen.length === 1) {
                     console.log("pollen.users", pollen[0].users)
                     pollen[0].users = pollen[0].users.filter(usr => usr.id !== userID)
@@ -285,7 +306,9 @@ createConnection().then(connection => {
         })
     })
 
+    //Get the pollen associated with a user (by username)
     app.get('/pollen/byUsername/:username', async (req, res) => {
+        //Get the auth token and validate it (personalization options are only available if the user is logged in)
         const token = req.headers["x-access-token"] || req.headers["authorization"];
         validateToken(token).then(async (success) => {
             if (success) {
@@ -293,8 +316,9 @@ createConnection().then(connection => {
                 let userPollenNames: Array<string> = [];
                 const allergies = await pollenData.find({ relations: ["users"] });
 
+                //Iterate all Pollen and check if it associated to the given username
                 allergies.forEach(allergy => {
-                    debugLog("allergy:", allergy)
+                    // debugLog("allergy:", allergy)
                     if (allergy.users.length > 0) {
                         if (allergy.users[0].username === username) {
                             // debugLog("pollen in this allergy object", allergy.pollen);
@@ -320,7 +344,7 @@ createConnection().then(connection => {
         returnNotNull(userCtx, res);
     })
 
-    //Save a new UserContext object to the db
+    //Register a new user
     app.post('/userContext/new', async (req, res) => {
         debugLog("the req.body", req.body)
         const entry = await userCtxData.create(req.body)
@@ -328,8 +352,9 @@ createConnection().then(connection => {
         returnNotNull(results, res);
     });
 
-    //Save a new UserContext object to the db
+    //Modify a UserContext object
     app.put('/userContext/save/:id', async (req, res) => {
+        //Get the auth token and validate it (personalization options are only available if the user is logged in)
         const token = req.headers["x-access-token"] || req.headers["authorization"];
         debugLog("token", token);
         validateToken(token).then(async (success) => {
@@ -351,8 +376,9 @@ createConnection().then(connection => {
         })
     });
 
-    //Save a new UserContext object to the db
+    //Overwrite the personalization values with the data from a user's openAPE account
     app.put('/userContext/saveOpenAPESettings/:id', async (req, res) => {
+        //Get the auth token and validate it (personalization options are only available if the user is logged in)
         const token = req.headers["x-access-token"] || req.headers["authorization"];
         debugLog("token", token);
         validateToken(token).then(async (success) => {
@@ -373,6 +399,7 @@ createConnection().then(connection => {
 
     // -------------------------------------- ESPConfig -----------------------------
 
+    //Modify a sensor/ESPConfig object
     app.post('/espconfig/change', async (req, res) => {
         const espconf = await espConfigData.findOne({ id: req.body.id });
         espconf.transmissionFrequency = req.body.transmissionFrequency;
@@ -384,6 +411,7 @@ createConnection().then(connection => {
         return res.send(result);
     })
 
+    //Get all sensor/ESPConfig objects
     app.get('/espconfig/all', async (req, res) => {
         const allEsps = await espConfigData.find();
         return res.send(allEsps);
@@ -413,7 +441,7 @@ createConnection().then(connection => {
             console.log("(Forecast) Inserting a new dataset failed")
             console.log("Error:", error)
         }
-        return res.send({message: "The requested operation failed"})
+        return res.send({ message: "The requested operation failed" })
     });
 
     //Get the last 9 forecast entries for new forecast
@@ -430,6 +458,7 @@ createConnection().then(connection => {
 
     // -------------------------------------- Calibration -----------------------------
 
+    //Insert a new calibration task to the database
     app.post('/calibration/insert', async (req, res) => {
         const _calibration = {
             startDate: req.body.startDate,
@@ -441,12 +470,14 @@ createConnection().then(connection => {
         returnNotNull(result, res);
     })
 
+    //Get the latest calibration task
     app.get('/calibration/latest', async (req, res) => {
         const latest = await calibrationData.find()
         console.log("latest?", latest[latest.length - 1])
         returnNotNull(latest[latest.length - 1], res);
     })
 
+    //Delete a calibration task by id
     app.delete('/calibration/:id', async (req, res) => {
         await calibrationData.delete({ id: req.params.id })
         return res.send({ result: "ok" })
@@ -454,9 +485,10 @@ createConnection().then(connection => {
 
     // ------------------------------------------------ Helper ------------------------------------------------
 
+    //Helper to handle statusCodes and error cases for e.g. empty database or wrong parameters
     const returnNotNull = (databaseOutput: any, res: any): void => {
         if (databaseOutput === undefined) {
-            debugLog("database input was undefined");
+            console.log("database input was undefined");
             res.status(400).json({ message: "Requested entry did not exist" });
         }
         else {
@@ -464,6 +496,7 @@ createConnection().then(connection => {
         }
     }
 
+    //Validate a date by RegExp to check for valid formatting so SQLite does not throw errors
     const parseDateHelper = (date: string): boolean => {
         //TODO: The regex is somewhat improved but still far from perfect (month 13 still works etc.) 
         //but this is not really solvable with regex since you are only able to specify allowed character (ranges) and not e.g. number values
@@ -471,6 +504,7 @@ createConnection().then(connection => {
         return dateFormatRegex.test(date);
     }
 
+    //Get the current date in "our format" (mandatory to make date comparisons with SQLite) --> "YYYY-MM-DD HH:MM:SS"
     const getDateFormatted = (): string => {
         var tzoffset = (new Date()).getTimezoneOffset() * 60000; //offset in milliseconds
         var localISOTime = (new Date(Date.now() - tzoffset)).toISOString();
@@ -478,6 +512,7 @@ createConnection().then(connection => {
         return formatted;
     }
 
+    //Helper to create a new sensor/ESPConfig object. Provides defaults for the config data of the new ESPConfig
     const registerNewDeviceESPConfig = async (sensorType: sensorTypes): Promise<ESPConfig> => {
         // const rndInt =  Math.floor(Math.random() * (max - min + 1) + min)
         const rndInt = Math.floor(Math.random() * (500 - 1 + 1) + 1)
@@ -491,6 +526,7 @@ createConnection().then(connection => {
         return result;
     }
 
+    //Logging helper
     const debugLog = (message1: string, message2?: any): void => {
         if (debugEnabled) {
             console.log(message1 + " " + message2);
@@ -498,6 +534,7 @@ createConnection().then(connection => {
         }
     }
 
+    //Helper to validate an auth-token using the auth-service
     const validateToken = (token) => {
         return new Promise((resolve, reject) => {
             request(
@@ -512,12 +549,9 @@ createConnection().then(connection => {
                 },
                 function (error, response, body) {
                     if (error) {
-                        console.log("???", error)
                         reject("Error in auth-service statusCode: " + response.statusCode);
                     } else {
-                        console.log("!!!", body)
                         let data = JSON.parse(body);
-                        console.log("data", data, data.success)
                         if (data.success) {
                             resolve(true)
                         } else {
@@ -529,6 +563,7 @@ createConnection().then(connection => {
         })
     };
 
+    //Helper to request data from external APIs
     const genericRequestToURI = (method, uri) => {
         return new Promise((resolve, reject) => {
             request(

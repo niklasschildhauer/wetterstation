@@ -10,6 +10,7 @@ class AuthService {
     let username = req.body.username;
     let password = req.body.password;
 
+    // Request the database for the given username and get the credentials from the database
     request(
       {
         headers: {
@@ -22,13 +23,10 @@ class AuthService {
       function (error, response, body) {
         let _body = JSON.parse(body);
 
-        // console.log("body", _body)
-
         let db_username = _body.username;
-        //TODO: Deliver decoded pw here? What is the most "secure case" - 
-        //can only be done if this route stays inside our network
         let db_password = _body.password;
 
+        //Check if the username exists
         if (db_username && db_password) {
           if (username === db_username && password === db_password) {
             //Credentials are correct -> deliver token to client
@@ -37,7 +35,9 @@ class AuthService {
                 expiresIn: '24h'
               }
             );
-            //Request full user_context from pers-service through utility method
+
+            // We defined that the login method should return the full User object therefore the full User object has to be requested from the database
+            // Request full user_context from pers-service through utility method
             request(
               {
                 headers: {
@@ -50,11 +50,13 @@ class AuthService {
                 body: body
               },
               function (error, response, body) {
-                // console.log("error", error)
-                // console.log("body 2nd", body)
+                //Case: "unknown error" (likely some service is not available)
                 if (error) {
+                  console.log("most likely some service was not available")
                   res.status(400).json("Unknown error");
                 }
+                // Case: Success
+                // The login handler delivers the success message, the auth token and the User object
                 else {
                   res.json({
                     success: true,
@@ -81,15 +83,20 @@ class AuthService {
       }
     );
   }
+  // The validate token uses the middleware in middleware.js to validate the given token
+  // The usage of middleware is specified in the route definition (index.js)
   validateToken(req, res) {
     res.status(200).json({ success: true, message: "Token is valid" })
   }
 
+  // The currentUser method decodes the received token to get the username for which it was assigned.
+  // It then requests the according User object and returns it.
   currentUser(req, res) {
     let token = req.headers["x-access-token"] || req.headers["authorization"]; // Express headers are auto converted to lowercase
+    // Decode the token and get the username
     let user = getDecodedUser(token);
 
-    // console.log("token", token, "user", user)
+    //Request the User object by given username
     request(
       {
         headers: {
@@ -100,6 +107,7 @@ class AuthService {
         method: 'GET'
       }, function (error, response, body) {
         var _body = JSON.parse(body)
+        // Use the UserContextUtility to get the full User object including appended external information such as Pollen configuration etc.
         request(
           {
             headers: {
@@ -122,6 +130,8 @@ class AuthService {
   }
 }
 
+
+// Decodes a token to get the username for which it was created
 const getDecodedUser = (token) => {
   let decodedUser;
 
@@ -129,6 +139,7 @@ const getDecodedUser = (token) => {
     // Remove Bearer from string
     token = token.slice(7, token.length);
   }
+  //Verify and decode a token
   jwt.verify(token, config.secret, (err, decoded) => {
     if (err) {
       return err;

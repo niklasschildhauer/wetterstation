@@ -36,6 +36,7 @@ const corsOptions = {
   ]
 };
 
+// Options for auto-generated swagger api documentation
 let swaggerOptions = {
   swaggerDefinition: {
     info: {
@@ -61,6 +62,7 @@ let swaggerOptions = {
 };
 expressSwagger(swaggerOptions);
 
+//Config to use cors, morgan request logging and json encoding for requests
 app.use(cors(corsOptions));
 app.use(morgan("dev"));
 app.use(express.json({ type: "application/json" }));
@@ -69,6 +71,7 @@ app.use(express.json({ type: "application/json" }));
 
 
 // ------------------------------------------------ Models ------------------------------------------------
+// Contains modelling of types for parameter/return values in the api documentation
 
 /**
  * @typedef LoginCredentials
@@ -270,7 +273,6 @@ app.post("/v1/user/loadOpenAPESettingsAndSave", (req, res) => {
 
 // ----------------------------------------- Routes - Sensors -----------------------------------------
 
-//TODO: Returns?
 /**
  * Receive data for outdoor sensors
  * @route POST /sensors/outdoor
@@ -281,7 +283,6 @@ app.post("/v1/sensors/outdoor", (req, res) => {
   genericRequestWithPayload("", "POST", "http://localhost:4204/sensorout", JSON.stringify(req.body), res);
 });
 
-//TODO: Returns?
 /**
  * Receive data for outdoor sensors
  * @route POST /sensors/indoor
@@ -374,8 +375,6 @@ app.post("/v1/pollen/insert", (req, res) => {
 });
 
 
-//TODO: returns
-
 /**
  * Save a new Allergy
  * @route POST /allergies/save
@@ -388,7 +387,6 @@ app.post("/v1/allergies/save", (req, res) => {
   genericRequestWithPayload(token, "POST", "http://localhost:4205/pollen/save", JSON.stringify(req.body), res);
 });
 
-//TODO: returns
 
 /**
  * Delete an existing Allergy
@@ -401,6 +399,7 @@ app.delete("/v1/allergies/delete", (req, res) => {
   const token = req.headers["x-access-token"] || req.headers["authorization"];
   genericRequestWithPayload(token, "DELETE", "http://localhost:4205/pollen/delete", JSON.stringify(req.body), res);
 });
+
 
 /**
  * Retrieve all pollen types a user is allergic to
@@ -485,9 +484,13 @@ app.post("/v1/espconfig/change", (req, res) => {
   genericRequest("", "GET", "http://localhost:4204/calibration/insert/" + req.query.deviceID, res);
 });
 
+
+
 // ------------------------------------------------ Helper ------------------------------------------------
 
-
+// A parameterized request without payload used for GET or DELETE requests.
+// Takes an auth-token or empty string, http-method, resource location uri
+// The res parameter is the response handler of the express function handler which will simply be passed to the lower level function
 const genericRequest = (token, method, uri, res) => {
   request(
     {
@@ -505,6 +508,9 @@ const genericRequest = (token, method, uri, res) => {
   );
 };
 
+// A parameterized request with payload used for POST or PUT requests.
+// Takes an auth-token or empty string, http-method, resource location uri
+// The res parameter is the response handler of the express function handler which will simply be passed to the lower level function
 const genericRequestWithPayload = (token, method, uri, body, res) => {
   request(
     {
@@ -523,17 +529,25 @@ const genericRequestWithPayload = (token, method, uri, body, res) => {
   );
 };
 
+// This function will send the actual response back to the client.
+// Sets the statusCode for the http response
 const genericCallback = (error, response, body, res) => {
+  //Case "unknown error", i.e. a service is down
   if (error) {
     res.sendStatus("400");
   } else {
+    //Case "successful request"
     if (response.statusCode === 200) {
       let data = JSON.parse(body);
       res.json(data);
-    } else if (response.statusCode === 401) {
+    } 
+    //Case "not authorized"
+    else if (response.statusCode === 401) {
       let out = "The request is unauthorized";
       res.status("401").json(out);
-    } else {
+    } 
+    //Case "bad request" (Wrong parameters/input)
+    else {
       let out = body.message || "Bad request";
       res.status("400").json(out);
     }
@@ -546,8 +560,7 @@ http.createServer(app).listen(4201, () => {
 
 
 /*
-CURL test comannds WINDOWS
-
+CURL test commands WINDOWS
 
 curl -X GET http://localhost:4202/checkToken
 // --> invalid token

@@ -8,9 +8,10 @@ const AuthService = authService.AuthService;
 
 const port = 4202;
 
-//Use instance of AuthService to protect routes for the AuthService
+//Use instance of AuthService to protect routes for the AuthService.
 const handlers = new AuthService();
 
+//Config for datatype usage
 app.use(express.urlencoded({
   extended: true
 }));
@@ -20,6 +21,7 @@ app.use(express.json());
 /*
   /login : Provide credentials to receive a token
   /checkToken : Validate Token (use from server side)
+  /currentUser : The user that the token is associated to
 */
 app.post('/login', handlers.login);
 app.get('/checkToken', middleware.checkToken, handlers.validateToken);

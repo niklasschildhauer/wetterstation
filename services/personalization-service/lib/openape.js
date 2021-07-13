@@ -4,6 +4,8 @@
  */
 
 
+//Note: This is taken from the OpenAPE github but had to be modified by the Wetterstation team to work for our use-case
+
 const xmlhttpRequest = require('xmlhttprequest');
 const XMLHttpRequest = xmlhttpRequest.XMLHttpRequest;
 

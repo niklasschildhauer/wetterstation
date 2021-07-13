@@ -3,6 +3,8 @@
 let jwt = require('jsonwebtoken');
 const config = require('./config.js');
 
+
+//Middleware function based on jwt.verify to check tokens for validity. Used in the route definitions in index.js
 let checkToken = (req, res, next) => {
   let token = req.headers['x-access-token'] || req.headers['authorization']; // Express headers are auto converted to lowercase
   
