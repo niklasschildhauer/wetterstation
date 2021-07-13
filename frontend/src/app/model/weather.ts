@@ -1,5 +1,12 @@
+/**
+ * Marker interface. Marks all Weather data. In this way they all can be stored 
+ * in a tiles array [].
+ */
 export interface WeatherData { }
 
+/**
+ * Enum to identify the type of the tile. 
+ */
 export enum TileType {
     indoorRoom,
     pollenSmall,
@@ -10,13 +17,18 @@ export enum TileType {
     apparentTemperature,
 }
 
+/**
+ * This interface bundles the three tile arrays
+ */
 export interface TileArrays {
     dashboard: Tile<WeatherData>[],
     pollen : Tile<WeatherData>[],
     indoorRooms: Tile<WeatherData>[]
-  }
+}
   
-
+/**
+ * Enum to set the priority of a tile
+ */
 export enum TilePriority {
     important, //Highest 
     high,
@@ -24,6 +36,12 @@ export enum TilePriority {
     low,
 }
 
+/**
+ * Tile model. 
+ * Every tile (widget) needs data and a prioriy. The priority can 
+ * be used to set the position of the tile. The tiles itself do not load the data.
+ * The data is passed from the parent view of the tiles into it. @Carina
+ */
 export interface Tile<A> {
     type: TileType;
     data: A;
@@ -31,31 +49,47 @@ export interface Tile<A> {
     priority: TilePriority
 }
 
+/**
+ * Model of the outdoor weather data. It contains all information about the current 
+ * outdoor weather including temperature, humidity and weather type. 
+ */
 export interface OutdoorWeatherData extends WeatherData {
     temperature: number // in °C
-    maxTemperature: number, //TODO: external database required "forecast"  --> // TODO: Move to "daily" data structure
-    minTemperature: number, //TODO: external database required "forecast"  --> // TODO: Move to "daily" data structure
+    maxTemperature: number,
+    minTemperature: number, 
     humidity: number, // in %
     timestamp: Date, 
-    weather: string, // TODO: external API required
+    weather: string, 
     apparentTemperature: number, // in °C ---> die "gefühlte" Temperatur
     location: string, // e.g. "Stuttgart" TODO: Make configurable in ESP Wlan-Board
     postCode: string,
 }
 
+/**
+ * Model of the weather forecast data. It contains all information about 
+ * the forecast including weather and trend. 
+ */
 export interface WeatherForecastData extends WeatherData {
     trend: string,
     weatherDescription: string,
     weatherIcon: string,
   }
 
+/**
+ * Model of the pollen data. It contains all information about 
+ * the current pollen fly. @Carina
+ */
 export interface PollenData extends WeatherData {
-    pollenName: string, // TODO: Maybe we should use the same Pollen enum as in user-context.ts
+    pollenName: string, 
     id: number,
     today: string, // -1 <--> 3
     tomorrow: string, // -1 <--> 3
 }
 
+/**
+ * Model of the indoor room data. It contains all information about 
+ * the temperature, humidity, roomname, airQuality of the current room. 
+ */
 export interface IndoorRoomData extends WeatherData {
     roomID: string,
     roomName: string,
@@ -66,10 +100,18 @@ export interface IndoorRoomData extends WeatherData {
     calibrationValue: number
 }
 
+/**
+ * Model of the indoor room data. It contains all information about 
+ * the temperature, humidity, roomname, airQuality of the current room. 
+ */
 export interface WeatherHistoryData extends WeatherData {
     datapoints: OutdoorWeatherData[],
 }
 
+/**
+ * Model of the indoor room data. It contains all information about 
+ * the temperature, humidity, roomname, airQuality of the current room. 
+ */
 export interface GraphDataSet extends WeatherData {
     temperatureDataPoints: number[];
     humidityDataPoints: number[];
