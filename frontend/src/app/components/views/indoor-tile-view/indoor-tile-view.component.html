@@ -18,7 +18,7 @@
             </div>
         </div>
     </div>
-    <app-progress-chart-element *ngIf="getQualityValue()" [value]="getQualityValue()" [maxValue]="getMaxValue()"></app-progress-chart-element>
+    <app-progress-chart-element *ngIf="getQualityValue()" [value]="getQualityValue()" [maxValue]="getMaxValue()" [optimalValue]="getOptimalValue()"></app-progress-chart-element>
     <p *ngIf="_indoorRoom.calibrationValue === -1">Bitte kalibriere deinen Sensor. </p>
         
 </card-element>

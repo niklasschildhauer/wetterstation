@@ -12,8 +12,11 @@ import { WeatherDataService } from 'src/app/services/weather-data.service';
 export class OutdoorWeatherDetailViewComponent implements OnInit {
   desktop: boolean = false;
   outdoorWeather?: OutdoorWeatherData;
+  /**
+   * this function computes the to be read aloud text for the tts feature. 
+   * This function is passed to the tts player element
+   */
   ttsTextGeneratorFunction = () => this.textService.createOutdoorText(this.outdoorWeather)
-
 
   constructor(private breakpointObserver: BreakpointObserver,
     private weahterDataService: WeatherDataService,

@@ -10,6 +10,10 @@ import { WeatherDataService } from 'src/app/services/weather-data.service';
 })
 export class IndoorDetailViewComponent implements OnInit {
   indoorRoomTiles?: Tile<WeatherData>[];
+  /**
+   * this function computes the to be read aloud text for the tts feature. 
+   * This function is passed to the tts player element
+   */
   ttsTextGeneratorFunction = () => this.textService.createTextFromTilesArray(this.indoorRoomTiles)
 
   constructor(private weatherDataService: WeatherDataService,

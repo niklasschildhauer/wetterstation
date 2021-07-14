@@ -1,8 +1,16 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Themes } from 'src/app/model/user-context';
 import { GraphDataSet, WeatherData } from 'src/app/model/weather';
-import { DatasetColor, ChartLabel, ChartColor, ChartDataset } from '@rinminase/ng-charts';
+import { ChartLabel, ChartColor, ChartDataset } from '@rinminase/ng-charts';
 
+/**
+ * History tile view component
+ * 
+ * This component displays in form of a tile (widget) the history data 
+ * as a line chart. It takes an object of the type GraphDataSet as information source. 
+ * Itself has no connection to any data service. 
+ * It uses the card-view-element to define the layout.
+ */
 @Component({
   selector: 'app-history-tile-view',
   templateUrl: './history-tile-view.component.html',
@@ -46,6 +54,15 @@ export class HistoryTileViewComponent implements OnInit {
 
   ngOnInit(): void { }
   
+  /**
+   * This function converts the GraphDataSet to the ChartDataset and Chartcolor, which 
+   * are needed by the graph library. @Carina
+   * 
+   * @param chartDataset 
+   * @param chartColors 
+   * @param dataSet 
+   * @param graphType 
+   */
   updateChartData(chartDataset: ChartDataset[], chartColors: ChartColor, dataSet: GraphDataSet, graphType: HistoryGraphType) {
     switch (graphType) {
       case HistoryGraphType.temperature:

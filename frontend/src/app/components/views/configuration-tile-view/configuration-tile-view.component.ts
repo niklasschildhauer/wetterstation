@@ -4,6 +4,17 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dial
 import { FormControl } from '@angular/forms'; 
 import { Router } from '@angular/router';
 
+/**
+ * Configuration tile view component
+ * 
+ * This component displays in form of a tile (widget) the configuration 
+ * options of the different esp kits (sensor kits). There are two
+ * different kinds of esp kits, for outdoor and indoor. For both it is possible
+ * to change the name as well as the frequency and for the indoor sensor kits
+ * the calibration can be started. 
+ * 
+ * For the name change a pop up will be shown.
+ */
 @Component({
   selector: 'app-configuration-tile-view',
   templateUrl: './configuration-tile-view.component.html',
@@ -19,6 +30,9 @@ export class ConfigurationTileViewComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  /**
+   * Opens the pop up to change the name
+   */
   openDialog(): void {
     const dialogRef = this.dialog.open(ConfigurationTilePopUpDialogView, {
       width: '300px',
@@ -34,6 +48,11 @@ export class ConfigurationTileViewComponent implements OnInit {
     });
   }
   
+  /**
+   * calls the espConfiguration service and starts the calibration process.
+   * If the process is started successfully it redirects to the 
+   * calibration info detail view component.
+   */
   startCalibration(): void {
     if(this.espConfiguration)
     this.espConfigurationService.startConfiguration(this.espConfiguration?.id).subscribe((success) => {
@@ -43,16 +62,24 @@ export class ConfigurationTileViewComponent implements OnInit {
     })
   }
 
+  /**
+   * Calls the esp configuration service to update the esp configuration by passing
+   * the changed object @Carina 
+   */
   updateConfiguration() {
     if(this.espConfiguration) {
       this.espConfigurationService.postESPConfiguration(this.espConfiguration).subscribe((data) => {
-        console.log("changed data", data)
-        //FIXME -> console.log entfernen
       })
     }
   }
 }
 
+/**
+ * Configuration tile pop up dialog component
+ * 
+ * It shows a text field to change the name of the current sensor
+ * kit.
+ */
 @Component({
   selector: 'configuration-tile-popup-view',
   templateUrl: 'configuration-tile-popup-view.component.html',

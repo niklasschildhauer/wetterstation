@@ -8,6 +8,7 @@ import { Component, Input, OnInit } from '@angular/core';
 export class ProgressChartElementComponent implements OnInit {
   @Input() value: number = 50;
   @Input() maxValue: number = 100;
+  @Input() optimalValue: number = 25;
 
   constructor() { 
   }

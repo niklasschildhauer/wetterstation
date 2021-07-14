@@ -12,8 +12,11 @@ import { Tile, TileType } from '../../../model/weather';
 export class PollenflugDetailViewComponent implements OnInit {
   pollenTiles?: Tile<WeatherData>[]
   tileType = TileType;
+  /**
+   * this function computes the to be read aloud text for the tts feature. 
+   * This function is passed to the tts player element
+   */
   ttsTextGeneratorFunction = () => this.textService.createTextFromTilesArray(this.pollenTiles)
-
 
   constructor(private weatherDataService: WeatherDataService,
     private textService: TextService) { }

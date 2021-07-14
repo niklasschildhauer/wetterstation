@@ -6,6 +6,14 @@ import { WeatherDataService } from 'src/app/services/weather-data.service';
 import { TextService } from 'src/app/services/text.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 
+/**
+ * Dashboard view component
+ * 
+ * This component is one of the most important components in this
+ * webapp. This component is responsible for the loading of the
+ * dashboard tiles data. One of its properties are the dashboardTiles 
+ * which are used by a switch to display the matching tile view (widget)
+ */
 @Component({
   selector: 'app-dashboard-view',
   templateUrl: './dashboard-view.component.html',
@@ -17,6 +25,10 @@ export class DashboardViewComponent implements OnInit {
   outdoorData?: OutdoorWeatherData;
   tileType = TileType;
   desktop: boolean = false;
+  /**
+   * this function computes the to be read aloud text for the tts feature. 
+   * This function is passed to the tts player element
+   */
   ttsTextGeneratorFunction = () => {
     let tilesText = this.textService.createTextFromTilesArray(this.dashboardTiles);
     let outdoorText = this.textService.createOutdoorText(this.outdoorData);
@@ -35,6 +47,12 @@ export class DashboardViewComponent implements OnInit {
     this.desktopBreakpointObserver(); 
   }
 
+  /**
+   * Is needed to detect if the current device is
+   * a desktop or mobile device. For desktop devices the
+   * outdoor weather view is shown by the app component globally
+   * and therefore there is no need to display it twice.
+   */
   private desktopBreakpointObserver() {
     this.breakpointObserver
     .observe(['(min-width: 770px)'])
@@ -47,6 +65,11 @@ export class DashboardViewComponent implements OnInit {
     });
   }
 
+  /**
+   * This function loads the reduce motion value. This is needed
+   * to turn on or off the motion of the outdoor weather view
+   * component.
+   */
   loadReduceMotionValue() {
     this.userContextService.getUserContextSubject()
     .subscribe(data => {
@@ -55,14 +78,19 @@ export class DashboardViewComponent implements OnInit {
     });
   }
 
+  /**
+   * This function loads the needed data for the 
+   * dashboard. These are the dashboard tiles array and
+   * the outdoor weather data. For both the weather data
+   * service is used. 
+   * This function also shows and hides the loading spinner.
+   */
   loadData(): void {
     this.spinner.show()
     this.weatherDataService.getDashboardTilesSubject()
                       .subscribe(data => {
                         this.dashboardTiles = data
-                        console.log("hide it")
                         if (data.length > 0) {
-                          console.log("hide it")
                           this.spinner.hide();
                         }
                       });
