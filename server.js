@@ -127,7 +127,7 @@ app.use(express.json({ type: "application/json" }));
 * @property {integer} gasVal
 * @property {string} location
 * @property {string} timestamp
-* @property {number} gasValCalibrationValue
+* @property {integer} gasValCalibrationValue
 */
 
 /**
@@ -188,7 +188,16 @@ app.use(express.json({ type: "application/json" }));
 * @property {string} roomName
 * @property {integer} transmissionFrequency
 * @property {string} postalCode
-* @property {number} gasValCalibrationValue
+* @property {integer} gasValCalibrationValue
+* @property {string} sensorType
+*/
+
+/**
+* @typedef ESPConfigRequestObject
+* @property {integer} id
+* @property {string} roomName
+* @property {integer} transmissionFrequency
+* @property {string} postalCode
 */
 
 // -------------------------------------------- Routes - Auth -------------------------------------------
@@ -465,7 +474,7 @@ app.get("/v1/espconfig/all", (req, res) => {
  * Create a new Pollen object
  * @route POST /espconfig/change
  * @group ESPConfig - ESPConfig object creation and change
- * @param {ESPConfig.model} espconfig.body.required - ESPConfig object
+ * @param {ESPConfigRequestObject.model} espconfig.body.required - ESPConfig object
  * @returns {Array<ESPConfig>} 200 - a complete ESPConfig object
  */
 app.post("/v1/espconfig/change", (req, res) => {
