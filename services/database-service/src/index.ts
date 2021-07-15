@@ -440,8 +440,8 @@ createConnection().then(connection => {
         } catch (error) {
             console.log("(Forecast) Inserting a new dataset failed")
             console.log("Error:", error)
+            return res.send({ message: "The requested operation failed" })
         }
-        return res.send({ message: "The requested operation failed" })
     });
 
     //Get the last 9 forecast entries for new forecast
