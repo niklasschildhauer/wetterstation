@@ -4,7 +4,7 @@
 - ui-elements
 
 #### Screens
-The screen components are the wrapper for the view components. The view components are showing the important informationen. The screens are more responsible to define the layout and are pretty dumb. There ist almost no logic in there. But they are important for the router. Typically the screen components are containing an 2nd router-outlet. So this components are defining the first router stage /dashboard, /detail, /onboarding and /settings. The content comes from the views which are containing the logic.
+The screen components are the wrapper for the view components. The view components are showing the important informationen. The screens are more responsible to define the layout and are pretty dumb. There is almost no logic in there. But they are important for the router. Typically the screen components are containing an 2nd router-outlet. So this components are defining the first router stage /dashboard, /detail, /onboarding and /settings. The content comes from the views which are containing the logic.
 
 #### Views
 Views are the core components which shows the data. There are basically two kind of views:

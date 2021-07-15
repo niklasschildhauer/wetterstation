@@ -34,7 +34,7 @@ export class ForecastDetailViewComponent implements OnInit {
    * Subscribes the forecast data subject. Every time the data in the
    * service changes this function will be called. 
    */
-  loadForecastData() {
+  private loadForecastData() {
     this.weatherDataService.getForecastDataSubject()
                         .subscribe(data => this.forecast = data);
   }

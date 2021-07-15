@@ -1,6 +1,14 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { IndoorRoomData, WeatherData } from 'src/app/model/weather';
 
+/**
+ * Indoor tile view component
+ * 
+ * This component displays in form of a tile (widget) the indoor room 
+ * information. It takes an object of the type IndoorRoomData as 
+ * information source. Itself has no connection to any
+ * service. It uses the card-view-element to define the layout.
+ */
 @Component({
   selector: 'app-indoor-tile-view',
   templateUrl: './indoor-tile-view.component.html',
@@ -19,6 +27,9 @@ export class IndoorTileViewComponent implements OnInit {
 
   ngOnInit(): void { }
 
+  /** 
+   * @returns the Quality value as percent. 100% is bad, 0% is good @Carina 
+   */
   getQualityValue(): number {
     if(this._indoorRoom){
       const calibrationValue = this._indoorRoom.calibrationValue
@@ -39,6 +50,10 @@ export class IndoorTileViewComponent implements OnInit {
     return 50
   }
 
+  /**
+   * @returns based on the calibration value the value when the
+   * air quality is bad
+   */
   getMaxValue(): number {
     if(this._indoorRoom){
       const calibrationValue = this._indoorRoom.calibrationValue
@@ -47,6 +62,9 @@ export class IndoorTileViewComponent implements OnInit {
     return 100
   }
 
+  /**
+   * @returns the calibration value as optimal value
+   */
   getOptimalValue(): number {
     if(this._indoorRoom){
       const calibrationValue = this._indoorRoom.calibrationValue
@@ -55,6 +73,9 @@ export class IndoorTileViewComponent implements OnInit {
     return 25;
   }
 
+  /**
+   * @returns the quality status as a string
+   */
   getQualityString(): string {
     if(this._indoorRoom){
       const calibrationValue = this._indoorRoom.calibrationValue

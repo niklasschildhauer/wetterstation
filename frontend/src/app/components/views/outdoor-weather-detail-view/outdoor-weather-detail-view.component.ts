@@ -4,6 +4,12 @@ import { OutdoorWeatherData } from 'src/app/model/weather';
 import { TextService } from 'src/app/services/text.service';
 import { WeatherDataService } from 'src/app/services/weather-data.service';
 
+/**
+ * Outdoor weather detail view component
+ * 
+ * This component display the outdoor weather view data
+ * and displays an information text. 
+ */
 @Component({
   selector: 'app-outdoor-weather-detail-view',
   templateUrl: './outdoor-weather-detail-view.component.html',
@@ -27,6 +33,11 @@ export class OutdoorWeatherDetailViewComponent implements OnInit {
     this.loadOutdoorWeatherData();
   }
 
+  /**
+   * Detects the display width. If it is a mobile device
+   * it will display the OutdoorWeatherViewComponent otherwise
+   * the component will be displayed by the app component. 
+   */
   private desktopBreakpointObserver() {
     this.breakpointObserver
     .observe(['(min-width: 770px)'])
@@ -39,6 +50,9 @@ export class OutdoorWeatherDetailViewComponent implements OnInit {
     });
   }
 
+  /**
+   * Subscribes to the outdoor weather data
+   */
   private loadOutdoorWeatherData() {
     this.weahterDataService.getOutdoorWeatherDataSubject().subscribe(data => this.outdoorWeather = data);
   }

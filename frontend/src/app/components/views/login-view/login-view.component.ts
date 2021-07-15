@@ -3,6 +3,12 @@ import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { UserContextService } from 'src/app/services/user-context.service';
 
+/**
+ * Login view component
+ * 
+ * Display two form controls to enter the username and password
+ * to log the user in. For this it uses the user context service.
+ */
 @Component({
   selector: 'app-login-view',
   templateUrl: './login-view.component.html',
@@ -13,7 +19,6 @@ export class LoginViewComponent implements OnInit {
     username: new FormControl('', Validators.minLength(2)), // FIXME Validators funktionieren nicht 
     password: new FormControl('', Validators.minLength(2)),
   });
-
   error?: string;
 
   constructor(private formBuilder: FormBuilder,
@@ -23,6 +28,10 @@ export class LoginViewComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  /**
+   * Triggers the login process. Calls the user context service
+   * to log the user in. If it fails it displays an error message.
+   */
   onSubmit(): void {
     const username = this.loginForm.get("username")?.value;
     const password = this.loginForm.get("password")?.value;
@@ -40,11 +49,17 @@ export class LoginViewComponent implements OnInit {
     });
   }
 
+  /**
+   * Redirects to the registration screen
+   */
   onClickRegistration() {
     this.userContextService.logout();
     this.router.navigateByUrl('/onboarding/registration');
   }
 
+  /**
+   * Redirects to the personalization screen
+   */
   onClickPersonalization() {
     this.userContextService.disableLogin = true;
     this.router.navigateByUrl('/onboarding/personalization');

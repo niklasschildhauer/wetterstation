@@ -2,6 +2,14 @@ import { Component, OnInit, Input } from '@angular/core';
 import { PollenData, WeatherData } from 'src/app/model/weather';
 import { CardSize } from '../../ui-elements/card-element/card-element.component';
 
+/**
+ * Pollenflug small tile component 
+ * 
+ * Displays one Pollentype. This component is used 
+ * to highlight the pollen a user is allergic to it. @Carina
+ * This component has no data connection and the data 
+ * is passed by the parent component. 
+ */
 @Component({
   selector: 'app-pollenflug-small-tile',
   templateUrl: './pollenflug-small-tile.component.html',

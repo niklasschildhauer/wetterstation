@@ -54,7 +54,7 @@ export class HistoryDetailViewComponent implements OnInit {
   /**
    * Subscribes the history data subject from the weather service.
    */
-  loadWeatherHistoryData(): void {
+  private loadWeatherHistoryData(): void {
     this.weatherDataService.getHistoryDataSubject().subscribe(data => {
       this._weatherHistory = data
       this.reload();

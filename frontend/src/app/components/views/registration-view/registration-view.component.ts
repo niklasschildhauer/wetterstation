@@ -3,6 +3,12 @@ import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { UserContextService } from 'src/app/services/user-context.service';
 
+/**
+ * Registration view component
+ * 
+ * Display three form controls to enter the username and password
+ * to register an user. For this it uses the user context service.
+ */
 @Component({
   selector: 'app-registration-view',
   templateUrl: './registration-view.component.html',
@@ -20,11 +26,13 @@ export class RegistrationViewComponent implements OnInit {
     private userContextService: UserContextService,
     private router: Router) { }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void { }
 
-
-  onSubmit(): void {
+  /**
+   * Triggers the registration process. If the process fails an 
+   * error message will be displayed.
+   */
+  onSubmit() {
     const username = this.registrationForm.get("username")?.value;
     const password = this.registrationForm.get("password")?.value;
     const repeatedpassword = this.registrationForm.get("repeatedPassword")?.value;

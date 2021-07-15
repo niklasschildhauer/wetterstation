@@ -70,7 +70,7 @@ export class DashboardViewComponent implements OnInit {
    * to turn on or off the motion of the outdoor weather view
    * component.
    */
-  loadReduceMotionValue() {
+   private loadReduceMotionValue() {
     this.userContextService.getUserContextSubject()
     .subscribe(data => {
       let reduceMotionValue = data.reduceMotion;
@@ -85,7 +85,7 @@ export class DashboardViewComponent implements OnInit {
    * service is used. 
    * This function also shows and hides the loading spinner.
    */
-  loadData(): void {
+   private loadData(): void {
     this.spinner.show()
     this.weatherDataService.getDashboardTilesSubject()
                       .subscribe(data => {

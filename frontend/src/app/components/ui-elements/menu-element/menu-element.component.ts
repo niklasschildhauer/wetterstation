@@ -5,6 +5,13 @@ import { UserContextService } from 'src/app/services/user-context.service';
 import { ImageService } from 'src/app/services/image.service';
 import { ImageModel } from 'src/app/model/image';
 
+/**
+ * Menu element component 
+ * 
+ * This component displays three list entries. These are the 
+ * menu options. It is displayed when the users presses the 
+ * menu button
+ */
 @Component({
   selector: 'app-menu-element',
   templateUrl: './menu-element.component.html',
@@ -62,21 +69,32 @@ export class MenuElementComponent implements OnInit {
     private userContextService: UserContextService,
     public imageService: ImageService) { }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void { }
 
+  /**
+   * Closes the menu 
+   */
   closeMenu(): void {
     this.closeEvent.emit();
   }
 
+  /**
+   * Redirects to the personalization screen
+   */
   openPersonalizationSettings() {
     this.router.navigateByUrl('/settings/personalization');
   }
 
+  /**
+   * Redirects to the configuration screen
+   */
   openConfigurationSettings() {
     this.router.navigateByUrl('/settings/configuration');
   }
 
+  /**
+   * Uses the user context service to logs the user out.
+   */
   logout(): void {
     this.userContextService.logout();
   }

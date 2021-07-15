@@ -1,6 +1,10 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { NumberValueAccessor } from '@angular/forms';
 
+/**
+ * Slider element component
+ * 
+ * Control element in form of a slider. 
+ */
 @Component({
   selector: 'app-slider-element',
   templateUrl: './slider-element.component.html',
@@ -19,8 +23,11 @@ export class SliderElementComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  /**
+   * Emits the output event to inform the parent component
+   * that the value has changed.
+   */
   changeValue(event: any) {
     this.valueChanged.emit(event.target.value);
   }
-
 }

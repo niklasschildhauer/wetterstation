@@ -3,6 +3,12 @@ import { Tile, WeatherData } from 'src/app/model/weather';
 import { TextService } from 'src/app/services/text.service';
 import { WeatherDataService } from 'src/app/services/weather-data.service';
 
+/**
+ * Indoor detail view component
+ * 
+ * This component displays the indoor room data. It displays the 
+ * information by using the IndoorTileViewComponent.
+ */
 @Component({
   selector: 'app-indoor-detail-view',
   templateUrl: './indoor-detail-view.component.html',
@@ -23,9 +29,11 @@ export class IndoorDetailViewComponent implements OnInit {
     this.loadIndoorRoomData();
   }
 
-  loadIndoorRoomData() {
+  /**
+   * Subscribes to the indoor tile subject.
+   */
+  private loadIndoorRoomData() {
     this.weatherDataService.getIndoorTilesSubject()
                         .subscribe(data => this.indoorRoomTiles = data);
   }
-
 }

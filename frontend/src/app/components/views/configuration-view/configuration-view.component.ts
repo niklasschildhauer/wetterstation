@@ -30,7 +30,7 @@ export class ConfigurationViewComponent implements OnInit {
    * esp configuration service. It also shows the spinner 
    * when the loading process starts and hides it if it was successful. 
    */
-  loadConfigurations() {
+  private loadConfigurations() {
     this.spinner.show()
     this.espConfigurationService.loadESPConfigs().subscribe((data) => {
       this.espConfigurations = data;

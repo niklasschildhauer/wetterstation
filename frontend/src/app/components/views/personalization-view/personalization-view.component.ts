@@ -1,6 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
+/**
+ * Personalization view component
+ *
+ * Is the wrapper for the personalization settings view component.
+ * It displays the navigation bar with the correct title and back button.
+ */
 @Component({
   selector: 'app-personalization-view',
   templateUrl: './personalization-view.component.html',
@@ -13,6 +19,9 @@ export class PersonalizationViewComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  /**
+   * Redirects to the Dashboard screen
+   */
   onClickDone() {
     this.router.navigateByUrl('/dashboard');
   }

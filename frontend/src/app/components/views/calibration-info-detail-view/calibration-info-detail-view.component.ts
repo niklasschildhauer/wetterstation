@@ -22,10 +22,9 @@ export class CalibrationInfoDetailViewComponent implements OnInit {
   }
 
   /**
-   * Redirect to the dashboard screen
+   * Redirects to the dashboard screen
    */
   gotIt(): void {
     this.router.navigateByUrl('/dashboard');
   }
-
 }

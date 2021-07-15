@@ -37,8 +37,10 @@ export class HistoryTileViewComponent implements OnInit {
   _dataSet?: GraphDataSet;
   theme: Themes = Themes.Light;
 
-
-  // Chart data
+  /**
+   * The following properties are needed for
+   * the chart.
+   */
   chartData: ChartDataset[] = [
     { data: [], label: '' },
   ];
@@ -63,7 +65,7 @@ export class HistoryTileViewComponent implements OnInit {
    * @param dataSet 
    * @param graphType 
    */
-  updateChartData(chartDataset: ChartDataset[], chartColors: ChartColor, dataSet: GraphDataSet, graphType: HistoryGraphType) {
+  private updateChartData(chartDataset: ChartDataset[], chartColors: ChartColor, dataSet: GraphDataSet, graphType: HistoryGraphType) {
     switch (graphType) {
       case HistoryGraphType.temperature:
         chartDataset[0].data = dataSet.temperatureDataPoints
