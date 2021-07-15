@@ -47,6 +47,14 @@ export class IndoorTileViewComponent implements OnInit {
     return 100
   }
 
+  getOptimalValue(): number {
+    if(this._indoorRoom){
+      const calibrationValue = this._indoorRoom.calibrationValue
+      return calibrationValue;
+    }
+    return 25;
+  }
+
   getQualityString(): string {
     if(this._indoorRoom){
       const calibrationValue = this._indoorRoom.calibrationValue

@@ -1,3 +1,7 @@
+/**
+ * Model of the user context.
+ * It cotains all information which are needed for the personalization
+ */
 export interface UserContext {
     theme: Themes,
     fontSize: number, // in %
@@ -7,6 +11,11 @@ export interface UserContext {
     reduceMotion: boolean, // New element: For people with vestibular disorders is animation triggerd by scrolling not good.
 };
 
+/**
+ * Model of the User Identifikation. It contains the token 
+ * and user id. These are needed for the identification of the user 
+ * by the backend. 
+ */
 export interface UserIdentifikation {
     token: string,
     id: number,
@@ -29,6 +38,7 @@ export enum Language {
     'en-EN'
 };
 
+/** Empty user context */
 export const INITIAL_USER_CONTEXT: UserContext = {
     theme: Themes.Automatic,
     fontSize: 62.5,
@@ -38,6 +48,7 @@ export const INITIAL_USER_CONTEXT: UserContext = {
     reduceMotion: false,
 };
 
+/** Empty user identifikation */
 export const INITIAL_USER_IDENTIFIKATION: UserIdentifikation = {
     token: '',
     id: -99,
