@@ -21,4 +21,7 @@ export class Outdoor {
 
   @Column()
   timestamp: string;
+  
+  @Column()
+  deviceID: number;
 }

@@ -37,12 +37,20 @@ createConnection().then(connection => {
 
     //Get the latest data from the outdoor table  
     app.get('/outdoor/latest', async (req, res) => {
+        let out;
         //Get the latest entry by ordering DESC and picking the last entry
         const latest = await outdoorData.findOne({
             order: {
                 id: "DESC"
             }
         });
+
+        out = {
+            ...latest,
+            weather: "",
+            location_name: "",
+            roomName: ""
+        }
 
         //Add the weather-icon to the outgoing data
         if (latest !== undefined) {
@@ -60,11 +68,20 @@ createConnection().then(connection => {
                 const weather_request_uri = `https://api.brightsky.dev/current_weather?lat=${lat}&lon=${lon}`;
                 const weather = await genericRequestToURI("GET", weather_request_uri);
 
-                latest['weather'] = weather['weather']['icon'];
-                latest['location_name'] = object_with_coordinates['name'];
+                out['weather'] = weather['weather']['icon'];
+                out['location_name'] = object_with_coordinates['name'];
+
+                // Get ESPConfig associated with the sensor
+                const theEsp: ESPConfig = await espConfigData.findOne({ id: latest.deviceID })
+
+                // Add roomName to outgoing data
+                if (theEsp !== undefined && theEsp.hasOwnProperty("roomName")) {
+                    console.log("roomName", theEsp.roomName)
+                    out.roomName = theEsp.roomName;
+                }
             }
             // console.log("Res", latest);
-            returnNotNull(latest, res)
+            returnNotNull(out, res)
         }
         else {
             return res.send({ message: "The requested entry did not exist" })
@@ -83,15 +100,24 @@ createConnection().then(connection => {
 
         out = {
             ...latest,
-            gasValCalibrationValue: -1
+            gasValCalibrationValue: -1,
+            roomName: ""
         }
+
+        // Get ESPConfig associated with the sensor
+        const theEsp: ESPConfig = await espConfigData.findOne({ id: latest.deviceID })
 
         // Add the calibration value to the outgoing data
         if (latest.deviceID !== -1) {
-            const theEsp: ESPConfig = await espConfigData.findOne({ id: latest.deviceID })
             if (theEsp !== undefined && theEsp.hasOwnProperty("gasValCalibrationValue")) {
                 out.gasValCalibrationValue = theEsp.gasValCalibrationValue;
             }
+        }
+
+        // Add roomName to outgoing data
+        if (theEsp !== undefined && theEsp.hasOwnProperty("roomName")) {
+            console.log("roomName", theEsp.roomName)
+            out.roomName = theEsp.roomName;
         }
 
         returnNotNull(out, res)
@@ -152,6 +178,7 @@ createConnection().then(connection => {
         outdoor.location = req.body.location;
         outdoor.pressure = req.body.pressure;
         outdoor.timestamp = getDateFormatted();
+        outdoor.deviceID = req.body.deviceID;
         const deviceID = req.body.deviceID;
 
         await outdoorData.create(outdoor);
@@ -295,7 +322,7 @@ createConnection().then(connection => {
                 //Remove the pollen object from the user. Do some type checks.
                 const pollen = await (await pollenData.find({ relations: ["users"] })).filter(pl => pl.id === pollenID);
                 if (pollen.length === 1) {
-                    console.log("pollen.users", pollen[0].users)
+                    // console.log("pollen.users", pollen[0].users)
                     pollen[0].users = pollen[0].users.filter(usr => usr.id !== userID)
                     await pollenData.save(pollen[0])
                 }
@@ -320,12 +347,12 @@ createConnection().then(connection => {
                 allergies.forEach(allergy => {
                     // debugLog("allergy:", allergy)
                     if (allergy.users.length > 0) {
-                        if (allergy.users[0].username === username) {
-                            // debugLog("pollen in this allergy object", allergy.pollen);
-                            userPollenNames.push(allergy.pollenName);
-                        }
-                    }
-                    else {
+                        allergy.users.forEach(user => {
+                            if (user.username === username) {
+                                // console.log("user was", user.username, "pollen was", allergy.pollenName);
+                                userPollenNames.push(allergy.pollenName);
+                            }
+                        })
                     }
                 });
                 debugLog("pollen for user", username + ": " + userPollenNames);
