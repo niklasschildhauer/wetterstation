@@ -12,9 +12,9 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root'
 })
 export class ESPConfigurationAPIService {
-  private allConfigs = environment.baseURL + '/espconfig/all';
-  private changeConfig = environment.baseURL + '/espconfig/change';
-  private calibration = environment.baseURL + '/calibration/insert';
+  private allConfigs = environment.baseURL + 'espconfig/all';
+  private changeConfig = environment.baseURL + 'espconfig/change';
+  private calibration = environment.baseURL + 'calibration/insert';
 
   constructor(private httpClient: HttpClient) { }
 
