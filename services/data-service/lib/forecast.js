@@ -5,23 +5,32 @@
 
 const genericRequestHandlers = require("./shared");
 
-
+//set weather forecast frequency in minutes
 let minutes = 10, the_interval = minutes * 60 * 1000;
+
+//The below code is run every X minutes, where X is defined by the minutes variable above. In summary the anonymus function below
+//gets the altitude for the weather sensor location from a external API and then calls our forecast function to get a weather forecast for the current timestep
 setInterval(function () {
     console.log("worker start")
     const openweathermap_api_key = 'c23b6eb0df192e3eed784aa71777b7da'
+    
     genericRequestHandlers.genericRequestToPromise("GET", "http://localhost:4205/espconfig/all").then((esp_configs) => {
+        //Below store the postal code which is stored in the espconfig which is queried with the line above
         const postalCode = esp_configs[esp_configs.length - 1]["postalCode"];
         console.log("id", esp_configs[esp_configs.length - 1]["id"]);
         console.log("code", postalCode);
+
         const request_uri = `https://api.openweathermap.org/data/2.5/weather?zip=${postalCode},DE&appid=${openweathermap_api_key}`;
         genericRequestHandlers.genericRequestToPromise("GET", request_uri).then((object_with_coordinates) => {
+            //Below store the latitude and longitude of the location of the postal code by querying the openweathermap API above
             const lat = object_with_coordinates['coord']['lat'];
             const lon = object_with_coordinates['coord']['lon'];
+            //With this information the altitude of the location is queried below by using the opentopodata API
             const opentopodata_request_uri = `https://api.opentopodata.org/v1/eudem25m?locations=${lat},${lon}`;
             genericRequestHandlers.genericRequestToPromise("GET", opentopodata_request_uri).then((elevation_data) => {
                 console.log('obj', object_with_coordinates);
                 // console.log("elevation_data", elevation_data)
+                //Run the forecast function which creates a weather forecast and pass the fetched altitude information
                 forecast(elevation_data['results'][0]['elevation']);
             }).catch((err) => {
                 console.log("(Forecast) Error getting api opentopodata")
@@ -37,28 +46,36 @@ setInterval(function () {
     });
 }, the_interval);
 
+//This function takes the altitude in meters as a parameter and uses current sensor measurements to create a weather forecast for
+//the current timestep. This forecast is stored in the corresponding forecast database table.
 const forecast = (alt) => {
     let latest_measurement;
 
-    //--------------------------------------- Get DB data necessary for forecast -----------------------------
+    //Forecast is based on last 10 sensor measurements => Last 9 interval measurements + current measurement
+    //Line below queries current measurement
     genericRequestHandlers.genericRequestToPromise("GET", "http://localhost:4205/outdoor/latest").then((data) => {
         console.log("latest weather data", data)
         if (data !== undefined) {
             console.log('alt', alt);
             latest_measurement = data;
+            //Below last 9 interval measurements are queried
             genericRequestHandlers.genericRequestToPromise("GET", "http://localhost:4205/forecast/history").then((data1) => {
+                //Only pressure is used for forecast and data is reversed so newer measurements are at the higher indices 
                 let pressureArray = data1.map(a => a.seaPressure).reverse();
+                //Pad array with zeroes if shorter than length of 9
                 pressureArray = Object.assign(new Array(9).fill(0), pressureArray);
 
                 let temp_in_degrees = latest_measurement["temperature"];
                 let altitude = alt;
                 let pressure = latest_measurement["pressure"];
 
+                //For zambretti algortihm we have to convert pressure measurement to atmospheric pressure reduced to sea level 
                 let seapressure = calc_seapressure(pressure, temp_in_degrees, altitude);
                 pressureArray.push(seapressure);
                 let TodayDate = new Date();
 
                 //let Z = 0;
+                //Data structure of next forecast database entry
                 let weather_forecast_response = {
                     "trend": "",
                     "weatherIcon": "",
@@ -71,12 +88,13 @@ const forecast = (alt) => {
                 console.log("sea pressure", seapressure);
                 console.log("pressure array", pressureArray);
 
-
+                //This function calculates atmospheric pressure reduced to sea level 
                 function calc_seapressure(pressure_to_be_converted, temp, altitude) {
                     let seapressure_res = pressure_to_be_converted * ((1 - (0.0065 * altitude / (temp + 0.0065 * altitude + 273.15))) ** -5.275);
                     return seapressure_res;
                 }
 
+                //This function calculates Z value of zambretti algorithm depending on pressure change and season
                 function calc_zambretti(curr_pressure, prev_pressure, mon) {
                     if (curr_pressure < prev_pressure) {
                         //FALLING
@@ -227,10 +245,12 @@ const forecast = (alt) => {
                 console.log('pa[2]', pressureArray[2]);
                 console.log('Month', TodayDate.getMonth() + 1);
 
+                //Call calc_zambretti function to get Z value
                 let Z = calc_zambretti((pressureArray[9] + pressureArray[8] + pressureArray[7]) / 3, (pressureArray[0] + pressureArray[1] + pressureArray[2]) / 3, TodayDate.getMonth() + 1);
 
                 console.log("Z", Z);
 
+                //If-else structure to get final weather forecast for current timestep
                 if (pressureArray[9] > 0 && pressureArray[0] > 0) {
                     if (pressureArray[9] + pressureArray[8] + pressureArray[7] - pressureArray[0] - pressureArray[1] - pressureArray[2] >= 3) {
                         //RISING
@@ -311,7 +331,6 @@ const forecast = (alt) => {
                     }
                 }
 
-                //weather_forecast_response.weatherDescription = "FIXME";
                 weather_forecast_response.seaPressure = seapressure;
                 console.log("forecast_res", weather_forecast_response);
 
@@ -342,32 +361,6 @@ const forecast = (alt) => {
     //--------------------------------------------------------------------------------------------------------
 
 }
-
-const debug_enabled = false;
-//debugging code
-if (debug_enabled) {
-    let minutes_1 = 9, the_interval_1 = minutes_1 * 60 * 1000;
-    setInterval(function () {
-        const weather_postalCode = 71334;
-        const openweathermap_api_key = 'c23b6eb0df192e3eed784aa71777b7da'
-        const request_uri = `https://api.openweathermap.org/data/2.5/weather?zip=${weather_postalCode},DE&units=metric&appid=${openweathermap_api_key}`;
-
-        genericRequestHandlers.genericRequestToPromise("GET", request_uri).then((data) => {
-            const weather_data = {
-                "humidity": data['main']['humidity'],
-                "temperature": data['main']['temp'],
-                "location": 71404,
-                "pressure": data['main']['pressure'],
-                "deviceID": 1
-            };
-            console.log("wd", weather_data);
-            genericRequestHandlers.genericRequestWithPayloadToPromise("POST", "http://localhost:4205/outdoor/insert", JSON.stringify(weather_data)).then((data_1) => {
-                console.log("res", data_1);
-            });
-        });
-    }, the_interval_1);
-}
-
 
 module.exports = {
     forecast: forecast
