@@ -329,7 +329,7 @@ export var POLLENLIST: Tile<PollenData[]> = {
 export var WOHNZIMMER: IndoorRoomData = {
     roomID: "328959845524",
     roomName: "Wohnzimmer",
-    airQuality: 24,
+    airQuality: 26,
     temperature: 22,
     humidity: 50,
     timestamp: new Date(),

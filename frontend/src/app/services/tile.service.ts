@@ -183,8 +183,11 @@ export class TileService  {
     switch (type) {
       case TileType.indoorRoom: {
         let room = data as IndoorRoomData
-        if (room.airQuality > 70) {
+        if (room.airQuality - 5 > room.calibrationValue) {
           return TilePriority.important 
+        }
+        if (room.airQuality > room.calibrationValue - 5) {
+          return TilePriority.middle 
         }
         return TilePriority.low
       }
