@@ -32,8 +32,18 @@ export class WeatherAPIService {
     }
     let returnObservable = new Observable<OutdoorWeatherData>((observer) => {
         this.httpClient.get<OutdoorWeatherResponse>(this.outdoorURL).subscribe(data => {
-          let outdoorData = this.createOutdoorWeatherDataFromServerResponse(data);
-          observer.next(outdoorData);
+          if(data.id === undefined) {
+            observer.next();
+            observer.complete();
+          } else {
+            let outdoorData = this.createOutdoorWeatherDataFromServerResponse(data);
+            observer.next(outdoorData);
+            observer.complete();
+          }
+        },
+        (error) => {
+          console.log(error);
+          observer.next();
           observer.complete();
         })
       }
@@ -52,6 +62,11 @@ export class WeatherAPIService {
         this.httpClient.get<ForecastResponse>(this.forecastURL).subscribe(data => {
           let forecastData = this.createOutdoorForecastDataFromServerResponse(data);
           observer.next(forecastData);
+          observer.complete();
+        },
+        (error) => {
+          console.log(error);
+          observer.next();
           observer.complete();
         })
       }
@@ -125,8 +140,12 @@ export class WeatherAPIService {
           let dataPoints: OutdoorWeatherData[] = data.map((element) => {
             return this.createOutdoorWeatherDataFromServerResponse(element);
           });
-          console.log(dataPoints);
           observer.next({'datapoints': dataPoints});
+          observer.complete();
+        },
+        (error) => {
+          console.log(error);
+          observer.next();
           observer.complete();
         })
       }
@@ -182,7 +201,7 @@ export class WeatherAPIService {
   private createIndoorRoomDataFromServerResponse(response: IndoorRoomResponse): IndoorRoomData {
     return {
             roomID: response.id + '',
-            roomName: response.location,
+            roomName: response.roomName,
             airQuality: response.gasVal, 
             temperature: response.temperature, 
             humidity: response.humidity, 
@@ -198,7 +217,6 @@ export class WeatherAPIService {
    * @returns PollenData[] object
    */
   private createPollenDataFromServerResponse(response: PollenResponse[]): PollenData[] {
-    console.log("Pollen daten sind hier", response)
     let pollen: PollenData[] = [];
     response.forEach(item => {
       pollen.push({
@@ -262,6 +280,7 @@ interface IndoorRoomResponse {
   location: string,
   timestamp: string,
   gasValCalibrationValue: number,
+  roomName: string,
 }
 
 /**

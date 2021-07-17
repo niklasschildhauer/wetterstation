@@ -28,17 +28,20 @@ export class TileService  {
    * @param {IndoorRoomData[]} indoorRoom
    * @returns A TilesArrays object which contains the three tiles array for dashboard screen, pollen detail and indoor room detail components. 
    */
-  createTiles(outdoorWeather: OutdoorWeatherData, 
+  createTiles(outdoorWeather: OutdoorWeatherData | undefined, 
               pollen: PollenData[], 
-              forecast: WeatherForecastData, 
-              history: WeatherHistoryData, 
+              forecast: WeatherForecastData | undefined, 
+              history: WeatherHistoryData | undefined, 
               indoorRoom: IndoorRoomData[]): TileArrays {
       let dashboardTiles: Tile<WeatherData>[] = []
       let pollenTiles: Tile<WeatherData>[] = []
       let indoorRoomTiles: Tile<WeatherData>[] = []
 
+      if(outdoorWeather)
       this.createOutdoorWeatherTiles(outdoorWeather, dashboardTiles);
+      if(forecast)
       this.createForecastTile(forecast, dashboardTiles)
+      if(history)
       this.createHistoryTile(history, dashboardTiles)
       this.createIndoorRoomTiles(indoorRoom, dashboardTiles, indoorRoomTiles)
       this.createPollenTiles(pollen, dashboardTiles, pollenTiles)
@@ -184,33 +187,28 @@ export class TileService  {
           return TilePriority.important 
         }
         return TilePriority.low
-        // FIXME: Implement algorithm
       }
       case TileType.pollenList: {
         return TilePriority.low
-        // FIXME: Implement algorithm
       }
       case TileType.pollenSmall: {
         let pollen = data as PollenData
-        console.log(pollen);
         if (pollen.today === '0' || pollen.today === '-1') {
           return TilePriority.low
         }
         if (pollen.today === '2-3' || pollen.today === '3' || pollen.today === '3-4') {
-          return TilePriority.high
+          return TilePriority.important
         }
         return TilePriority.middle
-        // FIXME: Implement algorithm
       }
       case TileType.forecast: {
         return TilePriority.middle
-        // FIXME: Implement algorithm
       }
       case TileType.history: {
         return TilePriority.low
       }
     }
-    return TilePriority.middle
+    return TilePriority.low
   }
 
   /**

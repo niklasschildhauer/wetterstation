@@ -35,12 +35,8 @@ export class UserContextAPIService {
                                                         {username: username, password: password}, {observe: 'response'});
       response.subscribe((response) => {
         let body = response.body
-        let status = response.statusText
-        console.log(status);
-
         if(body){
           if(body.success) {
-            console.log(this.createUserContextFromServerResponse(body.userContext));
             observer.next({
               userID: {
                 token: body.token,
@@ -76,11 +72,7 @@ export class UserContextAPIService {
       let response = this.httpClient.post<UserContextResponse>(this.openAPEURL, 
                                                               {openApeUser: username, openApePassword: password}, httpOptions);
       response.subscribe((response) => {
-    
-        console.log(response);
-
         if(response){
-            console.log(this.createUserContextFromServerResponse(response));
             observer.next(this.createUserContextFromServerResponse(response));
         }
       },
@@ -105,9 +97,6 @@ export class UserContextAPIService {
                                                               {username: username, password: password}, {observe: 'response'});
       response.subscribe((response) => {
         let body = response.body
-        let status = response.statusText
-        console.log(status);
-
         if(body){
           if(body.id) {
             observer.next(true);
@@ -162,8 +151,6 @@ export class UserContextAPIService {
       () => {
         observer.complete();
       });
-      console.log(response);
-
     });
     return returnObservable;
   }
@@ -221,8 +208,6 @@ export class UserContextAPIService {
       () => {
         observer.complete();
       });
-      console.log(response);
-
     });
     return returnObservable;
   }
@@ -234,8 +219,6 @@ export class UserContextAPIService {
       let httpOptions = {
         headers: new HttpHeaders({ 'Authorization': 'Bearer ' + token })
       };
-
-      console.log(httpOptions);
       let response = this.httpClient.get<CheckTokenResponse>(this.checkTokenURL, httpOptions);
       response.subscribe(data => {
         observer.next(data.success);
@@ -259,7 +242,6 @@ export class UserContextAPIService {
       };
       let response = this.httpClient.get<UserContextResponse>(this.currentUserContextURL, httpOptions);
       response.subscribe(context => {
-        console.log(this.createUserContextFromServerResponse(context));
         observer.next(this.createUserContextFromServerResponse(context));
         observer.complete();
       }, 

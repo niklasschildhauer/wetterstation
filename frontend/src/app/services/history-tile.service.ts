@@ -26,13 +26,9 @@ export class HistoryTileService {
       let dataSet: GraphDataSet[] = []
       let dataPoints = weatherHistoryData.datapoints
 
-      console.log( "Hier ist es wichtig", dataPoints);
-
       dataPoints.sort((a, b) => {
         return b.timestamp.getTime() - a.timestamp.getTime()
       });
-
-      console.log(dataPoints);
 
       let lastDate: Date = dataPoints[0].timestamp;
       let lastWeek: number = this.getWeekNumber(lastDate);
@@ -74,8 +70,6 @@ export class HistoryTileService {
       humidityDataPoints.push(Math.round(averageHumidity));
       xAxisLabels.push(this.getWeekDayStringFromDate(lastDate))
       dataSet.push(this.createWeatherGraphDataSet(temperatureDataPoints, humidityDataPoints, xAxisLabels, label));
-
-      console.log('Created History By Week')
       return dataSet;
     }
     return [];
@@ -139,9 +133,6 @@ export class HistoryTileService {
       humidityDataPoints.push(Math.round(averageHumidity));
       xAxisLabels.push(this.getHourString(lastHour))
       dataSet.push(this.createWeatherGraphDataSet(temperatureDataPoints, humidityDataPoints, xAxisLabels, label));
-
-      console.log('Created History By Day')
-      console.log(dataSet);
       return dataSet;
     }
     return [];
@@ -192,8 +183,6 @@ export class HistoryTileService {
     let dayNum = date.getUTCDay() || 7;
     date.setUTCDate(date.getUTCDate() + 4 - dayNum);
     let yearStart = new Date(Date.UTC(date.getUTCFullYear(),0,1));
-
-    console.log(Math.ceil((((date.valueOf() - yearStart.valueOf()) / 86400000) + 1)/7) + ' for: ' + inputDate);
 
     return Math.ceil((((date.valueOf() - yearStart.valueOf()) / 86400000) + 1)/7)
   };

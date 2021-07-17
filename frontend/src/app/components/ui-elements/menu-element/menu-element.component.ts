@@ -60,8 +60,6 @@ export class MenuElementComponent implements OnInit {
   }
 
   get userLoggedIn(): boolean {
-    console.log("User eingeloggt: ", this.userContextService.userLoggedIn);
-
     return this.userContextService.userLoggedIn;
   }
 

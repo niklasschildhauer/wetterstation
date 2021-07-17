@@ -18,7 +18,6 @@ export class LocalStorageService {
   set userContext(object: UserContext) {
     const objectString = JSON.stringify(object)
     this.setItem(USER_CONTEXT_IDENTIFIER, objectString);
-    console.log('SAVED USER CONTEXT');
   }
 
   /**
@@ -41,7 +40,6 @@ export class LocalStorageService {
   set userID(value: UserIdentifikation) {
     const objectString = JSON.stringify(value)
     this.setItem(USER_IDENTIFIKATION, objectString);
-    console.log('SAVED USER IDENTIFIKATION');
   }
 
   /**

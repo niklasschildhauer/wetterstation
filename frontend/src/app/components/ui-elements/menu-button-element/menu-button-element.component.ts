@@ -27,12 +27,9 @@ export class MenuButtonElementComponent implements OnInit {
 
   openMenu(): void {
     this.isMenuHidden = false;
-    console.log("open")
   }
 
   closeMenu(): void {
     this.isMenuHidden = true;
-    console.log("wird ausgeführt")
   }
-
 }

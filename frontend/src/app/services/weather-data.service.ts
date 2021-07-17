@@ -46,22 +46,22 @@ export class WeatherDataService {
   /**
   * Source of truth of pollen data. Including setter and getter for this service.
   */
-  private _pollenData: BehaviorSubject<PollenData[] | undefined> = new BehaviorSubject<PollenData[] | undefined>(undefined);
-  private get pollenData(): PollenData[] | undefined {
+  private _pollenData: BehaviorSubject<PollenData[]> = new BehaviorSubject<PollenData[]>([]);
+  private get pollenData(): PollenData[] {
     return this._pollenData.getValue();
   }
-  private set pollenData(value: PollenData[] | undefined) {
+  private set pollenData(value: PollenData[]) {
     this._pollenData.next(value);
   }
 
   /**
   * Source of truth of indoor room data. Including setter and getter for this service.
   */
-  private _indoorRoomsData: BehaviorSubject<IndoorRoomData[] | undefined> = new BehaviorSubject<IndoorRoomData[]  | undefined>(undefined);
-  private get indoorRoomsData(): IndoorRoomData[] | undefined {
+  private _indoorRoomsData: BehaviorSubject<IndoorRoomData[]> = new BehaviorSubject<IndoorRoomData[]>([]);
+  private get indoorRoomsData(): IndoorRoomData[] {
     return this._indoorRoomsData.getValue();
   }
-  private set indoorRoomsData(value: IndoorRoomData[] | undefined) {
+  private set indoorRoomsData(value: IndoorRoomData[]) {
     this._indoorRoomsData.next(value);
   }
  
@@ -159,16 +159,14 @@ export class WeatherDataService {
     let historyData = this.historyData
     let indoorRoomData = this.indoorRoomsData;
 
-    if(pollenData && forecastData && historyData && indoorRoomData && outdoorWeatherData) {
-      let result = this.tileService.createTiles(outdoorWeatherData, 
-                                                pollenData, 
-                                                forecastData, 
-                                                historyData, 
-                                                indoorRoomData)
-      this.dashboardTiles = result.dashboard;
-      this.pollenTiles = result.pollen;
-      this.indoorRoomTiles = result.indoorRooms;
-    }
+    let result = this.tileService.createTiles(outdoorWeatherData, 
+                                              pollenData, 
+                                              forecastData, 
+                                              historyData, 
+                                              indoorRoomData)
+    this.dashboardTiles = result.dashboard;
+    this.pollenTiles = result.pollen;
+    this.indoorRoomTiles = result.indoorRooms;
   }
 
   /**
