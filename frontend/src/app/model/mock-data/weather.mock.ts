@@ -4,15 +4,15 @@ import { IndoorRoomData, OutdoorWeatherData, WeatherHistoryByDayData, PollenData
  * MOCK DATA
  */
 export var OUTDOORWEATHER: OutdoorWeatherData = {
-    temperature: 14,
+    temperature: 25,
     maxTemperature: 20,
     minTemperature: 14,
-    humidity: 66,
+    humidity: 46,
     timestamp: new Date('May 17, 2021 07:24:00'),
-    weather: "cloudy",
+    weather: "sunny_cloudy",
     apparentTemperature: 12,
     location: "Stuttgart",
-    postCode: '71549'
+    postCode: '70565'
 };
 
 export var OUTDOORWEATHER2: OutdoorWeatherData = {
@@ -230,9 +230,9 @@ export var WEATHERHISTORY: WeatherHistoryData = {
 }
 
 export var FORECAST: WeatherForecastData = {
-    trend: "steady",
-    weatherDescription: "rainy",
-    weatherIcon: "Rainy"
+    trend: "falling",
+    weatherDescription: "Rainy",
+    weatherIcon: "rainy"
   }
 
 export var FORECASTTILE: Tile<WeatherForecastData> = {
