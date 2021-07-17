@@ -1,7 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { UserContextService } from 'src/app/services/user-context.service';
 
-
+/**
+ * Menu button element component
+ * 
+ * This component is the top left menu button in the dashboard 
+ * screen. It opens and closes the menu element.
+ */
 @Component({
   selector: 'app-menu-button-element',
   templateUrl: './menu-button-element.component.html',
@@ -17,6 +22,9 @@ export class MenuButtonElementComponent implements OnInit {
     this.loadReduceMotionValue();
   }
 
+  /**
+   * Subscribes to the reduce motion value
+   */
   loadReduceMotionValue() {
     this.userContextService.getUserContextSubject()
     .subscribe(data => {
@@ -25,10 +33,16 @@ export class MenuButtonElementComponent implements OnInit {
     });
   }
 
+  /**
+   * Turns the background blur on
+   */
   openMenu(): void {
     this.isMenuHidden = false;
   }
 
+  /**
+   * Turns the background blur off
+   */
   closeMenu(): void {
     this.isMenuHidden = true;
   }

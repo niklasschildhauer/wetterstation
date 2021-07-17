@@ -1,8 +1,13 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { OutdoorWeatherData } from 'src/app/model/weather';
 import { UserContextService } from 'src/app/services/user-context.service';
 import { WeatherDataService } from 'src/app/services/weather-data.service';
 
+/**
+ * Menu bar element
+ * 
+ * Menu bar navigation component which is displayed in the
+ * dashboard screen.
+ */
 @Component({
   selector: 'app-menu-bar-element',
   templateUrl: './menu-bar-element.component.html',
@@ -20,6 +25,9 @@ export class MenuBarElementComponent implements OnInit {
     this.loadReduceMotionValue();
   }
 
+  /**
+   * Subscribes to the reduce motion value
+   */
   loadReduceMotionValue() {
     this.userContextService.getUserContextSubject()
                           .subscribe(data => {
@@ -27,6 +35,9 @@ export class MenuBarElementComponent implements OnInit {
                             });
   }
 
+  /**
+   * Subscribes to outdoor weather subject to load the location stirng
+   */
   getLocation(): void {
     this.weatherDataService.getOutdoorWeatherDataSubject()
                         .subscribe(data => {
@@ -34,7 +45,10 @@ export class MenuBarElementComponent implements OnInit {
                           this.locationLabel = data.location + ', ' + data.postCode;
                         });
   }
-
+  
+  /**
+   * Calls the reload function of the weather data service.
+   */
   reloadData() {
     this.weatherDataService.reloadData();
   }

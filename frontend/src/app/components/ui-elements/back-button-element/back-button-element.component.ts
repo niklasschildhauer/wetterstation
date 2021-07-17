@@ -3,6 +3,12 @@ import { Location } from '@angular/common';
 import { ImageService } from 'src/app/services/image.service';
 import { ImageModel } from 'src/app/model/image';
 
+/**
+ * Back button element component
+ * 
+ * This component is the back button which is displayed 
+ * in the nav bar element.
+ */
 @Component({
   selector: 'app-back-button-element',
   templateUrl: './back-button-element.component.html',
@@ -20,6 +26,9 @@ export class BackButtonElementComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  /**
+   * Opens the page before.
+   */
   goBack(): void {
     this.location.back();
   }

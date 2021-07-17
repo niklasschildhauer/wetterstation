@@ -1,5 +1,11 @@
 import { Component, OnInit, Input } from '@angular/core';
 
+/**
+ * Card element component
+ * 
+ * This component defines the layout of the tiles (widgets).
+ * It takes a subtitle and title. 
+ */
 @Component({
   selector: 'card-element',
   templateUrl: './card-element.component.html',
@@ -20,7 +26,10 @@ export class CardElementComponent implements OnInit {
 
 }
 
-// FIXME: needs a place to live
+/**
+ * The size of the widget can be changed through using this
+ * enum values. 
+ */
 export enum CardSize {
   small, // Sets the size of the card to fixed small values
   auto // Card grows on his own behalf

@@ -2,7 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { routeTransitionAnimations } from '../../../route-transition-animation';
 
-
+/**
+ * Settings screen component 
+ * 
+ * Wrapper component to display all settings view components.
+ */
 @Component({
   selector: 'app-settings-screen',
   templateUrl: './settings-screen.component.html',

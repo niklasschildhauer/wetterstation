@@ -1,5 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 
+/**
+ * Detail screen component 
+ * 
+ * Wrapper component to display the detail screens.
+ */
 @Component({
   selector: 'app-detail-screen',
   templateUrl: './detail-screen.component.html',
