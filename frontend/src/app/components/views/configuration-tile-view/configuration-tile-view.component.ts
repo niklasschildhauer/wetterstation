@@ -64,7 +64,7 @@ export class ConfigurationTileViewComponent implements OnInit {
 
   /**
    * Calls the esp configuration service to update the esp configuration by passing
-   * the changed object @Carina 
+   * the changed object 
    */
   updateConfiguration() {
     if(this.espConfiguration) {

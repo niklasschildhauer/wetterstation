@@ -28,7 +28,7 @@ export class IndoorTileViewComponent implements OnInit {
   ngOnInit(): void { }
 
   /** 
-   * @returns the Quality value as percent. 100% is bad, 0% is good @Carina 
+   * @returns the Quality value as percent. A value od 100% is considered bad to where  0% is good. 
    */
   getQualityValue(): number {
     if(this._indoorRoom){

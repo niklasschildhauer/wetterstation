@@ -7,10 +7,10 @@ import { Tile, TileType } from '../../../model/weather';
 /**
  * Pollenflug detail view component 
  * 
- * This component displays the pollen data. It displays the 
+ * This component shows the pollen data. It displays the 
  * information by using the pollen tile view and pollen small tile view.
  * The pollen small tile view is dynamically choosen if the user has 
- * an allergy to the polle. @Carina
+ * an allergy to the particular pollen.
  */
 @Component({
   selector: 'app-pollenflug-detail-view',

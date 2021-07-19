@@ -20,8 +20,8 @@ export class TtsPlayerElementComponent implements OnInit {
   userContext?: UserContext
   /**
    * Very important function which is passed by the parent 
-   * component. The parent component have to define the function
-   * so that the text is generated when the user presses play. @Carina
+   * component. The parent components have to define the function
+   * so that the text is generated when the user presses play. 
    */
   @Input() ttsTextGeneratorFunction: () => string = () => "";
 

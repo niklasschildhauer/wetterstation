@@ -3,8 +3,8 @@ import { Component, Input, OnInit } from '@angular/core';
 /**
  * Progress chart element component
  * 
- * Displays the current value relative to max and optimal value.
- * It indicates if the value is good or bad. @Carina
+ * Displays the current value relative to the max and optimal value.
+ * Indicates if the value is good or bad. 
  */
 @Component({
   selector: 'app-progress-chart-element',

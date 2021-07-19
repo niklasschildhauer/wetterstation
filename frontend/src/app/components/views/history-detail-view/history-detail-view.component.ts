@@ -23,9 +23,9 @@ export class HistoryDetailViewComponent implements OnInit {
   private _weatherHistory?: WeatherHistoryData
   dataSet?: GraphDataSet[] 
   /**
-   * By setting the index it checks if the end of the array is
-   * reached. If this is the case, it tells the weather data 
-   * service to load more data if possible. @Carina
+   * Setting the index  checks if the end of the array is
+   * reached. In this the case, the weather data 
+   * service is told to load more data if possible.
    */
   set index(value: number) {
     this._index = value;

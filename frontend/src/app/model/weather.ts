@@ -37,10 +37,10 @@ export enum TilePriority {
 }
 
 /**
- * Tile model. 
- * Every tile (widget) needs data and a prioriy. The priority can 
- * be used to set the position of the tile. The tiles itself do not load the data.
- * The data is passed from the parent view of the tiles into it. @Carina
+ * Tile model -
+ * Every tile (widget) needs data and a prioriy. The priority is 
+ * used to determine the position of the tiles on the dashboard. The tiles themselves do not load the data.
+ * The data is passed from the parent view of the tiles.
  */
 export interface Tile<A> {
     type: TileType;
@@ -77,7 +77,7 @@ export interface WeatherForecastData extends WeatherData {
 
 /**
  * Model of the pollen data. It contains all information about 
- * the current pollen fly. @Carina
+ * the current pollen count.
  */
 export interface PollenData extends WeatherData {
     pollenName: string, 

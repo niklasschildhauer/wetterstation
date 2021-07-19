@@ -99,7 +99,7 @@ export class PersonalizationSettingsViewComponent implements OnInit {
   }
 
   /**
-   * @param index of the polle @Carina polle?
+   * @param index of the pollen
    * @returns the pollen string of the given index
    */
   getPollenStringAt(index: number): string {

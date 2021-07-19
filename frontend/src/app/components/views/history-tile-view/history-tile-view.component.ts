@@ -57,8 +57,8 @@ export class HistoryTileViewComponent implements OnInit {
   ngOnInit(): void { }
   
   /**
-   * This function converts the GraphDataSet to the ChartDataset and Chartcolor, which 
-   * are needed by the graph library. @Carina
+   * This function converts the GraphDataSet to the ChartDataset and ChartColor. 
+   * Those are required for the graph library. 
    * 
    * @param chartDataset 
    * @param chartColors 

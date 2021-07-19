@@ -6,8 +6,8 @@ import { ESPConfiguration, ESPConfigurationAPIService } from 'src/app/services/a
  * Configuration view component
  * 
  * This component displays the different configuration
- * tile view components. It is aware of all esp configuration
- * objects and passes the data to each tile view. @Carina
+ * tile view components. It knows  all of the esp configuration
+ * objects and passes the data to each individual tile view. 
  */
 @Component({
   selector: 'app-configuration-view',
