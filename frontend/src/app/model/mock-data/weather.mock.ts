@@ -9,7 +9,7 @@ export var OUTDOORWEATHER: OutdoorWeatherData = {
     minTemperature: 14,
     humidity: 46,
     timestamp: new Date('May 17, 2021 07:24:00'),
-    weather: "sunny_cloudy",
+    weather: "partly-cloudy-day",
     apparentTemperature: 12,
     location: "Stuttgart",
     postCode: '70565'
@@ -344,7 +344,7 @@ export var SCHLAFZIMMER: IndoorRoomData =  {
     temperature: 22,
     humidity: 50,
     timestamp: new Date(),
-    calibrationValue: -1,
+    calibrationValue: 25,
 }
 
 export var WOHNZIMMER2: IndoorRoomData = {
