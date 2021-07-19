@@ -3,8 +3,8 @@ import { Component, Input, OnInit } from '@angular/core';
 /**
  * Pollen tag element component
  * 
- * Takes the value of a polle and converts the value
- * to a human readable information. @Carina
+ * Takes the value of the pollen and converts the value
+ * into a readable information. 
  */
 @Component({
   selector: 'app-pollen-tag-element',
