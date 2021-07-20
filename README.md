@@ -6,8 +6,9 @@
 (in folder wetterstation)
 
 ### Install nodemon globally!
+```
 npm i -g nodemon
-
+```
 
 ### start frontend:
 The developer server can be started by the following command:
@@ -24,15 +25,17 @@ npm run frontend-prod
 ```
 
 ### start backend:
-npm run backend
+```
+npm run server
+```
 
 ### for development (better debugging) best use separate backend-services
 ###### every service in a new terminal
+```
 npm run auth
-npm run
+npm run pers
+npm run database
+npm run weather-data
+```
 
-
-### start all services (WIP/buggy):
-(Linux) npm run services
-(Win) npm run servicesWin
 
