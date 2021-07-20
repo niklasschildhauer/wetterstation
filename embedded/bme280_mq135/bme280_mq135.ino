@@ -331,6 +331,6 @@ void loop()
 
     http.end();
     //Set the delay timer for the Wifi board (default: 1min when transmissionFrequency = 1)
-    delay(60000 * transmissionFrequency - 10000)
+    delay(60000 * transmissionFrequency - 10000);
   }
 }
