@@ -181,7 +181,7 @@ an order way based on the user context. </p>
             </tr>
             <tr>
                 <td class="col-md-4">
-<code>createTiles(outdoorWeather: <a href="../interfaces/OutdoorWeatherData.html">OutdoorWeatherData</a>, pollen: <a href="../interfaces/PollenData.html">PollenData[]</a>, forecast: <a href="../interfaces/WeatherForecastData.html">WeatherForecastData</a>, history: <a href="../interfaces/WeatherHistoryData.html">WeatherHistoryData</a>, indoorRoom: <a href="../interfaces/IndoorRoomData.html">IndoorRoomData[]</a>)</code>
+<code>createTiles(outdoorWeather: OutdoorWeatherData | undefined, pollen: <a href="../interfaces/PollenData.html">PollenData[]</a>, forecast: <a href="../interfaces/WeatherForecastData.html">WeatherForecastData | undefined</a>, history: <a href="../interfaces/WeatherHistoryData.html">WeatherHistoryData | undefined</a>, indoorRoom: <a href="../interfaces/IndoorRoomData.html">IndoorRoomData[]</a>)</code>
                 </td>
             </tr>
 
@@ -214,7 +214,7 @@ In this way you can easily show the different tiles orderd by relevance. </p>
                                 <tr>
                                     <td>outdoorWeather</td>
                                     <td>
-                                                <code><a href="../interfaces/OutdoorWeatherData.html" target="_self" >OutdoorWeatherData</a></code>
+                                            <code>OutdoorWeatherData | undefined</code>
                                     </td>
 
                                     <td>
@@ -238,7 +238,7 @@ In this way you can easily show the different tiles orderd by relevance. </p>
                                 <tr>
                                     <td>forecast</td>
                                     <td>
-                                                <code><a href="../interfaces/WeatherForecastData.html" target="_self" >WeatherForecastData</a></code>
+                                                <code><a href="../interfaces/WeatherForecastData.html" target="_self" >WeatherForecastData | undefined</a></code>
                                     </td>
 
                                     <td>
@@ -250,7 +250,7 @@ In this way you can easily show the different tiles orderd by relevance. </p>
                                 <tr>
                                     <td>history</td>
                                     <td>
-                                                <code><a href="../interfaces/WeatherHistoryData.html" target="_self" >WeatherHistoryData</a></code>
+                                                <code><a href="../interfaces/WeatherHistoryData.html" target="_self" >WeatherHistoryData | undefined</a></code>
                                     </td>
 
                                     <td>
@@ -324,17 +324,20 @@ export class TileService  {
    * @param {IndoorRoomData[]} indoorRoom
    * @returns A TilesArrays object which contains the three tiles array for dashboard screen, pollen detail and indoor room detail components. 
    */
-  createTiles(outdoorWeather: OutdoorWeatherData, 
+  createTiles(outdoorWeather: OutdoorWeatherData | undefined, 
               pollen: PollenData[], 
-              forecast: WeatherForecastData, 
-              history: WeatherHistoryData, 
+              forecast: WeatherForecastData | undefined, 
+              history: WeatherHistoryData | undefined, 
               indoorRoom: IndoorRoomData[]): TileArrays {
       let dashboardTiles: Tile&lt;WeatherData&gt;[] &#x3D; []
       let pollenTiles: Tile&lt;WeatherData&gt;[] &#x3D; []
       let indoorRoomTiles: Tile&lt;WeatherData&gt;[] &#x3D; []
 
+      if(outdoorWeather)
       this.createOutdoorWeatherTiles(outdoorWeather, dashboardTiles);
+      if(forecast)
       this.createForecastTile(forecast, dashboardTiles)
+      if(history)
       this.createHistoryTile(history, dashboardTiles)
       this.createIndoorRoomTiles(indoorRoom, dashboardTiles, indoorRoomTiles)
       this.createPollenTiles(pollen, dashboardTiles, pollenTiles)
@@ -476,37 +479,35 @@ export class TileService  {
     switch (type) {
       case TileType.indoorRoom: {
         let room &#x3D; data as IndoorRoomData
-        if (room.airQuality &gt; 70) {
+        if (room.airQuality - 5 &gt; room.calibrationValue) {
           return TilePriority.important 
         }
+        if (room.airQuality &gt; room.calibrationValue - 5) {
+          return TilePriority.middle 
+        }
         return TilePriority.low
-        // FIXME: Implement algorithm
       }
       case TileType.pollenList: {
         return TilePriority.low
-        // FIXME: Implement algorithm
       }
       case TileType.pollenSmall: {
         let pollen &#x3D; data as PollenData
-        console.log(pollen);
         if (pollen.today &#x3D;&#x3D;&#x3D; &#x27;0&#x27; || pollen.today &#x3D;&#x3D;&#x3D; &#x27;-1&#x27;) {
           return TilePriority.low
         }
         if (pollen.today &#x3D;&#x3D;&#x3D; &#x27;2-3&#x27; || pollen.today &#x3D;&#x3D;&#x3D; &#x27;3&#x27; || pollen.today &#x3D;&#x3D;&#x3D; &#x27;3-4&#x27;) {
-          return TilePriority.high
+          return TilePriority.important
         }
         return TilePriority.middle
-        // FIXME: Implement algorithm
       }
       case TileType.forecast: {
         return TilePriority.middle
-        // FIXME: Implement algorithm
       }
       case TileType.history: {
         return TilePriority.low
       }
     }
-    return TilePriority.middle
+    return TilePriority.low
   }
 
   /**

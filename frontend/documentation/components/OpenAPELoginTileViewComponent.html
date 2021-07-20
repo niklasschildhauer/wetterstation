@@ -64,6 +64,15 @@
     <code>src/app/components/views/open-apelogin-tile-view/open-apelogin-tile-view.component.ts</code>
 </p>
 
+    <p class="comment">
+        <h3>Description</h3>
+    </p>
+    <p class="comment">
+        <p>Open APE login view component</p>
+<p>Display two form controls to enter the username and password of 
+open ape to load the user context from it.</p>
+
+    </p>
 
 
     <p class="comment">
@@ -180,7 +189,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="15" class="link-to-prism">src/app/components/views/open-apelogin-tile-view/open-apelogin-tile-view.component.ts:15</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="21" class="link-to-prism">src/app/components/views/open-apelogin-tile-view/open-apelogin-tile-view.component.ts:21</a></div>
                             </td>
                         </tr>
 
@@ -261,14 +270,17 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="31"
-                            class="link-to-prism">src/app/components/views/open-apelogin-tile-view/open-apelogin-tile-view.component.ts:31</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="48"
+                            class="link-to-prism">src/app/components/views/open-apelogin-tile-view/open-apelogin-tile-view.component.ts:48</a></div>
                 </td>
             </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                    <div class="io-description"><p>Uses the user context service to log the user to open
+ape in </p>
+</div>
 
                     <div class="io-description">
                         <b>Parameters :</b>
@@ -343,8 +355,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="20"
-                            class="link-to-prism">src/app/components/views/open-apelogin-tile-view/open-apelogin-tile-view.component.ts:20</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="27"
+                            class="link-to-prism">src/app/components/views/open-apelogin-tile-view/open-apelogin-tile-view.component.ts:27</a></div>
                 </td>
             </tr>
 
@@ -382,14 +394,16 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="23"
-                            class="link-to-prism">src/app/components/views/open-apelogin-tile-view/open-apelogin-tile-view.component.ts:23</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="33"
+                            class="link-to-prism">src/app/components/views/open-apelogin-tile-view/open-apelogin-tile-view.component.ts:33</a></div>
                 </td>
             </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                    <div class="io-description"><p>Triggers the login process of open APE </p>
+</div>
 
                     <div class="io-description">
                         <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
@@ -426,7 +440,7 @@
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="15" class="link-to-prism">src/app/components/views/open-apelogin-tile-view/open-apelogin-tile-view.component.ts:15</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="21" class="link-to-prism">src/app/components/views/open-apelogin-tile-view/open-apelogin-tile-view.component.ts:21</a></div>
                             </td>
                         </tr>
 
@@ -455,7 +469,7 @@
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="11" class="link-to-prism">src/app/components/views/open-apelogin-tile-view/open-apelogin-tile-view.component.ts:11</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="17" class="link-to-prism">src/app/components/views/open-apelogin-tile-view/open-apelogin-tile-view.component.ts:17</a></div>
                             </td>
                         </tr>
 
@@ -472,6 +486,12 @@
 import { FormBuilder, FormControl, Validators } from &#x27;@angular/forms&#x27;; 
 import { UserContextService } from &#x27;src/app/services/user-context.service&#x27;;
 
+/**
+ * Open APE login view component
+ * 
+ * Display two form controls to enter the username and password of 
+ * open ape to load the user context from it.
+ */
 @Component({
   selector: &#x27;app-open-apelogin-tile-view&#x27;,
   templateUrl: &#x27;./open-apelogin-tile-view.component.html&#x27;,
@@ -483,6 +503,7 @@ export class OpenAPELoginTileViewComponent implements OnInit {
     password: new FormControl(&#x27;&#x27;, Validators.minLength(2)),
   });
   error?: string;
+
   constructor(
     private formBuilder: FormBuilder,
     private userContextService: UserContextService) { }
@@ -490,6 +511,9 @@ export class OpenAPELoginTileViewComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  /**
+   * Triggers the login process of open APE 
+   */
   onSubmit(): void {
     const username &#x3D; this.loginForm.get(&quot;username&quot;)?.value;
     const password &#x3D; this.loginForm.get(&quot;password&quot;)?.value;
@@ -498,6 +522,13 @@ export class OpenAPELoginTileViewComponent implements OnInit {
     this.loginToOpenApe(username, password);
   }
 
+  /**
+   * Uses the user context service to log the user to open
+   * ape in 
+   * 
+   * @param username 
+   * @param password 
+   */
   loginToOpenApe(username: string, password: string) {
     this.error &#x3D; undefined
     this.userContextService.loginToOpenApe(username, password).then(result &#x3D;&gt; {
@@ -593,7 +624,7 @@ input {
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
         var COMPONENT_TEMPLATE = '<div><div class="card-container">    <card-element         [title]="\'Login\'"         [subtitle]="\'OpenAPE\'"         [pressable]="false">        <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">            <div>                <label for="email">                Nutzername                </label>                <input id="username"                 type="text"                 formControlName="username"                placeholder="Nutzername eingeben"                >            </div>                        <div>                <label for="password">                Passwort                </label>                <input id="password"                 type="password"                 formControlName="password"                placeholder="Passwort eingeben"                >            </div>            <p *ngIf="error" class="error-message">{{error}}</p>            <input id="ok" type="submit" value="Login">        </form>    </card-element></div></div>'
-    var COMPONENTS = [{'name': 'ApparentTemperatureTileViewComponent', 'selector': 'app-apparent-temperature-tile-view'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'BackButtonElementComponent', 'selector': 'app-back-button-element'},{'name': 'CardElementComponent', 'selector': 'card-element'},{'name': 'CheckboxSwitcherElementComponent', 'selector': 'app-checkbox-switcher-element'},{'name': 'ConfigurationTilePopUpDialogView', 'selector': 'configuration-tile-popup-view'},{'name': 'ConfigurationTileViewComponent', 'selector': 'app-configuration-tile-view'},{'name': 'ConfigurationViewComponent', 'selector': 'app-configuration-view'},{'name': 'DashboardScreenComponent', 'selector': 'app-dashboard-screen'},{'name': 'DetailScreenComponent', 'selector': 'app-detail-screen'},{'name': 'ForecastDetailViewComponent', 'selector': 'app-forecast-detail-view'},{'name': 'ForecastTileViewComponent', 'selector': 'app-forecast-tile-view'},{'name': 'HistoryDetailViewComponent', 'selector': 'app-history-detail-view'},{'name': 'HistoryTileViewComponent', 'selector': 'app-history-tile-view'},{'name': 'HumidityTileViewComponent', 'selector': 'app-humidity-tile-view'},{'name': 'IndoorDetailViewComponent', 'selector': 'app-indoor-detail-view'},{'name': 'IndoorTileViewComponent', 'selector': 'app-indoor-tile-view'},{'name': 'LoginViewComponent', 'selector': 'app-login-view'},{'name': 'MenuBarElementComponent', 'selector': 'app-menu-bar-element'},{'name': 'MenuButtonElementComponent', 'selector': 'app-menu-button-element'},{'name': 'MenuElementComponent', 'selector': 'app-menu-element'},{'name': 'NavBarElementComponent', 'selector': 'app-nav-bar-element'},{'name': 'OnboardingScreenComponent', 'selector': 'app-onboarding-screen'},{'name': 'OpenAPELoginTileViewComponent', 'selector': 'app-open-apelogin-tile-view'},{'name': 'OutdoorWeatherDetailViewComponent', 'selector': 'app-outdoor-weather-detail-view'},{'name': 'OutdoorWeatherViewComponent', 'selector': 'app-outdoor-weather-view'},{'name': 'PersonalizationSettingsViewComponent', 'selector': 'app-personalization-settings-view'},{'name': 'PersonalizationViewComponent', 'selector': 'app-personalization-view'},{'name': 'PollenflugDetailViewComponent', 'selector': 'app-pollenflug-detail-view'},{'name': 'PollenflugSmallTileComponent', 'selector': 'app-pollenflug-small-tile'},{'name': 'PollenflugTileViewComponent', 'selector': 'app-pollenflug-tile-view'},{'name': 'PollenListElementComponent', 'selector': 'app-pollen-list-element'},{'name': 'PollenTagElementComponent', 'selector': 'app-pollen-tag-element'},{'name': 'ProgressChartElementComponent', 'selector': 'app-progress-chart-element'},{'name': 'RegistrationViewComponent', 'selector': 'app-registration-view'},{'name': 'SettingsScreenComponent', 'selector': 'app-settings-screen'},{'name': 'SimpleTileViewComponent', 'selector': 'app-simple-tile-view'},{'name': 'SliderElementComponent', 'selector': 'app-slider-element'},{'name': 'TtsPlayerElementComponent', 'selector': 'app-tts-player-element'}];
+    var COMPONENTS = [{'name': 'ApparentTemperatureTileViewComponent', 'selector': 'app-apparent-temperature-tile-view'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'BackButtonElementComponent', 'selector': 'app-back-button-element'},{'name': 'CalibrationInfoDetailViewComponent', 'selector': 'app-calibration-info-detail-view'},{'name': 'CardElementComponent', 'selector': 'card-element'},{'name': 'CheckboxSwitcherElementComponent', 'selector': 'app-checkbox-switcher-element'},{'name': 'ConfigurationTilePopUpDialogView', 'selector': 'configuration-tile-popup-view'},{'name': 'ConfigurationTileViewComponent', 'selector': 'app-configuration-tile-view'},{'name': 'ConfigurationViewComponent', 'selector': 'app-configuration-view'},{'name': 'DashboardScreenComponent', 'selector': 'app-dashboard-screen'},{'name': 'DashboardViewComponent', 'selector': 'app-dashboard-view'},{'name': 'DetailScreenComponent', 'selector': 'app-detail-screen'},{'name': 'ForecastDetailViewComponent', 'selector': 'app-forecast-detail-view'},{'name': 'ForecastTileViewComponent', 'selector': 'app-forecast-tile-view'},{'name': 'HistoryDetailViewComponent', 'selector': 'app-history-detail-view'},{'name': 'HistoryTileViewComponent', 'selector': 'app-history-tile-view'},{'name': 'HumidityTileViewComponent', 'selector': 'app-humidity-tile-view'},{'name': 'IndoorDetailViewComponent', 'selector': 'app-indoor-detail-view'},{'name': 'IndoorTileViewComponent', 'selector': 'app-indoor-tile-view'},{'name': 'LoginViewComponent', 'selector': 'app-login-view'},{'name': 'MenuBarElementComponent', 'selector': 'app-menu-bar-element'},{'name': 'MenuButtonElementComponent', 'selector': 'app-menu-button-element'},{'name': 'MenuElementComponent', 'selector': 'app-menu-element'},{'name': 'NavBarElementComponent', 'selector': 'app-nav-bar-element'},{'name': 'OnboardingScreenComponent', 'selector': 'app-onboarding-screen'},{'name': 'OpenAPELoginTileViewComponent', 'selector': 'app-open-apelogin-tile-view'},{'name': 'OutdoorWeatherDetailViewComponent', 'selector': 'app-outdoor-weather-detail-view'},{'name': 'OutdoorWeatherViewComponent', 'selector': 'app-outdoor-weather-view'},{'name': 'PersonalizationSettingsViewComponent', 'selector': 'app-personalization-settings-view'},{'name': 'PersonalizationViewComponent', 'selector': 'app-personalization-view'},{'name': 'PollenflugDetailViewComponent', 'selector': 'app-pollenflug-detail-view'},{'name': 'PollenflugSmallTileComponent', 'selector': 'app-pollenflug-small-tile'},{'name': 'PollenflugTileViewComponent', 'selector': 'app-pollenflug-tile-view'},{'name': 'PollenListElementComponent', 'selector': 'app-pollen-list-element'},{'name': 'PollenTagElementComponent', 'selector': 'app-pollen-tag-element'},{'name': 'ProgressChartElementComponent', 'selector': 'app-progress-chart-element'},{'name': 'RegistrationViewComponent', 'selector': 'app-registration-view'},{'name': 'SettingsScreenComponent', 'selector': 'app-settings-screen'},{'name': 'SimpleTileViewComponent', 'selector': 'app-simple-tile-view'},{'name': 'SliderElementComponent', 'selector': 'app-slider-element'},{'name': 'TtsPlayerElementComponent', 'selector': 'app-tts-player-element'}];
     var DIRECTIVES = [];
     var ACTUAL_COMPONENT = {'name': 'OpenAPELoginTileViewComponent'};
 </script>

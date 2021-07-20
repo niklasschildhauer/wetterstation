@@ -64,6 +64,19 @@
     <code>src/app/components/views/history-detail-view/history-detail-view.component.ts</code>
 </p>
 
+    <p class="comment">
+        <h3>Description</h3>
+    </p>
+    <p class="comment">
+        <p>History detail view component</p>
+<p>This component displays the history data in form of a line chart.
+It displays two line charts. One for the temperature history and one
+for the humidity history. For this the history tile view is used twice.
+It is also responsible for the loading of the history data.
+This component uses the history service to compute the graph data.
+In this way the data can be filterd by day or month.</p>
+
+    </p>
 
 
     <p class="comment">
@@ -176,13 +189,7 @@
                                 <a href="#isForwardPossible">isForwardPossible</a>
                             </li>
                             <li>
-                                <a href="#loadWeatherHistoryData">loadWeatherHistoryData</a>
-                            </li>
-                            <li>
                                 <a href="#ngOnInit">ngOnInit</a>
-                            </li>
-                            <li>
-                                <a href="#reload">reload</a>
                             </li>
                             <li>
                                 <a href="#selectInterval">selectInterval</a>
@@ -224,7 +231,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="32" class="link-to-prism">src/app/components/views/history-detail-view/history-detail-view.component.ts:32</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="45" class="link-to-prism">src/app/components/views/history-detail-view/history-detail-view.component.ts:45</a></div>
                             </td>
                         </tr>
 
@@ -305,14 +312,16 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="83"
-                            class="link-to-prism">src/app/components/views/history-detail-view/history-detail-view.component.ts:83</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="116"
+                            class="link-to-prism">src/app/components/views/history-detail-view/history-detail-view.component.ts:116</a></div>
                 </td>
             </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                    <div class="io-description"><p>Reduces the index</p>
+</div>
 
                     <div class="io-description">
                         <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
@@ -344,14 +353,16 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="70"
-                            class="link-to-prism">src/app/components/views/history-detail-view/history-detail-view.component.ts:70</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="97"
+                            class="link-to-prism">src/app/components/views/history-detail-view/history-detail-view.component.ts:97</a></div>
                 </td>
             </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                    <div class="io-description"><p>Increases the index</p>
+</div>
 
                     <div class="io-description">
                         <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
@@ -383,8 +394,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="102"
-                            class="link-to-prism">src/app/components/views/history-detail-view/history-detail-view.component.ts:102</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="145"
+                            class="link-to-prism">src/app/components/views/history-detail-view/history-detail-view.component.ts:145</a></div>
                 </td>
             </tr>
 
@@ -392,8 +403,14 @@
             <tr>
                 <td class="col-md-4">
 
+                    <div>
+                    </div>
                     <div class="io-description">
                         <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        <p>the average humidity string</p>
 
                     </div>
                 </td>
@@ -422,8 +439,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="96"
-                            class="link-to-prism">src/app/components/views/history-detail-view/history-detail-view.component.ts:96</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="135"
+                            class="link-to-prism">src/app/components/views/history-detail-view/history-detail-view.component.ts:135</a></div>
                 </td>
             </tr>
 
@@ -431,8 +448,14 @@
             <tr>
                 <td class="col-md-4">
 
+                    <div>
+                    </div>
                     <div class="io-description">
                         <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        <p>the average temperature string</p>
 
                     </div>
                 </td>
@@ -461,8 +484,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="89"
-                            class="link-to-prism">src/app/components/views/history-detail-view/history-detail-view.component.ts:89</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="125"
+                            class="link-to-prism">src/app/components/views/history-detail-view/history-detail-view.component.ts:125</a></div>
                 </td>
             </tr>
 
@@ -470,8 +493,14 @@
             <tr>
                 <td class="col-md-4">
 
+                    <div>
+                    </div>
                     <div class="io-description">
                         <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        <p>true if the index is not smaller than 0. </p>
 
                     </div>
                 </td>
@@ -500,8 +529,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="76"
-                            class="link-to-prism">src/app/components/views/history-detail-view/history-detail-view.component.ts:76</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="106"
+                            class="link-to-prism">src/app/components/views/history-detail-view/history-detail-view.component.ts:106</a></div>
                 </td>
             </tr>
 
@@ -509,47 +538,14 @@
             <tr>
                 <td class="col-md-4">
 
+                    <div>
+                    </div>
                     <div class="io-description">
                         <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
 
                     </div>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-    <table class="table table-sm table-bordered">
-        <tbody>
-            <tr>
-                <td class="col-md-4">
-                    <a name="loadWeatherHistoryData"></a>
-                    <span class="name">
-                        <b>
-                            loadWeatherHistoryData
-                        </b>
-                        <a href="#loadWeatherHistoryData"><span class="icon ion-ios-link"></span></a>
-                    </span>
-                </td>
-            </tr>
-            <tr>
-                <td class="col-md-4">
-<code>loadWeatherHistoryData()</code>
-                </td>
-            </tr>
-
-
-            <tr>
-                <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="41"
-                            class="link-to-prism">src/app/components/views/history-detail-view/history-detail-view.component.ts:41</a></div>
-                </td>
-            </tr>
-
-
-            <tr>
-                <td class="col-md-4">
-
                     <div class="io-description">
-                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+                        <p>true if more data is there to show</p>
 
                     </div>
                 </td>
@@ -578,47 +574,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="37"
-                            class="link-to-prism">src/app/components/views/history-detail-view/history-detail-view.component.ts:37</a></div>
-                </td>
-            </tr>
-
-
-            <tr>
-                <td class="col-md-4">
-
-                    <div class="io-description">
-                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
-
-                    </div>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-    <table class="table table-sm table-bordered">
-        <tbody>
-            <tr>
-                <td class="col-md-4">
-                    <a name="reload"></a>
-                    <span class="name">
-                        <b>
-                            reload
-                        </b>
-                        <a href="#reload"><span class="icon ion-ios-link"></span></a>
-                    </span>
-                </td>
-            </tr>
-            <tr>
-                <td class="col-md-4">
-<code>reload()</code>
-                </td>
-            </tr>
-
-
-            <tr>
-                <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="53"
-                            class="link-to-prism">src/app/components/views/history-detail-view/history-detail-view.component.ts:53</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="50"
+                            class="link-to-prism">src/app/components/views/history-detail-view/history-detail-view.component.ts:50</a></div>
                 </td>
             </tr>
 
@@ -656,14 +613,17 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="48"
-                            class="link-to-prism">src/app/components/views/history-detail-view/history-detail-view.component.ts:48</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="68"
+                            class="link-to-prism">src/app/components/views/history-detail-view/history-detail-view.component.ts:68</a></div>
                 </td>
             </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                    <div class="io-description"><p>Is called after the interval was changed. In this way the index is reset
+to the inital value</p>
+</div>
 
                     <div class="io-description">
                         <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
@@ -704,7 +664,7 @@
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="28" class="link-to-prism">src/app/components/views/history-detail-view/history-detail-view.component.ts:28</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="41" class="link-to-prism">src/app/components/views/history-detail-view/history-detail-view.component.ts:41</a></div>
                             </td>
                         </tr>
 
@@ -732,7 +692,7 @@
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="15" class="link-to-prism">src/app/components/views/history-detail-view/history-detail-view.component.ts:15</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="24" class="link-to-prism">src/app/components/views/history-detail-view/history-detail-view.component.ts:24</a></div>
                             </td>
                         </tr>
 
@@ -758,7 +718,7 @@
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="30" class="link-to-prism">src/app/components/views/history-detail-view/history-detail-view.component.ts:30</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="43" class="link-to-prism">src/app/components/views/history-detail-view/history-detail-view.component.ts:43</a></div>
                             </td>
                         </tr>
 
@@ -784,7 +744,7 @@
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="31" class="link-to-prism">src/app/components/views/history-detail-view/history-detail-view.component.ts:31</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="44" class="link-to-prism">src/app/components/views/history-detail-view/history-detail-view.component.ts:44</a></div>
                             </td>
                         </tr>
 
@@ -810,7 +770,7 @@
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="32" class="link-to-prism">src/app/components/views/history-detail-view/history-detail-view.component.ts:32</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="45" class="link-to-prism">src/app/components/views/history-detail-view/history-detail-view.component.ts:45</a></div>
                             </td>
                         </tr>
 
@@ -839,7 +799,7 @@
                 </tr>
                             <tr>
                                 <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="25" class="link-to-prism">src/app/components/views/history-detail-view/history-detail-view.component.ts:25</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="38" class="link-to-prism">src/app/components/views/history-detail-view/history-detail-view.component.ts:38</a></div>
                                 </td>
                             </tr>
 
@@ -850,11 +810,15 @@
                 </tr>
                             <tr>
                                 <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="17" class="link-to-prism">src/app/components/views/history-detail-view/history-detail-view.component.ts:17</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="30" class="link-to-prism">src/app/components/views/history-detail-view/history-detail-view.component.ts:30</a></div>
                                 </td>
                             </tr>
                     <tr>
                         <td class="col-md-4">
+                                <div class="io-description"><p>Setting the index  checks if the end of the array is
+reached. In this the case, the weather data 
+service is told to load more data if possible.</p>
+</div>
 
                                 <div class="io-description">
                                         <b>Parameters :</b>
@@ -902,8 +866,17 @@ import { GraphDataSet, WeatherHistoryData } from &#x27;src/app/model/weather&#x2
 import { HistoryTileService } from &#x27;src/app/services/history-tile.service&#x27;;
 import { WeatherDataService } from &#x27;src/app/services/weather-data.service&#x27;;
 import { HistoryGraphType } from &#x27;../history-tile-view/history-tile-view.component&#x27;;
-import { MatButtonToggleAppearance } from &#x27;@angular/material/button-toggle&#x27;
 
+/**
+ * History detail view component
+ * 
+ * This component displays the history data in form of a line chart.
+ * It displays two line charts. One for the temperature history and one
+ * for the humidity history. For this the history tile view is used twice.
+ * It is also responsible for the loading of the history data.
+ * This component uses the history service to compute the graph data.
+ * In this way the data can be filterd by day or month.
+ */
 @Component({
   selector: &#x27;app-history-detail-view&#x27;,
   templateUrl: &#x27;./history-detail-view.component.html&#x27;,
@@ -912,7 +885,11 @@ import { MatButtonToggleAppearance } from &#x27;@angular/material/button-toggle&
 export class HistoryDetailViewComponent implements OnInit {
   private _weatherHistory?: WeatherHistoryData
   dataSet?: GraphDataSet[] 
-  // Index
+  /**
+   * Setting the index  checks if the end of the array is
+   * reached. In this the case, the weather data 
+   * service is told to load more data if possible.
+   */
   set index(value: number) {
     this._index &#x3D; value;
     if(this.dataSet &amp;&amp; !(this.dataSet.length &gt; value + 1)) {
@@ -937,19 +914,30 @@ export class HistoryDetailViewComponent implements OnInit {
     this.loadWeatherHistoryData() 
   }
 
-  loadWeatherHistoryData(): void {
+  /**
+   * Subscribes the history data subject from the weather service.
+   */
+  private loadWeatherHistoryData(): void {
     this.weatherDataService.getHistoryDataSubject().subscribe(data &#x3D;&gt; {
       this._weatherHistory &#x3D; data
       this.reload();
     });
   }
 
+  /**
+   * Is called after the interval was changed. In this way the index is reset
+   * to the inital value
+   */
   selectInterval() {
     this.reload();
     this.index &#x3D; 0;
   }
 
-  reload() {
+  /**
+   * This functio uses the history service to compute 
+   * the graph data by passing the weather history property.  
+   */
+  private reload() {
     if(this._weatherHistory) {
       if(this.selectedTimeInterval &#x3D;&#x3D; TimeInterval.day) {
         this.dataSet &#x3D; this.historyTileService.getHistoryDataSetHoursPerDayFrom(this._weatherHistory);
@@ -966,12 +954,18 @@ export class HistoryDetailViewComponent implements OnInit {
     }
   }
 
+  /**
+   * Increases the index
+   */
   forward(): void {
     if(this.isForwardPossible()) {
      this.index &#x3D; this.index + 1;
     }
   }
 
+  /** 
+   * @returns true if more data is there to show
+   */
   isForwardPossible(): boolean {
     if(this.dataSet &amp;&amp; this.dataSet.length &gt; this.index + 1)  {
       return true
@@ -979,12 +973,18 @@ export class HistoryDetailViewComponent implements OnInit {
     return false;
   }
 
+  /**
+   * Reduces the index
+   */
   back(): void {
     if(this.isBackPossible()) {
       this.index &#x3D; this.index - 1;
     } 
   }
 
+  /**
+   * @returns true if the index is not smaller than 0. 
+   */
   isBackPossible(): boolean {
     if(this.index &gt; 0) {
       return true
@@ -992,12 +992,19 @@ export class HistoryDetailViewComponent implements OnInit {
     return false;
   }
 
+  /**
+   * @returns the average temperature string
+   */
   getAverageTempString(): string {
     if(this.dataSet){
       return this.dataSet[this.index].temperatureAverage + &quot;°C&quot;
     }
     return &quot;&quot;
   }
+
+  /**
+   * @returns the average humidity string
+   */
   getAverageHumidityString(): string {
     if(this.dataSet){
       return this.dataSet[this.index].humidityAverage + &quot;%&quot;
@@ -1151,7 +1158,7 @@ button.disabled * {
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
         var COMPONENT_TEMPLATE = '<div><app-nav-bar-element [titleLabel]="\'Historie\'" [backLabel]="\'Dashboard\'"></app-nav-bar-element><div *ngIf="dataSet">    <div class="sort-container">        <p>Sortierung: </p>        <select [(ngModel)]="selectedTimeInterval" (change)="selectInterval()">            <option [value]="timeIntervalType.day">Tag</option>            <option [value]="timeIntervalType.week">Woche</option>            <option [value]="timeIntervalType.month">Monat</option>        </select>    </div>    <div class="button-container">        <button class="round-button" (click)="forward()" [ngClass]="{\'disabled\' : !isForwardPossible()}">            <svg width="10" height="17" viewBox="0 0 10 17" fill="none" xmlns="http://www.w3.org/2000/svg">                <path d="M9 16L2 8.5L9 1" stroke="black" stroke-width="2" stroke-linecap="round"/>            </svg>        </button>        <p>{{dataSet[index].label}}</p>        <button class="round-button" (click)="back()" [ngClass]="{\'disabled\' : !isBackPossible()}">            <svg width="10" height="17" viewBox="0 0 10 17" fill="none" xmlns="http://www.w3.org/2000/svg">                <path d="M1 16L8 8.5L1 1" stroke="black" stroke-width="2" stroke-linecap="round"/>            </svg>                </button>    </div>    <div class="flex-container">        <div class="tile-container">            <app-history-tile-view                 [data]="dataSet[index]"                 [pressable]="false"                 [graphType]="graphType.temperature"                 [title]="\'Temperaturverlauf\'">            </app-history-tile-view>            <app-simple-tile-view                [subtitle]="\'Ø Temperatur\'"                [value]="getAverageTempString()">            </app-simple-tile-view>        </div>        <div class="tile-container">            <app-history-tile-view                 [data]="dataSet[index]"                 [pressable]="false"                 [graphType]="graphType.humidity"                 [title]="\'Luftfeuchtigkeitsverlauf\'">            </app-history-tile-view>            <app-simple-tile-view                [subtitle]="\'Ø Luftfeuchtigkeit\'"                [value]="getAverageHumidityString()">            </app-simple-tile-view>        </div>    </div>    <article lang="de">         <h4>Good to know</h4>            <p>                Die Wetterbeobachtung und Wetteraufzeichnung existiert schon seit Jahrtausenden. Neben den Beobachtungsdaten der Wetterstationen werden zur Bewertung der Klimamodelle häufig auch aufbereitete Daten eingesetzt, die, ausgehend von den Beobachtungen, auf ein regelmäßiges räumliches Raster umgerechnet werden. Zusätzlich zu den traditionellen Beobachtungen wurde das Wetter während der vergangenen Jahrzehnte auch mit Satelliten und Wetterradaren beobachtet.Wie signifikant ein Trend ausfällt, hängt von der betrachteten Klimagröße, der Region, der Jahreszeit und dem Zeitraum der Auswertung ab.            </p>    </article></div></div>'
-    var COMPONENTS = [{'name': 'ApparentTemperatureTileViewComponent', 'selector': 'app-apparent-temperature-tile-view'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'BackButtonElementComponent', 'selector': 'app-back-button-element'},{'name': 'CardElementComponent', 'selector': 'card-element'},{'name': 'CheckboxSwitcherElementComponent', 'selector': 'app-checkbox-switcher-element'},{'name': 'ConfigurationTilePopUpDialogView', 'selector': 'configuration-tile-popup-view'},{'name': 'ConfigurationTileViewComponent', 'selector': 'app-configuration-tile-view'},{'name': 'ConfigurationViewComponent', 'selector': 'app-configuration-view'},{'name': 'DashboardScreenComponent', 'selector': 'app-dashboard-screen'},{'name': 'DetailScreenComponent', 'selector': 'app-detail-screen'},{'name': 'ForecastDetailViewComponent', 'selector': 'app-forecast-detail-view'},{'name': 'ForecastTileViewComponent', 'selector': 'app-forecast-tile-view'},{'name': 'HistoryDetailViewComponent', 'selector': 'app-history-detail-view'},{'name': 'HistoryTileViewComponent', 'selector': 'app-history-tile-view'},{'name': 'HumidityTileViewComponent', 'selector': 'app-humidity-tile-view'},{'name': 'IndoorDetailViewComponent', 'selector': 'app-indoor-detail-view'},{'name': 'IndoorTileViewComponent', 'selector': 'app-indoor-tile-view'},{'name': 'LoginViewComponent', 'selector': 'app-login-view'},{'name': 'MenuBarElementComponent', 'selector': 'app-menu-bar-element'},{'name': 'MenuButtonElementComponent', 'selector': 'app-menu-button-element'},{'name': 'MenuElementComponent', 'selector': 'app-menu-element'},{'name': 'NavBarElementComponent', 'selector': 'app-nav-bar-element'},{'name': 'OnboardingScreenComponent', 'selector': 'app-onboarding-screen'},{'name': 'OpenAPELoginTileViewComponent', 'selector': 'app-open-apelogin-tile-view'},{'name': 'OutdoorWeatherDetailViewComponent', 'selector': 'app-outdoor-weather-detail-view'},{'name': 'OutdoorWeatherViewComponent', 'selector': 'app-outdoor-weather-view'},{'name': 'PersonalizationSettingsViewComponent', 'selector': 'app-personalization-settings-view'},{'name': 'PersonalizationViewComponent', 'selector': 'app-personalization-view'},{'name': 'PollenflugDetailViewComponent', 'selector': 'app-pollenflug-detail-view'},{'name': 'PollenflugSmallTileComponent', 'selector': 'app-pollenflug-small-tile'},{'name': 'PollenflugTileViewComponent', 'selector': 'app-pollenflug-tile-view'},{'name': 'PollenListElementComponent', 'selector': 'app-pollen-list-element'},{'name': 'PollenTagElementComponent', 'selector': 'app-pollen-tag-element'},{'name': 'ProgressChartElementComponent', 'selector': 'app-progress-chart-element'},{'name': 'RegistrationViewComponent', 'selector': 'app-registration-view'},{'name': 'SettingsScreenComponent', 'selector': 'app-settings-screen'},{'name': 'SimpleTileViewComponent', 'selector': 'app-simple-tile-view'},{'name': 'SliderElementComponent', 'selector': 'app-slider-element'},{'name': 'TtsPlayerElementComponent', 'selector': 'app-tts-player-element'}];
+    var COMPONENTS = [{'name': 'ApparentTemperatureTileViewComponent', 'selector': 'app-apparent-temperature-tile-view'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'BackButtonElementComponent', 'selector': 'app-back-button-element'},{'name': 'CalibrationInfoDetailViewComponent', 'selector': 'app-calibration-info-detail-view'},{'name': 'CardElementComponent', 'selector': 'card-element'},{'name': 'CheckboxSwitcherElementComponent', 'selector': 'app-checkbox-switcher-element'},{'name': 'ConfigurationTilePopUpDialogView', 'selector': 'configuration-tile-popup-view'},{'name': 'ConfigurationTileViewComponent', 'selector': 'app-configuration-tile-view'},{'name': 'ConfigurationViewComponent', 'selector': 'app-configuration-view'},{'name': 'DashboardScreenComponent', 'selector': 'app-dashboard-screen'},{'name': 'DashboardViewComponent', 'selector': 'app-dashboard-view'},{'name': 'DetailScreenComponent', 'selector': 'app-detail-screen'},{'name': 'ForecastDetailViewComponent', 'selector': 'app-forecast-detail-view'},{'name': 'ForecastTileViewComponent', 'selector': 'app-forecast-tile-view'},{'name': 'HistoryDetailViewComponent', 'selector': 'app-history-detail-view'},{'name': 'HistoryTileViewComponent', 'selector': 'app-history-tile-view'},{'name': 'HumidityTileViewComponent', 'selector': 'app-humidity-tile-view'},{'name': 'IndoorDetailViewComponent', 'selector': 'app-indoor-detail-view'},{'name': 'IndoorTileViewComponent', 'selector': 'app-indoor-tile-view'},{'name': 'LoginViewComponent', 'selector': 'app-login-view'},{'name': 'MenuBarElementComponent', 'selector': 'app-menu-bar-element'},{'name': 'MenuButtonElementComponent', 'selector': 'app-menu-button-element'},{'name': 'MenuElementComponent', 'selector': 'app-menu-element'},{'name': 'NavBarElementComponent', 'selector': 'app-nav-bar-element'},{'name': 'OnboardingScreenComponent', 'selector': 'app-onboarding-screen'},{'name': 'OpenAPELoginTileViewComponent', 'selector': 'app-open-apelogin-tile-view'},{'name': 'OutdoorWeatherDetailViewComponent', 'selector': 'app-outdoor-weather-detail-view'},{'name': 'OutdoorWeatherViewComponent', 'selector': 'app-outdoor-weather-view'},{'name': 'PersonalizationSettingsViewComponent', 'selector': 'app-personalization-settings-view'},{'name': 'PersonalizationViewComponent', 'selector': 'app-personalization-view'},{'name': 'PollenflugDetailViewComponent', 'selector': 'app-pollenflug-detail-view'},{'name': 'PollenflugSmallTileComponent', 'selector': 'app-pollenflug-small-tile'},{'name': 'PollenflugTileViewComponent', 'selector': 'app-pollenflug-tile-view'},{'name': 'PollenListElementComponent', 'selector': 'app-pollen-list-element'},{'name': 'PollenTagElementComponent', 'selector': 'app-pollen-tag-element'},{'name': 'ProgressChartElementComponent', 'selector': 'app-progress-chart-element'},{'name': 'RegistrationViewComponent', 'selector': 'app-registration-view'},{'name': 'SettingsScreenComponent', 'selector': 'app-settings-screen'},{'name': 'SimpleTileViewComponent', 'selector': 'app-simple-tile-view'},{'name': 'SliderElementComponent', 'selector': 'app-slider-element'},{'name': 'TtsPlayerElementComponent', 'selector': 'app-tts-player-element'}];
     var DIRECTIVES = [];
     var ACTUAL_COMPONENT = {'name': 'HistoryDetailViewComponent'};
 </script>

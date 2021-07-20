@@ -64,6 +64,17 @@
     <code>src/app/components/views/history-tile-view/history-tile-view.component.ts</code>
 </p>
 
+    <p class="comment">
+        <h3>Description</h3>
+    </p>
+    <p class="comment">
+        <p>History tile view component</p>
+<p>This component displays in form of a tile (widget) the history data 
+as a line chart. It takes an object of the type GraphDataSet as information source. 
+Itself has no connection to any data service. 
+It uses the card-view-element to define the layout.</p>
+
+    </p>
 
 
     <p class="comment">
@@ -172,9 +183,6 @@
                             <li>
                                 <a href="#ngOnInit">ngOnInit</a>
                             </li>
-                            <li>
-                                <a href="#updateChartData">updateChartData</a>
-                            </li>
                         </ul>
                     </td>
                 </tr>
@@ -238,7 +246,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="43" class="link-to-prism">src/app/components/views/history-tile-view/history-tile-view.component.ts:43</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="53" class="link-to-prism">src/app/components/views/history-tile-view/history-tile-view.component.ts:53</a></div>
                             </td>
                         </tr>
 
@@ -258,7 +266,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-2" colspan="2">
-                                    <div class="io-line">Defined in <a href="" data-line="23" class="link-to-prism">src/app/components/views/history-tile-view/history-tile-view.component.ts:23</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="31" class="link-to-prism">src/app/components/views/history-tile-view/history-tile-view.component.ts:31</a></div>
                             </td>
                         </tr>
             </tbody>
@@ -273,7 +281,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-2" colspan="2">
-                                    <div class="io-line">Defined in <a href="" data-line="15" class="link-to-prism">src/app/components/views/history-tile-view/history-tile-view.component.ts:15</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="23" class="link-to-prism">src/app/components/views/history-tile-view/history-tile-view.component.ts:23</a></div>
                             </td>
                         </tr>
             </tbody>
@@ -299,7 +307,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-2" colspan="2">
-                                    <div class="io-line">Defined in <a href="" data-line="12" class="link-to-prism">src/app/components/views/history-tile-view/history-tile-view.component.ts:12</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="20" class="link-to-prism">src/app/components/views/history-tile-view/history-tile-view.component.ts:20</a></div>
                             </td>
                         </tr>
             </tbody>
@@ -320,7 +328,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-2" colspan="2">
-                                    <div class="io-line">Defined in <a href="" data-line="13" class="link-to-prism">src/app/components/views/history-tile-view/history-tile-view.component.ts:13</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="21" class="link-to-prism">src/app/components/views/history-tile-view/history-tile-view.component.ts:21</a></div>
                             </td>
                         </tr>
             </tbody>
@@ -356,8 +364,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="47"
-                            class="link-to-prism">src/app/components/views/history-tile-view/history-tile-view.component.ts:47</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="57"
+                            class="link-to-prism">src/app/components/views/history-tile-view/history-tile-view.component.ts:57</a></div>
                 </td>
             </tr>
 
@@ -368,112 +376,6 @@
                     <div class="io-description">
                         <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
 
-                    </div>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-    <table class="table table-sm table-bordered">
-        <tbody>
-            <tr>
-                <td class="col-md-4">
-                    <a name="updateChartData"></a>
-                    <span class="name">
-                        <b>
-                            updateChartData
-                        </b>
-                        <a href="#updateChartData"><span class="icon ion-ios-link"></span></a>
-                    </span>
-                </td>
-            </tr>
-            <tr>
-                <td class="col-md-4">
-<code>updateChartData(chartDataset: ChartDataset[], chartColors: ChartColor, dataSet: <a href="../interfaces/GraphDataSet.html">GraphDataSet</a>, graphType: <a href="../undefineds/HistoryGraphType.html">HistoryGraphType</a>)</code>
-                </td>
-            </tr>
-
-
-            <tr>
-                <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="49"
-                            class="link-to-prism">src/app/components/views/history-tile-view/history-tile-view.component.ts:49</a></div>
-                </td>
-            </tr>
-
-
-            <tr>
-                <td class="col-md-4">
-
-                    <div class="io-description">
-                        <b>Parameters :</b>
-                        <table class="params">
-                            <thead>
-                                <tr>
-                                    <td>Name</td>
-                                    <td>Type</td>
-                                    <td>Optional</td>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>chartDataset</td>
-                                    <td>
-                                            <code>ChartDataset[]</code>
-                                    </td>
-
-                                    <td>
-                                        No
-                                    </td>
-
-
-                                </tr>
-                                <tr>
-                                    <td>chartColors</td>
-                                    <td>
-                                            <code>ChartColor</code>
-                                    </td>
-
-                                    <td>
-                                        No
-                                    </td>
-
-
-                                </tr>
-                                <tr>
-                                    <td>dataSet</td>
-                                    <td>
-                                                <code><a href="../interfaces/GraphDataSet.html" target="_self" >GraphDataSet</a></code>
-                                    </td>
-
-                                    <td>
-                                        No
-                                    </td>
-
-
-                                </tr>
-                                <tr>
-                                    <td>graphType</td>
-                                    <td>
-                                                <code><a href="../miscellaneous/enumerations.html#HistoryGraphType" target="_self" >HistoryGraphType</a></code>
-                                    </td>
-
-                                    <td>
-                                        No
-                                    </td>
-
-
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div>
-                    </div>
-                    <div class="io-description">
-                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
-
-                    </div>
-                    <div class="io-description">
-                        
                     </div>
                 </td>
             </tr>
@@ -506,7 +408,7 @@
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="29" class="link-to-prism">src/app/components/views/history-tile-view/history-tile-view.component.ts:29</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="37" class="link-to-prism">src/app/components/views/history-tile-view/history-tile-view.component.ts:37</a></div>
                             </td>
                         </tr>
 
@@ -538,7 +440,7 @@
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="21" class="link-to-prism">src/app/components/views/history-tile-view/history-tile-view.component.ts:21</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="29" class="link-to-prism">src/app/components/views/history-tile-view/history-tile-view.component.ts:29</a></div>
                             </td>
                         </tr>
 
@@ -570,7 +472,7 @@
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="41" class="link-to-prism">src/app/components/views/history-tile-view/history-tile-view.component.ts:41</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="51" class="link-to-prism">src/app/components/views/history-tile-view/history-tile-view.component.ts:51</a></div>
                             </td>
                         </tr>
 
@@ -604,10 +506,17 @@
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="34" class="link-to-prism">src/app/components/views/history-tile-view/history-tile-view.component.ts:34</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="44" class="link-to-prism">src/app/components/views/history-tile-view/history-tile-view.component.ts:44</a></div>
                             </td>
                         </tr>
 
+                <tr>
+                    <td class="col-md-4">
+                        <div class="io-description"><p>The following properties are needed for
+the chart.</p>
+</div>
+                    </td>
+                </tr>
 
             </tbody>
         </table>
@@ -636,7 +545,7 @@
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="37" class="link-to-prism">src/app/components/views/history-tile-view/history-tile-view.component.ts:37</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="47" class="link-to-prism">src/app/components/views/history-tile-view/history-tile-view.component.ts:47</a></div>
                             </td>
                         </tr>
 
@@ -662,7 +571,7 @@
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="42" class="link-to-prism">src/app/components/views/history-tile-view/history-tile-view.component.ts:42</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="52" class="link-to-prism">src/app/components/views/history-tile-view/history-tile-view.component.ts:52</a></div>
                             </td>
                         </tr>
 
@@ -696,7 +605,7 @@
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="38" class="link-to-prism">src/app/components/views/history-tile-view/history-tile-view.component.ts:38</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="48" class="link-to-prism">src/app/components/views/history-tile-view/history-tile-view.component.ts:48</a></div>
                             </td>
                         </tr>
 
@@ -728,7 +637,7 @@
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="43" class="link-to-prism">src/app/components/views/history-tile-view/history-tile-view.component.ts:43</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="53" class="link-to-prism">src/app/components/views/history-tile-view/history-tile-view.component.ts:53</a></div>
                             </td>
                         </tr>
 
@@ -760,7 +669,7 @@
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="30" class="link-to-prism">src/app/components/views/history-tile-view/history-tile-view.component.ts:30</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="38" class="link-to-prism">src/app/components/views/history-tile-view/history-tile-view.component.ts:38</a></div>
                             </td>
                         </tr>
 
@@ -790,7 +699,7 @@
                 </tr>
                             <tr>
                                 <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="15" class="link-to-prism">src/app/components/views/history-tile-view/history-tile-view.component.ts:15</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="23" class="link-to-prism">src/app/components/views/history-tile-view/history-tile-view.component.ts:23</a></div>
                                 </td>
                             </tr>
                     <tr>
@@ -845,7 +754,7 @@
                 </tr>
                             <tr>
                                 <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="23" class="link-to-prism">src/app/components/views/history-tile-view/history-tile-view.component.ts:23</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="31" class="link-to-prism">src/app/components/views/history-tile-view/history-tile-view.component.ts:31</a></div>
                                 </td>
                             </tr>
                     <tr>
@@ -891,8 +800,16 @@
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, OnInit, Input } from &#x27;@angular/core&#x27;;
 import { Themes } from &#x27;src/app/model/user-context&#x27;;
 import { GraphDataSet, WeatherData } from &#x27;src/app/model/weather&#x27;;
-import { DatasetColor, ChartLabel, ChartColor, ChartDataset } from &#x27;@rinminase/ng-charts&#x27;;
+import { ChartLabel, ChartColor, ChartDataset } from &#x27;@rinminase/ng-charts&#x27;;
 
+/**
+ * History tile view component
+ * 
+ * This component displays in form of a tile (widget) the history data 
+ * as a line chart. It takes an object of the type GraphDataSet as information source. 
+ * Itself has no connection to any data service. 
+ * It uses the card-view-element to define the layout.
+ */
 @Component({
   selector: &#x27;app-history-tile-view&#x27;,
   templateUrl: &#x27;./history-tile-view.component.html&#x27;,
@@ -919,8 +836,10 @@ export class HistoryTileViewComponent implements OnInit {
   _dataSet?: GraphDataSet;
   theme: Themes &#x3D; Themes.Light;
 
-
-  // Chart data
+  /**
+   * The following properties are needed for
+   * the chart.
+   */
   chartData: ChartDataset[] &#x3D; [
     { data: [], label: &#x27;&#x27; },
   ];
@@ -936,7 +855,16 @@ export class HistoryTileViewComponent implements OnInit {
 
   ngOnInit(): void { }
   
-  updateChartData(chartDataset: ChartDataset[], chartColors: ChartColor, dataSet: GraphDataSet, graphType: HistoryGraphType) {
+  /**
+   * This function converts the GraphDataSet to the ChartDataset and ChartColor. 
+   * Those are required for the graph library. 
+   * 
+   * @param chartDataset 
+   * @param chartColors 
+   * @param dataSet 
+   * @param graphType 
+   */
+  private updateChartData(chartDataset: ChartDataset[], chartColors: ChartColor, dataSet: GraphDataSet, graphType: HistoryGraphType) {
     switch (graphType) {
       case HistoryGraphType.temperature:
         chartDataset[0].data &#x3D; dataSet.temperatureDataPoints
@@ -1038,7 +966,7 @@ export enum HistoryGraphType {
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
         var COMPONENT_TEMPLATE = '<div><card-element *ngIf="_dataSet" [title]="title ? title : _dataSet.label" [subtitle]="pressable ? \'Historie\': \'\'" [pressable]="pressable">    <div class="container">      <!-- <apx-chart        [series]="chartOptions.series"        [chart]="chartOptions.chart"        [xaxis]="chartOptions.xaxis"        [stroke]="chartOptions.stroke"        [colors]="chartOptions.colors"        [dataLabels]="chartOptions.dataLabels"        [legend]="chartOptions.legend"        [markers]="chartOptions.markers"        [grid]="chartOptions.grid"        [yaxis]="chartOptions.yaxis"        [theme]="chartOptions.theme"        ></apx-chart> -->    </div>    <canvas baseChart        chartType="line"        [datasets]="chartData"        [labels]="chartLabels"        [options]="chartOptions"        [colors]="chartColors"        [legend]="chartLegend"        [plugins]="chartPlugins"        class="chart">    </canvas></card-element></div>'
-    var COMPONENTS = [{'name': 'ApparentTemperatureTileViewComponent', 'selector': 'app-apparent-temperature-tile-view'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'BackButtonElementComponent', 'selector': 'app-back-button-element'},{'name': 'CardElementComponent', 'selector': 'card-element'},{'name': 'CheckboxSwitcherElementComponent', 'selector': 'app-checkbox-switcher-element'},{'name': 'ConfigurationTilePopUpDialogView', 'selector': 'configuration-tile-popup-view'},{'name': 'ConfigurationTileViewComponent', 'selector': 'app-configuration-tile-view'},{'name': 'ConfigurationViewComponent', 'selector': 'app-configuration-view'},{'name': 'DashboardScreenComponent', 'selector': 'app-dashboard-screen'},{'name': 'DetailScreenComponent', 'selector': 'app-detail-screen'},{'name': 'ForecastDetailViewComponent', 'selector': 'app-forecast-detail-view'},{'name': 'ForecastTileViewComponent', 'selector': 'app-forecast-tile-view'},{'name': 'HistoryDetailViewComponent', 'selector': 'app-history-detail-view'},{'name': 'HistoryTileViewComponent', 'selector': 'app-history-tile-view'},{'name': 'HumidityTileViewComponent', 'selector': 'app-humidity-tile-view'},{'name': 'IndoorDetailViewComponent', 'selector': 'app-indoor-detail-view'},{'name': 'IndoorTileViewComponent', 'selector': 'app-indoor-tile-view'},{'name': 'LoginViewComponent', 'selector': 'app-login-view'},{'name': 'MenuBarElementComponent', 'selector': 'app-menu-bar-element'},{'name': 'MenuButtonElementComponent', 'selector': 'app-menu-button-element'},{'name': 'MenuElementComponent', 'selector': 'app-menu-element'},{'name': 'NavBarElementComponent', 'selector': 'app-nav-bar-element'},{'name': 'OnboardingScreenComponent', 'selector': 'app-onboarding-screen'},{'name': 'OpenAPELoginTileViewComponent', 'selector': 'app-open-apelogin-tile-view'},{'name': 'OutdoorWeatherDetailViewComponent', 'selector': 'app-outdoor-weather-detail-view'},{'name': 'OutdoorWeatherViewComponent', 'selector': 'app-outdoor-weather-view'},{'name': 'PersonalizationSettingsViewComponent', 'selector': 'app-personalization-settings-view'},{'name': 'PersonalizationViewComponent', 'selector': 'app-personalization-view'},{'name': 'PollenflugDetailViewComponent', 'selector': 'app-pollenflug-detail-view'},{'name': 'PollenflugSmallTileComponent', 'selector': 'app-pollenflug-small-tile'},{'name': 'PollenflugTileViewComponent', 'selector': 'app-pollenflug-tile-view'},{'name': 'PollenListElementComponent', 'selector': 'app-pollen-list-element'},{'name': 'PollenTagElementComponent', 'selector': 'app-pollen-tag-element'},{'name': 'ProgressChartElementComponent', 'selector': 'app-progress-chart-element'},{'name': 'RegistrationViewComponent', 'selector': 'app-registration-view'},{'name': 'SettingsScreenComponent', 'selector': 'app-settings-screen'},{'name': 'SimpleTileViewComponent', 'selector': 'app-simple-tile-view'},{'name': 'SliderElementComponent', 'selector': 'app-slider-element'},{'name': 'TtsPlayerElementComponent', 'selector': 'app-tts-player-element'}];
+    var COMPONENTS = [{'name': 'ApparentTemperatureTileViewComponent', 'selector': 'app-apparent-temperature-tile-view'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'BackButtonElementComponent', 'selector': 'app-back-button-element'},{'name': 'CalibrationInfoDetailViewComponent', 'selector': 'app-calibration-info-detail-view'},{'name': 'CardElementComponent', 'selector': 'card-element'},{'name': 'CheckboxSwitcherElementComponent', 'selector': 'app-checkbox-switcher-element'},{'name': 'ConfigurationTilePopUpDialogView', 'selector': 'configuration-tile-popup-view'},{'name': 'ConfigurationTileViewComponent', 'selector': 'app-configuration-tile-view'},{'name': 'ConfigurationViewComponent', 'selector': 'app-configuration-view'},{'name': 'DashboardScreenComponent', 'selector': 'app-dashboard-screen'},{'name': 'DashboardViewComponent', 'selector': 'app-dashboard-view'},{'name': 'DetailScreenComponent', 'selector': 'app-detail-screen'},{'name': 'ForecastDetailViewComponent', 'selector': 'app-forecast-detail-view'},{'name': 'ForecastTileViewComponent', 'selector': 'app-forecast-tile-view'},{'name': 'HistoryDetailViewComponent', 'selector': 'app-history-detail-view'},{'name': 'HistoryTileViewComponent', 'selector': 'app-history-tile-view'},{'name': 'HumidityTileViewComponent', 'selector': 'app-humidity-tile-view'},{'name': 'IndoorDetailViewComponent', 'selector': 'app-indoor-detail-view'},{'name': 'IndoorTileViewComponent', 'selector': 'app-indoor-tile-view'},{'name': 'LoginViewComponent', 'selector': 'app-login-view'},{'name': 'MenuBarElementComponent', 'selector': 'app-menu-bar-element'},{'name': 'MenuButtonElementComponent', 'selector': 'app-menu-button-element'},{'name': 'MenuElementComponent', 'selector': 'app-menu-element'},{'name': 'NavBarElementComponent', 'selector': 'app-nav-bar-element'},{'name': 'OnboardingScreenComponent', 'selector': 'app-onboarding-screen'},{'name': 'OpenAPELoginTileViewComponent', 'selector': 'app-open-apelogin-tile-view'},{'name': 'OutdoorWeatherDetailViewComponent', 'selector': 'app-outdoor-weather-detail-view'},{'name': 'OutdoorWeatherViewComponent', 'selector': 'app-outdoor-weather-view'},{'name': 'PersonalizationSettingsViewComponent', 'selector': 'app-personalization-settings-view'},{'name': 'PersonalizationViewComponent', 'selector': 'app-personalization-view'},{'name': 'PollenflugDetailViewComponent', 'selector': 'app-pollenflug-detail-view'},{'name': 'PollenflugSmallTileComponent', 'selector': 'app-pollenflug-small-tile'},{'name': 'PollenflugTileViewComponent', 'selector': 'app-pollenflug-tile-view'},{'name': 'PollenListElementComponent', 'selector': 'app-pollen-list-element'},{'name': 'PollenTagElementComponent', 'selector': 'app-pollen-tag-element'},{'name': 'ProgressChartElementComponent', 'selector': 'app-progress-chart-element'},{'name': 'RegistrationViewComponent', 'selector': 'app-registration-view'},{'name': 'SettingsScreenComponent', 'selector': 'app-settings-screen'},{'name': 'SimpleTileViewComponent', 'selector': 'app-simple-tile-view'},{'name': 'SliderElementComponent', 'selector': 'app-slider-element'},{'name': 'TtsPlayerElementComponent', 'selector': 'app-tts-player-element'}];
     var DIRECTIVES = [];
     var ACTUAL_COMPONENT = {'name': 'HistoryTileViewComponent'};
 </script>

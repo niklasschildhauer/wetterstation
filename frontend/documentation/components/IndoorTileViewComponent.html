@@ -64,6 +64,17 @@
     <code>src/app/components/views/indoor-tile-view/indoor-tile-view.component.ts</code>
 </p>
 
+    <p class="comment">
+        <h3>Description</h3>
+    </p>
+    <p class="comment">
+        <p>Indoor tile view component</p>
+<p>This component displays in form of a tile (widget) the indoor room 
+information. It takes an object of the type IndoorRoomData as 
+information source. Itself has no connection to any
+service. It uses the card-view-element to define the layout.</p>
+
+    </p>
 
 
     <p class="comment">
@@ -146,6 +157,18 @@
                     <td class="col-md-4">
                         <ul class="index-list">
                             <li>
+                                <a href="#getMaxValue">getMaxValue</a>
+                            </li>
+                            <li>
+                                <a href="#getOptimalValue">getOptimalValue</a>
+                            </li>
+                            <li>
+                                <a href="#getQualityString">getQualityString</a>
+                            </li>
+                            <li>
+                                <a href="#getQualityValue">getQualityValue</a>
+                            </li>
+                            <li>
                                 <a href="#ngOnInit">ngOnInit</a>
                             </li>
                         </ul>
@@ -205,7 +228,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="16" class="link-to-prism">src/app/components/views/indoor-tile-view/indoor-tile-view.component.ts:16</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="24" class="link-to-prism">src/app/components/views/indoor-tile-view/indoor-tile-view.component.ts:24</a></div>
                             </td>
                         </tr>
 
@@ -225,7 +248,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-2" colspan="2">
-                                    <div class="io-line">Defined in <a href="" data-line="11" class="link-to-prism">src/app/components/views/indoor-tile-view/indoor-tile-view.component.ts:11</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="19" class="link-to-prism">src/app/components/views/indoor-tile-view/indoor-tile-view.component.ts:19</a></div>
                             </td>
                         </tr>
             </tbody>
@@ -251,7 +274,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-2" colspan="2">
-                                    <div class="io-line">Defined in <a href="" data-line="15" class="link-to-prism">src/app/components/views/indoor-tile-view/indoor-tile-view.component.ts:15</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="23" class="link-to-prism">src/app/components/views/indoor-tile-view/indoor-tile-view.component.ts:23</a></div>
                             </td>
                         </tr>
             </tbody>
@@ -277,7 +300,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-2" colspan="2">
-                                    <div class="io-line">Defined in <a href="" data-line="14" class="link-to-prism">src/app/components/views/indoor-tile-view/indoor-tile-view.component.ts:14</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="22" class="link-to-prism">src/app/components/views/indoor-tile-view/indoor-tile-view.component.ts:22</a></div>
                             </td>
                         </tr>
             </tbody>
@@ -291,6 +314,187 @@
     <h3 id="methods">
         Methods
     </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getMaxValue"></a>
+                    <span class="name">
+                        <b>
+                            getMaxValue
+                        </b>
+                        <a href="#getMaxValue"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getMaxValue()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="57"
+                            class="link-to-prism">src/app/components/views/indoor-tile-view/indoor-tile-view.component.ts:57</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        <p>based on the calibration value the value when the
+air quality is bad</p>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getOptimalValue"></a>
+                    <span class="name">
+                        <b>
+                            getOptimalValue
+                        </b>
+                        <a href="#getOptimalValue"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getOptimalValue()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="68"
+                            class="link-to-prism">src/app/components/views/indoor-tile-view/indoor-tile-view.component.ts:68</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        <p>the calibration value as optimal value</p>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getQualityString"></a>
+                    <span class="name">
+                        <b>
+                            getQualityString
+                        </b>
+                        <a href="#getQualityString"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getQualityString()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="79"
+                            class="link-to-prism">src/app/components/views/indoor-tile-view/indoor-tile-view.component.ts:79</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        <p>the quality status as a string</p>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getQualityValue"></a>
+                    <span class="name">
+                        <b>
+                            getQualityValue
+                        </b>
+                        <a href="#getQualityValue"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getQualityValue()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="33"
+                            class="link-to-prism">src/app/components/views/indoor-tile-view/indoor-tile-view.component.ts:33</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        <p>the Quality value as percent. A value od 100% is considered bad to where  0% is good. </p>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
     <table class="table table-sm table-bordered">
         <tbody>
             <tr>
@@ -313,8 +517,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="20"
-                            class="link-to-prism">src/app/components/views/indoor-tile-view/indoor-tile-view.component.ts:20</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="28"
+                            class="link-to-prism">src/app/components/views/indoor-tile-view/indoor-tile-view.component.ts:28</a></div>
                 </td>
             </tr>
 
@@ -357,7 +561,7 @@
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="16" class="link-to-prism">src/app/components/views/indoor-tile-view/indoor-tile-view.component.ts:16</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="24" class="link-to-prism">src/app/components/views/indoor-tile-view/indoor-tile-view.component.ts:24</a></div>
                             </td>
                         </tr>
 
@@ -387,7 +591,7 @@
                 </tr>
                             <tr>
                                 <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="11" class="link-to-prism">src/app/components/views/indoor-tile-view/indoor-tile-view.component.ts:11</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="19" class="link-to-prism">src/app/components/views/indoor-tile-view/indoor-tile-view.component.ts:19</a></div>
                                 </td>
                             </tr>
                     <tr>
@@ -433,6 +637,14 @@
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, Input, OnInit } from &#x27;@angular/core&#x27;;
 import { IndoorRoomData, WeatherData } from &#x27;src/app/model/weather&#x27;;
 
+/**
+ * Indoor tile view component
+ * 
+ * This component displays in form of a tile (widget) the indoor room 
+ * information. It takes an object of the type IndoorRoomData as 
+ * information source. Itself has no connection to any
+ * service. It uses the card-view-element to define the layout.
+ */
 @Component({
   selector: &#x27;app-indoor-tile-view&#x27;,
   templateUrl: &#x27;./indoor-tile-view.component.html&#x27;,
@@ -450,6 +662,75 @@ export class IndoorTileViewComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void { }
+
+  /** 
+   * @returns the Quality value as percent. A value od 100% is considered bad to where  0% is good. 
+   */
+  getQualityValue(): number {
+    if(this._indoorRoom){
+      const calibrationValue &#x3D; this._indoorRoom.calibrationValue
+      const airQualityValue &#x3D; this._indoorRoom.airQuality
+      if(calibrationValue &#x3D;&#x3D;&#x3D; -1) {
+        return 0
+      }
+      if(calibrationValue + 5 &lt; airQualityValue) {
+        return 100
+      }
+      if(calibrationValue &lt;&#x3D; airQualityValue) {
+        return 40
+      }
+      if(calibrationValue &gt; airQualityValue) {
+        return 1
+      }
+    } 
+    return 50
+  }
+
+  /**
+   * @returns based on the calibration value the value when the
+   * air quality is bad
+   */
+  getMaxValue(): number {
+    if(this._indoorRoom){
+      const calibrationValue &#x3D; this._indoorRoom.calibrationValue
+      return calibrationValue + 5;
+    }
+    return 100
+  }
+
+  /**
+   * @returns the calibration value as optimal value
+   */
+  getOptimalValue(): number {
+    if(this._indoorRoom){
+      const calibrationValue &#x3D; this._indoorRoom.calibrationValue
+      return calibrationValue;
+    }
+    return 25;
+  }
+
+  /**
+   * @returns the quality status as a string
+   */
+  getQualityString(): string {
+    if(this._indoorRoom){
+      const calibrationValue &#x3D; this._indoorRoom.calibrationValue
+      const airQualityValue &#x3D; this._indoorRoom.airQuality
+      if(calibrationValue &#x3D;&#x3D;&#x3D; -1) {
+        return &quot;&quot;
+      }
+      if(this.getMaxValue() &lt; airQualityValue) {
+        return &#x27;schlecht&#x27;
+      }
+      if(calibrationValue &lt;&#x3D; airQualityValue) {
+        return &#x27;gut&#x27;
+      }
+      if(calibrationValue &gt; airQualityValue) {
+        return &#x27;sehr gut&#x27;
+      }
+    } 
+    return &#x27;&#x27;
+  }
 }
 
 
@@ -464,7 +745,10 @@ export class IndoorTileViewComponent implements OnInit {
     [pressable]&#x3D;&quot;pressable&quot;
     [hideSubtitle]&#x3D;&quot;hideSubtitle&quot;&gt;
     &lt;div class&#x3D;&quot;data-container&quot;&gt;
-        &lt;h1&gt;{{_indoorRoom.airQuality}}&lt;/h1&gt;
+        &lt;div class&#x3D;&quot;flex-container&quot;&gt;
+            &lt;h1&gt;{{_indoorRoom.airQuality}}&lt;/h1&gt;
+            &lt;p id&#x3D;&quot;airQuality&quot;&gt;{{getQualityString()}}&lt;/p&gt;
+        &lt;/div&gt;
         &lt;div&gt;
             &lt;div class&#x3D;&quot;temp-humidity-data&quot;&gt;
                 &lt;p&gt;Temperatur: {{_indoorRoom.temperature}}°C&lt;/p&gt;
@@ -474,7 +758,8 @@ export class IndoorTileViewComponent implements OnInit {
             &lt;/div&gt;
         &lt;/div&gt;
     &lt;/div&gt;
-    &lt;app-progress-chart-element [value]&#x3D;&quot;_indoorRoom.airQuality&quot;&gt;&lt;/app-progress-chart-element&gt;
+    &lt;app-progress-chart-element *ngIf&#x3D;&quot;getQualityValue()&quot; [value]&#x3D;&quot;getQualityValue()&quot; [maxValue]&#x3D;&quot;getMaxValue()&quot; [optimalValue]&#x3D;&quot;getOptimalValue()&quot;&gt;&lt;/app-progress-chart-element&gt;
+    &lt;p *ngIf&#x3D;&quot;_indoorRoom.calibrationValue &#x3D;&#x3D;&#x3D; -1&quot;&gt;Bitte kalibriere deinen Sensor. &lt;/p&gt;
         
 &lt;/card-element&gt;
 </code></pre>
@@ -502,6 +787,16 @@ export class IndoorTileViewComponent implements OnInit {
 
 .rename-image{
     
+}
+
+.flex-container {
+    display: flex;
+    align-items: baseline;
+}
+
+#airQuality {
+    padding-left: 10px;
+    font-size: 2.0em;
 }</code></pre>
     </div>
 
@@ -530,8 +825,8 @@ export class IndoorTileViewComponent implements OnInit {
 <script src="../js/libs/htmlparser.js"></script>
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
-        var COMPONENT_TEMPLATE = '<div><card-element     *ngIf="_indoorRoom"     [title]="_indoorRoom.roomName"     [subtitle]="\'Innenraumluftqualität\'"     [pressable]="pressable"    [hideSubtitle]="hideSubtitle">    <div class="data-container">        <h1>{{_indoorRoom.airQuality}}</h1>        <div>            <div class="temp-humidity-data">                <p>Temperatur: {{_indoorRoom.temperature}}°C</p>            </div>            <div class="temp-humidity-data">                <p>Luftfeuchtigkeit: {{_indoorRoom.humidity}}%</p>            </div>        </div>    </div>    <app-progress-chart-element [value]="_indoorRoom.airQuality"></app-progress-chart-element>        </card-element></div>'
-    var COMPONENTS = [{'name': 'ApparentTemperatureTileViewComponent', 'selector': 'app-apparent-temperature-tile-view'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'BackButtonElementComponent', 'selector': 'app-back-button-element'},{'name': 'CardElementComponent', 'selector': 'card-element'},{'name': 'CheckboxSwitcherElementComponent', 'selector': 'app-checkbox-switcher-element'},{'name': 'ConfigurationTilePopUpDialogView', 'selector': 'configuration-tile-popup-view'},{'name': 'ConfigurationTileViewComponent', 'selector': 'app-configuration-tile-view'},{'name': 'ConfigurationViewComponent', 'selector': 'app-configuration-view'},{'name': 'DashboardScreenComponent', 'selector': 'app-dashboard-screen'},{'name': 'DetailScreenComponent', 'selector': 'app-detail-screen'},{'name': 'ForecastDetailViewComponent', 'selector': 'app-forecast-detail-view'},{'name': 'ForecastTileViewComponent', 'selector': 'app-forecast-tile-view'},{'name': 'HistoryDetailViewComponent', 'selector': 'app-history-detail-view'},{'name': 'HistoryTileViewComponent', 'selector': 'app-history-tile-view'},{'name': 'HumidityTileViewComponent', 'selector': 'app-humidity-tile-view'},{'name': 'IndoorDetailViewComponent', 'selector': 'app-indoor-detail-view'},{'name': 'IndoorTileViewComponent', 'selector': 'app-indoor-tile-view'},{'name': 'LoginViewComponent', 'selector': 'app-login-view'},{'name': 'MenuBarElementComponent', 'selector': 'app-menu-bar-element'},{'name': 'MenuButtonElementComponent', 'selector': 'app-menu-button-element'},{'name': 'MenuElementComponent', 'selector': 'app-menu-element'},{'name': 'NavBarElementComponent', 'selector': 'app-nav-bar-element'},{'name': 'OnboardingScreenComponent', 'selector': 'app-onboarding-screen'},{'name': 'OpenAPELoginTileViewComponent', 'selector': 'app-open-apelogin-tile-view'},{'name': 'OutdoorWeatherDetailViewComponent', 'selector': 'app-outdoor-weather-detail-view'},{'name': 'OutdoorWeatherViewComponent', 'selector': 'app-outdoor-weather-view'},{'name': 'PersonalizationSettingsViewComponent', 'selector': 'app-personalization-settings-view'},{'name': 'PersonalizationViewComponent', 'selector': 'app-personalization-view'},{'name': 'PollenflugDetailViewComponent', 'selector': 'app-pollenflug-detail-view'},{'name': 'PollenflugSmallTileComponent', 'selector': 'app-pollenflug-small-tile'},{'name': 'PollenflugTileViewComponent', 'selector': 'app-pollenflug-tile-view'},{'name': 'PollenListElementComponent', 'selector': 'app-pollen-list-element'},{'name': 'PollenTagElementComponent', 'selector': 'app-pollen-tag-element'},{'name': 'ProgressChartElementComponent', 'selector': 'app-progress-chart-element'},{'name': 'RegistrationViewComponent', 'selector': 'app-registration-view'},{'name': 'SettingsScreenComponent', 'selector': 'app-settings-screen'},{'name': 'SimpleTileViewComponent', 'selector': 'app-simple-tile-view'},{'name': 'SliderElementComponent', 'selector': 'app-slider-element'},{'name': 'TtsPlayerElementComponent', 'selector': 'app-tts-player-element'}];
+        var COMPONENT_TEMPLATE = '<div><card-element     *ngIf="_indoorRoom"     [title]="_indoorRoom.roomName"     [subtitle]="\'Innenraumluftqualität\'"     [pressable]="pressable"    [hideSubtitle]="hideSubtitle">    <div class="data-container">        <div class="flex-container">            <h1>{{_indoorRoom.airQuality}}</h1>            <p id="airQuality">{{getQualityString()}}</p>        </div>        <div>            <div class="temp-humidity-data">                <p>Temperatur: {{_indoorRoom.temperature}}°C</p>            </div>            <div class="temp-humidity-data">                <p>Luftfeuchtigkeit: {{_indoorRoom.humidity}}%</p>            </div>        </div>    </div>    <app-progress-chart-element *ngIf="getQualityValue()" [value]="getQualityValue()" [maxValue]="getMaxValue()" [optimalValue]="getOptimalValue()"></app-progress-chart-element>    <p *ngIf="_indoorRoom.calibrationValue === -1">Bitte kalibriere deinen Sensor. </p>        </card-element></div>'
+    var COMPONENTS = [{'name': 'ApparentTemperatureTileViewComponent', 'selector': 'app-apparent-temperature-tile-view'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'BackButtonElementComponent', 'selector': 'app-back-button-element'},{'name': 'CalibrationInfoDetailViewComponent', 'selector': 'app-calibration-info-detail-view'},{'name': 'CardElementComponent', 'selector': 'card-element'},{'name': 'CheckboxSwitcherElementComponent', 'selector': 'app-checkbox-switcher-element'},{'name': 'ConfigurationTilePopUpDialogView', 'selector': 'configuration-tile-popup-view'},{'name': 'ConfigurationTileViewComponent', 'selector': 'app-configuration-tile-view'},{'name': 'ConfigurationViewComponent', 'selector': 'app-configuration-view'},{'name': 'DashboardScreenComponent', 'selector': 'app-dashboard-screen'},{'name': 'DashboardViewComponent', 'selector': 'app-dashboard-view'},{'name': 'DetailScreenComponent', 'selector': 'app-detail-screen'},{'name': 'ForecastDetailViewComponent', 'selector': 'app-forecast-detail-view'},{'name': 'ForecastTileViewComponent', 'selector': 'app-forecast-tile-view'},{'name': 'HistoryDetailViewComponent', 'selector': 'app-history-detail-view'},{'name': 'HistoryTileViewComponent', 'selector': 'app-history-tile-view'},{'name': 'HumidityTileViewComponent', 'selector': 'app-humidity-tile-view'},{'name': 'IndoorDetailViewComponent', 'selector': 'app-indoor-detail-view'},{'name': 'IndoorTileViewComponent', 'selector': 'app-indoor-tile-view'},{'name': 'LoginViewComponent', 'selector': 'app-login-view'},{'name': 'MenuBarElementComponent', 'selector': 'app-menu-bar-element'},{'name': 'MenuButtonElementComponent', 'selector': 'app-menu-button-element'},{'name': 'MenuElementComponent', 'selector': 'app-menu-element'},{'name': 'NavBarElementComponent', 'selector': 'app-nav-bar-element'},{'name': 'OnboardingScreenComponent', 'selector': 'app-onboarding-screen'},{'name': 'OpenAPELoginTileViewComponent', 'selector': 'app-open-apelogin-tile-view'},{'name': 'OutdoorWeatherDetailViewComponent', 'selector': 'app-outdoor-weather-detail-view'},{'name': 'OutdoorWeatherViewComponent', 'selector': 'app-outdoor-weather-view'},{'name': 'PersonalizationSettingsViewComponent', 'selector': 'app-personalization-settings-view'},{'name': 'PersonalizationViewComponent', 'selector': 'app-personalization-view'},{'name': 'PollenflugDetailViewComponent', 'selector': 'app-pollenflug-detail-view'},{'name': 'PollenflugSmallTileComponent', 'selector': 'app-pollenflug-small-tile'},{'name': 'PollenflugTileViewComponent', 'selector': 'app-pollenflug-tile-view'},{'name': 'PollenListElementComponent', 'selector': 'app-pollen-list-element'},{'name': 'PollenTagElementComponent', 'selector': 'app-pollen-tag-element'},{'name': 'ProgressChartElementComponent', 'selector': 'app-progress-chart-element'},{'name': 'RegistrationViewComponent', 'selector': 'app-registration-view'},{'name': 'SettingsScreenComponent', 'selector': 'app-settings-screen'},{'name': 'SimpleTileViewComponent', 'selector': 'app-simple-tile-view'},{'name': 'SliderElementComponent', 'selector': 'app-slider-element'},{'name': 'TtsPlayerElementComponent', 'selector': 'app-tts-player-element'}];
     var DIRECTIVES = [];
     var ACTUAL_COMPONENT = {'name': 'IndoorTileViewComponent'};
 </script>

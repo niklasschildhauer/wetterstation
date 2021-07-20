@@ -64,6 +64,14 @@
             <code>src/app/model/weather.ts</code>
         </p>
 
+            <p class="comment">
+                <h3>Description</h3>
+            </p>
+            <p class="comment">
+                <p>Model of the weather forecast data. It contains all information about 
+the forecast including weather and trend. </p>
+
+            </p>
 
             <p class="comment">
                 <h3>Extends</h3>
@@ -198,6 +206,9 @@
     <div class="tab-pane fade  tab-source-code" id="c-source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">export interface WeatherData { }
 
+/**
+ * Enum to identify the type of the tile. 
+ */
 export enum TileType {
     indoorRoom,
     pollenSmall,
@@ -208,13 +219,18 @@ export enum TileType {
     apparentTemperature,
 }
 
+/**
+ * This interface bundles the three tile arrays
+ */
 export interface TileArrays {
     dashboard: Tile&lt;WeatherData&gt;[],
     pollen : Tile&lt;WeatherData&gt;[],
     indoorRooms: Tile&lt;WeatherData&gt;[]
-  }
+}
   
-
+/**
+ * Enum to set the priority of a tile
+ */
 export enum TilePriority {
     important, //Highest 
     high,
@@ -222,6 +238,12 @@ export enum TilePriority {
     low,
 }
 
+/**
+ * Tile model -
+ * Every tile (widget) needs data and a prioriy. The priority is 
+ * used to determine the position of the tiles on the dashboard. The tiles themselves do not load the data.
+ * The data is passed from the parent view of the tiles.
+ */
 export interface Tile&lt;A&gt; {
     type: TileType;
     data: A;
@@ -229,31 +251,47 @@ export interface Tile&lt;A&gt; {
     priority: TilePriority
 }
 
+/**
+ * Model of the outdoor weather data. It contains all information about the current 
+ * outdoor weather including temperature, humidity and weather type. 
+ */
 export interface OutdoorWeatherData extends WeatherData {
     temperature: number // in °C
-    maxTemperature: number, //TODO: external database required &quot;forecast&quot;  --&gt; // TODO: Move to &quot;daily&quot; data structure
-    minTemperature: number, //TODO: external database required &quot;forecast&quot;  --&gt; // TODO: Move to &quot;daily&quot; data structure
+    maxTemperature: number,
+    minTemperature: number, 
     humidity: number, // in %
     timestamp: Date, 
-    weather: string, // TODO: external API required
+    weather: string, 
     apparentTemperature: number, // in °C ---&gt; die &quot;gefühlte&quot; Temperatur
     location: string, // e.g. &quot;Stuttgart&quot; TODO: Make configurable in ESP Wlan-Board
     postCode: string,
 }
 
+/**
+ * Model of the weather forecast data. It contains all information about 
+ * the forecast including weather and trend. 
+ */
 export interface WeatherForecastData extends WeatherData {
     trend: string,
     weatherDescription: string,
     weatherIcon: string,
   }
 
+/**
+ * Model of the pollen data. It contains all information about 
+ * the current pollen count.
+ */
 export interface PollenData extends WeatherData {
-    pollenName: string, // TODO: Maybe we should use the same Pollen enum as in user-context.ts
+    pollenName: string, 
     id: number,
     today: string, // -1 &lt;--&gt; 3
     tomorrow: string, // -1 &lt;--&gt; 3
 }
 
+/**
+ * Model of the indoor room data. It contains all information about 
+ * the temperature, humidity, roomname, airQuality of the current room. 
+ */
 export interface IndoorRoomData extends WeatherData {
     roomID: string,
     roomName: string,
@@ -261,12 +299,21 @@ export interface IndoorRoomData extends WeatherData {
     temperature: number // in °C 
     humidity: number, // in %
     timestamp: Date, 
+    calibrationValue: number
 }
 
+/**
+ * Model of the indoor room data. It contains all information about 
+ * the temperature, humidity, roomname, airQuality of the current room. 
+ */
 export interface WeatherHistoryData extends WeatherData {
     datapoints: OutdoorWeatherData[],
 }
 
+/**
+ * Model of the indoor room data. It contains all information about 
+ * the temperature, humidity, roomname, airQuality of the current room. 
+ */
 export interface GraphDataSet extends WeatherData {
     temperatureDataPoints: number[];
     humidityDataPoints: number[];

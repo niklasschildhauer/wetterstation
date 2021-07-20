@@ -327,8 +327,18 @@ export class WeatherAPIService {
     }
     let returnObservable &#x3D; new Observable&lt;OutdoorWeatherData&gt;((observer) &#x3D;&gt; {
         this.httpClient.get&lt;OutdoorWeatherResponse&gt;(this.outdoorURL).subscribe(data &#x3D;&gt; {
-          let outdoorData &#x3D; this.createOutdoorWeatherDataFromServerResponse(data);
-          observer.next(outdoorData);
+          if(data.id &#x3D;&#x3D;&#x3D; undefined) {
+            observer.next();
+            observer.complete();
+          } else {
+            let outdoorData &#x3D; this.createOutdoorWeatherDataFromServerResponse(data);
+            observer.next(outdoorData);
+            observer.complete();
+          }
+        },
+        (error) &#x3D;&gt; {
+          console.log(error);
+          observer.next();
           observer.complete();
         })
       }
@@ -347,6 +357,11 @@ export class WeatherAPIService {
         this.httpClient.get&lt;ForecastResponse&gt;(this.forecastURL).subscribe(data &#x3D;&gt; {
           let forecastData &#x3D; this.createOutdoorForecastDataFromServerResponse(data);
           observer.next(forecastData);
+          observer.complete();
+        },
+        (error) &#x3D;&gt; {
+          console.log(error);
+          observer.next();
           observer.complete();
         })
       }
@@ -420,8 +435,12 @@ export class WeatherAPIService {
           let dataPoints: OutdoorWeatherData[] &#x3D; data.map((element) &#x3D;&gt; {
             return this.createOutdoorWeatherDataFromServerResponse(element);
           });
-          console.log(dataPoints);
           observer.next({&#x27;datapoints&#x27;: dataPoints});
+          observer.complete();
+        },
+        (error) &#x3D;&gt; {
+          console.log(error);
+          observer.next();
           observer.complete();
         })
       }
@@ -477,11 +496,12 @@ export class WeatherAPIService {
   private createIndoorRoomDataFromServerResponse(response: IndoorRoomResponse): IndoorRoomData {
     return {
             roomID: response.id + &#x27;&#x27;,
-            roomName: response.location,
+            roomName: response.roomName,
             airQuality: response.gasVal, 
             temperature: response.temperature, 
             humidity: response.humidity, 
             timestamp: new Date(response.timestamp), 
+            calibrationValue: response.gasValCalibrationValue,
           }
   }
 
@@ -492,7 +512,6 @@ export class WeatherAPIService {
    * @returns PollenData[] object
    */
   private createPollenDataFromServerResponse(response: PollenResponse[]): PollenData[] {
-    console.log(&quot;Pollen daten sind hier&quot;, response)
     let pollen: PollenData[] &#x3D; [];
     response.forEach(item &#x3D;&gt; {
       pollen.push({
@@ -555,6 +574,8 @@ interface IndoorRoomResponse {
   gasVal: number,
   location: string,
   timestamp: string,
+  gasValCalibrationValue: number,
+  roomName: string,
 }
 
 /**

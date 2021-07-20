@@ -1,3 +1,4 @@
+import { ESPConfiguration } from 'src/app/services/api/esp-configuration-api.service';
 import { IndoorRoomData, OutdoorWeatherData, WeatherHistoryByDayData, PollenData, WeatherForecastData, WeatherHistoryData, Tile, TileType, WeatherData, TilePriority } from '../weather';
 
 /**
@@ -409,3 +410,17 @@ export var DASHBOARDTILES: Tile<WeatherData>[] = [
     POLLENSMALL,
     POLLENSMALL2,
 ]
+
+export var SENSOR1: ESPConfiguration = {
+    id: 1,
+    roomName: "device1",
+    transmissionFrequency: 10,
+    sensorType: "outdoor",
+}
+
+export var SENSOR2: ESPConfiguration = {
+    id: 1,
+    roomName: "Wohnzimmer",
+    transmissionFrequency: 10,
+    sensorType: "indoor",
+}

@@ -1815,16 +1815,7 @@ export class UserContextService {
   private saveUserContext() {
     this.saveUserContextToLocalStorage()
     if(!this.disableLogin) {
-      this.userContextAPI.putSaveUserContext(this.userID, this.userContext).subscribe((success) &#x3D;&gt; {
-        if(success) {
-          console.log(&#x27;SAVED USER CONTEXT&#x27;);
-        } else {
-          console.log(&#x27;ERROR DURING SAVING USER CONTEXT&#x27;);
-        }
-      },
-      (error) &#x3D;&gt; {
-        console.log(&#x27;ERROR DURING SAVING USER CONTEXT&#x27;);
-      });
+      this.userContextAPI.putSaveUserContext(this.userID, this.userContext).subscribe();
     }
   }
 

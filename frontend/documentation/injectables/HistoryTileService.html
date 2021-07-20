@@ -233,8 +233,8 @@ show the prefered data without any further conversion. </p>
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="92"
-                            class="link-to-prism">src/app/services/history-tile.service.ts:92</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="86"
+                            class="link-to-prism">src/app/services/history-tile.service.ts:86</a></div>
                 </td>
             </tr>
 
@@ -325,13 +325,9 @@ export class HistoryTileService {
       let dataSet: GraphDataSet[] &#x3D; []
       let dataPoints &#x3D; weatherHistoryData.datapoints
 
-      console.log( &quot;Hier ist es wichtig&quot;, dataPoints);
-
       dataPoints.sort((a, b) &#x3D;&gt; {
         return b.timestamp.getTime() - a.timestamp.getTime()
       });
-
-      console.log(dataPoints);
 
       let lastDate: Date &#x3D; dataPoints[0].timestamp;
       let lastWeek: number &#x3D; this.getWeekNumber(lastDate);
@@ -373,8 +369,6 @@ export class HistoryTileService {
       humidityDataPoints.push(Math.round(averageHumidity));
       xAxisLabels.push(this.getWeekDayStringFromDate(lastDate))
       dataSet.push(this.createWeatherGraphDataSet(temperatureDataPoints, humidityDataPoints, xAxisLabels, label));
-
-      console.log(&#x27;Created History By Week&#x27;)
       return dataSet;
     }
     return [];
@@ -438,9 +432,6 @@ export class HistoryTileService {
       humidityDataPoints.push(Math.round(averageHumidity));
       xAxisLabels.push(this.getHourString(lastHour))
       dataSet.push(this.createWeatherGraphDataSet(temperatureDataPoints, humidityDataPoints, xAxisLabels, label));
-
-      console.log(&#x27;Created History By Day&#x27;)
-      console.log(dataSet);
       return dataSet;
     }
     return [];
@@ -491,8 +482,6 @@ export class HistoryTileService {
     let dayNum &#x3D; date.getUTCDay() || 7;
     date.setUTCDate(date.getUTCDate() + 4 - dayNum);
     let yearStart &#x3D; new Date(Date.UTC(date.getUTCFullYear(),0,1));
-
-    console.log(Math.ceil((((date.valueOf() - yearStart.valueOf()) / 86400000) + 1)/7) + &#x27; for: &#x27; + inputDate);
 
     return Math.ceil((((date.valueOf() - yearStart.valueOf()) / 86400000) + 1)/7)
   };

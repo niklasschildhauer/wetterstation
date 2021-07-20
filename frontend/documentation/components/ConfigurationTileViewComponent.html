@@ -64,6 +64,19 @@
     <code>src/app/components/views/configuration-tile-view/configuration-tile-view.component.ts</code>
 </p>
 
+    <p class="comment">
+        <h3>Description</h3>
+    </p>
+    <p class="comment">
+        <p>Configuration tile view component</p>
+<p>This component displays in form of a tile (widget) the configuration 
+options of the different esp kits (sensor kits). There are two
+different kinds of esp kits, for outdoor and indoor. For both it is possible
+to change the name as well as the frequency and for the indoor sensor kits
+the calibration can be started. </p>
+<p>For the name change a pop up will be shown.</p>
+
+    </p>
 
 
     <p class="comment">
@@ -152,6 +165,9 @@
                                 <a href="#openDialog">openDialog</a>
                             </li>
                             <li>
+                                <a href="#startCalibration">startCalibration</a>
+                            </li>
+                            <li>
                                 <a href="#updateConfiguration">updateConfiguration</a>
                             </li>
                         </ul>
@@ -186,12 +202,12 @@
             <tbody>
                 <tr>
                     <td class="col-md-4">
-<code>constructor(espConfigurationService: <a href="../injectables/ESPConfigurationAPIService.html">ESPConfigurationAPIService</a>, dialog: MatDialog)</code>
+<code>constructor(espConfigurationService: <a href="../injectables/ESPConfigurationAPIService.html">ESPConfigurationAPIService</a>, dialog: MatDialog, router: <a href="https://angular.io/api/router/Router" target="_blank">Router</a>)</code>
                     </td>
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="12" class="link-to-prism">src/app/components/views/configuration-tile-view/configuration-tile-view.component.ts:12</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="24" class="link-to-prism">src/app/components/views/configuration-tile-view/configuration-tile-view.component.ts:24</a></div>
                             </td>
                         </tr>
 
@@ -232,6 +248,18 @@
                                                     </td>
                                                     
                                                 </tr>
+                                                <tr>
+                                                        <td>router</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="https://angular.io/api/router/Router" target="_blank" >Router</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
                                         </tbody>
                                     </table>
                             </div>
@@ -259,7 +287,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-2" colspan="2">
-                                    <div class="io-line">Defined in <a href="" data-line="12" class="link-to-prism">src/app/components/views/configuration-tile-view/configuration-tile-view.component.ts:12</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="24" class="link-to-prism">src/app/components/views/configuration-tile-view/configuration-tile-view.component.ts:24</a></div>
                             </td>
                         </tr>
             </tbody>
@@ -295,8 +323,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="17"
-                            class="link-to-prism">src/app/components/views/configuration-tile-view/configuration-tile-view.component.ts:17</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="30"
+                            class="link-to-prism">src/app/components/views/configuration-tile-view/configuration-tile-view.component.ts:30</a></div>
                 </td>
             </tr>
 
@@ -334,14 +362,59 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="20"
-                            class="link-to-prism">src/app/components/views/configuration-tile-view/configuration-tile-view.component.ts:20</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="36"
+                            class="link-to-prism">src/app/components/views/configuration-tile-view/configuration-tile-view.component.ts:36</a></div>
                 </td>
             </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                    <div class="io-description"><p>Opens the pop up to change the name</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="startCalibration"></a>
+                    <span class="name">
+                        <b>
+                            startCalibration
+                        </b>
+                        <a href="#startCalibration"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>startCalibration()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="56"
+                            class="link-to-prism">src/app/components/views/configuration-tile-view/configuration-tile-view.component.ts:56</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>calls the espConfiguration service and starts the calibration process.
+If the process is started successfully it redirects to the 
+calibration info detail view component.</p>
+</div>
 
                     <div class="io-description">
                         <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
@@ -373,14 +446,17 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="35"
-                            class="link-to-prism">src/app/components/views/configuration-tile-view/configuration-tile-view.component.ts:35</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="69"
+                            class="link-to-prism">src/app/components/views/configuration-tile-view/configuration-tile-view.component.ts:69</a></div>
                 </td>
             </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                    <div class="io-description"><p>Calls the esp configuration service to update the esp configuration by passing
+the changed object </p>
+</div>
 
                     <div class="io-description">
                         <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
@@ -417,7 +493,7 @@
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="15" class="link-to-prism">src/app/components/views/configuration-tile-view/configuration-tile-view.component.ts:15</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="27" class="link-to-prism">src/app/components/views/configuration-tile-view/configuration-tile-view.component.ts:27</a></div>
                             </td>
                         </tr>
 
@@ -434,7 +510,19 @@
 import { ESPConfiguration, ESPConfigurationAPIService } from &#x27;src/app/services/api/esp-configuration-api.service&#x27;;
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from &#x27;@angular/material/dialog&#x27;;
 import { FormControl } from &#x27;@angular/forms&#x27;; 
+import { Router } from &#x27;@angular/router&#x27;;
 
+/**
+ * Configuration tile view component
+ * 
+ * This component displays in form of a tile (widget) the configuration 
+ * options of the different esp kits (sensor kits). There are two
+ * different kinds of esp kits, for outdoor and indoor. For both it is possible
+ * to change the name as well as the frequency and for the indoor sensor kits
+ * the calibration can be started. 
+ * 
+ * For the name change a pop up will be shown.
+ */
 @Component({
   selector: &#x27;app-configuration-tile-view&#x27;,
   templateUrl: &#x27;./configuration-tile-view.component.html&#x27;,
@@ -444,11 +532,15 @@ export class ConfigurationTileViewComponent implements OnInit {
   @Input() espConfiguration?: ESPConfiguration
   
   constructor(private espConfigurationService: ESPConfigurationAPIService,
-    public dialog: MatDialog) { }
+              public dialog: MatDialog,
+              private router: Router) { }
 
   ngOnInit(): void {
   }
 
+  /**
+   * Opens the pop up to change the name
+   */
   openDialog(): void {
     const dialogRef &#x3D; this.dialog.open(ConfigurationTilePopUpDialogView, {
       width: &#x27;300px&#x27;,
@@ -463,17 +555,39 @@ export class ConfigurationTileViewComponent implements OnInit {
       }
     });
   }
+  
+  /**
+   * calls the espConfiguration service and starts the calibration process.
+   * If the process is started successfully it redirects to the 
+   * calibration info detail view component.
+   */
+  startCalibration(): void {
+    if(this.espConfiguration)
+    this.espConfigurationService.startConfiguration(this.espConfiguration?.id).subscribe((success) &#x3D;&gt; {
+      if(success) {
+        this.router.navigateByUrl(&#x27;/settings/calibration-info&#x27;);
+      }
+    })
+  }
 
+  /**
+   * Calls the esp configuration service to update the esp configuration by passing
+   * the changed object 
+   */
   updateConfiguration() {
     if(this.espConfiguration) {
       this.espConfigurationService.postESPConfiguration(this.espConfiguration).subscribe((data) &#x3D;&gt; {
-        console.log(&quot;changed data&quot;, data)
-        //FIXME -&gt; console.log entfernen
       })
     }
   }
 }
 
+/**
+ * Configuration tile pop up dialog component
+ * 
+ * It shows a text field to change the name of the current sensor
+ * kit.
+ */
 @Component({
   selector: &#x27;configuration-tile-popup-view&#x27;,
   templateUrl: &#x27;configuration-tile-popup-view.component.html&#x27;,
@@ -500,19 +614,26 @@ export class ConfigurationTilePopUpDialogView {
     <div class="tab-pane fade " id="c-templateData">
         <pre class="line-numbers"><code class="language-html">&lt;div *ngIf&#x3D;&quot;espConfiguration&quot;&gt;
     &lt;card-element 
-        [subtitle]&#x3D;&quot;&#x27;ESP Konfiguration&#x27;&quot;
         [title]&#x3D;&#x27;espConfiguration.roomName&#x27;
-        [pressable]&#x3D;&quot;false&quot;&gt;
+        [pressable]&#x3D;&quot;false&quot;
+        [hideSubtitle]&#x3D;&quot;true&quot;&gt;
         &lt;div class&#x3D;&quot;flex-container&quot;&gt;
-            &lt;button class&#x3D;&quot;btn&quot; (click)&#x3D;&quot;openDialog()&quot;&gt;Umbenennen&lt;/button&gt;
-
-            &lt;select [(ngModel)]&#x3D;&quot;espConfiguration.transmissionFrequency&quot; (change)&#x3D;&quot;updateConfiguration()&quot;&gt;
-                &lt;option [value]&#x3D;&quot;1&quot;&gt;Jede Minute&lt;/option&gt;
-                &lt;option [value]&#x3D;&quot;2&quot;&gt;Alle 2 Minuten&lt;/option&gt;
-                &lt;option [value]&#x3D;&quot;5&quot;&gt;Alle 5 Minuten&lt;/option&gt;
-                &lt;option [value]&#x3D;&quot;7&quot;&gt;Alle 7 Minuten&lt;/option&gt;
-                &lt;option [value]&#x3D;&quot;10&quot;&gt;Alle 10 Minuten&lt;/option&gt;
-            &lt;/select&gt;
+            &lt;div class&#x3D;&quot;button-container&quot;&gt;
+                &lt;span&gt;Sendeintervall:&lt;/span&gt;
+                &lt;span class&#x3D;&quot;spacer&quot;&gt;&lt;/span&gt;
+                &lt;select [(ngModel)]&#x3D;&quot;espConfiguration.transmissionFrequency&quot; (change)&#x3D;&quot;updateConfiguration()&quot;&gt;
+                    &lt;option [value]&#x3D;&quot;1&quot;&gt;Jede Minute&lt;/option&gt;
+                    &lt;option [value]&#x3D;&quot;2&quot;&gt;Alle 2 Minuten&lt;/option&gt;
+                    &lt;option [value]&#x3D;&quot;5&quot;&gt;Alle 5 Minuten&lt;/option&gt;
+                    &lt;option [value]&#x3D;&quot;7&quot;&gt;Alle 7 Minuten&lt;/option&gt;
+                    &lt;option [value]&#x3D;&quot;10&quot;&gt;Alle 10 Minuten&lt;/option&gt;
+                &lt;/select&gt;
+            &lt;/div&gt;
+            &lt;div class&#x3D;&quot;button-container&quot;&gt;
+                &lt;button class&#x3D;&quot;button-full-width&quot; *ngIf&#x3D;&quot;espConfiguration.sensorType &#x3D;&#x3D;&#x3D; &#x27;indoor&#x27;&quot; (click)&#x3D;&quot;startCalibration()&quot;&gt;Kalibrieren&lt;/button&gt;
+                &lt;span *ngIf&#x3D;&quot;espConfiguration.sensorType &#x3D;&#x3D;&#x3D; &#x27;indoor&#x27;&quot; class&#x3D;&quot;spacer&quot;&gt;&lt;/span&gt;
+                &lt;button class&#x3D;&quot;button-full-width&quot; (click)&#x3D;&quot;openDialog()&quot;&gt;Umbenennen&lt;/button&gt;
+            &lt;/div&gt;
         &lt;/div&gt;
     &lt;/card-element&gt;
 &lt;/div&gt;
@@ -533,6 +654,21 @@ export class ConfigurationTilePopUpDialogView {
     flex-direction: column;
     justify-content: flex-start;
     align-content: flex-start;
+    flex-wrap: nowrap;
+}
+
+.button-full-width {
+    min-width: calc(100% / 2 - var(--padding));
+    max-width: 100%;
+}
+
+.button-container {
+    display: flex;
+    flex-wrap: nowrap;
+}
+
+.spacer {
+    width: var(--padding);
 }</code></pre>
     </div>
 
@@ -561,8 +697,8 @@ export class ConfigurationTilePopUpDialogView {
 <script src="../js/libs/htmlparser.js"></script>
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
-        var COMPONENT_TEMPLATE = '<div><div *ngIf="espConfiguration">    <card-element         [subtitle]="\'ESP Konfiguration\'"        [title]=\'espConfiguration.roomName\'        [pressable]="false">        <div class="flex-container">            <button class="btn" (click)="openDialog()">Umbenennen</button>            <select [(ngModel)]="espConfiguration.transmissionFrequency" (change)="updateConfiguration()">                <option [value]="1">Jede Minute</option>                <option [value]="2">Alle 2 Minuten</option>                <option [value]="5">Alle 5 Minuten</option>                <option [value]="7">Alle 7 Minuten</option>                <option [value]="10">Alle 10 Minuten</option>            </select>        </div>    </card-element></div></div>'
-    var COMPONENTS = [{'name': 'ApparentTemperatureTileViewComponent', 'selector': 'app-apparent-temperature-tile-view'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'BackButtonElementComponent', 'selector': 'app-back-button-element'},{'name': 'CardElementComponent', 'selector': 'card-element'},{'name': 'CheckboxSwitcherElementComponent', 'selector': 'app-checkbox-switcher-element'},{'name': 'ConfigurationTilePopUpDialogView', 'selector': 'configuration-tile-popup-view'},{'name': 'ConfigurationTileViewComponent', 'selector': 'app-configuration-tile-view'},{'name': 'ConfigurationViewComponent', 'selector': 'app-configuration-view'},{'name': 'DashboardScreenComponent', 'selector': 'app-dashboard-screen'},{'name': 'DetailScreenComponent', 'selector': 'app-detail-screen'},{'name': 'ForecastDetailViewComponent', 'selector': 'app-forecast-detail-view'},{'name': 'ForecastTileViewComponent', 'selector': 'app-forecast-tile-view'},{'name': 'HistoryDetailViewComponent', 'selector': 'app-history-detail-view'},{'name': 'HistoryTileViewComponent', 'selector': 'app-history-tile-view'},{'name': 'HumidityTileViewComponent', 'selector': 'app-humidity-tile-view'},{'name': 'IndoorDetailViewComponent', 'selector': 'app-indoor-detail-view'},{'name': 'IndoorTileViewComponent', 'selector': 'app-indoor-tile-view'},{'name': 'LoginViewComponent', 'selector': 'app-login-view'},{'name': 'MenuBarElementComponent', 'selector': 'app-menu-bar-element'},{'name': 'MenuButtonElementComponent', 'selector': 'app-menu-button-element'},{'name': 'MenuElementComponent', 'selector': 'app-menu-element'},{'name': 'NavBarElementComponent', 'selector': 'app-nav-bar-element'},{'name': 'OnboardingScreenComponent', 'selector': 'app-onboarding-screen'},{'name': 'OpenAPELoginTileViewComponent', 'selector': 'app-open-apelogin-tile-view'},{'name': 'OutdoorWeatherDetailViewComponent', 'selector': 'app-outdoor-weather-detail-view'},{'name': 'OutdoorWeatherViewComponent', 'selector': 'app-outdoor-weather-view'},{'name': 'PersonalizationSettingsViewComponent', 'selector': 'app-personalization-settings-view'},{'name': 'PersonalizationViewComponent', 'selector': 'app-personalization-view'},{'name': 'PollenflugDetailViewComponent', 'selector': 'app-pollenflug-detail-view'},{'name': 'PollenflugSmallTileComponent', 'selector': 'app-pollenflug-small-tile'},{'name': 'PollenflugTileViewComponent', 'selector': 'app-pollenflug-tile-view'},{'name': 'PollenListElementComponent', 'selector': 'app-pollen-list-element'},{'name': 'PollenTagElementComponent', 'selector': 'app-pollen-tag-element'},{'name': 'ProgressChartElementComponent', 'selector': 'app-progress-chart-element'},{'name': 'RegistrationViewComponent', 'selector': 'app-registration-view'},{'name': 'SettingsScreenComponent', 'selector': 'app-settings-screen'},{'name': 'SimpleTileViewComponent', 'selector': 'app-simple-tile-view'},{'name': 'SliderElementComponent', 'selector': 'app-slider-element'},{'name': 'TtsPlayerElementComponent', 'selector': 'app-tts-player-element'}];
+        var COMPONENT_TEMPLATE = '<div><div *ngIf="espConfiguration">    <card-element         [title]=\'espConfiguration.roomName\'        [pressable]="false"        [hideSubtitle]="true">        <div class="flex-container">            <div class="button-container">                <span>Sendeintervall:</span>                <span class="spacer"></span>                <select [(ngModel)]="espConfiguration.transmissionFrequency" (change)="updateConfiguration()">                    <option [value]="1">Jede Minute</option>                    <option [value]="2">Alle 2 Minuten</option>                    <option [value]="5">Alle 5 Minuten</option>                    <option [value]="7">Alle 7 Minuten</option>                    <option [value]="10">Alle 10 Minuten</option>                </select>            </div>            <div class="button-container">                <button class="button-full-width" *ngIf="espConfiguration.sensorType === \'indoor\'" (click)="startCalibration()">Kalibrieren</button>                <span *ngIf="espConfiguration.sensorType === \'indoor\'" class="spacer"></span>                <button class="button-full-width" (click)="openDialog()">Umbenennen</button>            </div>        </div>    </card-element></div></div>'
+    var COMPONENTS = [{'name': 'ApparentTemperatureTileViewComponent', 'selector': 'app-apparent-temperature-tile-view'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'BackButtonElementComponent', 'selector': 'app-back-button-element'},{'name': 'CalibrationInfoDetailViewComponent', 'selector': 'app-calibration-info-detail-view'},{'name': 'CardElementComponent', 'selector': 'card-element'},{'name': 'CheckboxSwitcherElementComponent', 'selector': 'app-checkbox-switcher-element'},{'name': 'ConfigurationTilePopUpDialogView', 'selector': 'configuration-tile-popup-view'},{'name': 'ConfigurationTileViewComponent', 'selector': 'app-configuration-tile-view'},{'name': 'ConfigurationViewComponent', 'selector': 'app-configuration-view'},{'name': 'DashboardScreenComponent', 'selector': 'app-dashboard-screen'},{'name': 'DashboardViewComponent', 'selector': 'app-dashboard-view'},{'name': 'DetailScreenComponent', 'selector': 'app-detail-screen'},{'name': 'ForecastDetailViewComponent', 'selector': 'app-forecast-detail-view'},{'name': 'ForecastTileViewComponent', 'selector': 'app-forecast-tile-view'},{'name': 'HistoryDetailViewComponent', 'selector': 'app-history-detail-view'},{'name': 'HistoryTileViewComponent', 'selector': 'app-history-tile-view'},{'name': 'HumidityTileViewComponent', 'selector': 'app-humidity-tile-view'},{'name': 'IndoorDetailViewComponent', 'selector': 'app-indoor-detail-view'},{'name': 'IndoorTileViewComponent', 'selector': 'app-indoor-tile-view'},{'name': 'LoginViewComponent', 'selector': 'app-login-view'},{'name': 'MenuBarElementComponent', 'selector': 'app-menu-bar-element'},{'name': 'MenuButtonElementComponent', 'selector': 'app-menu-button-element'},{'name': 'MenuElementComponent', 'selector': 'app-menu-element'},{'name': 'NavBarElementComponent', 'selector': 'app-nav-bar-element'},{'name': 'OnboardingScreenComponent', 'selector': 'app-onboarding-screen'},{'name': 'OpenAPELoginTileViewComponent', 'selector': 'app-open-apelogin-tile-view'},{'name': 'OutdoorWeatherDetailViewComponent', 'selector': 'app-outdoor-weather-detail-view'},{'name': 'OutdoorWeatherViewComponent', 'selector': 'app-outdoor-weather-view'},{'name': 'PersonalizationSettingsViewComponent', 'selector': 'app-personalization-settings-view'},{'name': 'PersonalizationViewComponent', 'selector': 'app-personalization-view'},{'name': 'PollenflugDetailViewComponent', 'selector': 'app-pollenflug-detail-view'},{'name': 'PollenflugSmallTileComponent', 'selector': 'app-pollenflug-small-tile'},{'name': 'PollenflugTileViewComponent', 'selector': 'app-pollenflug-tile-view'},{'name': 'PollenListElementComponent', 'selector': 'app-pollen-list-element'},{'name': 'PollenTagElementComponent', 'selector': 'app-pollen-tag-element'},{'name': 'ProgressChartElementComponent', 'selector': 'app-progress-chart-element'},{'name': 'RegistrationViewComponent', 'selector': 'app-registration-view'},{'name': 'SettingsScreenComponent', 'selector': 'app-settings-screen'},{'name': 'SimpleTileViewComponent', 'selector': 'app-simple-tile-view'},{'name': 'SliderElementComponent', 'selector': 'app-slider-element'},{'name': 'TtsPlayerElementComponent', 'selector': 'app-tts-player-element'}];
     var DIRECTIVES = [];
     var ACTUAL_COMPONENT = {'name': 'ConfigurationTileViewComponent'};
 </script>

@@ -91,6 +91,10 @@
                                     <span class="modifier">Public</span>
                                 <a href="#postESPConfiguration">postESPConfiguration</a>
                             </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#startConfiguration">startConfiguration</a>
+                            </li>
                         </ul>
                     </td>
                 </tr>
@@ -114,7 +118,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="16" class="link-to-prism">src/app/services/api/esp-configuration-api.service.ts:16</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="18" class="link-to-prism">src/app/services/api/esp-configuration-api.service.ts:18</a></div>
                             </td>
                         </tr>
 
@@ -181,8 +185,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="23"
-                            class="link-to-prism">src/app/services/api/esp-configuration-api.service.ts:23</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="25"
+                            class="link-to-prism">src/app/services/api/esp-configuration-api.service.ts:25</a></div>
                 </td>
             </tr>
 
@@ -228,8 +232,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="37"
-                            class="link-to-prism">src/app/services/api/esp-configuration-api.service.ts:37</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="42"
+                            class="link-to-prism">src/app/services/api/esp-configuration-api.service.ts:42</a></div>
                 </td>
             </tr>
 
@@ -277,15 +281,96 @@
             </tr>
         </tbody>
     </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="startConfiguration"></a>
+                    <span class="name">
+                        <b>
+                            <span class="modifier">Public</span>
+                            startConfiguration
+                        </b>
+                        <a href="#startConfiguration"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>startConfiguration(sensorId: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="73"
+                            class="link-to-prism">src/app/services/api/esp-configuration-api.service.ts:73</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Starts the Calibration worker for the given sensor kit</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                    <td>Description</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>sensorId</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                    <td>
+                                        <p>the device id of the sensor</p>
+
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>    <code>Observable&lt;boolean&gt;</code>
+
+                    </div>
+                    <div class="io-description">
+                        <p>an observable with a boolean</p>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
 </section>
 
     </div>
 
 
     <div class="tab-pane fade  tab-source-code" id="c-source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { HttpClient } from &#x27;@angular/common/http&#x27;;
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { HttpClient, HttpParams } from &#x27;@angular/common/http&#x27;;
 import { Injectable } from &#x27;@angular/core&#x27;;
-import { Observable } from &#x27;rxjs&#x27;;
+import { Observable, of } from &#x27;rxjs&#x27;;
+import { SENSOR1, SENSOR2 } from &#x27;src/app/model/mock-data/weather.mock&#x27;;
 import { environment } from &#x27;src/environments/environment&#x27;;
 
 /**
@@ -297,15 +382,19 @@ import { environment } from &#x27;src/environments/environment&#x27;;
   providedIn: &#x27;root&#x27;
 })
 export class ESPConfigurationAPIService {
-  private allConfigs &#x3D; environment.baseURL + &#x27;/espconfig/all&#x27;;
-  private changeConfig &#x3D; environment.baseURL + &#x27;/espconfig/change&#x27;;
+  private allConfigs &#x3D; environment.baseURL + &#x27;espconfig/all&#x27;;
+  private changeConfig &#x3D; environment.baseURL + &#x27;espconfig/change&#x27;;
+  private calibration &#x3D; environment.baseURL + &#x27;calibration/insert&#x27;;
 
   constructor(private httpClient: HttpClient) { }
 
   /**
    * @returns an observable with ESPConfigurations[] object
    */
-  public loadESPConfigs(): Observable&lt;ESPConfiguration[]&gt;{
+  public loadESPConfigs(): Observable&lt;ESPConfiguration[]&gt; {
+    if (environment.testData) {
+      return of([SENSOR1, SENSOR2]) 
+    }
     let returnObservable &#x3D; new Observable&lt;ESPConfiguration[]&gt;((observer) &#x3D;&gt; {
       let response &#x3D; this.httpClient.get&lt;ESPConfiguration[]&gt;(this.allConfigs);
       response.subscribe(data &#x3D;&gt; {
@@ -341,10 +430,32 @@ export class ESPConfigurationAPIService {
           observer.complete();
         }
       );
-    }
-  );
-  return returnObservable;
+    });
+    return returnObservable;
   }
+
+  /**
+   * Starts the Calibration worker for the given sensor kit
+   * @param sensorId  the device id of the sensor
+   * @returns an observable with a boolean
+   */
+     public startConfiguration(sensorId: number): Observable&lt;boolean&gt;{
+      let returnObservable &#x3D; new Observable&lt;boolean&gt;((observer) &#x3D;&gt; {
+        let httpOptions &#x3D; {
+          params: new HttpParams().set(&#x27;deviceID&#x27;, sensorId + &#x27;&#x27;),
+        };
+        let response &#x3D; this.httpClient.get(this.calibration, httpOptions);
+        response.subscribe(() &#x3D;&gt; {
+          observer.next(true);
+          observer.complete();
+        },
+        () &#x3D;&gt; {
+          observer.next(false);
+          observer.complete();
+        })
+      });
+      return returnObservable;
+    }
 }
 
 /**
@@ -354,6 +465,7 @@ export interface ESPConfiguration {
   id: number,
   roomName: string,
   transmissionFrequency: number,
+  sensorType: string,
 }
 </code></pre>
     </div>

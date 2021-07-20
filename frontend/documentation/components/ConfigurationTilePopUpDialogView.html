@@ -64,6 +64,15 @@
     <code>src/app/components/views/configuration-tile-view/configuration-tile-view.component.ts</code>
 </p>
 
+    <p class="comment">
+        <h3>Description</h3>
+    </p>
+    <p class="comment">
+        <p>Configuration tile pop up dialog component</p>
+<p>It shows a text field to change the name of the current sensor
+kit.</p>
+
+    </p>
 
 
 
@@ -175,7 +184,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="51" class="link-to-prism">src/app/components/views/configuration-tile-view/configuration-tile-view.component.ts:51</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="89" class="link-to-prism">src/app/components/views/configuration-tile-view/configuration-tile-view.component.ts:89</a></div>
                             </td>
                         </tr>
 
@@ -256,8 +265,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="57"
-                            class="link-to-prism">src/app/components/views/configuration-tile-view/configuration-tile-view.component.ts:57</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="95"
+                            class="link-to-prism">src/app/components/views/configuration-tile-view/configuration-tile-view.component.ts:95</a></div>
                 </td>
             </tr>
 
@@ -295,8 +304,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="61"
-                            class="link-to-prism">src/app/components/views/configuration-tile-view/configuration-tile-view.component.ts:61</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="99"
+                            class="link-to-prism">src/app/components/views/configuration-tile-view/configuration-tile-view.component.ts:99</a></div>
                 </td>
             </tr>
 
@@ -348,7 +357,7 @@
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="55" class="link-to-prism">src/app/components/views/configuration-tile-view/configuration-tile-view.component.ts:55</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="93" class="link-to-prism">src/app/components/views/configuration-tile-view/configuration-tile-view.component.ts:93</a></div>
                             </td>
                         </tr>
 
@@ -376,7 +385,7 @@
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="54" class="link-to-prism">src/app/components/views/configuration-tile-view/configuration-tile-view.component.ts:54</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="92" class="link-to-prism">src/app/components/views/configuration-tile-view/configuration-tile-view.component.ts:92</a></div>
                             </td>
                         </tr>
 
@@ -402,7 +411,7 @@
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="51" class="link-to-prism">src/app/components/views/configuration-tile-view/configuration-tile-view.component.ts:51</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="89" class="link-to-prism">src/app/components/views/configuration-tile-view/configuration-tile-view.component.ts:89</a></div>
                             </td>
                         </tr>
 
@@ -419,7 +428,19 @@
 import { ESPConfiguration, ESPConfigurationAPIService } from &#x27;src/app/services/api/esp-configuration-api.service&#x27;;
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from &#x27;@angular/material/dialog&#x27;;
 import { FormControl } from &#x27;@angular/forms&#x27;; 
+import { Router } from &#x27;@angular/router&#x27;;
 
+/**
+ * Configuration tile view component
+ * 
+ * This component displays in form of a tile (widget) the configuration 
+ * options of the different esp kits (sensor kits). There are two
+ * different kinds of esp kits, for outdoor and indoor. For both it is possible
+ * to change the name as well as the frequency and for the indoor sensor kits
+ * the calibration can be started. 
+ * 
+ * For the name change a pop up will be shown.
+ */
 @Component({
   selector: &#x27;app-configuration-tile-view&#x27;,
   templateUrl: &#x27;./configuration-tile-view.component.html&#x27;,
@@ -429,11 +450,15 @@ export class ConfigurationTileViewComponent implements OnInit {
   @Input() espConfiguration?: ESPConfiguration
   
   constructor(private espConfigurationService: ESPConfigurationAPIService,
-    public dialog: MatDialog) { }
+              public dialog: MatDialog,
+              private router: Router) { }
 
   ngOnInit(): void {
   }
 
+  /**
+   * Opens the pop up to change the name
+   */
   openDialog(): void {
     const dialogRef &#x3D; this.dialog.open(ConfigurationTilePopUpDialogView, {
       width: &#x27;300px&#x27;,
@@ -448,17 +473,39 @@ export class ConfigurationTileViewComponent implements OnInit {
       }
     });
   }
+  
+  /**
+   * calls the espConfiguration service and starts the calibration process.
+   * If the process is started successfully it redirects to the 
+   * calibration info detail view component.
+   */
+  startCalibration(): void {
+    if(this.espConfiguration)
+    this.espConfigurationService.startConfiguration(this.espConfiguration?.id).subscribe((success) &#x3D;&gt; {
+      if(success) {
+        this.router.navigateByUrl(&#x27;/settings/calibration-info&#x27;);
+      }
+    })
+  }
 
+  /**
+   * Calls the esp configuration service to update the esp configuration by passing
+   * the changed object 
+   */
   updateConfiguration() {
     if(this.espConfiguration) {
       this.espConfigurationService.postESPConfiguration(this.espConfiguration).subscribe((data) &#x3D;&gt; {
-        console.log(&quot;changed data&quot;, data)
-        //FIXME -&gt; console.log entfernen
       })
     }
   }
 }
 
+/**
+ * Configuration tile pop up dialog component
+ * 
+ * It shows a text field to change the name of the current sensor
+ * kit.
+ */
 @Component({
   selector: &#x27;configuration-tile-popup-view&#x27;,
   templateUrl: &#x27;configuration-tile-popup-view.component.html&#x27;,
@@ -569,7 +616,7 @@ export class ConfigurationTilePopUpDialogView {
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
         var COMPONENT_TEMPLATE = '<div><div class="container">    <h1>Raumname ändern</h1>    <form (ngSubmit)="onSubmit()">        <label for="name">            Raumname        </label>        <input            [formControl]="name"            id="name"            type="text"             placeholder="{{data}}"            class="input-field">            <div class="button-container">                <input class="b2" type="submit" value="Speichern">                <button class="b1" (click)="onNoClick()">Abbrechen</button>            </div>    </form>   </div></div>'
-    var COMPONENTS = [{'name': 'ApparentTemperatureTileViewComponent', 'selector': 'app-apparent-temperature-tile-view'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'BackButtonElementComponent', 'selector': 'app-back-button-element'},{'name': 'CardElementComponent', 'selector': 'card-element'},{'name': 'CheckboxSwitcherElementComponent', 'selector': 'app-checkbox-switcher-element'},{'name': 'ConfigurationTilePopUpDialogView', 'selector': 'configuration-tile-popup-view'},{'name': 'ConfigurationTileViewComponent', 'selector': 'app-configuration-tile-view'},{'name': 'ConfigurationViewComponent', 'selector': 'app-configuration-view'},{'name': 'DashboardScreenComponent', 'selector': 'app-dashboard-screen'},{'name': 'DetailScreenComponent', 'selector': 'app-detail-screen'},{'name': 'ForecastDetailViewComponent', 'selector': 'app-forecast-detail-view'},{'name': 'ForecastTileViewComponent', 'selector': 'app-forecast-tile-view'},{'name': 'HistoryDetailViewComponent', 'selector': 'app-history-detail-view'},{'name': 'HistoryTileViewComponent', 'selector': 'app-history-tile-view'},{'name': 'HumidityTileViewComponent', 'selector': 'app-humidity-tile-view'},{'name': 'IndoorDetailViewComponent', 'selector': 'app-indoor-detail-view'},{'name': 'IndoorTileViewComponent', 'selector': 'app-indoor-tile-view'},{'name': 'LoginViewComponent', 'selector': 'app-login-view'},{'name': 'MenuBarElementComponent', 'selector': 'app-menu-bar-element'},{'name': 'MenuButtonElementComponent', 'selector': 'app-menu-button-element'},{'name': 'MenuElementComponent', 'selector': 'app-menu-element'},{'name': 'NavBarElementComponent', 'selector': 'app-nav-bar-element'},{'name': 'OnboardingScreenComponent', 'selector': 'app-onboarding-screen'},{'name': 'OpenAPELoginTileViewComponent', 'selector': 'app-open-apelogin-tile-view'},{'name': 'OutdoorWeatherDetailViewComponent', 'selector': 'app-outdoor-weather-detail-view'},{'name': 'OutdoorWeatherViewComponent', 'selector': 'app-outdoor-weather-view'},{'name': 'PersonalizationSettingsViewComponent', 'selector': 'app-personalization-settings-view'},{'name': 'PersonalizationViewComponent', 'selector': 'app-personalization-view'},{'name': 'PollenflugDetailViewComponent', 'selector': 'app-pollenflug-detail-view'},{'name': 'PollenflugSmallTileComponent', 'selector': 'app-pollenflug-small-tile'},{'name': 'PollenflugTileViewComponent', 'selector': 'app-pollenflug-tile-view'},{'name': 'PollenListElementComponent', 'selector': 'app-pollen-list-element'},{'name': 'PollenTagElementComponent', 'selector': 'app-pollen-tag-element'},{'name': 'ProgressChartElementComponent', 'selector': 'app-progress-chart-element'},{'name': 'RegistrationViewComponent', 'selector': 'app-registration-view'},{'name': 'SettingsScreenComponent', 'selector': 'app-settings-screen'},{'name': 'SimpleTileViewComponent', 'selector': 'app-simple-tile-view'},{'name': 'SliderElementComponent', 'selector': 'app-slider-element'},{'name': 'TtsPlayerElementComponent', 'selector': 'app-tts-player-element'}];
+    var COMPONENTS = [{'name': 'ApparentTemperatureTileViewComponent', 'selector': 'app-apparent-temperature-tile-view'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'BackButtonElementComponent', 'selector': 'app-back-button-element'},{'name': 'CalibrationInfoDetailViewComponent', 'selector': 'app-calibration-info-detail-view'},{'name': 'CardElementComponent', 'selector': 'card-element'},{'name': 'CheckboxSwitcherElementComponent', 'selector': 'app-checkbox-switcher-element'},{'name': 'ConfigurationTilePopUpDialogView', 'selector': 'configuration-tile-popup-view'},{'name': 'ConfigurationTileViewComponent', 'selector': 'app-configuration-tile-view'},{'name': 'ConfigurationViewComponent', 'selector': 'app-configuration-view'},{'name': 'DashboardScreenComponent', 'selector': 'app-dashboard-screen'},{'name': 'DashboardViewComponent', 'selector': 'app-dashboard-view'},{'name': 'DetailScreenComponent', 'selector': 'app-detail-screen'},{'name': 'ForecastDetailViewComponent', 'selector': 'app-forecast-detail-view'},{'name': 'ForecastTileViewComponent', 'selector': 'app-forecast-tile-view'},{'name': 'HistoryDetailViewComponent', 'selector': 'app-history-detail-view'},{'name': 'HistoryTileViewComponent', 'selector': 'app-history-tile-view'},{'name': 'HumidityTileViewComponent', 'selector': 'app-humidity-tile-view'},{'name': 'IndoorDetailViewComponent', 'selector': 'app-indoor-detail-view'},{'name': 'IndoorTileViewComponent', 'selector': 'app-indoor-tile-view'},{'name': 'LoginViewComponent', 'selector': 'app-login-view'},{'name': 'MenuBarElementComponent', 'selector': 'app-menu-bar-element'},{'name': 'MenuButtonElementComponent', 'selector': 'app-menu-button-element'},{'name': 'MenuElementComponent', 'selector': 'app-menu-element'},{'name': 'NavBarElementComponent', 'selector': 'app-nav-bar-element'},{'name': 'OnboardingScreenComponent', 'selector': 'app-onboarding-screen'},{'name': 'OpenAPELoginTileViewComponent', 'selector': 'app-open-apelogin-tile-view'},{'name': 'OutdoorWeatherDetailViewComponent', 'selector': 'app-outdoor-weather-detail-view'},{'name': 'OutdoorWeatherViewComponent', 'selector': 'app-outdoor-weather-view'},{'name': 'PersonalizationSettingsViewComponent', 'selector': 'app-personalization-settings-view'},{'name': 'PersonalizationViewComponent', 'selector': 'app-personalization-view'},{'name': 'PollenflugDetailViewComponent', 'selector': 'app-pollenflug-detail-view'},{'name': 'PollenflugSmallTileComponent', 'selector': 'app-pollenflug-small-tile'},{'name': 'PollenflugTileViewComponent', 'selector': 'app-pollenflug-tile-view'},{'name': 'PollenListElementComponent', 'selector': 'app-pollen-list-element'},{'name': 'PollenTagElementComponent', 'selector': 'app-pollen-tag-element'},{'name': 'ProgressChartElementComponent', 'selector': 'app-progress-chart-element'},{'name': 'RegistrationViewComponent', 'selector': 'app-registration-view'},{'name': 'SettingsScreenComponent', 'selector': 'app-settings-screen'},{'name': 'SimpleTileViewComponent', 'selector': 'app-simple-tile-view'},{'name': 'SliderElementComponent', 'selector': 'app-slider-element'},{'name': 'TtsPlayerElementComponent', 'selector': 'app-tts-player-element'}];
     var DIRECTIVES = [];
     var ACTUAL_COMPONENT = {'name': 'ConfigurationTilePopUpDialogView'};
 </script>

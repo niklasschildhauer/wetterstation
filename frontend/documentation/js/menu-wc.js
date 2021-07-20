@@ -168,16 +168,20 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                                 <a href="modules/ViewsModule.html" data-type="entity-link">ViewsModule</a>
                                     <li class="chapter inner">
                                         <div class="simple menu-toggler" data-toggle="collapse" ${ isNormalMode ?
-                                            'data-target="#components-links-module-ViewsModule-1b8f82be0d48788be91ffb8d2a259698"' : 'data-target="#xs-components-links-module-ViewsModule-1b8f82be0d48788be91ffb8d2a259698"' }>
+                                            'data-target="#components-links-module-ViewsModule-198db56bbc3640719b0e80ae3d17308c"' : 'data-target="#xs-components-links-module-ViewsModule-198db56bbc3640719b0e80ae3d17308c"' }>
                                             <span class="icon ion-md-cog"></span>
                                             <span>Components</span>
                                             <span class="icon ion-ios-arrow-down"></span>
                                         </div>
-                                        <ul class="links collapse" ${ isNormalMode ? 'id="components-links-module-ViewsModule-1b8f82be0d48788be91ffb8d2a259698"' :
-                                            'id="xs-components-links-module-ViewsModule-1b8f82be0d48788be91ffb8d2a259698"' }>
+                                        <ul class="links collapse" ${ isNormalMode ? 'id="components-links-module-ViewsModule-198db56bbc3640719b0e80ae3d17308c"' :
+                                            'id="xs-components-links-module-ViewsModule-198db56bbc3640719b0e80ae3d17308c"' }>
                                             <li class="link">
                                                 <a href="components/ApparentTemperatureTileViewComponent.html"
                                                     data-type="entity-link" data-context="sub-entity" data-context-id="modules">ApparentTemperatureTileViewComponent</a>
+                                            </li>
+                                            <li class="link">
+                                                <a href="components/CalibrationInfoDetailViewComponent.html"
+                                                    data-type="entity-link" data-context="sub-entity" data-context-id="modules">CalibrationInfoDetailViewComponent</a>
                                             </li>
                                             <li class="link">
                                                 <a href="components/ConfigurationTilePopUpDialogView.html"
@@ -190,6 +194,10 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                                             <li class="link">
                                                 <a href="components/ConfigurationViewComponent.html"
                                                     data-type="entity-link" data-context="sub-entity" data-context-id="modules">ConfigurationViewComponent</a>
+                                            </li>
+                                            <li class="link">
+                                                <a href="components/DashboardViewComponent.html"
+                                                    data-type="entity-link" data-context="sub-entity" data-context-id="modules">DashboardViewComponent</a>
                                             </li>
                                             <li class="link">
                                                 <a href="components/ForecastDetailViewComponent.html"
@@ -321,9 +329,6 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                         <ul class="links collapse " ${ isNormalMode ? ' id="interfaces-links"' : 'id="xs-interfaces-links"' }>
                             <li class="link">
                                 <a href="interfaces/CheckTokenResponse.html" data-type="entity-link">CheckTokenResponse</a>
-                            </li>
-                            <li class="link">
-                                <a href="interfaces/Credentials.html" data-type="entity-link">Credentials</a>
                             </li>
                             <li class="link">
                                 <a href="interfaces/ESPConfiguration.html" data-type="entity-link">ESPConfiguration</a>

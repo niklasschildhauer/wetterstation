@@ -266,12 +266,8 @@ export class UserContextAPIService {
                                                         {username: username, password: password}, {observe: &#x27;response&#x27;});
       response.subscribe((response) &#x3D;&gt; {
         let body &#x3D; response.body
-        let status &#x3D; response.statusText
-        console.log(status);
-
         if(body){
           if(body.success) {
-            console.log(this.createUserContextFromServerResponse(body.userContext));
             observer.next({
               userID: {
                 token: body.token,
@@ -307,11 +303,7 @@ export class UserContextAPIService {
       let response &#x3D; this.httpClient.post&lt;UserContextResponse&gt;(this.openAPEURL, 
                                                               {openApeUser: username, openApePassword: password}, httpOptions);
       response.subscribe((response) &#x3D;&gt; {
-    
-        console.log(response);
-
         if(response){
-            console.log(this.createUserContextFromServerResponse(response));
             observer.next(this.createUserContextFromServerResponse(response));
         }
       },
@@ -336,9 +328,6 @@ export class UserContextAPIService {
                                                               {username: username, password: password}, {observe: &#x27;response&#x27;});
       response.subscribe((response) &#x3D;&gt; {
         let body &#x3D; response.body
-        let status &#x3D; response.statusText
-        console.log(status);
-
         if(body){
           if(body.id) {
             observer.next(true);
@@ -393,8 +382,6 @@ export class UserContextAPIService {
       () &#x3D;&gt; {
         observer.complete();
       });
-      console.log(response);
-
     });
     return returnObservable;
   }
@@ -452,8 +439,6 @@ export class UserContextAPIService {
       () &#x3D;&gt; {
         observer.complete();
       });
-      console.log(response);
-
     });
     return returnObservable;
   }
@@ -465,8 +450,6 @@ export class UserContextAPIService {
       let httpOptions &#x3D; {
         headers: new HttpHeaders({ &#x27;Authorization&#x27;: &#x27;Bearer &#x27; + token })
       };
-
-      console.log(httpOptions);
       let response &#x3D; this.httpClient.get&lt;CheckTokenResponse&gt;(this.checkTokenURL, httpOptions);
       response.subscribe(data &#x3D;&gt; {
         observer.next(data.success);
@@ -490,7 +473,6 @@ export class UserContextAPIService {
       };
       let response &#x3D; this.httpClient.get&lt;UserContextResponse&gt;(this.currentUserContextURL, httpOptions);
       response.subscribe(context &#x3D;&gt; {
-        console.log(this.createUserContextFromServerResponse(context));
         observer.next(this.createUserContextFromServerResponse(context));
         observer.complete();
       }, 

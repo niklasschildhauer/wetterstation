@@ -64,6 +64,17 @@
     <code>src/app/components/views/pollenflug-detail-view/pollenflug-detail-view.component.ts</code>
 </p>
 
+    <p class="comment">
+        <h3>Description</h3>
+    </p>
+    <p class="comment">
+        <p>Pollenflug detail view component </p>
+<p>This component shows the pollen data. It displays the 
+information by using the pollen tile view and pollen small tile view.
+The pollen small tile view is dynamically choosen if the user has 
+an allergy to the particular pollen.</p>
+
+    </p>
 
 
     <p class="comment">
@@ -177,7 +188,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="15" class="link-to-prism">src/app/components/views/pollenflug-detail-view/pollenflug-detail-view.component.ts:15</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="27" class="link-to-prism">src/app/components/views/pollenflug-detail-view/pollenflug-detail-view.component.ts:27</a></div>
                             </td>
                         </tr>
 
@@ -258,8 +269,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="21"
-                            class="link-to-prism">src/app/components/views/pollenflug-detail-view/pollenflug-detail-view.component.ts:21</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="32"
+                            class="link-to-prism">src/app/components/views/pollenflug-detail-view/pollenflug-detail-view.component.ts:32</a></div>
                 </td>
             </tr>
 
@@ -302,7 +313,7 @@
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="13" class="link-to-prism">src/app/components/views/pollenflug-detail-view/pollenflug-detail-view.component.ts:13</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="21" class="link-to-prism">src/app/components/views/pollenflug-detail-view/pollenflug-detail-view.component.ts:21</a></div>
                             </td>
                         </tr>
 
@@ -328,7 +339,7 @@
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="14" class="link-to-prism">src/app/components/views/pollenflug-detail-view/pollenflug-detail-view.component.ts:14</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="22" class="link-to-prism">src/app/components/views/pollenflug-detail-view/pollenflug-detail-view.component.ts:22</a></div>
                             </td>
                         </tr>
 
@@ -354,10 +365,17 @@
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="15" class="link-to-prism">src/app/components/views/pollenflug-detail-view/pollenflug-detail-view.component.ts:15</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="27" class="link-to-prism">src/app/components/views/pollenflug-detail-view/pollenflug-detail-view.component.ts:27</a></div>
                             </td>
                         </tr>
 
+                <tr>
+                    <td class="col-md-4">
+                        <div class="io-description"><p>this function computes the to be read aloud text for the tts feature. 
+This function is passed to the tts player element</p>
+</div>
+                    </td>
+                </tr>
 
             </tbody>
         </table>
@@ -373,6 +391,14 @@ import { TextService } from &#x27;src/app/services/text.service&#x27;;
 import { WeatherDataService } from &#x27;src/app/services/weather-data.service&#x27;;
 import { Tile, TileType } from &#x27;../../../model/weather&#x27;;
 
+/**
+ * Pollenflug detail view component 
+ * 
+ * This component shows the pollen data. It displays the 
+ * information by using the pollen tile view and pollen small tile view.
+ * The pollen small tile view is dynamically choosen if the user has 
+ * an allergy to the particular pollen.
+ */
 @Component({
   selector: &#x27;app-pollenflug-detail-view&#x27;,
   templateUrl: &#x27;./pollenflug-detail-view.component.html&#x27;,
@@ -381,8 +407,11 @@ import { Tile, TileType } from &#x27;../../../model/weather&#x27;;
 export class PollenflugDetailViewComponent implements OnInit {
   pollenTiles?: Tile&lt;WeatherData&gt;[]
   tileType &#x3D; TileType;
+  /**
+   * this function computes the to be read aloud text for the tts feature. 
+   * This function is passed to the tts player element
+   */
   ttsTextGeneratorFunction &#x3D; () &#x3D;&gt; this.textService.createTextFromTilesArray(this.pollenTiles)
-
 
   constructor(private weatherDataService: WeatherDataService,
     private textService: TextService) { }
@@ -391,6 +420,9 @@ export class PollenflugDetailViewComponent implements OnInit {
     this.loadPollenTiles();
   }
 
+  /**
+   * Subscribes to the pollen tiles array. 
+   */
   private loadPollenTiles(): void {
     this.weatherDataService.getPollenTilesSubject().subscribe(data &#x3D;&gt; this.pollenTiles &#x3D; data);
   }
@@ -475,7 +507,7 @@ export class PollenflugDetailViewComponent implements OnInit {
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
         var COMPONENT_TEMPLATE = '<div><app-nav-bar-element     [titleLabel]="\'Pollenflug\'"     [backLabel]="\'Dashboard\'"></app-nav-bar-element><div *ngIf="pollenTiles"     class="flex-container">    <div *ngFor="let item of pollenTiles"         [ngSwitch]="item.type">        <app-pollenflug-tile-view             *ngSwitchCase="tileType.pollenList"             [data]="item.data"             [pressable]="false"            [hideSubtitle]="true">        </app-pollenflug-tile-view>        <app-pollenflug-small-tile             *ngSwitchCase="tileType.pollenSmall"             [data]="item.data"             [pressable]="false"            [hideSubtitle]="true">        </app-pollenflug-small-tile>        <div *ngSwitchDefault>            {{tileType[item.type]}} is not implemented yet        </div>    </div></div><article lang="de"> <h4>Was ist Pollenflug?</h4>    <p>Mehr als 15% der Bevölkerung in Deutschland sind Pollenallergiker und die Tendenz ist weiter zunehmend. Symptome wie Fließschnupfen, Bindehautentzündung bis hin zu Asthma sind damit verbunden. Hinzu kommen oftmals Kreuzreaktionen mit Nahrungsmitteln. Auch wenn die Intensität der allergischen Reaktionen individuell sehr unterschiedlich ist, so gibt es nach Aussagen von Allergologen dennoch einen engen Zusammenhang zwischen der Stärke der Symptomatik und der Pollenkonzentration in der Atemluft. Damit lässt sich aus dem Pollenflug direkt die Belastung des Pollenallergikers ableiten.</p>    <p>Da der Pollenflug aufgrund regional unterschiedlicher Pflanzenentwicklung sowie aufgrund des Wetters in Raum und Zeit stark schwanken kann, ist es für eine gezielte und vorausschauende Prophylaxe sinnvoll, täglich aktualisierte Informationen über die erwartete Pollenbelastung zur Verfügung zu stellen.</p></article><app-tts-player-element [ttsTextGeneratorFunction]="ttsTextGeneratorFunction"></app-tts-player-element></div>'
-    var COMPONENTS = [{'name': 'ApparentTemperatureTileViewComponent', 'selector': 'app-apparent-temperature-tile-view'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'BackButtonElementComponent', 'selector': 'app-back-button-element'},{'name': 'CardElementComponent', 'selector': 'card-element'},{'name': 'CheckboxSwitcherElementComponent', 'selector': 'app-checkbox-switcher-element'},{'name': 'ConfigurationTilePopUpDialogView', 'selector': 'configuration-tile-popup-view'},{'name': 'ConfigurationTileViewComponent', 'selector': 'app-configuration-tile-view'},{'name': 'ConfigurationViewComponent', 'selector': 'app-configuration-view'},{'name': 'DashboardScreenComponent', 'selector': 'app-dashboard-screen'},{'name': 'DetailScreenComponent', 'selector': 'app-detail-screen'},{'name': 'ForecastDetailViewComponent', 'selector': 'app-forecast-detail-view'},{'name': 'ForecastTileViewComponent', 'selector': 'app-forecast-tile-view'},{'name': 'HistoryDetailViewComponent', 'selector': 'app-history-detail-view'},{'name': 'HistoryTileViewComponent', 'selector': 'app-history-tile-view'},{'name': 'HumidityTileViewComponent', 'selector': 'app-humidity-tile-view'},{'name': 'IndoorDetailViewComponent', 'selector': 'app-indoor-detail-view'},{'name': 'IndoorTileViewComponent', 'selector': 'app-indoor-tile-view'},{'name': 'LoginViewComponent', 'selector': 'app-login-view'},{'name': 'MenuBarElementComponent', 'selector': 'app-menu-bar-element'},{'name': 'MenuButtonElementComponent', 'selector': 'app-menu-button-element'},{'name': 'MenuElementComponent', 'selector': 'app-menu-element'},{'name': 'NavBarElementComponent', 'selector': 'app-nav-bar-element'},{'name': 'OnboardingScreenComponent', 'selector': 'app-onboarding-screen'},{'name': 'OpenAPELoginTileViewComponent', 'selector': 'app-open-apelogin-tile-view'},{'name': 'OutdoorWeatherDetailViewComponent', 'selector': 'app-outdoor-weather-detail-view'},{'name': 'OutdoorWeatherViewComponent', 'selector': 'app-outdoor-weather-view'},{'name': 'PersonalizationSettingsViewComponent', 'selector': 'app-personalization-settings-view'},{'name': 'PersonalizationViewComponent', 'selector': 'app-personalization-view'},{'name': 'PollenflugDetailViewComponent', 'selector': 'app-pollenflug-detail-view'},{'name': 'PollenflugSmallTileComponent', 'selector': 'app-pollenflug-small-tile'},{'name': 'PollenflugTileViewComponent', 'selector': 'app-pollenflug-tile-view'},{'name': 'PollenListElementComponent', 'selector': 'app-pollen-list-element'},{'name': 'PollenTagElementComponent', 'selector': 'app-pollen-tag-element'},{'name': 'ProgressChartElementComponent', 'selector': 'app-progress-chart-element'},{'name': 'RegistrationViewComponent', 'selector': 'app-registration-view'},{'name': 'SettingsScreenComponent', 'selector': 'app-settings-screen'},{'name': 'SimpleTileViewComponent', 'selector': 'app-simple-tile-view'},{'name': 'SliderElementComponent', 'selector': 'app-slider-element'},{'name': 'TtsPlayerElementComponent', 'selector': 'app-tts-player-element'}];
+    var COMPONENTS = [{'name': 'ApparentTemperatureTileViewComponent', 'selector': 'app-apparent-temperature-tile-view'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'BackButtonElementComponent', 'selector': 'app-back-button-element'},{'name': 'CalibrationInfoDetailViewComponent', 'selector': 'app-calibration-info-detail-view'},{'name': 'CardElementComponent', 'selector': 'card-element'},{'name': 'CheckboxSwitcherElementComponent', 'selector': 'app-checkbox-switcher-element'},{'name': 'ConfigurationTilePopUpDialogView', 'selector': 'configuration-tile-popup-view'},{'name': 'ConfigurationTileViewComponent', 'selector': 'app-configuration-tile-view'},{'name': 'ConfigurationViewComponent', 'selector': 'app-configuration-view'},{'name': 'DashboardScreenComponent', 'selector': 'app-dashboard-screen'},{'name': 'DashboardViewComponent', 'selector': 'app-dashboard-view'},{'name': 'DetailScreenComponent', 'selector': 'app-detail-screen'},{'name': 'ForecastDetailViewComponent', 'selector': 'app-forecast-detail-view'},{'name': 'ForecastTileViewComponent', 'selector': 'app-forecast-tile-view'},{'name': 'HistoryDetailViewComponent', 'selector': 'app-history-detail-view'},{'name': 'HistoryTileViewComponent', 'selector': 'app-history-tile-view'},{'name': 'HumidityTileViewComponent', 'selector': 'app-humidity-tile-view'},{'name': 'IndoorDetailViewComponent', 'selector': 'app-indoor-detail-view'},{'name': 'IndoorTileViewComponent', 'selector': 'app-indoor-tile-view'},{'name': 'LoginViewComponent', 'selector': 'app-login-view'},{'name': 'MenuBarElementComponent', 'selector': 'app-menu-bar-element'},{'name': 'MenuButtonElementComponent', 'selector': 'app-menu-button-element'},{'name': 'MenuElementComponent', 'selector': 'app-menu-element'},{'name': 'NavBarElementComponent', 'selector': 'app-nav-bar-element'},{'name': 'OnboardingScreenComponent', 'selector': 'app-onboarding-screen'},{'name': 'OpenAPELoginTileViewComponent', 'selector': 'app-open-apelogin-tile-view'},{'name': 'OutdoorWeatherDetailViewComponent', 'selector': 'app-outdoor-weather-detail-view'},{'name': 'OutdoorWeatherViewComponent', 'selector': 'app-outdoor-weather-view'},{'name': 'PersonalizationSettingsViewComponent', 'selector': 'app-personalization-settings-view'},{'name': 'PersonalizationViewComponent', 'selector': 'app-personalization-view'},{'name': 'PollenflugDetailViewComponent', 'selector': 'app-pollenflug-detail-view'},{'name': 'PollenflugSmallTileComponent', 'selector': 'app-pollenflug-small-tile'},{'name': 'PollenflugTileViewComponent', 'selector': 'app-pollenflug-tile-view'},{'name': 'PollenListElementComponent', 'selector': 'app-pollen-list-element'},{'name': 'PollenTagElementComponent', 'selector': 'app-pollen-tag-element'},{'name': 'ProgressChartElementComponent', 'selector': 'app-progress-chart-element'},{'name': 'RegistrationViewComponent', 'selector': 'app-registration-view'},{'name': 'SettingsScreenComponent', 'selector': 'app-settings-screen'},{'name': 'SimpleTileViewComponent', 'selector': 'app-simple-tile-view'},{'name': 'SliderElementComponent', 'selector': 'app-slider-element'},{'name': 'TtsPlayerElementComponent', 'selector': 'app-tts-player-element'}];
     var DIRECTIVES = [];
     var ACTUAL_COMPONENT = {'name': 'PollenflugDetailViewComponent'};
 </script>

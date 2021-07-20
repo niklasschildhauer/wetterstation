@@ -89,6 +89,9 @@
                                         <a href="#gasVal">gasVal</a>
                                 </li>
                                 <li>
+                                        <a href="#gasValCalibrationValue">gasValCalibrationValue</a>
+                                </li>
+                                <li>
                                         <a href="#humidity">humidity</a>
                                 </li>
                                 <li>
@@ -99,6 +102,9 @@
                                 </li>
                                 <li>
                                         <a href="#pressure">pressure</a>
+                                </li>
+                                <li>
+                                        <a href="#roomName">roomName</a>
                                 </li>
                                 <li>
                                         <a href="#temperature">temperature</a>
@@ -128,6 +134,35 @@
                                 <tr>
                                     <td class="col-md-4">
                                         <code>gasVal:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="gasValCalibrationValue"></a>
+                                        <span class="name"><b>gasValCalibrationValue</b><a href="#gasValCalibrationValue"><span class="icon ion-ios-link"></span></a></span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>gasValCalibrationValue:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
 </code>
                                     </td>
                                 </tr>
@@ -266,6 +301,35 @@
                         <tbody>
                                 <tr>
                                     <td class="col-md-4">
+                                        <a name="roomName"></a>
+                                        <span class="name"><b>roomName</b><a href="#roomName"><span class="icon ion-ios-link"></span></a></span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>roomName:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
                                         <a name="temperature"></a>
                                         <span class="name"><b>temperature</b><a href="#temperature"><span class="icon ion-ios-link"></span></a></span>
                                     </td>
@@ -359,8 +423,18 @@ export class WeatherAPIService {
     }
     let returnObservable &#x3D; new Observable&lt;OutdoorWeatherData&gt;((observer) &#x3D;&gt; {
         this.httpClient.get&lt;OutdoorWeatherResponse&gt;(this.outdoorURL).subscribe(data &#x3D;&gt; {
-          let outdoorData &#x3D; this.createOutdoorWeatherDataFromServerResponse(data);
-          observer.next(outdoorData);
+          if(data.id &#x3D;&#x3D;&#x3D; undefined) {
+            observer.next();
+            observer.complete();
+          } else {
+            let outdoorData &#x3D; this.createOutdoorWeatherDataFromServerResponse(data);
+            observer.next(outdoorData);
+            observer.complete();
+          }
+        },
+        (error) &#x3D;&gt; {
+          console.log(error);
+          observer.next();
           observer.complete();
         })
       }
@@ -379,6 +453,11 @@ export class WeatherAPIService {
         this.httpClient.get&lt;ForecastResponse&gt;(this.forecastURL).subscribe(data &#x3D;&gt; {
           let forecastData &#x3D; this.createOutdoorForecastDataFromServerResponse(data);
           observer.next(forecastData);
+          observer.complete();
+        },
+        (error) &#x3D;&gt; {
+          console.log(error);
+          observer.next();
           observer.complete();
         })
       }
@@ -452,8 +531,12 @@ export class WeatherAPIService {
           let dataPoints: OutdoorWeatherData[] &#x3D; data.map((element) &#x3D;&gt; {
             return this.createOutdoorWeatherDataFromServerResponse(element);
           });
-          console.log(dataPoints);
           observer.next({&#x27;datapoints&#x27;: dataPoints});
+          observer.complete();
+        },
+        (error) &#x3D;&gt; {
+          console.log(error);
+          observer.next();
           observer.complete();
         })
       }
@@ -509,11 +592,12 @@ export class WeatherAPIService {
   private createIndoorRoomDataFromServerResponse(response: IndoorRoomResponse): IndoorRoomData {
     return {
             roomID: response.id + &#x27;&#x27;,
-            roomName: response.location,
+            roomName: response.roomName,
             airQuality: response.gasVal, 
             temperature: response.temperature, 
             humidity: response.humidity, 
             timestamp: new Date(response.timestamp), 
+            calibrationValue: response.gasValCalibrationValue,
           }
   }
 
@@ -524,7 +608,6 @@ export class WeatherAPIService {
    * @returns PollenData[] object
    */
   private createPollenDataFromServerResponse(response: PollenResponse[]): PollenData[] {
-    console.log(&quot;Pollen daten sind hier&quot;, response)
     let pollen: PollenData[] &#x3D; [];
     response.forEach(item &#x3D;&gt; {
       pollen.push({
@@ -587,6 +670,8 @@ interface IndoorRoomResponse {
   gasVal: number,
   location: string,
   timestamp: string,
+  gasValCalibrationValue: number,
+  roomName: string,
 }
 
 /**

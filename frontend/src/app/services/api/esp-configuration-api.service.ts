@@ -1,6 +1,7 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
+import { SENSOR1, SENSOR2 } from 'src/app/model/mock-data/weather.mock';
 import { environment } from 'src/environments/environment';
 
 /**
@@ -21,7 +22,10 @@ export class ESPConfigurationAPIService {
   /**
    * @returns an observable with ESPConfigurations[] object
    */
-  public loadESPConfigs(): Observable<ESPConfiguration[]>{
+  public loadESPConfigs(): Observable<ESPConfiguration[]> {
+    if (environment.testData) {
+      return of([SENSOR1, SENSOR2]) 
+    }
     let returnObservable = new Observable<ESPConfiguration[]>((observer) => {
       let response = this.httpClient.get<ESPConfiguration[]>(this.allConfigs);
       response.subscribe(data => {

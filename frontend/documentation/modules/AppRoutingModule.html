@@ -76,6 +76,7 @@ import { DashboardScreenComponent } from &#x27;./components/screens/dashboard-sc
 import { DetailScreenComponent } from &#x27;./components/screens/detail-screen/detail-screen.component&#x27;;
 import { OnboardingScreenComponent } from &#x27;./components/screens/onboarding-screen/onboarding-screen.component&#x27;;
 import { SettingsScreenComponent } from &#x27;./components/screens/settings-screen/settings-screen.component&#x27;;
+import { CalibrationInfoDetailViewComponent } from &#x27;./components/views/calibration-info-detail-view/calibration-info-detail-view.component&#x27;;
 import { ConfigurationViewComponent } from &#x27;./components/views/configuration-view/configuration-view.component&#x27;;
 import { ForecastDetailViewComponent } from &#x27;./components/views/forecast-detail-view/forecast-detail-view.component&#x27;;
 import { HistoryDetailViewComponent } from &#x27;./components/views/history-detail-view/history-detail-view.component&#x27;;
@@ -124,10 +125,16 @@ const routes: Routes &#x3D; [
       {
         path: &#x27;configuration&#x27;,
         component: ConfigurationViewComponent, 
+        data: { animationState: &#x27;Configuration&#x27; }
       },
       {
         path: &#x27;personalization&#x27;,
         component: PersonalizationViewComponent, 
+      },
+      {
+        path: &#x27;calibration-info&#x27;,
+        component: CalibrationInfoDetailViewComponent, 
+        data: { animationState: &#x27;Calibration&#x27; }
       },
     ], 
     data: { animationState: &#x27;Detail&#x27; }
