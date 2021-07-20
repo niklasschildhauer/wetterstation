@@ -10,8 +10,8 @@ You can find all documentaion documents for this project in the `docs` folder [L
 - Projektbericht
 - Installationsanleitung
 - Bedienungsanleitung
-- Pitch Präsentation
-- Abschluss Präsentation
+- Pitch-Präsentation
+- Ergebnispräsentation
 
 ## Video 
 A demo video was produced and can be found under [Link](We need a youtube link).
