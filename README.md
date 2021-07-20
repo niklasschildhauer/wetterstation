@@ -6,7 +6,7 @@ The results are then displayed graphically in a customisable web application. Wi
 
 ## Documentaion
 
-You can find all documentaion documents for this project in the documentation folder [Link](https://gitlab.mi.hdm-stuttgart.de/am206/wetterstation/-/tree/master/docs). In there you can find the following documents:
+You can find all documentaion documents for this project in the `docs` folder [Link](https://gitlab.mi.hdm-stuttgart.de/am206/wetterstation/-/tree/master/docs). In there you can find the following documents:
 - Projektbericht
 - Installationsanleitung
 - Bedienungsanleitung
