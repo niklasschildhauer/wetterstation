@@ -1,5 +1,10 @@
 # Wetterstation
 
+The WeatherIO weather station was developed in the summer semester of 2021 as part of the "Smart-Home Praktikum" lecture in the Computer Science and Media course at the Hochschule der Medien. 
+With the help of various sensors, WeatherIO collects measurement data (both outdoors and indoors) and stores it in a database. 
+The results are then displayed graphically in a customisable web application. With the personalisation functions Self-Voicing, Reduce Motion, adjustable font size and High Contrast Theme, people with different needs and limitations are supported.
+
+
 ## Dev commands
 
 
