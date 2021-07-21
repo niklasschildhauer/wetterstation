@@ -231,7 +231,7 @@ export var WEATHERHISTORY: WeatherHistoryData = {
 }
 
 export var FORECAST: WeatherForecastData = {
-    trend: "falling",
+    trend: "steady",
     weatherDescription: "Rainy",
     weatherIcon: "rainy"
   }

@@ -6,7 +6,7 @@
     "start": "npm install && ng serve",
     "build": "npm install && ng build --optimization --configuration=production",
     "host": "cd dist/wetterstation && angular-http-server",
-    "prod" : "npm i && npm run build && npm run host",
+    "prod": "npm i && npm run build && npm run host",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
