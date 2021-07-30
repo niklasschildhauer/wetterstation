@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
+import { POLLENTYPES } from 'src/app/model/mock-data/weather.mock';
 import { environment } from 'src/environments/environment';
 import { PollenType, Themes, UserContext, UserIdentifikation } from '../../model/user-context';
 
@@ -257,6 +258,9 @@ export class UserContextAPIService {
    * @returns an observable with pollen types array
    */
   public loadPollenTypes(): Observable<PollenType[]>{
+    if (environment.testData) {
+      return of(POLLENTYPES)
+    }
     let returnObservable = new Observable<PollenType[]>((observer) => {
       let response = this.httpClient.get<PollenType[]>(this.allPollenTypesURL);
       response.subscribe(data => {

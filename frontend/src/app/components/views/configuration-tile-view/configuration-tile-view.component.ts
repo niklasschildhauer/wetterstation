@@ -27,8 +27,7 @@ export class ConfigurationTileViewComponent implements OnInit {
               public dialog: MatDialog,
               private router: Router) { }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void { }
 
   /**
    * Opens the pop up to change the name
@@ -43,6 +42,25 @@ export class ConfigurationTileViewComponent implements OnInit {
       if(this.espConfiguration && result !== undefined && result !== '') {
         this.espConfiguration.roomName  = result;  
         console.log("re", result, this.espConfiguration.roomName);
+        this.updateConfiguration();
+      }
+    });
+  }
+
+
+  /**
+   * Opens the pop up to change the plz
+   */
+   openPLZ(): void {
+    const dialogRef = this.dialog.open(ConfigurationTilePlzPopUpDialogView, {
+      width: '300px',
+      data: this.espConfiguration?.postalCode
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if(this.espConfiguration && result !== undefined && result !== '') {
+        this.espConfiguration.postalCode  = result;  
+        console.log("re", result, this.espConfiguration.postalCode);
         this.updateConfiguration();
       }
     });
@@ -98,5 +116,32 @@ export class ConfigurationTilePopUpDialogView {
 
   onSubmit(): void {
     this.dialogRef.close(this.name.value)
+  }
+}
+
+/**
+ * Configuration tile plz pop up dialog component
+ * 
+ * It shows a text field to change the name of the current sensor
+ * kit.
+ */
+ @Component({
+  selector: 'configuration-tile-plz-popup-view',
+  templateUrl: 'configuration-tile-plz-popup-view.component.html',
+  styleUrls: ['./configuration-tile-plz-popup-view.component.scss']
+})
+export class ConfigurationTilePlzPopUpDialogView {
+  plz = new FormControl('');
+
+  constructor(
+    public dialogRef: MatDialogRef<ConfigurationTilePlzPopUpDialogView>,
+    @Inject(MAT_DIALOG_DATA) public data: string) {}
+
+  onNoClick(): void {
+    this.dialogRef.close();
+  }
+
+  onSubmit(): void {
+    this.dialogRef.close(this.plz.value)
   }
 }

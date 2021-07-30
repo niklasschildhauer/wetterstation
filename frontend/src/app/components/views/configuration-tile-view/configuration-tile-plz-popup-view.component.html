@@ -1,12 +1,12 @@
 <div class="container">
-    <h1>Raumname ändern</h1>
+    <h1>PLZ ändern</h1>
     <form (ngSubmit)="onSubmit()">
-        <label for="name">
-            Raumname
+        <label for="plz">
+            PLZ
         </label>
         <input
-            [formControl]="name"
-            id="name"
+            [formControl]="plz"
+            id="plz"
             type="text" 
             placeholder="{{data}}"
             class="input-field">
@@ -15,4 +15,5 @@
                 <button class="b1" (click)="onNoClick()">Abbrechen</button>
             </div>
     </form>
+   
 </div>

@@ -39,11 +39,11 @@
         <div class="flex-container">
             <div *ngFor="let a of numberOfPollen(); let index = index" 
                 class="pollen-item">
-                <input 
+                <label>
+                    <input 
                     type="checkbox" 
                     [checked]="getPollenValueAt(index)" 
                     (change)="togglePollenValueAt(index)"/>
-                <label>
                     {{getPollenStringAt(index)}}
                 </label>
             </div>

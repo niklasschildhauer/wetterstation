@@ -1,4 +1,5 @@
 import { ESPConfiguration } from 'src/app/services/api/esp-configuration-api.service';
+import { PollenType } from '../user-context';
 import { IndoorRoomData, OutdoorWeatherData, WeatherHistoryByDayData, PollenData, WeatherForecastData, WeatherHistoryData, Tile, TileType, WeatherData, TilePriority } from '../weather';
 
 /**
@@ -416,6 +417,7 @@ export var SENSOR1: ESPConfiguration = {
     roomName: "device1",
     transmissionFrequency: 10,
     sensorType: "outdoor",
+    postalCode: "71549"
 }
 
 export var SENSOR2: ESPConfiguration = {
@@ -423,4 +425,20 @@ export var SENSOR2: ESPConfiguration = {
     roomName: "Wohnzimmer",
     transmissionFrequency: 10,
     sensorType: "indoor",
+    postalCode: "71549"
 }
+
+export var POLLENTYPES: PollenType[] = [
+    { 
+        id: 1,
+        pollenName: "Gräser",
+    },
+    { 
+        id: 2,
+        pollenName: "Ambrosia",
+    },
+    { 
+        id: 2,
+        pollenName: "Esche",
+    }
+]

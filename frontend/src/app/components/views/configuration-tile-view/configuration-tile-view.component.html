@@ -4,6 +4,9 @@
         [pressable]="false"
         [hideSubtitle]="true">
         <div class="flex-container">
+            <div class="button-container" *ngIf="espConfiguration.sensorType === 'outdoor'">
+                <p>Postleitzahl: {{espConfiguration.postalCode}}</p>
+            </div>
             <div class="button-container">
                 <span>Sendeintervall:</span>
                 <span class="spacer"></span>
@@ -17,7 +20,9 @@
             </div>
             <div class="button-container">
                 <button class="button-full-width" *ngIf="espConfiguration.sensorType === 'indoor'" (click)="startCalibration()">Kalibrieren</button>
-                <span *ngIf="espConfiguration.sensorType === 'indoor'" class="spacer"></span>
+                <button *ngIf="espConfiguration.sensorType === 'outdoor'" class="button-full-width" (click)="openPLZ()">PLZ ändern</button>
+
+                <span *ngIf="espConfiguration.sensorType === 'indoor' || espConfiguration.sensorType === 'outdoor' " class="spacer"></span>
                 <button class="button-full-width" (click)="openDialog()">Umbenennen</button>
             </div>
         </div>

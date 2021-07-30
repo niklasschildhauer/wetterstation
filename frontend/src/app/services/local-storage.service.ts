@@ -62,7 +62,7 @@ export class LocalStorageService {
     if(disableOpenApeValue) {
       return JSON.parse(disableOpenApeValue)
     }
-    return false;
+    return true;
   }
 
   /**

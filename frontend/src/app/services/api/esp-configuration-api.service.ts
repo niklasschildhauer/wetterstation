@@ -97,4 +97,5 @@ export interface ESPConfiguration {
   roomName: string,
   transmissionFrequency: number,
   sensorType: string,
+  postalCode: string, 
 }

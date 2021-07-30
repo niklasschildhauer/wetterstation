@@ -24,7 +24,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { SimpleTileViewComponent } from './simple-tile-view/simple-tile-view.component';
 import { ChartsModule } from "@rinminase/ng-charts";
 import { ConfigurationViewComponent } from './configuration-view/configuration-view.component';
-import { ConfigurationTileViewComponent, ConfigurationTilePopUpDialogView } from './configuration-tile-view/configuration-tile-view.component';
+import { ConfigurationTileViewComponent, ConfigurationTilePopUpDialogView, ConfigurationTilePlzPopUpDialogView } from './configuration-tile-view/configuration-tile-view.component';
 import { NgxSpinnerModule } from "ngx-spinner";
 import { OpenAPELoginTileViewComponent } from './open-apelogin-tile-view/open-apelogin-tile-view.component';
 import { DashboardViewComponent } from './dashboard-view/dashboard-view.component';
@@ -57,7 +57,8 @@ import { CalibrationInfoDetailViewComponent } from './calibration-info-detail-vi
     ConfigurationTileViewComponent,
     OpenAPELoginTileViewComponent,
     DashboardViewComponent,
-    CalibrationInfoDetailViewComponent
+    CalibrationInfoDetailViewComponent,
+    ConfigurationTilePlzPopUpDialogView
   ],
   imports: [
     CommonModule,
