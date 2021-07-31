@@ -35,6 +35,7 @@ app.post('/sensorout', (req, res) => {
 	genericRequestHandlers.genericRequestWithPayloadToPromise("POST", 'http://localhost:4205/outdoor/insert', JSON.stringify(_body)).then((response) => {
 		res.status(200).send(response);
 	}).catch((error) => {
+		console.log("(Outdoor data) outdoor data could not be saved")
 		res.status(400).send({ "error": error })
 	});
 });
@@ -54,6 +55,7 @@ app.post('/sensorin', (req, res) => {
 	genericRequestHandlers.genericRequestWithPayloadToPromise("POST", 'http://localhost:4205/indoor/insert', JSON.stringify(_body)).then((response) => {
 		res.status(200).send(response);
 	}).catch((error) => {
+		console.log("(Indoor data) indoor data could not be saved")
 		res.status(400).send({ "error": error })
 	});
 });
@@ -123,7 +125,7 @@ setInterval(() => {
 						// - Add up all gasVal values using reduce
 						// - Divide the sum by the length of the stream
 						const avg = history.filter(a => a.deviceID === response.deviceID).map(a => a.gasVal).reduce((a, b) => a + b) / len
-						console.log("avg", avg);
+						// console.log("avg", avg);
 
 						//Get ESPconf by number	from the database
 						genericRequestHandlers.genericRequestToPromise("GET", "http://localhost:4205/espconfig/all").then((allesps) => {

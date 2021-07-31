@@ -33,6 +33,9 @@ app.post('/userContextUtility', (req, res) => {
             pollen: JSON.parse(pollen)
         };
         res.status(200).json(out);
+    }).catch((error) => {
+        console.log("(UserCTX utility) User context utility returned error")
+        console.log(error)
     })
 })
 
@@ -56,6 +59,9 @@ app.post('/register', (req, res) => {
         //Remove password from output object
         delete response.password
         res.status(200).json(JSON.parse(response));
+    }).catch((error) => {
+        console.log("(Register) Register returned error")
+        console.log(error)
     });
 })
 
@@ -78,6 +84,9 @@ app.put('/save/:id', (req, res) => {
         //Remove password from output object
         delete response.password
         res.status(200).json(JSON.parse(response));
+    }).catch((error) => {
+        console.log("(User save) User save returned error")
+        console.log(error)
     });
 })
 

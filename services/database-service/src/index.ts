@@ -140,7 +140,7 @@ createConnection().then(connection => {
             returnNotNull(history, res)
         }
         else {
-            res.status(400).json({});
+            returnNotNull(undefined, res)
         }
     });
 
@@ -164,7 +164,7 @@ createConnection().then(connection => {
             returnNotNull(history, res)
         }
         else {
-            res.status(400).json({});
+            returnNotNull(undefined, res)
         }
     });
 
@@ -197,7 +197,7 @@ createConnection().then(connection => {
             // Remove these properties because they are irrelevant on the ESP
             delete return_val.gasValCalibrationValue;
             delete return_val.sensorType;
-            return res.send(return_val);
+            returnNotNull(return_val, res);
         }
         //The device does not yet exist "Case: first data the sensor ever sends". A new device object will be created and the ID (and some other default configs) will be passed to the device
         else {
@@ -205,7 +205,7 @@ createConnection().then(connection => {
             // Remove these properties because they are irrelevant on the ESP
             delete result.gasValCalibrationValue;
             delete result.sensorType;
-            return res.send(result);
+            returnNotNull(result, res);
         }
     });
 
@@ -235,7 +235,7 @@ createConnection().then(connection => {
             // Remove these properties because they are irrelevant on the ESP
             delete return_val.gasValCalibrationValue;
             delete return_val.sensorType;
-            return res.send(return_val);
+            returnNotNull(return_val, res);
         }
         //The device does not yet exist "Case: first data the sensor ever sends". A new device object will be created and the ID (and some other default configs) will be passed to the device
         else {
@@ -243,7 +243,7 @@ createConnection().then(connection => {
             // Remove these properties because they are irrelevant on the ESP
             delete result.gasValCalibrationValue;
             delete result.sensorType;
-            return res.send(result);
+            returnNotNull(result, res);
         }
     });
 
@@ -275,7 +275,7 @@ createConnection().then(connection => {
     app.post('/pollen/insert', async (req, res) => {
         const entry = await pollenData.create(req.body);
         const results = await pollenData.save(entry);
-        return res.send(results);
+        returnNotNull(results, res);
     });
 
     //Add a Pollen object to a user
@@ -304,8 +304,8 @@ createConnection().then(connection => {
                 res.send({ "result": "OK" });
             }
         }).catch((error) => {
-            debugLog("error in pollen/save", error)
-            return res.send({ "error": error });
+            console.log("error in pollen/save", error)
+            returnNotNull(undefined, res)
         })
     });
 
@@ -326,10 +326,11 @@ createConnection().then(connection => {
                     pollen[0].users = pollen[0].users.filter(usr => usr.id !== userID)
                     await pollenData.save(pollen[0])
                 }
-                return res.send(pollen);
+                returnNotNull(pollen, res);
             }
         }).catch((error) => {
-            return res.send({ "error": error });
+            console.log("error in pollen/delete", error)
+            returnNotNull(undefined, res)
         })
     })
 
@@ -359,7 +360,8 @@ createConnection().then(connection => {
                 returnNotNull(userPollenNames, res);
             }
         }).catch((error) => {
-            return res.send({ "error": error });
+            console.log("error in pollen/by username", error)
+            returnNotNull(undefined, error)
         })
     })
 
@@ -398,8 +400,8 @@ createConnection().then(connection => {
                 returnNotNull(results, res);
             }
         }).catch((error) => {
-            console.log("catch err", error)
-            return res.send({ "error": error });
+            console.log("catch err in userCtx/save", error)
+            returnNotNull(undefined, res)
         })
     });
 
@@ -420,7 +422,8 @@ createConnection().then(connection => {
                 returnNotNull(results, res);
             }
         }).catch((error) => {
-            return res.send({ "error": error });
+            console.log("catch err in save openAPESettings", error)
+            returnNotNull(undefined, res)
         })
     });
 
@@ -435,13 +438,13 @@ createConnection().then(connection => {
         espconf.gasValCalibrationValue = req.body.gasValCalibrationValue;
         const result = await connection.manager.save(espconf);
 
-        return res.send(result);
+        returnNotNull(result, res);
     })
 
     //Get all sensor/ESPConfig objects
     app.get('/espconfig/all', async (req, res) => {
         const allEsps = await espConfigData.find();
-        return res.send(allEsps);
+        returnNotNull(allEsps, res);
     })
 
     // -------------------------------------- Forecast -----------------------------
@@ -467,7 +470,7 @@ createConnection().then(connection => {
         } catch (error) {
             console.log("(Forecast) Inserting a new dataset failed")
             console.log("Error:", error)
-            return res.send({ message: "The requested operation failed" })
+           returnNotNull({ message: "The requested operation failed" }, res)
         }
     });
 
