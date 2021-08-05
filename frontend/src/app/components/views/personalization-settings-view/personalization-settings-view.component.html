@@ -56,13 +56,14 @@
         <div class="flex-container">
             <div *ngFor="let a of numberOfThemes(); let index = index" 
                 class="theme-item">
+                <label>
                 <input 
                     id="getThemeTypeAt(index)" 
                     type="radio" 
                     [value]="getThemeTypeAt(index)" 
                     name="theme" 
                     [(ngModel)]="this.userContextService.theme"/>
-                <label>{{getThemeStringAt(index)}}</label>
+                {{getThemeStringAt(index)}}</label>
             </div>
         </div>
     </card-element> 

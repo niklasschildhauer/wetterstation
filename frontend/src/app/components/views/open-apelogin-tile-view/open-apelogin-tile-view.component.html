@@ -26,9 +26,12 @@
                 >
             </div>
             <p *ngIf="error" class="error-message">{{error}}</p>
+            <p *ngIf="success" class="success-message">{{success}}</p>
 
 
-            <input id="ok" type="submit" value="Login">
+
+            <input id="ok" type="submit" value="Kontext von OpenAPE laden">
         </form>
+        <button class="button-underline" (click)="onSubmitPostToOpenApe()">Kontext zu OpenAPE hochladen</button>
     </card-element>
 </div>

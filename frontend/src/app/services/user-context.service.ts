@@ -179,6 +179,7 @@ export class UserContextService {
           userContext.theme = userContextResponse.theme;
 
           this.userContext = userContext;
+          resolve({success: true, error: ""})
         } else {
           resolve({success:  false, error: 'Ein Fehler ist aufgetreten, beim Einloggen zu OpenAPE.'})
         }
@@ -189,6 +190,29 @@ export class UserContextService {
     });
     return promise
   }
+
+  /**
+  * Calls the network to post the user context to open ape. 
+  * 
+  * @param {string} username   username for openape 
+  * @param {string} password   password for openape
+  * @returns a promise with the success state and if failed an error message  
+  */
+    public postToOpenApe(username: string, password: string): Promise<{success: boolean, error: string}> {
+      let promise = new Promise<{success: boolean, error: string}>((resolve) => {
+        this.userContextAPI.postContextToOpenAPE(username, password, this.userID).subscribe((result) => { 
+          if (result) {
+            resolve({success: true, error: ""})
+          } else {
+            resolve({success: true, error: "There went something wrong"})
+          }
+        },
+        (error) => {
+          resolve({success: false, error: error})
+        })
+      });
+      return promise
+    }
 
   /**
   * Function to toggle the pollen value at index. This function also checks

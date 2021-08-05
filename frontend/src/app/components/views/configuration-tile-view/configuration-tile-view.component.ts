@@ -39,7 +39,7 @@ export class ConfigurationTileViewComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      if(this.espConfiguration && result !== undefined && result !== '') {
+      if(this.espConfiguration && result !== undefined && result !== '' && result !== "cancel") {
         this.espConfiguration.roomName  = result;  
         console.log("re", result, this.espConfiguration.roomName);
         this.updateConfiguration();
@@ -86,8 +86,7 @@ export class ConfigurationTileViewComponent implements OnInit {
    */
   updateConfiguration() {
     if(this.espConfiguration) {
-      this.espConfigurationService.postESPConfiguration(this.espConfiguration).subscribe((data) => {
-      })
+      this.espConfigurationService.postESPConfiguration(this.espConfiguration).subscribe((data) => { })
     }
   }
 }
@@ -111,6 +110,7 @@ export class ConfigurationTilePopUpDialogView {
     @Inject(MAT_DIALOG_DATA) public data: string) {}
 
   onNoClick(): void {
+    this.name.setValue("")
     this.dialogRef.close();
   }
 
@@ -138,6 +138,7 @@ export class ConfigurationTilePlzPopUpDialogView {
     @Inject(MAT_DIALOG_DATA) public data: string) {}
 
   onNoClick(): void {
+    this.plz.setValue("")
     this.dialogRef.close();
   }
 

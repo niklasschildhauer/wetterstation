@@ -24,6 +24,8 @@ export class UserContextAPIService {
   private deletePollenURL = environment.baseURL + 'allergies/delete';
   private savePollenURL = environment.baseURL + 'allergies/save';
   private openAPEURL = environment.baseURL + 'user/loadOpenAPESettingsAndSave';
+  private openSaveContextAPEURL = environment.baseURL + 'user/writeOpenAPESettings';
+
 
   constructor(private httpClient: HttpClient) { }
 
@@ -89,6 +91,35 @@ export class UserContextAPIService {
   return returnObservable;
   }
 
+   /**
+   * @returns an observable if the post to open ape succeeded or not
+   */
+    public postContextToOpenAPE(username: string, password: string, userID: UserIdentifikation): Observable<Boolean> {
+      let returnObservable = new Observable<Boolean>((observer) => {
+        let httpOptions = {
+          headers: new HttpHeaders({ 'Authorization': 'Bearer ' + userID.token }),
+        };
+        let response = this.httpClient.post<String>(this.openSaveContextAPEURL, 
+                                                                {openApeUser: username, openApePassword: password}, httpOptions);
+        response.subscribe((response) => {
+          if(response === "ok"){
+              observer.next(true);
+          } else {
+            observer.next(false);
+          }
+        },
+        (error)=> {
+          observer.error("Ein Fehler ist aufgetreten. Bitte versuche es später erneut. ");
+          console.log(error);
+          observer.complete();
+        },() => {
+          observer.complete();
+        });
+      }
+    );
+    return returnObservable;
+    }
+
   /**
    * @returns an observable with a boolean if the register was successful or not
    */
@@ -140,6 +171,7 @@ export class UserContextAPIService {
         let body = response
         if(body && body.id) {
           observer.next(true);
+          observer.complete();
         } else {
           observer.error("POST - SAVE USER CONTEXT - Ein Fehler ist aufgetreten.");
         }

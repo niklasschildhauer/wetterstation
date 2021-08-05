@@ -19,6 +19,7 @@ export class OpenAPELoginTileViewComponent implements OnInit {
     password: new FormControl('', Validators.minLength(2)),
   });
   error?: string;
+  success?: string;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -47,10 +48,46 @@ export class OpenAPELoginTileViewComponent implements OnInit {
    */
   loginToOpenApe(username: string, password: string) {
     this.error = undefined
+    this.success = undefined
     this.userContextService.loginToOpenApe(username, password).then(result => {
       if(!result.success) {
         this.error = result.error
-      } 
+      } else {
+        this.success = "Einstellungen wurden von OpenAPE geladen"
+      }
     })
   }
+
+  /**
+   * Triggers the upload process of the user context to open APE 
+   */
+  onSubmitPostToOpenApe() {
+    const username = this.loginForm.get("username")?.value;
+    const password = this.loginForm.get("password")?.value;
+    this.error = undefined;
+
+    this.postToOpenApe(username, password);
+  }
+
+  /**
+   * Uses the user context service to log the user to open
+   * ape in 
+   * 
+   * @param username 
+   * @param password 
+   */
+   postToOpenApe(username: string, password: string) {
+    this.error = undefined
+    this.success = undefined
+    this.userContextService.postToOpenApe(username, password).then(result => {
+      if(!result.success) {
+        this.error = result.error
+      } else {
+        this.success = "Einstellungen wurde auf OpenAPE aktualisiert"
+      }
+    })
+  }
+
+
+
 }
