@@ -307,7 +307,7 @@ const forecast = (alt) => {
                         else if (Z >= 14 && Z < 19) {
                             weather_forecast_response.weatherIcon = "worsening";
                             weather_forecast_response.weatherDescription = "Worsening";
-                        } else if (Z > 19) {
+                        } else if (Z >= 19) {
                             weather_forecast_response.weatherIcon = "rainy";
                             weather_forecast_response.weatherDescription = "Rainy";
                         }
