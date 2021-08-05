@@ -271,7 +271,7 @@ app.put("/v1/user/save", (req, res) => {
  * @route POST /user/loadOpenAPESettingsAndSave
  * @group user - User / UserContext
  * @security JWT
- * @param {OpenAPERequestObject.model} userContext.body.required - Open APE credentials
+ * @param {OpenAPERequestObject.model} openAPECredentials.body.required - Open APE credentials
  * @returns {UserContext.model} UserContext object
  */
 app.post("/v1/user/loadOpenAPESettingsAndSave", (req, res) => {
@@ -279,6 +279,19 @@ app.post("/v1/user/loadOpenAPESettingsAndSave", (req, res) => {
   genericRequestWithPayload(token, "POST", "http://localhost:4203/loadOpenAPESettingsAndSave", JSON.stringify(req.body), res);
 });
 
+
+/**
+ * Write settings to OpenAPE
+ * @route POST /user/writeOpenAPESettings
+ * @group user - User / UserContext
+ * @security JWT
+ * @param {OpenAPERequestObject.model} openAPECredentials.body.required - Open APE credentials
+ * @returns {UserContext.model} UserContext object
+ */
+ app.post("/v1/user/writeOpenAPESettings", (req, res) => {
+  const token = req.headers["x-access-token"] || req.headers["authorization"];
+  genericRequestWithPayload(token, "POST", "http://localhost:4203/writeOpenAPESettings", JSON.stringify(req.body), res);
+});
 
 // ----------------------------------------- Routes - Sensors -----------------------------------------
 

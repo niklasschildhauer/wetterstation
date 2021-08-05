@@ -387,55 +387,16 @@ createConnection().then(connection => {
         const token = req.headers["x-access-token"] || req.headers["authorization"];
         debugLog("token", token);
         validateToken(token).then(async (success) => {
+            console.log("success var", success)
             if (success) {
                 const entry = await userCtxData.findOne(req.params.id)
-                // console.log("entry before", entry)
+                console.log("entry before", entry)
                 //Setting id as the value of the database not the one provided by the request body 
                 //-> consitency and no duplicate ids
                 req.body.id = entry.id;
-                // console.log("req.body", req.body)
-                if(req.body.hasOwnProperty("pollen")){
-                    // console.log("has prop pollen", req.body.pollen)
-                    let allPollen = pollenData.find();
-                    let out = [];
-                    (await allPollen).filter(pl => {
-                        req.body.pollen.forEach(element => {
-                            // console.log("pollenName, element", pl.pollenName, element)
-                            if(pl.pollenName === element){
-                                out.push(pl.id)
-                            }
-                        });
-                    });
-
-                    console.log("out", out)
-
-                    out.forEach(pl => {
-                        request(
-                            {
-                                headers: {
-                                    Authorization: token,
-                                    "Content-Type": "application/json",
-                                    Accept: "application/json"
-                                },
-                                uri: "http://localhost:4205/pollen/save",
-                                method: "POST",
-                                body: JSON.stringify({
-                                    "userID": req.body.id,
-                                    "pollenID": pl
-                                  })
-                            },
-                            function (error, response, body) {
-                                if (error) {
-                                    console.log("Error in allergy/save call", error);
-                                }
-                            }
-                        );
-                    })
-                }
-                delete req.body.pollen
-                // console.log("req.body", req.body)
+                console.log("req.body", req.body)
                 const results = await userCtxData.save(req.body);
-                // console.log("entry after", results);
+                console.log("entry after", results);
                 returnNotNull(results, res);
             }
         }).catch((error) => {

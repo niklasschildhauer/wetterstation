@@ -499,15 +499,15 @@ class Client {
      * @param {string} [contentType="JSON"] - The content type to be used if the default set in the client
      * should not be used. Can be "JSON" or "XML".
      */
-    updateContext(path, contextId, context, successCallback, errorCallback, contentType = this.defaultContentType) {
+    updateContext(contextId, context, successCallback) {
+        console.log(this.isTokenCorrect(), this.isContextCorrect(context), this.isContextIdCorrect(contextId))
+
         if (this.isTokenCorrect() && this.isContextCorrect(context) && this.isContextIdCorrect(contextId)) {
-            let httpRequest = this.createHttpRequest("PUT", path + "/" + contextId, successCallback, errorCallback, contentType);
+            let httpRequest = this.createHttpRequest("PUT", openAPE_API.userContextPath + "/" + contextId, function (responseText) {
+                successCallback(JSON.parse(responseText));
+            });
 
-            if (contentType == "application/json") {
-                context = JSON.stringify(context);
-            }
-
-            httpRequest.send(context);
+            httpRequest.send(JSON.stringify(context));
         }
     }
 
@@ -542,6 +542,7 @@ class Client {
      * should not be used. Can be "JSON" or "XML".
      */
     getContextList(path, successCallback) {
+        // console.log("PATH", path)
         let httpRequest = this.createHttpRequest("GET", path, (responseText) => {
             // console.log("text: " + responseText);
             successCallback(this.parse(responseText, "application/json"));
@@ -603,19 +604,20 @@ class Client {
 
 
         request.onreadystatechange = function () {
+            console.log("req.readyState", request.readyState)
             if (request.readyState == 4) {
-                // console.log("http: " + request.status);
+                console.log("http: " + request.status);
                 if (request.status == 200 || request.status == 201) {
                     successCallback.call(client, request.responseText);
 //		        	successCallback(request.responseText);
                 }
                 else if (request.status == 404) {
-                    // console.log("Error: " + request.status);
+                    console.log("Error: " + request.status);
                 } else if (request.status == 400) {
-                    // console.log("readyState: " + request.readyState);
-                    // console.log("HTTP: " + request.status);
-                    // console.log("Error:" + request.statusText);
-                    // console.log("Server message:" + request.responseText)
+                    console.log("readyState: " + request.readyState);
+                    console.log("HTTP: " + request.status);
+                    console.log("Error:" + request.statusText);
+                    console.log("Server message:" + request.responseText)
                 }
             }
         };
