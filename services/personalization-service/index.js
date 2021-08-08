@@ -98,30 +98,36 @@ app.post('/loadOpenAPESettingsAndSave', (req, res) => {
     let openApeUser = req.body.openApeUser;
     let openApePassword = req.body.openApePassword;
 
-    //Get the user object
-    genericRequest(token, "GET", "http://localhost:4202/currentUser").then(db_user => {
-        let out = JSON.parse(db_user);
+    if (openApeUser !== undefined && openApePassword !== undefined) {
+        //Get the user object
+        genericRequest(token, "GET", "http://localhost:4202/currentUser").then(db_user => {
+            let out = JSON.parse(db_user);
 
 
-        //Request openAPE
-        getOpenApeData(openApeUser, openApePassword).then((response) => {
+            //Request openAPE
+            getOpenApeData(openApeUser, openApePassword).then((response) => {
 
-            out = overwriteUserWithOpenAPE(response, out)
-            // console.log("parsedOpenApeResponse", out)
+                out = overwriteUserWithOpenAPE(response, out)
+                // console.log("parsedOpenApeResponse", out)
 
-            //Save the changes to the db
-            genericRequestWithPayload(token, "PUT", 'http://localhost:4205/userContext/save/' + out.id, JSON.stringify(out), res).then((response) => {
-                console.log("response-save", response)
-                res.status(200).json(JSON.parse(response))
-            }).catch(error => {
-                res.status(400).json({ "error": error })
-            });
-        })
-    }).catch((error) => {
-        console.log("(Open APE WRITE) error occurred in OpenAPE write while getting userContext")
-        console.log(error)
-        res.status(400).json({ "error": error })
-    });
+                //Save the changes to the db
+                genericRequestWithPayload(token, "PUT", 'http://localhost:4205/userContext/save/' + out.id, JSON.stringify(out), res).then((response) => {
+                    console.log("response-save", response)
+                    res.status(200).json(JSON.parse(response))
+                }).catch(error => {
+                    res.status(400).json({ "error": error })
+                });
+            })
+        }).catch((error) => {
+            console.log("(Open APE WRITE) error occurred in OpenAPE write while getting userContext")
+            console.log(error)
+            res.status(400).json({ "error": error })
+        });
+
+    }
+    else {
+        res.status(400).json({ "message": "Please provide sufficient credentials" })
+    }
 })
 
 
@@ -133,19 +139,25 @@ app.post('/writeOpenAPESettings', (req, res) => {
     let openApeUser = req.body.openApeUser;
     let openApePassword = req.body.openApePassword;
 
-    //Get the user object
-    genericRequest(token, "GET", "http://localhost:4202/currentUser").then(db_user => {
-        let user = JSON.parse(db_user);
+    if (openApeUser !== undefined && openApePassword !== undefined) {
+        //Get the user object
+        genericRequest(token, "GET", "http://localhost:4202/currentUser").then(db_user => {
+            let user = JSON.parse(db_user);
 
-        //Request openAPE
-        writeOpenApeData(openApeUser, openApePassword, user).then((response) => {
-            res.status(200).json("ok")
-        })
-    }).catch((error) => {
-        console.log("(Open APE WRITE) error occurred in OpenAPE write while getting userContext")
-        console.log(error)
-        res.status(400).json({ "error": error })
-    });
+            //Request openAPE
+            writeOpenApeData(openApeUser, openApePassword, user).then((response) => {
+                res.status(200).json("ok")
+            })
+        }).catch((error) => {
+            console.log("(Open APE WRITE) error occurred in OpenAPE write while getting userContext")
+            console.log(error)
+            res.status(400).json({ "error": error })
+        });
+    }
+    else {
+        res.status(400).json({ "message": "Please provide sufficient credentials" })
+    }
+
 })
 
 
