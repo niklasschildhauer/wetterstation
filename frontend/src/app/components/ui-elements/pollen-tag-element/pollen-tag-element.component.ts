@@ -60,7 +60,6 @@ export class PollenTagElementComponent implements OnInit {
   }
 
   private loadUserContext() {
-    this.userContextService.refreshUserContextIfNeeded().subscribe();
     this.userContextService.getUserContextSubject()
     .subscribe(data => this.highContrast = data.theme === Themes.HighContrast);
   }

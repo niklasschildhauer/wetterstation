@@ -57,7 +57,7 @@ export class IndoorTileViewComponent implements OnInit {
   getMaxValue(): number {
     if(this._indoorRoom){
       const calibrationValue = this._indoorRoom.calibrationValue
-      return calibrationValue + 5;
+      return Math.round(calibrationValue + 5);
     }
     return 100
   }
@@ -68,7 +68,7 @@ export class IndoorTileViewComponent implements OnInit {
   getOptimalValue(): number {
     if(this._indoorRoom){
       const calibrationValue = this._indoorRoom.calibrationValue
-      return calibrationValue;
+      return Math.round(calibrationValue);
     }
     return 25;
   }

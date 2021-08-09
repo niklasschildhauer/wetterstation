@@ -25,7 +25,7 @@ const http = require('http');
 
 //Allow CORS, because Angular is running on a different port (4200)
 const corsOptions = {
-  origin: "http://localhost:4200",
+  origin: "http://192.168.178.191:8080",
   allowedHeaders: [
     "Origin",
     "X-Requested-With",

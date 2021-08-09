@@ -111,7 +111,7 @@ export class TextService {
             title = 'Wolkenlos';
             break;
           case 'Sunny and moderately cloudy.': 
-            title = 'Sonnig und leicht bedeckt';
+            title = 'Leicht bedeckt';
             break;
           case 'Rather cloudy': 
             title = 'Bewölkt';
