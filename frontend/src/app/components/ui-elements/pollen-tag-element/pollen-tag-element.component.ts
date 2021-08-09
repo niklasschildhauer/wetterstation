@@ -1,4 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Themes } from 'src/app/model/user-context';
+import { UserContextService } from 'src/app/services/user-context.service';
 
 /**
  * Pollen tag element component
@@ -49,10 +51,18 @@ export class PollenTagElementComponent implements OnInit {
   public emojiName?: string;
   public textValue?: string;
   public colorValue?: string;
+  public highContrast: Boolean = false
 
-  constructor() { }
+  constructor(private userContextService: UserContextService,) { }
 
   ngOnInit(): void {
+    this.loadUserContext()
+  }
+
+  private loadUserContext() {
+    this.userContextService.refreshUserContextIfNeeded().subscribe();
+    this.userContextService.getUserContextSubject()
+    .subscribe(data => this.highContrast = data.theme === Themes.HighContrast);
   }
 
 }
