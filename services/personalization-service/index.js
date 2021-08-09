@@ -117,9 +117,13 @@ app.post('/loadOpenAPESettingsAndSave', (req, res) => {
                 }).catch(error => {
                     res.status(400).json({ "error": error })
                 });
-            })
+            }).catch((error) => {
+                console.log("(Open APE READ) error occurred in OpenAPE read while logging in")
+                console.log(error)
+                res.status(400).json({ "error": error })
+            });
         }).catch((error) => {
-            console.log("(Open APE WRITE) error occurred in OpenAPE write while getting userContext")
+            console.log("(Open APE READ) error occurred in OpenAPE read while getting userContext")
             console.log(error)
             res.status(400).json({ "error": error })
         });
@@ -147,7 +151,11 @@ app.post('/writeOpenAPESettings', (req, res) => {
             //Request openAPE
             writeOpenApeData(openApeUser, openApePassword, user).then((response) => {
                 res.status(200).json("ok")
-            })
+            }).catch((error) => {
+                console.log("(Open APE WRITE) error occurred in OpenAPE write while logging in")
+                console.log(error)
+                res.status(400).json({ "error": error })
+            });
         }).catch((error) => {
             console.log("(Open APE WRITE) error occurred in OpenAPE write while getting userContext")
             console.log(error)
@@ -172,9 +180,14 @@ const getOpenApeData = (openApeUser, openApePassword) => {
                 ctxList["user-context-uris"].forEach(element => {
                     console.log(element)
                     client.getUserContext(element, (data) => {
-                        if (data.default.name === "Wetterstation") {
-                            // console.log("success", data);
-                            arrayOfPreferences.push(data.default.preferences)
+                        if (data.hasOwnProperty("default")) {
+                            if (data.default.name === "Wetterstation") {
+                                // console.log("success", data);
+                                arrayOfPreferences.push(data.default.preferences)
+                            }
+                        }
+                        else {
+                            reject("Error")
                         }
                     })
                 });
@@ -202,17 +215,22 @@ const writeOpenApeData = (openApeUser, openApePassword, userContext) => {
             if (ctxList.totalContexts > 0) {
                 ctxList["user-context-uris"].forEach(element => {
                     client.getUserContext(element, (data) => {
-                        if (data.default.name === "Wetterstation") {
-                            isDone = true;
-                            console.log("newDataset", JSON.stringify(newDataset))
-                            updateOpenAPEContext(client.token, element, newDataset).then((success) => {
-                                console.log("success", success)
-                                if (success === "success") {
-                                }
-                            }).catch(error => {
-                                console.log("(OpenAPEWrite) Error in updating OpenAPE Context of existing object")
-                                console.log(error)
-                            })
+                        if (data.hasOwnProperty("default")) {
+                            if (data.default.name === "Wetterstation") {
+                                isDone = true;
+                                console.log("newDataset", JSON.stringify(newDataset))
+                                updateOpenAPEContext(client.token, element, newDataset).then((success) => {
+                                    console.log("success", success)
+                                    if (success === "success") {
+                                    }
+                                }).catch(error => {
+                                    console.log("(OpenAPEWrite) Error in updating OpenAPE Context of existing object")
+                                    console.log(error)
+                                })
+                            }
+                            else {
+                                reject("Error")
+                            }
                         }
                     })
                 });

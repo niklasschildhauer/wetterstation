@@ -21,7 +21,7 @@ class AuthService {
         method: 'GET'
       },
       function (error, response, body) {
-        let _body = JSON.parse(body);
+        let _body = checkJSONParse(body);
 
         let db_username = _body.username;
         let db_password = _body.password;
@@ -62,7 +62,7 @@ class AuthService {
                     success: true,
                     message: 'Authentication successful!',
                     token: token,
-                    userContext: JSON.parse(body)
+                    userContext: checkJSONParse(body)
                   });
                 }
               })
@@ -106,7 +106,7 @@ class AuthService {
         uri: 'http://localhost:4205/userContext/' + user,
         method: 'GET'
       }, function (error, response, body) {
-        var _body = JSON.parse(body)
+        var _body = checkJSONParse(body)
         // Use the UserContextUtility to get the full User object including appended external information such as Pollen configuration etc.
         request(
           {
@@ -123,7 +123,7 @@ class AuthService {
               res.status(400).json(error);
             }
             else {
-              res.status(200).json(JSON.parse(body));
+              res.status(200).json(checkJSONParse(body));
             }
           })
       })
@@ -155,6 +155,14 @@ const getDecodedUser = (token) => {
 module.exports = {
   AuthService: AuthService
 };
+
+const checkJSONParse = (body) => {
+  try {
+    return JSON.parse(body);
+  } catch (e) {
+    return e;
+  }
+}
 
 /*
 Original blueprint
