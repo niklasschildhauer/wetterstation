@@ -4,6 +4,8 @@ The WeatherIO weather station was developed in the summer semester of 2021 as pa
 With the help of various sensors, WeatherIO collects measurement data (both outdoors and indoors) and stores it in a database. 
 The results are then displayed graphically in a customisable web application. With the personalisation functions Self-Voicing, Reduce Motion, adjustable font size and High Contrast Theme, people with different needs and limitations are supported.
 
+<img src="/docs/weatherIO.png">
+
 ## Documentaion
 
 You can find all documentaion documents for this project in the `docs` folder [Link](https://gitlab.mi.hdm-stuttgart.de/am206/wetterstation/-/tree/master/docs). In there you can find the following documents:
